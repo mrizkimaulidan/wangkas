@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SchoolClassController;
+use App\Http\Controllers\SchoolMajorController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +26,8 @@ Route::get('/dashboard', function () {
 
 Route::name('admin.')->group(function () {
     Route::resource('students', StudentController::class);
+    Route::resource('classes', SchoolClassController::class);
+    Route::resource('majors', SchoolMajorController::class);
 });
 
 require __DIR__ . '/auth.php';

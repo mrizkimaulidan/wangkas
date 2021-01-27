@@ -337,9 +337,16 @@
         </li>
 
         <li class="sidebar-item">
-            <a href="https://github.com/zuramai/mazer/blob/main/CONTRIBUTING.md" class='sidebar-link'>
+            <a href="{{ route('admin.classes.index') }}" class='sidebar-link'>
                 <i class="bi bi-puzzle"></i>
-                <span>Contribute</span>
+                <span>Kelas</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item">
+            <a href="{{ route('admin.majors.index') }}" class='sidebar-link'>
+                <i class="bi bi-puzzle"></i>
+                <span>Jurusan</span>
             </a>
         </li>
 
