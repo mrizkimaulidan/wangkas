@@ -2,10 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SchoolClass\StoreSchoolClassRequest;
+use App\Repositories\SchoolClassRepository;
 use Illuminate\Http\Request;
 
 class SchoolClassController extends Controller
 {
+    public function __construct(
+        private SchoolClassRepository $schoolClassRepository
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +20,9 @@ class SchoolClassController extends Controller
      */
     public function index()
     {
-        return view('admin.school_classes.index');
+        return view('admin.school_classes.index', [
+            'school_classes' => $this->schoolClassRepository->schoolClassesOrderBy(column: 'name')->get()
+        ]);
     }
 
     /**
@@ -32,9 +41,11 @@ class SchoolClassController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSchoolClassRequest $request)
     {
-        //
+        $this->schoolClassRepository->store($request);
+
+        return redirect()->route('admin.kelas.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**

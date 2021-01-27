@@ -19,9 +19,10 @@
                 </tr>
             </thead>
             <tbody>
+                @forelse ($school_classes as $school_class)
                 <tr>
-                    <th scope="row">1</th>
-                    <td>X RPL 1</td>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $school_class->name }}
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
@@ -47,6 +48,9 @@
                         </div>
                     </td>
                 </tr>
+                @empty
+                <span>Data kosong</span>
+                @endforelse
             </tbody>
         </table>
     </div>
