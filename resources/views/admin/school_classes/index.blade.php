@@ -5,7 +5,7 @@
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
-                data-bs-target="#addClassesModal">
+                data-bs-target="#addSchoolClassModal">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
         </div>
@@ -54,5 +54,5 @@
 @endsection
 
 @push('modal')
-@include('admin.students.modal.create')
+@include('admin.school_classes.modal.create')
 @endpush
