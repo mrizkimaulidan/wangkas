@@ -327,7 +327,7 @@
             </ul>
         </li> --}}
 
-        <li class="sidebar-title">Raise Support</li>
+        <li class="sidebar-title"><i class="bi bi-menu-button-wide"></i></li>
 
         <li class="sidebar-item {{ request()->is('siswa*') ? 'active' : '' }}">
             <a href="{{ route('admin.siswa.index') }}" class='sidebar-link'>
