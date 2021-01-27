@@ -12,7 +12,7 @@
     <ul class="menu">
         <li class="sidebar-title">Menu</li>
 
-        <li class="sidebar-item active ">
+        <li class="sidebar-item {{ request()->is('dashboard*') ? 'active' : '' }}">
             <a href="{{ route('dashboard') }}" class='sidebar-link'>
                 <i class="bi bi-grid-fill"></i>
                 <span>Dashboard</span>
@@ -329,23 +329,23 @@
 
         <li class="sidebar-title">Raise Support</li>
 
-        <li class="sidebar-item">
-            <a href="{{ route('admin.students.index') }}" class='sidebar-link'>
-                <i class="bi bi-life-preserver"></i>
+        <li class="sidebar-item {{ request()->is('siswa*') ? 'active' : '' }}">
+            <a href="{{ route('admin.siswa.index') }}" class='sidebar-link'>
+                <i class="bi bi-people-fill"></i>
                 <span>Siswa</span>
             </a>
         </li>
 
-        <li class="sidebar-item">
-            <a href="{{ route('admin.classes.index') }}" class='sidebar-link'>
-                <i class="bi bi-puzzle"></i>
+        <li class="sidebar-item {{ request()->is('kelas*') ? 'active' : '' }}">
+            <a href="{{ route('admin.kelas.index') }}" class='sidebar-link'>
+                <i class="bi bi-bookmark-fill"></i>
                 <span>Kelas</span>
             </a>
         </li>
 
-        <li class="sidebar-item">
-            <a href="{{ route('admin.majors.index') }}" class='sidebar-link'>
-                <i class="bi bi-puzzle"></i>
+        <li class="sidebar-item {{ request()->is('jurusan*') ? 'active' : '' }}">
+            <a href="{{ route('admin.jurusan.index') }}" class='sidebar-link'>
+                <i class="bi bi-briefcase-fill"></i>
                 <span>Jurusan</span>
             </a>
         </li>
@@ -357,7 +357,7 @@
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                                                                     this.closest('form').submit();"
                     class='sidebar-link'>
-                    <i class="bi bi-cash"></i>
+                    <i class="bi bi-box-arrow-left"></i>
                     <span>Logout</span>
                 </a>
             </form>
