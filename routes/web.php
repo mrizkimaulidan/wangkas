@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +22,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-require __DIR__.'/auth.php';
+Route::name('admin.')->group(function () {
+    Route::resource('students', StudentController::class);
+});
+
+require __DIR__ . '/auth.php';

@@ -47,3 +47,11 @@ if(typeof PerfectScrollbar == 'function') {
 
 // Scroll into active sidebar
 document.querySelector('.sidebar-item.active').scrollIntoView(false)
+
+$(function() {
+    $("#datatable").DataTable({
+        "language": {
+            "url": "https://cdn.datatables.net/plug-ins/1.10.22/i18n/id.json"
+        }
+    });
+});
