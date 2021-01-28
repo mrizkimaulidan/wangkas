@@ -37,4 +37,15 @@ class SchoolClassRepository extends Controller
     {
         return $this->model->create($request->only('name'));
     }
+
+    /**
+     * Ambil data kelas dari tabel school_classes
+     *
+     * @param string $id
+     * @return Object
+     */
+    public function findSchoolClass(string $id): Object
+    {
+        return $this->model->findOrFail($id);
+    }
 }

@@ -44,7 +44,7 @@ class SchoolClassController extends Controller
      */
     public function show($id)
     {
-        return response()->json(['status' => Response::HTTP_OK, 'data' => SchoolClass::findOrFail($id)], Response::HTTP_OK);
+        return response()->json(['status' => Response::HTTP_OK, 'data' => $this->schoolClassRepository->findSchoolClass($id)], Response::HTTP_OK);
     }
 
     /**
