@@ -18,6 +18,9 @@
 <script src="{{ asset('vendors/apexcharts/apexcharts.js') }}"></script>
 <script src="{{ asset('js/pages/dashboard.js') }}"></script>
 
+<script src="{{ asset('vendors/toastify/toastify.js') }}"></script>
+@include('utilities.toastify-flash-message')
+
 <script src="{{ asset('js/main.js') }}"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>

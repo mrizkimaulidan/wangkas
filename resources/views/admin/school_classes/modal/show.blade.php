@@ -16,6 +16,10 @@
                             <td id="name_show"></td>
                         </tr>
                     </table>
+                    <div class="col-12 col-md-4">
+                        <button id="close" class="btn btn-outline-primary btn-block btn-lg">Close
+                            Button</button>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
