@@ -48,4 +48,11 @@ class SchoolClassRepository extends Controller
     {
         return $this->model->findOrFail($id);
     }
+
+    public function update(Request $request, $id): Bool
+    {
+        $this->model = $this->findSchoolClass($id);
+
+        return $this->model->update($request->only('name'));
+    }
 }

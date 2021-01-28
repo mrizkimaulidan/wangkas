@@ -79,7 +79,9 @@ class SchoolClassController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->schoolClassRepository->update($request, $id);
+
+        return redirect()->route('admin.kelas.index')->with('success', 'Data berhasil diubah!');
     }
 
     /**
