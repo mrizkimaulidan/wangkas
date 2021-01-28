@@ -35,9 +35,11 @@
                             </div>
 
                             <div class="mx-1">
-                                <a class="btn btn-success btn-sm">
+                                <button type="button" data-id="{{ $school_class->id }}"
+                                    class="btn btn-success btn-sm school-class-edit" data-bs-toggle="modal"
+                                    data-bs-target="#editSchoolClassModal">
                                     <i class="bi bi-pencil-square"></i>
-                                </a>
+                                </button>
                             </div>
 
                             <div class="mx-1">
@@ -63,6 +65,7 @@
 @push('modal')
 @include('admin.school_classes.modal.create')
 @include('admin.school_classes.modal.show')
+@include('admin.school_classes.modal.edit')
 @endpush
 
 @push('js')

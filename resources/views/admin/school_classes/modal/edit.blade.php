@@ -1,4 +1,4 @@
-<div class="modal fade" id="showSchoolClassModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="editSchoolClassModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -10,12 +10,13 @@
                     <div class="col-md-12">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nama</label>
-                            <input type="text" class="form-control" id="name" disabled>
+                            <input type="text" class="form-control" name="name" id="name" required>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="submit" class="btn btn-primary">Ubah</button>
                 </div>
             </div>
         </div>
