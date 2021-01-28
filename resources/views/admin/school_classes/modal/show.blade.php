@@ -7,15 +7,12 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <table class="table">
-                        <tr>
-                            <td style="width: 145px;">
-                                <b>Nama</b>
-                            </td>
-                            <td style="width: 20px;">:</td>
-                            <td id="name_show"></td>
-                        </tr>
-                    </table>
+                    <div class="col-md-12">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Nama</label>
+                            <input type="text" class="form-control" id="name_show" disabled>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>

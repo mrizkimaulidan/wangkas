@@ -7,7 +7,7 @@
         $.ajax({
             url: url,
             success: function(data) {
-                $('#name_show').html(data.data.name);
+                $('#name_show').val(data.data.name);
             },
             error: function() {
             Swal.fire({
