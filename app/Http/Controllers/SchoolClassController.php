@@ -21,7 +21,7 @@ class SchoolClassController extends Controller
     public function index()
     {
         return view('admin.school_classes.index', [
-            'school_classes' => $this->schoolClassRepository->schoolClassesOrderBy(column: 'name')->get()
+            'school_classes' => $this->schoolClassRepository->schoolClassesOrderBy('name')->get()
         ]);
     }
 

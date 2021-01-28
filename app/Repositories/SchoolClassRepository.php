@@ -49,7 +49,14 @@ class SchoolClassRepository extends Controller
         return $this->model->findOrFail($id);
     }
 
-    public function update(Request $request, $id): Bool
+    /**
+     * Ubah data kelas berdasarkan id.
+     *
+     * @param Request $request adalah is dari input type name.
+     * @param string $id adalah id dari data kelas yang dipilih.
+     * @return Bool
+     */
+    public function update(Request $request, string $id): Bool
     {
         $this->model = $this->findSchoolClass($id);
 
