@@ -58,4 +58,22 @@ $(function() {
             [5, 10, 15, 20, 25, 50, 75, 100, "All"]
     ],
     });
+
+    $('.delete-notification').click(function (e) {
+        e.preventDefault();
+            Swal.fire({
+                title: 'Hapus?',
+                text: "Data tidak akan bisa dikembalikan!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya!',
+                cancelButtonText: 'Tidak'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent().submit();
+                }
+        });
+    });
 });

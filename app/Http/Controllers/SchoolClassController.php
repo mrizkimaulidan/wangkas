@@ -92,6 +92,8 @@ class SchoolClassController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->schoolClassRepository->destroy($id);
+
+        return redirect()->route('admin.kelas.index')->with('success', 'Data berhasil dihapus!');
     }
 }

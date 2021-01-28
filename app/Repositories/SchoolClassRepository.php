@@ -62,4 +62,11 @@ class SchoolClassRepository extends Controller
 
         return $this->model->update($request->only('name'));
     }
+
+    public function destroy(string $id): Bool
+    {
+        $this->model = $this->findSchoolClass($id);
+
+        return $this->model->delete();
+    }
 }
