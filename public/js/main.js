@@ -59,6 +59,10 @@ $(function() {
     ],
     });
 
+    $('.clear-input').on('click', function () {
+        $('input:not([name=_method], [name=_token])').val('');
+    });
+
     $('.delete-notification').click(function (e) {
         e.preventDefault();
             Swal.fire({
