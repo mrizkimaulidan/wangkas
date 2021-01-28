@@ -63,6 +63,12 @@ class SchoolClassRepository extends Controller
         return $this->model->update($request->only('name'));
     }
 
+    /**
+     * Hapus data kelas berdasarkan id.
+     *
+     * @param string $id adalah id dari data kelas yang dipilih.
+     * @return Bool
+     */
     public function destroy(string $id): Bool
     {
         $this->model = $this->findSchoolClass($id);
