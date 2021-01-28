@@ -351,6 +351,13 @@
         </li>
 
         <li class="sidebar-item">
+            <a href="#" class='sidebar-link'>
+                <i class="bi bi-cash-stack"></i>
+                <span>Kas Kelas</span>
+            </a>
+        </li>
+
+        <li class="sidebar-item">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
 
