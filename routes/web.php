@@ -25,12 +25,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::name('api.')->prefix('api/v1')->group(function () {
-    Route::apiResources([
-        'kelas' => V1SchoolClassController::class,
-    ]);
-});
-
 Route::name('admin.')->group(function () {
     Route::resource('siswa', StudentController::class);
     Route::resource('kelas', SchoolClassController::class);
