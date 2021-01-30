@@ -26,8 +26,8 @@
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $student->name }}</td>
-                    <td>{{ $student->school_class_id }}
-                    <td>{{ $student->school_major_id }}</td>
+                    <td>{{ $student->school_classes->name }}
+                    <td>{{ $student->school_majors->name }}</td>
                     <td>{{ $student->school_year_start }}-{{ $student->school_year_end }}</td>
                     <td>
                         <div class="btn-group" role="group">
