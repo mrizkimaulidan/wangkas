@@ -32,9 +32,11 @@
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
-                                <a href="#" class="btn btn-primary btn-sm">
+                                <button type="button" data-id="{{ $student->id }}"
+                                    class="btn btn-primary btn-sm school-class-detail" data-bs-toggle="modal"
+                                    data-bs-target="#showStudentModal">
                                     <i class="bi bi-search"></i>
-                                </a>
+                                </button>
                             </div>
 
                             <div class="mx-1">
@@ -65,4 +67,5 @@
 
 @push('modal')
 @include('admin.students.modal.create')
+@include('admin.students.modal.show')
 @endpush
