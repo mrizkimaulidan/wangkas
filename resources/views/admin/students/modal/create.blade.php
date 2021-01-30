@@ -29,6 +29,26 @@
                     <div class="row">
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
+                                <label for="school_class_id" class="form-label">Kelas</label>
+                                <select class="form-select" name="school_class_id" id="school_class_id">
+                                    <option selected>Pilih kelas</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-md-6">
+                            <div class="mb-3">
+                                <label for="school_major_id" class="form-label">Jurusan</label>
+                                <select class="form-select" name="school_major_id" id="school_major_id">
+                                    <option selected>Pilih jurusan</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6 col-md-6">
+                            <div class="mb-3">
                                 <label for="email" class="form-label">Alamat Email</label>
                                 <input type="email" class="form-control" name="email" id="email"
                                     placeholder="Masukkan alamat email..">
