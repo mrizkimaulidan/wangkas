@@ -23,6 +23,9 @@
     $('.school-class-edit').click(function() {
         let id = $(this).data('id');
         url = url.replace(':id', id);
+        
+        let edit_button_input = $('#editSchoolClassModal #name');
+        edit_button_input.prop('disabled', true);
 
         let form_action_url = "{{ route('admin.kelas.update', ':id') }}";
         form_action_url = form_action_url.replace(':id', id)
@@ -30,7 +33,8 @@
         $.ajax({
             url: url,
             success: function(data) {
-                $('#editSchoolClassModal #name').val(data.data.name);
+                edit_button_input.val(data.data.name);
+                edit_button_input.prop('disabled', false);
                 $('#editSchoolClassModal #edit-school-class-form').attr('action', form_action_url);
             },
             error: function() {
