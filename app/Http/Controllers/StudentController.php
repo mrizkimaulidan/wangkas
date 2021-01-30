@@ -95,6 +95,8 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->studentRepository->findStudent($id)->delete();
+
+        return redirect()->route('admin.siswa.index')->with('success', 'Data berhasil dihapus!');
     }
 }

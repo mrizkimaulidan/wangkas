@@ -26,6 +26,17 @@ class StudentRepository extends Controller
     }
 
     /**
+     * Ambil data siswa berdasarkan id dari tabel students pada database.
+     *
+     * @param string $id adalah id dari paramter.
+     * @return Object
+     */
+    public function findStudent(string $id): Object
+    {
+        return $this->model->findOrFail($id);
+    }
+
+    /**
      * Simpan data siswa ke tabel students pada database.
      *
      * @param Request $request
