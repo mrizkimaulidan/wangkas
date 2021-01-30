@@ -1,7 +1,8 @@
 <script>
+    let url = "{{ route('api.kelas.show', ':id') }}";
+
     $('.school-class-detail').click(function() {
         let id = $(this).data('id');
-        let url = "{{ route('api.kelas.show', ':id') }}";
         url = url.replace(':id', id);
         
         $.ajax({
@@ -21,7 +22,6 @@
 
     $('.school-class-edit').click(function() {
         let id = $(this).data('id');
-        let url = "{{ route('api.kelas.show', ':id') }}";
         url = url.replace(':id', id);
 
         let form_action_url = "{{ route('admin.kelas.update', ':id') }}";
