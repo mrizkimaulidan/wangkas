@@ -24,6 +24,7 @@ class StudentController extends Controller
     public function index()
     {
         return view('admin.students.index', [
+            'students' => $this->studentRepository->studentsOrderBy('name')->get(),
             'school_classes' => $this->schoolClassRepository->schoolClassesOrderBy('name')->get(),
             'school_majors' => $this->schoolMajorRepository->schoolMajorsOrderBy('name')->get()
         ]);

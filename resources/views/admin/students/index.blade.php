@@ -22,12 +22,13 @@
                 </tr>
             </thead>
             <tbody>
+                @forelse ($students as $student)
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Muhammad Rizki Maulidan</td>
-                    <td>XII RPL 1</td>
-                    <td>Rekayasa Perangkat Lunak</td>
-                    <td>2018-2021</td>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $student->name }}</td>
+                    <td>{{ $student->school_class_id }}
+                    <td>{{ $student->school_major_id }}</td>
+                    <td>{{ $student->school_year_start }}-{{ $student->school_year_end }}</td>
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
@@ -53,6 +54,9 @@
                         </div>
                     </td>
                 </tr>
+                @empty
+
+                @endforelse
             </tbody>
         </table>
     </div>

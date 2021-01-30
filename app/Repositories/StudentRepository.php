@@ -14,6 +14,18 @@ class StudentRepository extends Controller
     }
 
     /**
+     * Ambil data siswa dari tabel students dengan eloquent orderBy.
+     *
+     * @param string $column adalah kolom dari tabel di database.
+     * @param string $direction adalah pengurutannya, secara default akan terisi ASC atau ascending.
+     * @return Object
+     */
+    public function studentsOrderBy(string $column, string $direction = 'asc'): Object
+    {
+        return $this->model->orderBy($column, $direction);
+    }
+
+    /**
      * Simpan data siswa ke tabel students pada database.
      *
      * @param Request $request
