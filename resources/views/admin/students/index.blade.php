@@ -40,9 +40,11 @@
                             </div>
 
                             <div class="mx-1">
-                                <a href="#" class="btn btn-success btn-sm">
+                                <button type="button" data-id="{{ $student->id }}"
+                                    class="btn btn-success btn-sm school-class-detail" data-bs-toggle="modal"
+                                    data-bs-target="#editStudentModal">
                                     <i class="bi bi-pencil-square"></i>
-                                </a>
+                                </button>
                             </div>
 
                             <div class="mx-1">
@@ -68,4 +70,5 @@
 @push('modal')
 @include('admin.students.modal.create')
 @include('admin.students.modal.show')
+@include('admin.students.modal.edit')
 @endpush
