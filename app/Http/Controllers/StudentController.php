@@ -2,10 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\SchoolClassRepository;
+use App\Repositories\SchoolMajorRepository;
+use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    public function __construct(
+        private StudentRepository $studentRepository,
+        private SchoolClassRepository $schoolClassRepository,
+        private SchoolMajorRepository $schoolMajorRepository,
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +23,10 @@ class StudentController extends Controller
      */
     public function index()
     {
-        return view('admin.students.index');
+        return view('admin.students.index', [
+            'school_classes' => $this->schoolClassRepository->schoolClassesOrderBy('name')->get(),
+            'school_majors' => $this->schoolMajorRepository->schoolMajorsOrderBy('name')->get()
+        ]);
     }
 
     /**
@@ -34,7 +47,9 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->studentRepository->store($request);
+
+        return redirect()->route('admin.siswa.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**

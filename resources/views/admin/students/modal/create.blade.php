@@ -6,7 +6,8 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="#" method="POST">
+                <form action="{{ route('admin.siswa.store') }}" method="POST">
+                    @csrf
                     <div class="row">
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
@@ -32,6 +33,9 @@
                                 <label for="school_class_id" class="form-label">Kelas</label>
                                 <select class="form-select" name="school_class_id" id="school_class_id">
                                     <option selected>Pilih kelas</option>
+                                    @foreach($school_classes as $school_class)
+                                    <option value="{{ $school_class->id }}">{{ $school_class->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
@@ -41,6 +45,10 @@
                                 <label for="school_major_id" class="form-label">Jurusan</label>
                                 <select class="form-select" name="school_major_id" id="school_major_id">
                                     <option selected>Pilih jurusan</option>
+                                    @foreach ($school_majors as $school_major)
+                                    <option value="{{ $school_major->id }}">{{ $school_major->abbreviated_word }} -
+                                        {{ $school_major->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
