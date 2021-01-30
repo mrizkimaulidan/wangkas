@@ -2,6 +2,7 @@
 
 @section('content')
 <section class="row">
+    @include('utilities.alert-flash-message')
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
