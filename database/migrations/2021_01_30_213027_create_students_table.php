@@ -19,7 +19,7 @@ class CreateStudentsTable extends Migration
             $table->string('email');
             $table->string('phone_number');
             $table->tinyInteger('gender');
-            $table->string('school_year');
+            $table->integer('school_year');
             $table->timestamps();
 
             $table->foreignId('school_class_id')->constrained();
