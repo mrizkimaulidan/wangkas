@@ -33,7 +33,7 @@ class StudentRepository extends Controller
      */
     public function findStudent(string $id): Object
     {
-        return $this->model->findOrFail($id);
+        return $this->model->with(['school_classes', 'school_majors'])->findOrFail($id);
     }
 
     /**
