@@ -22,7 +22,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($administrators as $administrator)
+                @foreach ($administrators as $administrator)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $administrator->name }}</td>
@@ -55,9 +55,7 @@
                         </div>
                     </td>
                 </tr>
-                @empty
-
-                @endforelse
+                @endforeach
             </tbody>
         </table>
     </div>

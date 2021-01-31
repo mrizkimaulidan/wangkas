@@ -20,7 +20,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($school_classes as $school_class)
+                @foreach ($school_classes as $school_class)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $school_class->name }}
@@ -53,9 +53,7 @@
                         </div>
                     </td>
                 </tr>
-                @empty
-                <span>Data kosong</span>
-                @endforelse
+                @endforeach
             </tbody>
         </table>
     </div>
