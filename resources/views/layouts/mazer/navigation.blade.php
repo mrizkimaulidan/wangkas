@@ -357,7 +357,7 @@
             </a>
         </li>
 
-        <li class="sidebar-item">
+        <li class="sidebar-item {{ request()->is('administrator*') ? 'active' : '' }}">
             <a href="#" class='sidebar-link'>
                 <i class="bi bi-person-badge-fill"></i>
                 <span>Administrator</span>
