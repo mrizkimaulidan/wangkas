@@ -12,8 +12,15 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama</label>
-                                <input type="text" class="form-control" name="name" id="name"
-                                    placeholder="Masukkan nama kelas.." required>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                                    id="name" placeholder="Masukkan nama kelas.." required>
+
+                                @error('name')
+                                <div class="invalid-feedback d-block">
+                                    <i class="bx bx-radio-circle"></i>
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
