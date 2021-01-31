@@ -34,7 +34,7 @@
                         <div class="btn-group" role="group">
                             <div class="mx-1">
                                 <button type="button" data-id="{{ $student->id }}"
-                                    class="btn btn-primary btn-sm school-class-detail" data-bs-toggle="modal"
+                                    class="btn btn-primary btn-sm student-detail" data-bs-toggle="modal"
                                     data-bs-target="#showStudentModal">
                                     <i class="bi bi-search"></i>
                                 </button>
@@ -72,4 +72,8 @@
 @include('admin.students.modal.create')
 @include('admin.students.modal.show')
 @include('admin.students.modal.edit')
+@endpush
+
+@push('js')
+@include('admin.students.script')
 @endpush
