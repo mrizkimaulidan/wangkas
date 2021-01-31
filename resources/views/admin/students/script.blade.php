@@ -4,6 +4,8 @@
         let id = $(this).data('id');
         url = url.replace(':id', id);
 
+        $('#showStudentModal input').val("Sedang mengambil data..");
+
         $.ajax({
             url: url,
             success: function(data) {
