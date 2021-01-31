@@ -22,11 +22,12 @@
                 </tr>
             </thead>
             <tbody>
+                @forelse ($administrators as $administrator)
                 <tr>
-                    <th scope="row">asdasd</th>
-                    <td>asdasd</td>
-                    <td>asdasd</td>
-                    <td>asdasd</td>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $administrator->name }}</td>
+                    <td>{{ $administrator->email }}</td>
+                    <td>{{ date('d-m-Y H:i:s', strtotime($administrator->created_at)) }}</td>
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
@@ -54,6 +55,9 @@
                         </div>
                     </td>
                 </tr>
+                @empty
+
+                @endforelse
             </tbody>
         </table>
     </div>
