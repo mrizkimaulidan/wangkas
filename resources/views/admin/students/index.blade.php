@@ -23,7 +23,7 @@
                 </tr>
             </thead>
             <tbody>
-                @forelse ($students as $student)
+                @foreach ($students as $student)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $student->name }}</td>
@@ -59,9 +59,7 @@
                         </div>
                     </td>
                 </tr>
-                @empty
-
-                @endforelse
+                @endforeach
             </tbody>
         </table>
     </div>
