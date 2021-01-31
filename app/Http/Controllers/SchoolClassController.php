@@ -92,7 +92,13 @@ class SchoolClassController extends Controller
      */
     public function destroy($id)
     {
-        $this->schoolClassRepository->findSchoolClass($id);
+        $school_class = $this->schoolClassRepository->findSchoolClass($id);
+
+        if ($school_class->students()->exists()) {
+            return redirect()->route('admin.kelas.index')->with('warning', 'Data yang memiliki relasi tidak dapat dihapus!');
+        }
+
+        $school_class->delete();
 
         return redirect()->route('admin.kelas.index')->with('success', 'Data berhasil dihapus!');
     }
