@@ -29,7 +29,7 @@ class StudentFactory extends Factory
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->email,
             'phone_number' => $this->faker->unique()->phoneNumber,
-            'gender' => 1 ?? 2,
+            'gender' => $this->faker->randomNumber(6) % 2 === 1 ? 1 : 2,
             'school_year_start' => $school_year - 3,
             'school_year_end' => $school_year
         ];
