@@ -9,6 +9,17 @@
 </script>
 @endif
 
+@if(request()->session()->get('warning'))
+<script>
+    Toastify({
+    text: "{{ session('warning') }}",
+    duration: 3000,
+    close:true,
+    backgroundColor: "#eaca4a",
+    }).showToast();
+</script>
+@endif
+
 @if(count($errors) !== 0)
 @foreach($errors->all() as $message)
 <script>
