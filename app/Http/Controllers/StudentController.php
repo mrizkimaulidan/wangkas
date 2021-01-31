@@ -84,7 +84,9 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->studentRepository->update($request, $id);
+
+        return redirect()->route('admin.siswa.index')->with('success', 'Data berhasil diubah!');
     }
 
     /**

@@ -24,4 +24,40 @@
             }
         });
     });
+
+    $('.student-edit').click(function() {
+        let id = $(this).data('id');
+        let url = "{{ route('api.siswa.show', ':id') }}";
+        url = url.replace(':id', id);
+
+        let form_edit_url = "{{ route('admin.siswa.update', ':id') }}"
+        form_edit_url = form_edit_url.replace(':id', id);
+
+        let edit_student_modal_input = $('#editStudentModal input:not([name=_method], [name=_token])');
+        let edit_student_modal_select = $('#editStudentModal select');
+
+        edit_student_modal_select.prop('disabled', true);
+        edit_student_modal_input.prop('disabled', true);
+        edit_student_modal_input.val('Sedang mengambil data..');
+
+        $.ajax({
+            url: url,
+            success: function(data) {
+                edit_student_modal_input.prop('disabled', false);
+                edit_student_modal_select.prop('disabled', false);
+                $('#editStudentModal #edit-student-form').attr('action', form_edit_url)
+                
+                $('#editStudentModal #name').val(data.data.name);
+                
+                $('#editStudentModal #gender').val(data.data.gender);
+                $('#editStudentModal #school_class_id').val(data.data.school_classes.id);
+                $('#editStudentModal #school_major_id').val(data.data.school_majors.id);
+                $('#editStudentModal #email').val(data.data.email);
+                $('#editStudentModal #phone_number').val(data.data.phone_number);
+                
+                $('#editStudentModal #school_year_start').val(data.data.school_year_start);
+                $('#editStudentModal #school_year_end').val(data.data.school_year_end);
+            }
+        });
+    });
 </script>

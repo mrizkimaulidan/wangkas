@@ -42,7 +42,7 @@
 
                             <div class="mx-1">
                                 <button type="button" data-id="{{ $student->id }}"
-                                    class="btn btn-success btn-sm school-class-detail" data-bs-toggle="modal"
+                                    class="btn btn-success btn-sm student-edit" data-bs-toggle="modal"
                                     data-bs-target="#editStudentModal">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>

@@ -61,6 +61,7 @@ $(function() {
 
     $('.clear-input').on('click', function () {
         $('input:not([name=_method], [name=_token])').val('');
+        $('select').prop('selectedIndex', 0);
     });
 
     $('.delete-notification').click(function (e) {

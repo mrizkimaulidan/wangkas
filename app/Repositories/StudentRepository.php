@@ -46,4 +46,11 @@ class StudentRepository extends Controller
     {
         return $this->model->create($request->only('school_class_id', 'school_major_id', 'name', 'email', 'phone_number', 'gender', 'school_year_start', 'school_year_end'));
     }
+
+    public function update(Request $request, string $id): Bool
+    {
+        $this->model = $this->findStudent($id);
+
+        return $this->model->update($request->only('school_class_id', 'school_major_id', 'name', 'email', 'phone_number', 'gender', 'school_year_start', 'school_year_end'));
+    }
 }
