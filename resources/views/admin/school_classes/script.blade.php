@@ -4,7 +4,8 @@
     $('.school-class-detail').click(function() {
         let id = $(this).data('id');
         url = url.replace(':id', id);
-        
+        $('#showSchoolClassModal #name').val("Sedang mengambil data..");
+
         $.ajax({
             url: url,
             success: function(data) {
@@ -23,8 +24,9 @@
     $('.school-class-edit').click(function() {
         let id = $(this).data('id');
         url = url.replace(':id', id);
-        
+
         let edit_button_input = $('#editSchoolClassModal #name');
+        edit_button_input.val("Sedang mengambil data..");
         edit_button_input.prop('disabled', true);
 
         let form_action_url = "{{ route('admin.kelas.update', ':id') }}";
