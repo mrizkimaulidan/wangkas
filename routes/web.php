@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\API\v1\SchoolClassController as V1SchoolClassController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\SchoolMajorController;
@@ -29,6 +30,7 @@ Route::name('admin.')->group(function () {
     Route::resource('siswa', StudentController::class);
     Route::resource('kelas', SchoolClassController::class);
     Route::resource('jurusan', SchoolMajorController::class);
+    Route::resource('administrator', AdministratorController::class);
 });
 
 require __DIR__ . '/auth.php';
