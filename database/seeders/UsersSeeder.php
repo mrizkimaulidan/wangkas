@@ -15,13 +15,6 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        // Administrator
-        User::create([
-            'name' => 'Administrator',
-            'email' => 'admin@mail.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt('secret'),
-            'remember_token' => Str::random(10),
-        ]);
+        // 
     }
 }
