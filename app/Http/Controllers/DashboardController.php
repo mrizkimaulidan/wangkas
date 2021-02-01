@@ -20,9 +20,9 @@ class DashboardController extends Controller
     public function index()
     {
         return view('dashboard', [
-            'student_count' => $this->studentRepository->studentsOrderBy('name')->count(),
-            'school_class_count' => $this->schoolClassRepository->schoolClassesOrderBy('name')->count(),
-            'school_major_count' => $this->schoolMajorRepository->schoolMajorsOrderBy('name')->count()
+            'student_count' => count_data($this->studentRepository->studentsOrderBy('name')->get()),
+            'school_class_count' => count_data($this->schoolClassRepository->schoolClassesOrderBy('name')->get()),
+            'school_major_count' => count_data($this->schoolMajorRepository->schoolMajorsOrderBy('name')->get())
         ]);
     }
 }
