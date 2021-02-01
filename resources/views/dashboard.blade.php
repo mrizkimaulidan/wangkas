@@ -15,7 +15,7 @@
                             </div>
                             <div class="col-md-8">
                                 <h6 class="text-muted font-semibold">Siswa</h6>
-                                <h6 class="font-extrabold mb-0">112.000</h6>
+                                <h6 class="font-extrabold mb-0">{{ $student_count }}</h6>
                             </div>
                         </div>
                     </div>
@@ -32,7 +32,7 @@
                             </div>
                             <div class="col-md-8">
                                 <h6 class="text-muted font-semibold">Kelas</h6>
-                                <h6 class="font-extrabold mb-0">183.000</h6>
+                                <h6 class="font-extrabold mb-0">{{ $school_class_count }}</h6>
                             </div>
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                             </div>
                             <div class="col-md-8">
                                 <h6 class="text-muted font-semibold">Jurusan</h6>
-                                <h6 class="font-extrabold mb-0">80.000</h6>
+                                <h6 class="font-extrabold mb-0">{{ $school_major_count }}</h6>
                             </div>
                         </div>
                     </div>
