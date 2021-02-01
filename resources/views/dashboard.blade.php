@@ -5,58 +5,64 @@
     <div class="col-12 col-lg-12">
         <div class="row">
             <div class="col-6 col-lg-3 col-md-6">
-                <div class="card">
-                    <div class="card-body px-3 py-4-5">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="stats-icon purple">
-                                    <i class="iconly-boldProfile"></i>
+                <a href="{{ route('admin.siswa.index') }}">
+                    <div class="card">
+                        <div class="card-body px-3 py-4-5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon purple">
+                                        <i class="iconly-boldProfile"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-8">
-                                <h6 class="text-muted font-semibold">Siswa</h6>
-                                <h6 class="font-extrabold {{ $student_count <= 0 ? 'text-danger' : '' }} mb-0">
-                                    {{ $student_count }}</h6>
+                                <div class="col-md-8">
+                                    <h6 class="text-muted font-semibold">Siswa</h6>
+                                    <h6 class="font-extrabold {{ $student_count <= 0 ? 'text-danger' : '' }} mb-0">
+                                        {{ $student_count }}</h6>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-6 col-lg-3 col-md-6">
-                <div class="card">
-                    <div class="card-body px-3 py-4-5">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="stats-icon blue">
-                                    <i class="iconly-boldBookmark"></i>
+                <a href="{{ route('admin.kelas.index') }}">
+                    <div class="card">
+                        <div class="card-body px-3 py-4-5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon blue">
+                                        <i class="iconly-boldBookmark"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-8">
-                                <h6 class="text-muted font-semibold">Kelas</h6>
-                                <h6 class="font-extrabold {{ $school_class_count <= 0 ? 'text-danger' : '' }} mb-0">
-                                    {{ $school_class_count }}</h6>
+                                <div class="col-md-8">
+                                    <h6 class="text-muted font-semibold">Kelas</h6>
+                                    <h6 class="font-extrabold {{ $school_class_count <= 0 ? 'text-danger' : '' }} mb-0">
+                                        {{ $school_class_count }}</h6>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-6 col-lg-3 col-md-6">
-                <div class="card">
-                    <div class="card-body px-3 py-4-5">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="stats-icon green">
-                                    <i class="iconly-boldWork"></i>
+                <a href="{{ route('admin.jurusan.index') }}">
+                    <div class="card">
+                        <div class="card-body px-3 py-4-5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon green">
+                                        <i class="iconly-boldWork"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-8">
-                                <h6 class="text-muted font-semibold">Jurusan</h6>
-                                <h6 class="font-extrabold {{ $school_major_count <= 0 ? 'text-danger' : '' }} mb-0">
-                                    {{ $school_major_count }}</h6>
+                                <div class="col-md-8">
+                                    <h6 class="text-muted font-semibold">Jurusan</h6>
+                                    <h6 class="font-extrabold {{ $school_major_count <= 0 ? 'text-danger' : '' }} mb-0">
+                                        {{ $school_major_count }}</h6>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
             <div class="col-6 col-lg-3 col-md-6">
                 <div class="card">
