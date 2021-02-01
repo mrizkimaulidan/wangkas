@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\API\v1\SchoolClassController as V1SchoolClassController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\SchoolMajorController;
 use App\Http\Controllers\StudentController;
@@ -19,7 +18,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [DashboardController::class, 'index']);
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
