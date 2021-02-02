@@ -2,6 +2,7 @@
 
 @section('content')
 <section class="row">
+    @include('utilities.alert-flash-message')
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
@@ -36,9 +37,11 @@
                             </div>
 
                             <div class="mx-1">
-                                <a href="#" class="btn btn-success btn-sm">
+                                <button type="button" data-id="{{ $school_major->id }}"
+                                    class="btn btn-success btn-sm school-major-edit" data-bs-toggle="modal"
+                                    data-bs-target="#editSchoolMajorModal">
                                     <i class="bi bi-pencil-square"></i>
-                                </a>
+                                </button>
                             </div>
 
                             <div class="mx-1">
@@ -62,6 +65,7 @@
 @push('modal')
 @include('admin.school_majors.modal.create')
 @include('admin.school_majors.modal.show')
+@include('admin.school_majors.modal.edit')
 @endpush
 
 @push('js')

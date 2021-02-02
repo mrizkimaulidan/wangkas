@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Http\Controllers\Controller;
 use App\Models\SchoolMajor;
+use Illuminate\Http\Request;
 
 class SchoolMajorRepository extends Controller
 {
@@ -33,5 +34,19 @@ class SchoolMajorRepository extends Controller
     public function findSchoolMajor(string $id): Object
     {
         return $this->model->findOrFail($id);
+    }
+
+    /**
+     * Ubah data dari tabel school_majors pada database berdasarkan id.
+     *
+     * @param Request $request
+     * @param string $id adalah id dari school_major sesuai dengan di parameter.
+     * @return Bool
+     */
+    public function update(Request $request, string $id): Bool
+    {
+        $this->model = $this->findSchoolMajor($id);
+
+        return $this->model->update($request->only('name', 'abbreviated_word'));
     }
 }

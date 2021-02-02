@@ -76,7 +76,9 @@ class SchoolMajorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->schoolMajorRepository->update($request, $id);
+
+        return redirect()->route('admin.jurusan.index')->with('success', 'Data berhasil diubah!');
     }
 
     /**
