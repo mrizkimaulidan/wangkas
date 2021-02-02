@@ -37,6 +37,17 @@ class SchoolMajorRepository extends Controller
     }
 
     /**
+     * Simpan data jurusan ke tabel school_majors.
+     *
+     * @param Request $request
+     * @return Object
+     */
+    public function store(Request $request): Object
+    {
+        return $this->model->create($request->only('name', 'abbreviated_word'));
+    }
+
+    /**
      * Ubah data dari tabel school_majors pada database berdasarkan id.
      *
      * @param Request $request

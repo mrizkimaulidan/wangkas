@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\v1;
 
+use App\Http\Controllers\Controller;
 use App\Repositories\SchoolMajorRepository;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SchoolMajorController extends Controller
 {
@@ -19,18 +21,6 @@ class SchoolMajorController extends Controller
      */
     public function index()
     {
-        return view('admin.school_majors.index', [
-            'school_majors' => $this->schoolMajorRepository->schoolMajorsOrderBy('name')->get()
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
         //
     }
 
@@ -42,9 +32,7 @@ class SchoolMajorController extends Controller
      */
     public function store(Request $request)
     {
-        $this->schoolMajorRepository->store($request);
-
-        return redirect()->route('admin.jurusan.index')->with('success', 'Data berhasil ditambahkan!');
+        //
     }
 
     /**
@@ -55,18 +43,7 @@ class SchoolMajorController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json(['status' => Response::HTTP_OK, 'data' => $this->schoolMajorRepository->findSchoolMajor($id)], Response::HTTP_OK);
     }
 
     /**
@@ -78,9 +55,7 @@ class SchoolMajorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->schoolMajorRepository->update($request, $id);
-
-        return redirect()->route('admin.jurusan.index')->with('success', 'Data berhasil diubah!');
+        //
     }
 
     /**

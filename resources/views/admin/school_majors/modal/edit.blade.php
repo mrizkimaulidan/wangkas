@@ -1,30 +1,30 @@
-<div class="modal fade" id="addSchoolMajorModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="editSchoolMajorModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Tambah Data Jurusan</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">Ubah Jurusan</h5>
+                <button type="button" class="btn-close clear-input" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('admin.jurusan.store') }}" method="post">
-                    @csrf
+                <form action="#" method="post" id="school-major-edit-form">
+                    @csrf @method('PUT')
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama</label>
                                 <input type="text" class="form-control" name="name" id="name"
-                                    placeholder="Masukkan nama jurusan.." required>
+                                    placeholder="Masukkan nama jurusan..">
                             </div>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Singkatan</label>
-                                <input type="text" class="form-control" name="abbreviated word" id="abbreviated word"
-                                    placeholder="Masukkan singkatan jurusan.." required>
+                                <input type="text" class="form-control" name="abbreviated_word" id="abbreviated_word"
+                                    placeholder="Masukkan singkatan jurusan">
                             </div>
                         </div>
                     </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-secondary clear-input" data-bs-dismiss="modal">Tutup</button>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
             </form>
