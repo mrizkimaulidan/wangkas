@@ -4,13 +4,17 @@ namespace App\Repositories;
 
 use App\Http\Controllers\Controller;
 use App\Models\Student;
+use DB;
 use Illuminate\Http\Request;
 
 class StudentRepository extends Controller
 {
-    public function __construct(
-        private Student $model
-    ) {
+    private $model;
+    private $relations = ['school_classes', 'school_majors'];
+
+    public function __construct(Student $model)
+    {
+        $this->model = $model->with($this->relations);
     }
 
     /**
@@ -33,7 +37,7 @@ class StudentRepository extends Controller
      */
     public function findStudent(string $id): Object
     {
-        return $this->model->with(['school_classes', 'school_majors'])->findOrFail($id);
+        return $this->model->findOrFail($id);
     }
 
     /**
