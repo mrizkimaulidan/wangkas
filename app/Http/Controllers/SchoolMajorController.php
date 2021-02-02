@@ -91,6 +91,8 @@ class SchoolMajorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->schoolMajorRepository->findSchoolMajor($id)->delete();
+
+        return redirect()->route('admin.jurusan.index')->with('success', 'Data berhasil dihapus!');
     }
 }

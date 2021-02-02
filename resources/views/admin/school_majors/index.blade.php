@@ -45,9 +45,9 @@
                             </div>
 
                             <div class="mx-1">
-                                <form action="#" method="POST">
+                                <form action="{{ route('admin.jurusan.destroy', $school_major->id) }}" method="POST">
                                     @csrf @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm">
+                                    <button type="submit" class="btn btn-danger btn-sm delete-notification">
                                         <i class="bi bi-trash-fill"></i>
                                     </button>
                                 </form>
