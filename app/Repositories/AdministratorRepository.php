@@ -2,8 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdministratorRepository extends Controller
 {
@@ -22,5 +23,20 @@ class AdministratorRepository extends Controller
     public function administratorsOrderBy(string $column, string $direction = 'asc'): Object
     {
         return $this->model->orderBy($column, $direction);
+    }
+
+    /**
+     * Menambah data administrator ke tabel users pada database.
+     *
+     * @param Request $request
+     * @return Object
+     */
+    public function store(Request $request): Object
+    {
+        return User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ]);
     }
 }

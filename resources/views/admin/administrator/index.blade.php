@@ -63,5 +63,5 @@
 @endsection
 
 @push('modal')
-{{--  --}}
+@include('admin.administrator.modal.create')
 @endpush

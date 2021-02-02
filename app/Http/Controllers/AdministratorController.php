@@ -42,7 +42,9 @@ class AdministratorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->administratorRepository->store($request);
+
+        return redirect()->route('admin.administrator.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
