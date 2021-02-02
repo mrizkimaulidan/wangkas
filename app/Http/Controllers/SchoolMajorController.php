@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\SchoolMajorRepository;
 use Illuminate\Http\Request;
 
 class SchoolMajorController extends Controller
 {
+    public function __construct(
+        private SchoolMajorRepository $schoolMajorRepository
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +19,9 @@ class SchoolMajorController extends Controller
      */
     public function index()
     {
-        return view('admin.school_majors.index');
+        return view('admin.school_majors.index', [
+            'school_majors' => $this->schoolMajorRepository->schoolMajorsOrderBy('name')->get()
+        ]);
     }
 
     /**

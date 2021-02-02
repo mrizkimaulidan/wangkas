@@ -20,16 +20,19 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($school_majors as $key => $school_major)
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Rekayasa Perangkat Lunak</td>
-                    <td>RPL</td>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $school_major->name }}</td>
+                    <td>{{ $school_major->abbreviated_word }}</td>
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
-                                <a href="#" class="btn btn-primary btn-sm">
+                                <button type="button" data-id="{{ $school_major->id }}"
+                                    class="btn btn-primary btn-sm school-major-detail" data-bs-toggle="modal"
+                                    data-bs-target="#showSchoolMajorModal">
                                     <i class="bi bi-search"></i>
-                                </a>
+                                </button>
                             </div>
 
                             <div class="mx-1">
@@ -49,6 +52,7 @@
                         </div>
                     </td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -57,4 +61,9 @@
 
 @push('modal')
 @include('admin.school_majors.modal.create')
+@include('admin.school_majors.modal.show')
+@endpush
+
+@push('js')
+@include('admin.school_majors.script')
 @endpush

@@ -23,4 +23,15 @@ class SchoolMajorRepository extends Controller
     {
         return $this->model->orderBy($column, $direction);
     }
+
+    /**
+     * Ambil single data dari tabel school_majors pada database berdasarkan id.
+     *
+     * @param string $id adalah id dari school_major sesuai dengan di parameter.
+     * @return Object
+     */
+    public function findSchoolMajor(string $id): Object
+    {
+        return $this->model->findOrFail($id);
+    }
 }

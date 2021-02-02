@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\v1\SchoolClassController;
+use App\Http\Controllers\API\v1\SchoolMajorController;
 use App\Http\Controllers\API\v1\StudentController;
 
 /*
@@ -24,5 +25,6 @@ Route::name('api.')->prefix('v1')->group(function () {
     Route::apiResources([
         'kelas' => SchoolClassController::class,
         'siswa' => StudentController::class,
+        'jurusan' => SchoolMajorController::class,
     ]);
 });
