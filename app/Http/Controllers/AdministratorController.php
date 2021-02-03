@@ -89,6 +89,8 @@ class AdministratorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->administratorRepository->findAdministrator($id)->delete();
+
+        return redirect()->route('admin.administrator.index')->with('success', 'Data berhasil dihapus!');
     }
 }

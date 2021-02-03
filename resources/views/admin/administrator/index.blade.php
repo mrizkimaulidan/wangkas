@@ -46,7 +46,8 @@
                             </div>
 
                             <div class="mx-1">
-                                <form action="#" method="POST">
+                                <form action="{{ route('admin.administrator.destroy', $administrator->id) }}"
+                                    method="POST">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-notification">
                                         <i class="bi bi-trash-fill"></i>
