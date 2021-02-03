@@ -26,6 +26,17 @@ class AdministratorRepository extends Controller
     }
 
     /**
+     * Ambil single data dari tabel users berdasarkan id.
+     *
+     * @param string $id
+     * @return Object
+     */
+    public function findAdministrator(string $id): Object
+    {
+        return $this->model->findOrFail($id);
+    }
+
+    /**
      * Menambah data administrator ke tabel users pada database.
      *
      * @param Request $request

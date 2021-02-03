@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\v1\AdministratorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\v1\SchoolClassController;
@@ -26,5 +27,6 @@ Route::name('api.')->prefix('v1')->group(function () {
         'kelas' => SchoolClassController::class,
         'siswa' => StudentController::class,
         'jurusan' => SchoolMajorController::class,
+        'administrator' => AdministratorController::class,
     ]);
 });
