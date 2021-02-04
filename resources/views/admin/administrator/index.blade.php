@@ -39,8 +39,9 @@
                             </div>
 
                             <div class="mx-1">
-                                <button type="button" data-id="#" class="btn btn-success btn-sm administrator-edit"
-                                    data-bs-toggle="modal" data-bs-target="#editAdministratorModal">
+                                <button type="button" data-id="{{ $administrator->id }}"
+                                    class="btn btn-success btn-sm administrator-edit" data-bs-toggle="modal"
+                                    data-bs-target="#editAdministratorModal">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </div>
@@ -67,6 +68,7 @@
 @push('modal')
 @include('admin.administrator.modal.create')
 @include('admin.administrator.modal.show')
+@include('admin.administrator.modal.edit')
 @endpush
 
 @push('js')

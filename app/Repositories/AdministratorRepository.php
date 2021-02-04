@@ -36,6 +36,13 @@ class AdministratorRepository extends Controller
         return $this->model->findOrFail($id);
     }
 
+    public function update(Request $request, string $id): Bool
+    {
+        $this->model = $this->findAdministrator($id);
+
+        return $this->model->update($request->only('name', 'email'));
+    }
+
     /**
      * Menambah data administrator ke tabel users pada database.
      *

@@ -78,7 +78,9 @@ class AdministratorController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->administratorRepository->update($request, $id);
+
+        return redirect()->route('admin.administrator.index')->with('sucess', 'Data berhasil diubah!');
     }
 
     /**
