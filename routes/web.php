@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\API\v1\SchoolClassController as V1SchoolClassController;
+use App\Http\Controllers\CashTransactionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\SchoolMajorController;
@@ -30,6 +31,7 @@ Route::name('admin.')->group(function () {
     Route::resource('kelas', SchoolClassController::class);
     Route::resource('jurusan', SchoolMajorController::class);
     Route::resource('administrator', AdministratorController::class);
+    Route::resource('kas', CashTransactionController::class);
 });
 
 require __DIR__ . '/auth.php';
