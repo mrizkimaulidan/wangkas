@@ -31,7 +31,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label for="password" class="form-label">Nama</label>
+                                <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" name="password" id="password"
                                     placeholder="Masukkan password..">
                             </div>
