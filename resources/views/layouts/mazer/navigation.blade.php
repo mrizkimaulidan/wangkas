@@ -350,10 +350,10 @@
             </a>
         </li>
 
-        <li class="sidebar-item">
-            <a href="#" class='sidebar-link'>
+        <li class="sidebar-item {{ request()->is('kas*') ? 'active' : '' }}">
+            <a href="{{ route('admin.kas.index') }}" class='sidebar-link'>
                 <i class="bi bi-cash-stack"></i>
-                <span>Kas Kelas</span>
+                <span>Kas</span>
             </a>
         </li>
 
