@@ -28,9 +28,9 @@
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $cash_transaction->students->name }}</td>
-                    <td>{{ $cash_transaction->bill }}</td>
-                    <td>{{ $cash_transaction->amount }}</td>
-                    <td>{{ $cash_transaction->date }}</td>
+                    <td>{{ indonesian_currency($cash_transaction->bill) }}</td>
+                    <td>{{ indonesian_currency($cash_transaction->amount) }}</td>
+                    <td>{{ date('d-m-Y', strtotime($cash_transaction->date)) }}</td>
                     <td>{{ $cash_transaction->is_paid }}</td>
                     <td>
                         <div class="btn-group" role="group">
