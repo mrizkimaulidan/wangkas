@@ -15,6 +15,7 @@ class CreateCashTransactionsTable extends Migration
     {
         Schema::create('cash_transactions', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('bill');
             $table->bigInteger('amount');
             $table->boolean('is_paid');
             $table->date('date');
