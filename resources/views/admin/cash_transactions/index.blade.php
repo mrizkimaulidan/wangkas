@@ -31,9 +31,14 @@
                     <td>{{ indonesian_currency($cash_transaction->bill) }}</td>
                     <td>{{ indonesian_currency($cash_transaction->amount) }}</td>
                     <td>{{ date('d-m-Y', strtotime($cash_transaction->date)) }}</td>
-                    <td>{{ paid_status($cash_transaction->is_paid) }}</td>
                     <td>
-                        <div class="btn-group" role="group">
+                        <span
+                            class="badge rounded-pill shadow mb-2 {{ $cash_transaction->is_paid === 1 ? 'bg-success' : 'bg-danger' }}"
+                            data-bs-toggle="tooltip" data-bs-placement="top"
+                            title="{{ paid_status($cash_transaction->is_paid) }}">{{ paid_status($cash_transaction->is_paid) }}</span>
+                    </td>
+                    <td>
+                        <div class=" btn-group" role="group">
                             <div class="mx-1">
                                 <button type="button" data-id="#" class="btn btn-primary btn-sm school-class-detail"
                                     data-bs-toggle="modal" data-bs-target="#showSchoolClassModal">
