@@ -12,8 +12,8 @@ class CashTransactionRepository extends Controller
     ) {
     }
 
-    public function cashTransactionsLatest()
+    public function cashTransactionLatest()
     {
-        return $this->model->latest();
+        return $this->model->latest()->get();
     }
 }

@@ -16,19 +16,24 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Nama Siswa</th>
-                    <th scope="col">Bulan</th>
-                    <th scope="col">Tahun</th>
+                    <th scope="col">Tagihan</th>
+                    <th scope="col">Total Bayar</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Catatan</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach ($cash_transactions as $cash_transaction)
                 <tr>
-                    <th scope="row">1</th>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
-                    <td>1</td>
+                    <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $cash_transaction->student_id }}</td>
+                    <td>{{ $cash_transaction->bill }}</td>
+                    <td>{{ $cash_transaction->amount }}</td>
+                    <td>{{ $cash_transaction->date }}</td>
+                    <td>{{ $cash_transaction->is_paid }}</td>
+                    <td>{{ $cash_transaction->note }}</td>
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
@@ -56,6 +61,7 @@
                         </div>
                     </td>
                 </tr>
+                @endforeach
             </tbody>
         </table>
     </div>

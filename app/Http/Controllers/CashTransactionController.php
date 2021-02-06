@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\CashTransactionRepository;
 use Illuminate\Http\Request;
 
 class CashTransactionController extends Controller
 {
+    public function __construct(
+        private CashTransactionRepository $cashTransactionRepository
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +19,9 @@ class CashTransactionController extends Controller
      */
     public function index()
     {
-        return view('admin.cash_transactions.index');
+        return view('admin.cash_transactions.index', [
+            'cash_transactions' => $this->cashTransactionRepository->cashTransactionLatest()
+        ]);
     }
 
     /**
