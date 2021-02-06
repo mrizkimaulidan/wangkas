@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\CashTransaction;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CashTransactionFactory extends Factory
@@ -26,9 +27,7 @@ class CashTransactionFactory extends Factory
             'student_id' => mt_rand(1, 15),
             'amount' => 10000,
             'is_paid' => mt_rand(0, 1) ? 1 : 0,
-            'day' => mt_rand(1, 31),
-            'month' => date('m'),
-            'year' => date('Y'),
+            'date' => Carbon::createFromDate(date('Y'), mt_rand(1, 12), mt_rand(1, 31)),
             'note' => mt_rand(0, 1) ? $this->faker->text(20) : ''
         ];
     }
