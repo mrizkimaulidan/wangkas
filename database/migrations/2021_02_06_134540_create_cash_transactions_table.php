@@ -17,9 +17,7 @@ class CreateCashTransactionsTable extends Migration
             $table->id();
             $table->bigInteger('amount');
             $table->boolean('is_paid');
-            $table->integer('day');
-            $table->string('month');
-            $table->integer('year');
+            $table->date('date');
             $table->text('note')->nullable();
             $table->timestamps();
 
