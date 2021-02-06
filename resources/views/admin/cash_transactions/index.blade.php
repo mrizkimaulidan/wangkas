@@ -31,7 +31,7 @@
                     <td>{{ indonesian_currency($cash_transaction->bill) }}</td>
                     <td>{{ indonesian_currency($cash_transaction->amount) }}</td>
                     <td>{{ date('d-m-Y', strtotime($cash_transaction->date)) }}</td>
-                    <td>{{ $cash_transaction->is_paid }}</td>
+                    <td>{{ paid_status($cash_transaction->is_paid) }}</td>
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
