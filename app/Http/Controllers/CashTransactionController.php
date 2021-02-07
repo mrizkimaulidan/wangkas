@@ -45,7 +45,9 @@ class CashTransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->cashTransactionRepository->store($request);
+
+        return redirect()->route('admin.kas.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
