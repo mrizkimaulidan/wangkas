@@ -26,6 +26,7 @@ class StudentFactory extends Factory
         return [
             'school_class_id' => mt_rand(1, 12),
             'school_major_id' => mt_rand(1, 3),
+            'student_identification_number' => '00' . $this->faker->randomNumber(8),
             'name' => $this->faker->name,
             'email' => $this->faker->unique()->email,
             'phone_number' => $this->faker->unique()->phoneNumber,
