@@ -27,8 +27,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="bill" class="form-label">Tagihan</label>
-                                <input type="number" class="form-control" name="bill" id="bill"
-                                    placeholder="Masukkan tagihan..">
+                                <input type="number" class="form-control" name="bill" value="{{ config('app.bill') }}"
+                                    id="bill" readonly>
                             </div>
                         </div>
 
