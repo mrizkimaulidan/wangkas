@@ -11,30 +11,61 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-control" name="name" id="name"
-                                    placeholder="Masukkan nama lengkap..">
+                                <label for="name" class="form-label">Nama Pelajar</label>
+                                <select class="form-select" name="student_id">
+                                    <option selected>Open this select menu</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" name="email" id="email"
-                                    placeholder="Masukkan email..">
+                                <label for="bill" class="form-label">Tagihan</label>
+                                <input type="number" class="form-control" name="bill" id="bill"
+                                    placeholder="Masukkan tagihan..">
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="amount" class="form-label">Total Bayar</label>
+                                <input type="number" class="form-control" name="amount" id="amount"
+                                    placeholder="Masukkan total bayar..">
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" name="password" id="password"
-                                    placeholder="Masukkan password..">
+                                <label for="is_paid" class="form-label">Status Pembayaran</label>
+                                <select class="form-select" name="is_paid" id="is_paid">
+                                    <option selected>Pilih status pembayaran</option>
+                                    <option value="1">Lunas</option>
+                                    <option value="0">Belum Lunas</option>
+                                </select>
                             </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="date" class="form-label">Tanggal</label>
+                                <input type="date" class="form-control" name="date" id="date"
+                                    value="{{ date('Y-m-d') }}">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="mb-3">
+                            <label for="note" class="form-label">Catatan</label>
+                            <textarea class="form-control" name="note" id="note" rows="3"
+                                placeholder="Masukkan catatan (opsional).."></textarea>
                         </div>
                     </div>
                     <div class="modal-footer">
