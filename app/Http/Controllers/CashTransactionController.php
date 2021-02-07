@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\CashTransactionRepository;
+use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 
 class CashTransactionController extends Controller
 {
     public function __construct(
-        private CashTransactionRepository $cashTransactionRepository
+        private CashTransactionRepository $cashTransactionRepository,
+        private StudentRepository $studentRepository,
     ) {
     }
 
@@ -20,7 +22,8 @@ class CashTransactionController extends Controller
     public function index()
     {
         return view('admin.cash_transactions.index', [
-            'cash_transactions' => $this->cashTransactionRepository->cashTransactionLatest()
+            'cash_transactions' => $this->cashTransactionRepository->cashTransactionLatest(),
+            'students' => $this->studentRepository->studentsOrderBy('name')->get()
         ]);
     }
 

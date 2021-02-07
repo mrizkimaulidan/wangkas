@@ -13,10 +13,11 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Pelajar</label>
                                 <select class="form-select" name="student_id">
-                                    <option selected>Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
+                                    <option selected>Pilih pelajar</option>
+                                    @foreach ($students as $student)
+                                    <option value="{{ $student->id }}">
+                                        {{ $student->student_identification_number }} - {{ $student->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
