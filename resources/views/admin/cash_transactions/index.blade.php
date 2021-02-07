@@ -2,6 +2,151 @@
 
 @section('content')
 <section class="row">
+    {{-- Start Statistics --}}
+    <div class="col-6 col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body px-3 py-4-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-icon purple">
+                            <i class="iconly-boldProfile"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="text-muted font-semibold">Siswa</h6>
+                        <h6 class="font-extrabold mb-0">
+                            1</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body px-3 py-4-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-icon blue">
+                            <i class="iconly-boldBookmark"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="text-muted font-semibold">Kelas</h6>
+                        <h6 class="font-extrabold mb-0">
+                            1</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body px-3 py-4-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-icon green">
+                            <i class="iconly-boldWork"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="text-muted font-semibold">Jurusan</h6>
+                        <h6 class="font-extrabold mb-0">
+                            1</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body px-3 py-4-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-icon red">
+                            <i class="iconly-boldTicket"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="text-muted font-semibold">Kas Bulan Ini</h6>
+                        <h6 class="font-extrabold mb-0">112</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body px-3 py-4-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-icon purple">
+                            <i class="iconly-boldProfile"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="text-muted font-semibold">Siswa</h6>
+                        <h6 class="font-extrabold mb-0">
+                            1</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body px-3 py-4-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-icon blue">
+                            <i class="iconly-boldBookmark"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="text-muted font-semibold">Kelas</h6>
+                        <h6 class="font-extrabold mb-0">
+                            1</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body px-3 py-4-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-icon green">
+                            <i class="iconly-boldWork"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="text-muted font-semibold">Jurusan</h6>
+                        <h6 class="font-extrabold mb-0">
+                            1</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3 col-md-6">
+        <div class="card">
+            <div class="card-body px-3 py-4-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-icon red">
+                            <i class="iconly-boldTicket"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="text-muted font-semibold">Kas Bulan Ini</h6>
+                        <h6 class="font-extrabold mb-0">112</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- End of Statistics --}}
+
     @include('utilities.alert-flash-message')
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
