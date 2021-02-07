@@ -6,7 +6,7 @@
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
-                data-bs-target="#addSchoolClassModal">
+                data-bs-target="#addCashTransactionModal">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
         </div>
@@ -72,7 +72,7 @@
 @endsection
 
 @push('modal')
-{{--  --}}
+@include('admin.cash_transactions.modal.create')
 @endpush
 
 @push('js')
