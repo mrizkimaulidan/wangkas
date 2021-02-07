@@ -15,10 +15,11 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">NIS/NISN</th>
                     <th scope="col">Nama Lengkap</th>
                     <th scope="col">Kelas</th>
                     <th scope="col">Jurusan</th>
-                    <th scope="col">Tahun Ajaran</th>
+                    <th scope="col">TA</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
@@ -26,6 +27,7 @@
                 @foreach ($students as $student)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
+                    <td>{{ $student->student_identification_number }}</td>
                     <td>{{ $student->name }}</td>
                     <td>{{ $student->school_classes->name }}
                     <td>{{ $student->school_majors->name }}</td>
