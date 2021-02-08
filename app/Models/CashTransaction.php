@@ -16,4 +16,9 @@ class CashTransaction extends Model
     {
         return $this->belongsTo(Student::class, 'student_id', 'id');
     }
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }

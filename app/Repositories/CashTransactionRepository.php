@@ -8,12 +8,19 @@ use Illuminate\Http\Request;
 
 class CashTransactionRepository extends Controller
 {
-    public function __construct(
-        private CashTransaction $model
-    ) {
+    private $model;
+
+    public function __construct(CashTransaction $model)
+    {
+        $this->model = $model->with('students', 'users');
     }
 
-    public function cashTransactionLatest()
+    /**
+     * Ambil seluruh data paling terbaru pada tabel cash_transactions pada database.
+     *
+     * @return Object
+     */
+    public function cashTransactionLatest(): Object
     {
         return $this->model->latest()->get();
     }
@@ -35,5 +42,16 @@ class CashTransactionRepository extends Controller
             'date' => $request->date,
             'note' => $request->note
         ]);
+    }
+
+    /**
+     * Ambil single data kas di tabel cash_transaction berdasarkan id di parameter.
+     *
+     * @param string $id
+     * @return Object
+     */
+    public function findCashTransaction(string $id): Object
+    {
+        return $this->model->findOrFail($id);
     }
 }

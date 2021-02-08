@@ -351,8 +351,9 @@
                     <td>
                         <div class=" btn-group" role="group">
                             <div class="mx-1">
-                                <button type="button" data-id="#" class="btn btn-primary btn-sm school-class-detail"
-                                    data-bs-toggle="modal" data-bs-target="#showSchoolClassModal">
+                                <button type="button" data-id="{{ $cash_transaction->id }}"
+                                    class="btn btn-primary btn-sm cash-transaction-detail" data-bs-toggle="modal"
+                                    data-bs-target="#showCashTransactionModal">
                                     <i class="bi bi-search"></i>
                                 </button>
                             </div>
@@ -384,8 +385,9 @@
 
 @push('modal')
 @include('admin.cash_transactions.modal.create')
+@include('admin.cash_transactions.modal.show')
 @endpush
 
 @push('js')
-{{--  --}}
+@include('admin.cash_transactions.script')
 @endpush

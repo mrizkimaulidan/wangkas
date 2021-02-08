@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\v1\AdministratorController;
+use App\Http\Controllers\API\v1\CashTransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\v1\SchoolClassController;
@@ -28,5 +29,6 @@ Route::name('api.')->prefix('v1')->group(function () {
         'siswa' => StudentController::class,
         'jurusan' => SchoolMajorController::class,
         'administrator' => AdministratorController::class,
+        'kas' => CashTransactionController::class,
     ]);
 });
