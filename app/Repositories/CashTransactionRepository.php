@@ -4,16 +4,18 @@ namespace App\Repositories;
 
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
+use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CashTransactionRepository extends Controller
 {
-    private $model;
+    private $model, $students;
 
-    public function __construct(CashTransaction $model)
+    public function __construct(CashTransaction $model, Student $students)
     {
         $this->model = $model;
+        $this->students = $students;
     }
 
     /**
@@ -110,5 +112,26 @@ class CashTransactionRepository extends Controller
         return $this->model->whereYear('date', $year)
             ->whereMonth('date', $month)
             ->sum('amount');
+    }
+
+    /**
+     * Ambil data pelajar yang belum membayar uang kas pada tahun dan bulan ini.
+     *
+     * @param string $limit
+     * @return Object
+     */
+    public function getStudentWhoStillNotPaid(string $limit = null): Object
+    {
+        $cash_transactions = $this->model->whereYear('date', date('Y'))->whereMonth('date', date('m'))->pluck('student_id')->all();
+
+        // Jika $limit === null.
+        // Tampilkan seluruh pelajar.
+        if (is_null($limit)) {
+            return $this->students->whereNotIn('id', $cash_transactions)->get();
+        }
+
+        // Jika limit !== null.
+        // Tampilkan pelajar dengan limit sesuai di parameter.
+        return $this->students->whereNotIn('id', $cash_transactions)->orderBy('name', 'asc')->take($limit)->get();
     }
 }
