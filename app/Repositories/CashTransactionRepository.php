@@ -101,15 +101,17 @@ class CashTransactionRepository extends Controller
      */
     public function sumAmountFieldByYearAndMonth(string $year, string $month = null): Int
     {
+        $model = $this->model->where('is_paid', 1);
+
         // Jika $year ada dan $month === null.
         // Berarti hanya hitung total kolom amount berdasarkan tahun saja.
         if (is_null($month)) {
-            return $this->model->whereYear('date', $year)->sum('amount');
+            return $model->whereYear('date', $year)->sum('amount');
         }
 
         // Jika $year ada dan $month != null.
         // Berarti hitung total kolom amount berdasarkan tahun dan bulan.
-        return $this->model->whereYear('date', $year)
+        return $model->whereYear('date', $year)
             ->whereMonth('date', $month)
             ->sum('amount');
     }
