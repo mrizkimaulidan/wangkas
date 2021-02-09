@@ -22,7 +22,7 @@ class CashTransactionRepository extends Controller
      */
     public function cashTransactionLatest(): Object
     {
-        return $this->model->latest()->get();
+        return $this->model->with('students', 'users')->latest()->get();
     }
 
     /**
