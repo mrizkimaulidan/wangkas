@@ -10,12 +10,13 @@ use Illuminate\Http\Request;
 
 class CashTransactionRepository extends Controller
 {
-    private $model, $students;
+    private $model, $students, $cash_transactions;
 
     public function __construct(CashTransaction $model, Student $students)
     {
         $this->model = $model;
         $this->students = $students;
+        $this->cash_transactions = $model->whereYear('date', date('Y'))->whereMonth('date', date('m'))->pluck('student_id');
     }
 
     /**
@@ -124,7 +125,7 @@ class CashTransactionRepository extends Controller
      */
     public function getStudentWhoStillNotPaid(string $limit = null): Object
     {
-        $cash_transactions = $this->model->whereYear('date', date('Y'))->whereMonth('date', date('m'))->pluck('student_id')->all();
+        $cash_transactions = $this->cash_transactions->all();
 
         // Jika $limit === null.
         // Tampilkan seluruh pelajar.
@@ -135,5 +136,14 @@ class CashTransactionRepository extends Controller
         // Jika limit !== null.
         // Tampilkan pelajar dengan limit sesuai di parameter.
         return $this->students->whereNotIn('id', $cash_transactions)->orderBy('name', 'asc')->take($limit)->get();
+    }
+
+    public function countStudentWhoPaidOrNotPaid(bool $is_paid): Int
+    {
+        if ($is_paid) {
+            return $this->cash_transactions->count();
+        }
+
+        return $this->students->whereNotIn('id', $this->cash_transactions)->orderBy('name', 'asc')->count();
     }
 }

@@ -29,7 +29,9 @@ class CashTransactionController extends Controller
             'total_this_month' => indonesian_currency($this->cashTransactionRepository->sumAmountFieldByYearAndMonth(year: date('Y'), month: date('m'))),
             'total_this_year' => indonesian_currency($this->cashTransactionRepository->sumAmountFieldByYearAndMonth(year: date('Y'))),
             'students_still_not_paid_by_limit' => $this->cashTransactionRepository->getStudentWhoStillNotPaid(6),
-            'students_still_not_paid' => $this->cashTransactionRepository->getStudentWhoStillNotPaid()
+            'students_still_not_paid' => $this->cashTransactionRepository->getStudentWhoStillNotPaid(),
+            'student_who_paid_count' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaid(true),
+            'student_who_still_not_paid' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaid(false)
         ]);
     }
 
