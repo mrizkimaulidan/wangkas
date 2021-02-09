@@ -87,7 +87,7 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <h6 class="text-muted font-semibold">Sudah Membayar</h6>
+                        <h6 class="text-muted font-semibold">Sudah Membayar Bulan Ini</h6>
                         <h6 class="font-extrabold mb-0">
                             1</h6>
                     </div>
@@ -106,7 +106,7 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <h6 class="text-muted font-semibold">Belum Membayar</h6>
+                        <h6 class="text-muted font-semibold">Belum Membayar Bulan Ini</h6>
                         <h6 class="font-extrabold mb-0">
                             1</h6>
                     </div>
