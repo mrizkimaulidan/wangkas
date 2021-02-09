@@ -25,6 +25,20 @@ class CashTransactionRepository extends Controller
         return $this->model->latest()->get();
     }
 
+    public function update(Request $request, string $id): Bool
+    {
+        $this->model = $this->findCashTransaction($id);
+
+        return $this->model->update([
+            'student_id' => $request->student_id,
+            'bill' => $request->bill,
+            'amount' => $request->amount,
+            'is_paid' => $request->is_paid,
+            'date' => $request->date,
+            'note' => $request->note
+        ]);
+    }
+
     /**
      * Tambah data ke tabel cash_transactions pada database.
      *

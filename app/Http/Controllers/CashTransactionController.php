@@ -81,7 +81,9 @@ class CashTransactionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->cashTransactionRepository->update($request, $id);
+
+        return redirect()->route('admin.kas.index')->with('success', 'Data berhasil diubah!');
     }
 
     /**

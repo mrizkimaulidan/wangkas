@@ -359,8 +359,9 @@
                             </div>
 
                             <div class="mx-1">
-                                <button type="button" data-id="#" class="btn btn-success btn-sm school-class-edit"
-                                    data-bs-toggle="modal" data-bs-target="#editSchoolClassModal">
+                                <button type="button" data-id="{{ $cash_transaction->id }}"
+                                    class="btn btn-success btn-sm cash-transaction-edit" data-bs-toggle="modal"
+                                    data-bs-target="#editCashTransactionModal">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </div>
@@ -386,6 +387,7 @@
 @push('modal')
 @include('admin.cash_transactions.modal.create')
 @include('admin.cash_transactions.modal.show')
+@include('admin.cash_transactions.modal.edit')
 @endpush
 
 @push('js')

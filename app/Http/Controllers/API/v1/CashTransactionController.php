@@ -26,11 +26,13 @@ class CashTransactionController extends Controller
 
         $response = [
             'user_id' => $data->users->name,
-            'student_id' => $data->students->name,
+            'student_name' => $data->students->name,
+            'student_id' => $data->students->id,
             'bill' => $data->bill,
             'amount' => $data->amount,
             'is_paid' => $data->is_paid === 1 ? 'Lunas' : 'Belum Lunas',
             'date' => date('d-m-Y', strtotime($data->date)),
+            'date_update' => $data->date,
             'note' => $data->note
         ];
 
