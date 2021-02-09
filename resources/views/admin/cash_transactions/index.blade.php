@@ -52,7 +52,7 @@
                     <div class="col-md-8">
                         <h6 class="text-muted font-semibold">Total Bulan Ini</h6>
                         <h6 class="font-extrabold mb-0">
-                            1</h6>
+                            {{ $total_this_month }}</h6>
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                     <div class="col-md-8">
                         <h6 class="text-muted font-semibold">Total Tahun Ini</h6>
                         <h6 class="font-extrabold mb-0">
-                            1</h6>
+                            {{ $total_this_year }}</h6>
                     </div>
                 </div>
             </div>

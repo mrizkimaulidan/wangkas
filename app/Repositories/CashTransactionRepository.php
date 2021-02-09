@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class CashTransactionRepository extends Controller
@@ -85,5 +86,29 @@ class CashTransactionRepository extends Controller
     public function countPaidOrNotPaid(bool $paid_status): Int
     {
         return $this->model->where('is_paid', $paid_status)->count();
+    }
+
+    /**
+     * Hitung total kolom amount.
+     * Jika $year ada/tidak null maka hitung total kolom amount berdasarkan tahun di parameter.
+     * JIka ingin menghitung total kolom amount `hanya` bulan ini.. wajib passing tahunnya berapa.
+     * 
+     * @param string $year
+     * @param string $month
+     * @return Int
+     */
+    public function sumAmountFieldByYearAndMonth(string $year, string $month = null): Int
+    {
+        // Jika $year ada dan $month === null.
+        // Berarti hanya hitung total kolom amount berdasarkan tahun saja.
+        if (is_null($month)) {
+            return $this->model->whereYear('date', $year)->sum('amount');
+        }
+
+        // Jika $year ada dan $month != null.
+        // Berarti hitung total kolom amount berdasarkan tahun dan bulan.
+        return $this->model->whereYear('date', $year)
+            ->whereMonth('date', $month)
+            ->sum('amount');
     }
 }

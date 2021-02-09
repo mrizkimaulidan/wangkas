@@ -25,7 +25,9 @@ class CashTransactionController extends Controller
             'cash_transactions' => $this->cashTransactionRepository->cashTransactionLatest(),
             'students' => $this->studentRepository->studentsOrderBy('name')->get(),
             'has_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(true),
-            'has_not_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(false)
+            'has_not_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(false),
+            'total_this_month' => indonesian_currency($this->cashTransactionRepository->sumAmountFieldByYearAndMonth(year: date('Y'), month: date('m'))),
+            'total_this_year' => indonesian_currency($this->cashTransactionRepository->sumAmountFieldByYearAndMonth(year: date('Y')))
         ]);
     }
 
