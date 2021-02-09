@@ -15,7 +15,7 @@
                     <div class="col-md-8">
                         <h6 class="text-muted font-semibold">Lunas</h6>
                         <h6 class="font-extrabold mb-0">
-                            1</h6>
+                            {{ $has_paid_count }}</h6>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                     <div class="col-md-8">
                         <h6 class="text-muted font-semibold">Belum Lunas</h6>
                         <h6 class="font-extrabold mb-0">
-                            1</h6>
+                            {{ $has_not_paid_count }}</h6>
                     </div>
                 </div>
             </div>

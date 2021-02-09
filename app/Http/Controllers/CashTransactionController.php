@@ -23,7 +23,9 @@ class CashTransactionController extends Controller
     {
         return view('admin.cash_transactions.index', [
             'cash_transactions' => $this->cashTransactionRepository->cashTransactionLatest(),
-            'students' => $this->studentRepository->studentsOrderBy('name')->get()
+            'students' => $this->studentRepository->studentsOrderBy('name')->get(),
+            'has_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(true),
+            'has_not_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(false)
         ]);
     }
 

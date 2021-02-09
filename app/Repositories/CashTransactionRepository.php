@@ -12,7 +12,7 @@ class CashTransactionRepository extends Controller
 
     public function __construct(CashTransaction $model)
     {
-        $this->model = $model->with('students', 'users');
+        $this->model = $model;
     }
 
     /**
@@ -74,5 +74,16 @@ class CashTransactionRepository extends Controller
     public function findCashTransaction(string $id): Object
     {
         return $this->model->findOrFail($id);
+    }
+
+    /**
+     * Hitung status lunas atau belum lunas berdasarkan parameter.
+     *
+     * @param bool $paid_status
+     * @return Int
+     */
+    public function countPaidOrNotPaid(bool $paid_status): Int
+    {
+        return $this->model->where('is_paid', $paid_status)->count();
     }
 }
