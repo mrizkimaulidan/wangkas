@@ -25,6 +25,13 @@ class CashTransactionRepository extends Controller
         return $this->model->latest()->get();
     }
 
+    /**
+     * Ubah data kas di tabel cash_transactions pada database sesuai dengan id kas tersebut.
+     *
+     * @param Request $request
+     * @param string $id
+     * @return Bool
+     */
     public function update(Request $request, string $id): Bool
     {
         $this->model = $this->findCashTransaction($id);
