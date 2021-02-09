@@ -94,6 +94,8 @@ class CashTransactionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->cashTransactionRepository->findCashTransaction($id)->delete();
+
+        return redirect()->route('admin.kas.index')->with('success', 'Data berhasil dihapus!');
     }
 }
