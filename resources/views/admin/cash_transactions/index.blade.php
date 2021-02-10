@@ -87,9 +87,9 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <h6 class="text-muted font-semibold">Sudah Membayar Bulan Ini</h6>
+                        <h6 class="text-muted font-semibold">Sudah Membayar Minggu Ini</h6>
                         <h6 class="font-extrabold mb-0">
-                            {{ $student_who_paid_count }}</h6>
+                            {{ $count_student_who_paid_this_week }}</h6>
                     </div>
                 </div>
             </div>
@@ -106,9 +106,9 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <h6 class="text-muted font-semibold">Belum Membayar Bulan Ini</h6>
+                        <h6 class="text-muted font-semibold">Belum Membayar Minggu Ini</h6>
                         <h6 class="font-extrabold mb-0">
-                            {{ $student_who_still_not_paid }}</h6>
+                            {{ $count_student_who_not_paid_this_week }}</h6>
                     </div>
                 </div>
             </div>
@@ -118,17 +118,17 @@
     <div class="col-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4>Belum Membayar Bulan Ini</h4>
+                <h4>Belum Membayar Minggu Ini</h4>
             </div>
             <div class="card-content pb-4">
                 <div class="row">
-                    @foreach($students_still_not_paid_by_limit as $student_still_not_paid_by_limit)
+                    @foreach($students_who_not_paid_this_week_by_limit as $student_who_not_paid_this_week_by_limit)
                     <div class="col-6 col-lg-6 col-md-6">
                         <div class="recent-message d-flex px-4 py-3">
                             <div class="name ms-4">
-                                <h5 class="mb-1">{{ $student_still_not_paid_by_limit->name }}</h5>
+                                <h5 class="mb-1">{{ $student_who_not_paid_this_week_by_limit->name }}</h5>
                                 <h6 class="text-muted mb-0">
-                                    {{ $student_still_not_paid_by_limit->student_identification_number }}</h6>
+                                    {{ $student_who_not_paid_this_week_by_limit->student_identification_number }}</h6>
                             </div>
                         </div>
                     </div>

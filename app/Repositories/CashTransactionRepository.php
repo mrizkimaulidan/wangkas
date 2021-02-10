@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
 use App\Models\Student;
 use Carbon\Carbon;
+use DB;
 use Illuminate\Http\Request;
 
 class CashTransactionRepository extends Controller
@@ -107,13 +108,60 @@ class CashTransactionRepository extends Controller
         // Jika $year ada dan $month === null.
         // Berarti hanya hitung total kolom amount berdasarkan tahun saja.
         if (is_null($month)) {
-            return $model->whereYear('date', $year)->sum('amount');
+            return $model->whereDay('date', $year)->sum('amount');
         }
 
         // Jika $year ada dan $month != null.
         // Berarti hitung total kolom amount berdasarkan tahun dan bulan.
         return $model->whereYear('date', $year)
             ->whereMonth('date', $month)
+            ->sum('amount');
+    }
+
+    public function countStudentWhoPaidOrNotPaidThisWeek(bool $is_paid): Int
+    {
+        $cash_transactions = DB::table('cash_transactions')
+            ->where('date', '>',  Carbon::now()->startOfWeek())
+            ->where('date', '<', Carbon::now()->endOfWeek())->pluck('student_id');
+
+        if ($is_paid) {
+            return $this->students->whereIn('id', $cash_transactions)->count();
+        }
+
+        return $this->students->whereNotIn('id', $cash_transactions)->count();
+    }
+
+    /**
+     * Ambil data siswa yang belum membayar uang kas pada minggu ini.
+     *
+     * @param string $limit
+     * @return Object
+     */
+    public function getStudentWhoNotPaidThisWeek(string $limit = null): Object
+    {
+        $cash_transactions = DB::table('cash_transactions')
+            ->where('date', '>',  Carbon::now()->startOfWeek())
+            ->where('date', '<', Carbon::now()->endOfWeek())->pluck('student_id');
+
+        // Jika limit === null maka tampilkan seluruh data siswa yang belum membayar minggu ini.
+        if (is_null($limit)) {
+            return $this->students->whereNotIn('id', $cash_transactions)->orderBy('name')->get();
+        }
+
+        // Jika limit !== null maka tampilkan data siswa yang belum membayar minggu ini dengan limit.
+        return $this->students->whereNotIn('id', $cash_transactions)->orderBy('name')->take($limit)->get();
+    }
+
+    /**
+     * Hitung total kas pada tahun sekarang ini.
+     *
+     * @return Int
+     */
+    public function sumAmountByThisYear(): Int
+    {
+        $model = $this->model->where('is_paid', 1);
+
+        return $model->whereYear('date', date('Y'))
             ->sum('amount');
     }
 

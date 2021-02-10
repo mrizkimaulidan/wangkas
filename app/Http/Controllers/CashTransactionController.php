@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\CashTransactionRepository;
-use App\Repositories\StudentRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Repositories\StudentRepository;
+use App\Repositories\CashTransactionRepository;
 
 class CashTransactionController extends Controller
 {
@@ -27,11 +28,14 @@ class CashTransactionController extends Controller
             'has_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(true),
             'has_not_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(false),
             'total_this_month' => indonesian_currency($this->cashTransactionRepository->sumAmountFieldByYearAndMonth(year: date('Y'), month: date('m'))),
-            'total_this_year' => indonesian_currency($this->cashTransactionRepository->sumAmountFieldByYearAndMonth(year: date('Y'))),
             'students_still_not_paid_by_limit' => $this->cashTransactionRepository->getStudentWhoStillNotPaid(6),
             'students_still_not_paid' => $this->cashTransactionRepository->getStudentWhoStillNotPaid(),
             'student_who_paid_count' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaid(true),
-            'student_who_still_not_paid' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaid(false)
+            'student_who_still_not_paid' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaid(false),
+            'count_student_who_paid_this_week' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaidThisWeek(true),
+            'count_student_who_not_paid_this_week' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaidThisWeek(false),
+            'students_who_not_paid_this_week_by_limit' => $this->cashTransactionRepository->getStudentWhoNotPaidThisWeek(6),
+            'total_this_year' => indonesian_currency($this->cashTransactionRepository->sumAmountByThisYear())
         ]);
     }
 
