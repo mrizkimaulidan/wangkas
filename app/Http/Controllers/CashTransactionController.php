@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\CashTransactionRepository;
-use App\Repositories\StudentRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Repositories\StudentRepository;
+use App\Repositories\CashTransactionRepository;
 
 class CashTransactionController extends Controller
 {
@@ -23,7 +24,14 @@ class CashTransactionController extends Controller
     {
         return view('admin.cash_transactions.index', [
             'cash_transactions' => $this->cashTransactionRepository->cashTransactionLatest(),
-            'students' => $this->studentRepository->studentsOrderBy('name')->get()
+            'students' => $this->studentRepository->studentsOrderBy('name')->get(),
+            'has_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(true),
+            'has_not_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(false),
+            'count_student_who_paid_this_week' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaidThisWeek(true),
+            'count_student_who_not_paid_this_week' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaidThisWeek(false),
+            'students_who_not_paid_this_week_by_limit' => $this->cashTransactionRepository->getStudentWhoNotPaidThisWeek(6),
+            'total_this_year' => indonesian_currency($this->cashTransactionRepository->sumAmountBy('year', year: date('Y'))),
+            'total_this_month' => indonesian_currency($this->cashTransactionRepository->sumAmountBy('month', month: date('m'))),
         ]);
     }
 

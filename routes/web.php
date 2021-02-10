@@ -1,13 +1,12 @@
 <?php
 
-use App\Http\Controllers\AdministratorController;
-use App\Http\Controllers\API\v1\SchoolClassController as V1SchoolClassController;
-use App\Http\Controllers\CashTransactionController;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\SchoolMajorController;
-use App\Http\Controllers\StudentController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdministratorController;
+use App\Http\Controllers\CashTransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,11 +26,11 @@ Route::get('/', function () {
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
 Route::name('admin.')->group(function () {
-    Route::resource('siswa', StudentController::class);
-    Route::resource('kelas', SchoolClassController::class);
-    Route::resource('jurusan', SchoolMajorController::class);
-    Route::resource('administrator', AdministratorController::class);
-    Route::resource('kas', CashTransactionController::class);
+    Route::resource('siswa', StudentController::class)->except('create', 'show', 'edit');
+    Route::resource('kelas', SchoolClassController::class)->except('create', 'show', 'edit');
+    Route::resource('jurusan', SchoolMajorController::class)->except('create', 'show', 'edit');
+    Route::resource('administrator', AdministratorController::class)->except('create', 'show', 'edit');
+    Route::resource('kas', CashTransactionController::class)->except('create', 'show', 'edit');
 });
 
 require __DIR__ . '/auth.php';
