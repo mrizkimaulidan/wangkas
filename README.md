@@ -20,8 +20,8 @@ Jika Anda menggunakan XAMPP, untuk PHP dan MySQL sudah menjadi 1 (bundle) didala
 -   CRUD Data Siswa
 -   CRUD Data Kelas
 -   CRUD Data Jurusan
--   CRUD Data Transaksi Uang Kas **(ongoing)**
--   CRUD Data Administrator **(ongoing)**
+-   CRUD Data Transaksi Uang Kas
+-   CRUD Data Administrator
 
 ### Langkah-langkah instalasi
 
