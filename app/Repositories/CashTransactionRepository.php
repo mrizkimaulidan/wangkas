@@ -125,6 +125,15 @@ class CashTransactionRepository extends Controller
         return $model->sum('amount');
     }
 
+    /**
+     * Hitung siswa yang sudah atau belum membayar pada minggu ini.
+     * 
+     * Jika $is_paid === true, maka hitung berapa siswa yang sudah membayar pada minggu ini.
+     * Jika $is_paid === false, maka hitung berapa siswa yang belum membayar pada minggu ini.
+     *
+     * @param boolean $is_paid
+     * @return Int
+     */
     public function countStudentWhoPaidOrNotPaidThisWeek(bool $is_paid): Int
     {
         if ($is_paid) {
