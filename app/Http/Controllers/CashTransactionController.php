@@ -30,8 +30,8 @@ class CashTransactionController extends Controller
             'count_student_who_paid_this_week' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaidThisWeek(true),
             'count_student_who_not_paid_this_week' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaidThisWeek(false),
             'students_who_not_paid_this_week_by_limit' => $this->cashTransactionRepository->getStudentWhoNotPaidThisWeek(6),
-            'total_this_month' => indonesian_currency($this->cashTransactionRepository->sumAmountBy(start_week: Carbon::now()->startOfWeek(), end_week: Carbon::now()->endOfWeek())),
-            'total_this_year' => indonesian_currency($this->cashTransactionRepository->sumAmountBy(year: date('Y')))
+            'total_this_year' => indonesian_currency($this->cashTransactionRepository->sumAmountBy('year', year: date('Y'))),
+            'total_this_month' => indonesian_currency($this->cashTransactionRepository->sumAmountBy('month', month: date('m'))),
         ]);
     }
 

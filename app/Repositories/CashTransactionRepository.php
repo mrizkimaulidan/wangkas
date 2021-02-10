@@ -11,13 +11,13 @@ use Illuminate\Http\Request;
 
 class CashTransactionRepository extends Controller
 {
-    private $model, $students, $cash_transactions;
+    private $model, $students, $cash_transaction_is_paid;
 
     public function __construct(CashTransaction $model, Student $students)
     {
         $this->model = $model;
         $this->students = $students;
-        $this->cash_transactions = $model->whereYear('date', date('Y'))->whereMonth('date', date('m'))->pluck('student_id');
+        $this->cash_transaction_is_paid = $model->where('is_paid', 1);
     }
 
     /**
@@ -92,16 +92,36 @@ class CashTransactionRepository extends Controller
         return $this->model->where('is_paid', $paid_status)->count();
     }
 
-    public function sumAmountBy(string $year = null, object $start_week = null, object $end_week = null): Int
+    /**
+     * Hitung total kolom amount di tabel cash_transactions berdasarkan tahun atau minggu.
+     * 
+     * Jika $status === `year` dan variabel $year ada isinya, maka hitung total kolom amount di tabel cash_transaction berdasarkan tahun sesuai di parameter.
+     * Jika $status === `month` dan variabel $month ada isinya, maka hitung total kolom amount di tabel cash_transaction berdasarkan bulan sesuai di parameter.
+     *
+     * Jika $status === `year` maka hanya isi parameter $year.
+     * jika $status === `month` maka hanya isi parameter $month.
+     * 
+     * @param string $year adalah tahun, contoh : 2021, 2022, 2023, dst..
+     * @param string $month adalah bulan dengan 0, contoh : 01, 02, 03, dst..
+     * @return Int
+     */
+    public function sumAmountBy(string $status, string $year = null, string $month = null): Int
     {
-        $model = $this->model->where('is_paid', 1);
+        $status_lowercase = strtolower($status);
 
-        if (!is_null($year)) {
-            return $model->whereYear('date', $year)->sum('amount');
+        $model = $this->cash_transaction_is_paid;
+
+        // Jika $status === `year` dan variabel $year ada isinya, maka hitung kolom amount berdasarkan tahun di parameter.
+        if ($status_lowercase === 'year' && isset($year)) {
+            $model->whereYear('date', $year);
         }
 
-        return $model->where('date', '>', $start_week)
-            ->where('date', '<', $end_week)->sum('amount');
+        // Jika $status === `month` dan variabel $month ada isinya, maka hitung kolom amount berdasarkan bulan di parameter.
+        if ($status_lowercase === 'month' && isset($month)) {
+            $model->whereYear('date', date('Y'))->whereMonth('date', $month);
+        }
+
+        return $model->sum('amount');
     }
 
     public function countStudentWhoPaidOrNotPaidThisWeek(bool $is_paid): Int
