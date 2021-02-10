@@ -165,27 +165,6 @@ class CashTransactionRepository extends Controller
             ->sum('amount');
     }
 
-    /**
-     * Ambil data pelajar yang belum membayar uang kas pada tahun dan bulan ini.
-     *
-     * @param string $limit
-     * @return Object
-     */
-    public function getStudentWhoStillNotPaid(string $limit = null): Object
-    {
-        $cash_transactions = $this->cash_transactions->all();
-
-        // Jika $limit === null.
-        // Tampilkan seluruh pelajar.
-        if (is_null($limit)) {
-            return $this->students->whereNotIn('id', $cash_transactions)->get();
-        }
-
-        // Jika limit !== null.
-        // Tampilkan pelajar dengan limit sesuai di parameter.
-        return $this->students->whereNotIn('id', $cash_transactions)->orderBy('name', 'asc')->take($limit)->get();
-    }
-
     public function countStudentWhoPaidOrNotPaid(bool $is_paid): Int
     {
         if ($is_paid) {
