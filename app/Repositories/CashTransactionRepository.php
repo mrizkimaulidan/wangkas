@@ -92,30 +92,16 @@ class CashTransactionRepository extends Controller
         return $this->model->where('is_paid', $paid_status)->count();
     }
 
-    /**
-     * Hitung total kolom amount.
-     * Jika $year ada/tidak null maka hitung total kolom amount berdasarkan tahun di parameter.
-     * JIka ingin menghitung total kolom amount `hanya` bulan ini.. wajib passing tahunnya berapa.
-     * 
-     * @param string $year
-     * @param string $month
-     * @return Int
-     */
-    public function sumAmountFieldByYearAndMonth(string $year, string $month = null): Int
+    public function sumAmountBy(string $year = null, object $start_week = null, object $end_week = null): Int
     {
         $model = $this->model->where('is_paid', 1);
 
-        // Jika $year ada dan $month === null.
-        // Berarti hanya hitung total kolom amount berdasarkan tahun saja.
-        if (is_null($month)) {
-            return $model->whereDay('date', $year)->sum('amount');
+        if (!is_null($year)) {
+            return $model->whereYear('date', $year)->sum('amount');
         }
 
-        // Jika $year ada dan $month != null.
-        // Berarti hitung total kolom amount berdasarkan tahun dan bulan.
-        return $model->whereYear('date', $year)
-            ->whereMonth('date', $month)
-            ->sum('amount');
+        return $model->where('date', '>', $start_week)
+            ->where('date', '<', $end_week)->sum('amount');
     }
 
     public function countStudentWhoPaidOrNotPaidThisWeek(bool $is_paid): Int
@@ -150,27 +136,5 @@ class CashTransactionRepository extends Controller
 
         // Jika limit !== null maka tampilkan data siswa yang belum membayar minggu ini dengan limit.
         return $this->students->whereNotIn('id', $cash_transactions)->orderBy('name')->take($limit)->get();
-    }
-
-    /**
-     * Hitung total kas pada tahun sekarang ini.
-     *
-     * @return Int
-     */
-    public function sumAmountByThisYear(): Int
-    {
-        $model = $this->model->where('is_paid', 1);
-
-        return $model->whereYear('date', date('Y'))
-            ->sum('amount');
-    }
-
-    public function countStudentWhoPaidOrNotPaid(bool $is_paid): Int
-    {
-        if ($is_paid) {
-            return $this->cash_transactions->count();
-        }
-
-        return $this->students->whereNotIn('id', $this->cash_transactions)->orderBy('name', 'asc')->count();
     }
 }
