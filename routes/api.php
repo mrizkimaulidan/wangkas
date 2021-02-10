@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\v1\StudentController;
+use App\Http\Controllers\API\v1\SchoolClassController;
+use App\Http\Controllers\API\v1\SchoolMajorController;
+use App\Http\Controllers\API\v1\AdministratorController;
+use App\Http\Controllers\API\v1\CashTransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::name('api.')->namespace('App\Http\Controllers\API\v1')->prefix('v1')->group(function () {
+Route::name('api.')->prefix('v1')->group(function () {
     Route::get('/kelas/{id}', [SchoolClassController::class, 'show'])->name('kelas.show');
     Route::get('/siswa/{id}', [StudentController::class, 'show'])->name('siswa.show');
     Route::get('/jurusan/{id}', [SchoolMajorController::class, 'show'])->name('jurusan.show');
