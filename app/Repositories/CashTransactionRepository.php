@@ -11,13 +11,14 @@ use Illuminate\Http\Request;
 
 class CashTransactionRepository extends Controller
 {
-    private $model, $students, $cash_transaction_is_paid;
+    private $model, $students, $cash_transaction_is_paid, $pluck_student_id;
 
     public function __construct(CashTransaction $model, Student $students)
     {
         $this->model = $model;
         $this->students = $students;
         $this->cash_transaction_is_paid = $model->where('is_paid', 1);
+        $this->pluck_student_id = DB::table('cash_transactions')->where('date', '>',  Carbon::now()->startOfWeek())->where('date', '<', Carbon::now()->endOfWeek())->pluck('student_id');
     }
 
     /**
@@ -126,15 +127,11 @@ class CashTransactionRepository extends Controller
 
     public function countStudentWhoPaidOrNotPaidThisWeek(bool $is_paid): Int
     {
-        $cash_transactions = DB::table('cash_transactions')
-            ->where('date', '>',  Carbon::now()->startOfWeek())
-            ->where('date', '<', Carbon::now()->endOfWeek())->pluck('student_id');
-
         if ($is_paid) {
-            return $this->students->whereIn('id', $cash_transactions)->count();
+            return $this->students->whereIn('id', $this->pluck_student_id)->count();
         }
 
-        return $this->students->whereNotIn('id', $cash_transactions)->count();
+        return $this->students->whereNotIn('id', $this->pluck_student_id)->count();
     }
 
     /**
@@ -145,16 +142,12 @@ class CashTransactionRepository extends Controller
      */
     public function getStudentWhoNotPaidThisWeek(string $limit = null): Object
     {
-        $cash_transactions = DB::table('cash_transactions')
-            ->where('date', '>',  Carbon::now()->startOfWeek())
-            ->where('date', '<', Carbon::now()->endOfWeek())->pluck('student_id');
-
         // Jika limit === null maka tampilkan seluruh data siswa yang belum membayar minggu ini.
         if (is_null($limit)) {
-            return $this->students->whereNotIn('id', $cash_transactions)->orderBy('name')->get();
+            return $this->students->whereNotIn('id', $this->pluck_student_id)->orderBy('name')->get();
         }
 
         // Jika limit !== null maka tampilkan data siswa yang belum membayar minggu ini dengan limit.
-        return $this->students->whereNotIn('id', $cash_transactions)->orderBy('name')->take($limit)->get();
+        return $this->students->whereNotIn('id', $this->pluck_student_id)->orderBy('name')->take($limit)->get();
     }
 }
