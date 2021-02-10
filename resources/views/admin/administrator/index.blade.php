@@ -37,7 +37,7 @@
                                     <i class="bi bi-search"></i>
                                 </button>
                             </div>
-
+                            @if(auth()->user()->id === $administrator->id)
                             <div class="mx-1">
                                 <button type="button" data-id="{{ $administrator->id }}"
                                     class="btn btn-success btn-sm administrator-edit" data-bs-toggle="modal"
@@ -45,7 +45,11 @@
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </div>
-
+                            @endif
+                            @if(auth()->user()->id !== $administrator->id)
+                            <div style="margin-left: 50%">
+                            </div>
+                            @endif
                             <div class="mx-1">
                                 <form action="{{ route('admin.administrator.destroy', $administrator->id) }}"
                                     method="POST">
