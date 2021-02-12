@@ -123,7 +123,7 @@
             <div class="px-4">
                 <button type="button" class='btn btn-block btn-xl btn-light-danger font-bold mt-3'
                     data-bs-toggle="modal" data-bs-target="#lookMoreModal">Ada
-                    <b>{{ count($get_all_students_who_not_paid_this_week) }}</b> orang belum membayar pada minggu
+                    <b>{{ $count_student_who_not_paid_this_week }}</b> orang belum membayar pada minggu
                     ini!</button>
             </div>
             <span class="badge rounded-pill bg-warning mb-3"></span>

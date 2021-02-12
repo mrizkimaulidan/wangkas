@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <span class="badge rounded-pill bg-warning mb-3">Ada
-                                {{ count($get_all_students_who_not_paid_this_week) }} orang belum membayar pada minggu
+                                {{ $count_student_who_not_paid_this_week }} orang belum membayar pada minggu
                                 ini!</span>
                         </div>
                     </div>
