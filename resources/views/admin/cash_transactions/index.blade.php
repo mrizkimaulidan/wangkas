@@ -118,8 +118,15 @@
     <div class="col-12 col-lg-12 col-md-12">
         <div class="card">
             <div class="card-header">
-                <h4>Belum Membayar Minggu Ini</h4>
+                <h4>Belum Membayar Minggu Ini </h4>
             </div>
+            <div class="px-4">
+                <button type="button" class='btn btn-block btn-xl btn-light-danger font-bold mt-3'
+                    data-bs-toggle="modal" data-bs-target="#lookMoreModal">Ada
+                    <b>{{ count($get_all_students_who_not_paid_this_week) }}</b> orang belum membayar pada minggu
+                    ini!</button>
+            </div>
+            <span class="badge rounded-pill bg-warning mb-3"></span>
             <div class="card-content pb-4">
                 <div class="row">
                     @foreach($students_who_not_paid_this_week_by_limit as $student_who_not_paid_this_week_by_limit)
@@ -135,7 +142,9 @@
                     @endforeach
                 </div>
                 <div class="px-4">
-                    <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Lihat Selengkapnya</button>
+                    <button type="button" class='btn btn-block btn-xl btn-light-primary font-bold mt-3'
+                        data-bs-toggle="modal" data-bs-target="#lookMoreModal">Lihat
+                        Selengkapnya</button>
                 </div>
             </div>
         </div>
@@ -217,6 +226,7 @@
 @include('admin.cash_transactions.modal.create')
 @include('admin.cash_transactions.modal.show')
 @include('admin.cash_transactions.modal.edit')
+@include('admin.cash_transactions.modal.look-more')
 @endpush
 
 @push('js')
