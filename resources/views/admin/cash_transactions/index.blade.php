@@ -133,46 +133,6 @@
                         </div>
                     </div>
                     @endforeach
-                    {{-- <div class="col-6 col-lg-6 col-md-6">
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="name ms-4">
-                                <h5 class="mb-1">Buday</h5>
-                                <h6 class="text-muted mb-0">0078463816</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="name ms-4">
-                                <h5 class="mb-1">Buday</h5>
-                                <h6 class="text-muted mb-0">0078463816</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="name ms-4">
-                                <h5 class="mb-1">Buday</h5>
-                                <h6 class="text-muted mb-0">0078463816</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-6 col-md-6">
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="name ms-4">
-                                <h5 class="mb-1">Buday</h5>
-                                <h6 class="text-muted mb-0">0078463816</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="name ms-4">
-                                <h5 class="mb-1">Buday</h5>
-                                <h6 class="text-muted mb-0">0078463816</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="name ms-4">
-                                <h5 class="mb-1">Buday</h5>
-                                <h6 class="text-muted mb-0">0078463816</h6>
-                            </div>
-                        </div>
-                    </div> --}}
                 </div>
                 <div class="px-4">
                     <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Lihat Selengkapnya</button>
