@@ -25,7 +25,8 @@ class DashboardController extends Controller
             'student_count' => count_data($this->studentRepository->studentsOrderBy('name')->get()),
             'school_class_count' => count_data($this->schoolClassRepository->schoolClassesOrderBy('name')->get()),
             'school_major_count' => count_data($this->schoolMajorRepository->schoolMajorsOrderBy('name')->get()),
-            'cash_transaction_this_month' => indonesian_currency($this->cashTransactionRepository->sumAmountBy('month', month: date('m')))
+            'cash_transaction_this_month' => indonesian_currency($this->cashTransactionRepository->sumAmountBy('month', month: date('m'))),
+            'latest_cash_transactions_by_limit' => $this->cashTransactionRepository->cashTransactionLatest(5)
         ]);
     }
 }

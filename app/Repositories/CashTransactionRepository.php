@@ -26,9 +26,9 @@ class CashTransactionRepository extends Controller
      *
      * @return Object
      */
-    public function cashTransactionLatest(): Object
+    public function cashTransactionLatest(int $limit): Object
     {
-        return $this->model->with('students', 'users')->latest()->get();
+        return $this->model->with('students', 'users')->take($limit)->latest()->get();
     }
 
     /**

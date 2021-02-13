@@ -100,46 +100,39 @@
             <div class="col-12 col-xl-8">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Latest Comments</h4>
+                        <h4>5 Transaksi Terakhir</h4>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table table-hover table-lg">
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Comment</th>
+                                        <th>Nama Pelajar</th>
+                                        <th>Total Bayar</th>
+                                        <th>Tanggal</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($latest_cash_transactions_by_limit as $latest_cash_transaction_by_limit)
                                     <tr>
-                                        <td class="col-3">
+                                        <td class="col-5">
                                             <div class="d-flex align-items-center">
-                                                <div class="avatar avatar-md">
-                                                    <img src="assets/images/faces/5.jpg">
-                                                </div>
-                                                <p class="font-bold ms-3 mb-0">Si Cantik</p>
+                                                <p class="font-bold ms-3 mb-0">
+                                                    {{ $latest_cash_transaction_by_limit->students->name }}</p>
                                             </div>
                                         </td>
                                         <td class="col-auto">
-                                            <p class=" mb-0">Congratulations on your graduation!</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="col-3">
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar avatar-md">
-                                                    <img src="assets/images/faces/2.jpg">
-                                                </div>
-                                                <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                            </div>
+                                            <p class=" mb-0">
+                                                {{ indonesian_currency($latest_cash_transaction_by_limit->amount) }}
+                                            </p>
                                         </td>
                                         <td class="col-auto">
-                                            <p class=" mb-0">Wow amazing design! Can you make another
-                                                tutorial for
-                                                this design?</p>
+                                            <p class=" mb-0">
+                                                {{ date('d-m-Y', strtotime($latest_cash_transaction_by_limit->date)) }}
+                                            </p>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
