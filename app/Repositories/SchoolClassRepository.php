@@ -5,14 +5,17 @@ namespace App\Repositories;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SchoolClass\StoreSchoolClassRequest;
 use App\Models\SchoolClass;
+use DB;
 use Illuminate\Http\Request;
 
 class SchoolClassRepository extends Controller
 {
-    public function __construct(
-        private SchoolClass $model
-        // model $model
-    ) {
+    private $model, $query_builder_model;
+
+    public function __construct(SchoolClass $model)
+    {
+        $this->model = $model;
+        $this->query_builder_model = DB::table('school_classes');
     }
 
     /**
@@ -24,7 +27,7 @@ class SchoolClassRepository extends Controller
      */
     public function schoolClassesOrderBy(string $column, string $direction = 'asc'): Object
     {
-        return $this->model->orderBy($column, $direction);
+        return $this->query_builder_model->orderBy($column, $direction);
     }
 
     /**

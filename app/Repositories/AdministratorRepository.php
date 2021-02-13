@@ -5,12 +5,16 @@ namespace App\Repositories;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class AdministratorRepository extends Controller
 {
-    public function __construct(
-        private User $model
-    ) {
+    private $model, $query_builder_model;
+
+    public function __construct(User $model)
+    {
+        $this->model = $model;
+        $this->query_builder_model = DB::table('users');
     }
 
     /**
@@ -22,7 +26,7 @@ class AdministratorRepository extends Controller
      */
     public function administratorsOrderBy(string $column, string $direction = 'asc'): Object
     {
-        return $this->model->orderBy($column, $direction);
+        return $this->query_builder_model->orderBy($column, $direction);
     }
 
     /**
