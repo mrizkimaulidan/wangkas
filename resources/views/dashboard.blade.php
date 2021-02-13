@@ -65,21 +65,23 @@
                 </a>
             </div>
             <div class="col-6 col-lg-3 col-md-6">
-                <div class="card">
-                    <div class="card-body px-3 py-4-5">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="stats-icon red">
-                                    <i class="iconly-boldTicket"></i>
+                <a href="{{ route('kas.index') }}">
+                    <div class="card">
+                        <div class="card-body px-3 py-4-5">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="stats-icon red">
+                                        <i class="iconly-boldTicket"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-8">
-                                <h6 class="text-muted font-semibold">Kas Bulan Ini</h6>
-                                <h6 class="font-extrabold mb-0">112</h6>
+                                <div class="col-md-8">
+                                    <h6 class="text-muted font-semibold">Kas Bulan Ini</h6>
+                                    <h6 class="font-extrabold mb-0">{{ $cash_transaction_this_month }}</h6>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </a>
             </div>
         </div>
         <div class="row">
