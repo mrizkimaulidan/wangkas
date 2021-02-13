@@ -50,6 +50,7 @@
                             <div style="margin-left: 50%">
                             </div>
                             @endif
+                            @if(auth()->user()->id !== $administrator->id)
                             <div class="mx-1">
                                 <form action="{{ route('administrator.destroy', $administrator->id) }}" method="POST">
                                     @csrf @method('DELETE')
@@ -58,6 +59,7 @@
                                     </button>
                                 </form>
                             </div>
+                            @endif
                         </div>
                     </td>
                 </tr>
