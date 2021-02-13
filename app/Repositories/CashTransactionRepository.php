@@ -23,12 +23,22 @@ class CashTransactionRepository extends Controller
 
     /**
      * Ambil seluruh data paling terbaru pada tabel cash_transactions pada database.
+     * Jika $limit ada isinya, maka tampilkan data paling terbaru pada tabel cash_transactions dengan limi.
      *
+     * @param $limit
      * @return Object
      */
-    public function cashTransactionLatest(int $limit): Object
+    public function cashTransactionLatest(int $limit = null): Object
     {
-        return $this->model->with('students', 'users')->take($limit)->latest()->get();
+        $model = $this->model->with('students', 'users');
+
+        // Jika $limit !== null maka tampilkan seluruh data cash_transactions dengan limit.
+        if (!is_null($limit)) {
+            return $model->take($limit)->latest()->get();
+        }
+
+        // Jika $limit === null maka tampilkan seluruh data cash_transactions tanpa limit.
+        return $model->latest()->get();
     }
 
     /**
