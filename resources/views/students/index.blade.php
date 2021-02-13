@@ -30,8 +30,17 @@
                     <td>{{ $student->student_identification_number }}</td>
                     <td>{{ $student->name }}</td>
                     <td>{{ $student->school_classes->name }}
-                    <td>{{ $student->school_majors->name }}</td>
-                    <td>{{ $student->school_year_start }}-{{ $student->school_year_end }}</td>
+                    <td>
+                        <span class="badge rounded-pill bg-success" data-bs-toggle="tooltip" data-placement="top"
+                            title="{{ $student->school_majors->name }}">
+                            {{ $student->school_majors->abbreviated_word }}
+                        </span>
+                    </td>
+                    <td>
+                        <span class="badge rounded-pill bg-primary">
+                            {{ $student->school_year_start }}-{{ $student->school_year_end }}
+                        </span>
+                    </td>
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">

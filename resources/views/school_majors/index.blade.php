@@ -25,7 +25,11 @@
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $school_major->name }}</td>
-                    <td>{{ $school_major->abbreviated_word }}</td>
+                    <td>
+                        <span class="badge rounded-pill bg-primary">
+                            {{ $school_major->abbreviated_word }}
+                        </span>
+                    </td>
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">

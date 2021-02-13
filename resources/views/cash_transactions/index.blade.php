@@ -182,7 +182,7 @@
                     <td>{{ date('d-m-Y', strtotime($cash_transaction->date)) }}</td>
                     <td>
                         <span
-                            class="badge rounded-pill shadow mb-2 {{ $cash_transaction->is_paid === 1 ? 'bg-success' : 'bg-danger' }}"
+                            class="badge rounded-pill mb-2 {{ $cash_transaction->is_paid === 1 ? 'bg-success' : 'bg-danger' }}"
                             data-bs-toggle="tooltip" data-bs-placement="top"
                             title="{{ paid_status($cash_transaction->is_paid) }}">{{ paid_status($cash_transaction->is_paid) }}</span>
                     </td>
