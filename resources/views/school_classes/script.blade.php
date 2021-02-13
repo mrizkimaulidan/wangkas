@@ -29,7 +29,7 @@
         edit_button_input.val("Sedang mengambil data..");
         edit_button_input.prop('disabled', true);
 
-        let form_action_url = "{{ route('admin.kelas.update', ':id') }}";
+        let form_action_url = "{{ route('kelas.update', ':id') }}";
         form_action_url = form_action_url.replace(':id', id)
 
         $.ajax({

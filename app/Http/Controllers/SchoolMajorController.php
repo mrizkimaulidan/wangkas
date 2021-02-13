@@ -14,7 +14,7 @@ class SchoolMajorController extends Controller
 
     public function index()
     {
-        return view('admin.school_majors.index', [
+        return view('school_majors.index', [
             'school_majors' => $this->schoolMajorRepository->schoolMajorsOrderBy('name')->get()
         ]);
     }
@@ -23,20 +23,20 @@ class SchoolMajorController extends Controller
     {
         $this->schoolMajorRepository->store($request);
 
-        return redirect()->route('admin.jurusan.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('jurusan.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
     {
         $this->schoolMajorRepository->update($request, $id);
 
-        return redirect()->route('admin.jurusan.index')->with('success', 'Data berhasil diubah!');
+        return redirect()->route('jurusan.index')->with('success', 'Data berhasil diubah!');
     }
 
     public function destroy($id)
     {
         $this->schoolMajorRepository->findSchoolMajor($id)->delete();
 
-        return redirect()->route('admin.jurusan.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('jurusan.index')->with('success', 'Data berhasil dihapus!');
     }
 }

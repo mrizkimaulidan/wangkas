@@ -20,7 +20,7 @@
         let url = "{{ route('api.jurusan.show', ':id') }}";
         url = url.replace(':id', id);
 
-        let form_input_url = "{{ route('admin.jurusan.update', ':id') }}";
+        let form_input_url = "{{ route('jurusan.update', ':id') }}";
         form_input_url = form_input_url.replace(':id', id);
 
         let edit_school_major_input = $('#editSchoolMajorModal input:not([name=_method], [name=_token])');

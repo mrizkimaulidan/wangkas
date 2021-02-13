@@ -6,7 +6,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('admin.jurusan.store') }}" method="post">
+                <form action="{{ route('jurusan.store') }}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">

@@ -18,7 +18,7 @@ class StudentController extends Controller
 
     public function index()
     {
-        return view('admin.students.index', [
+        return view('students.index', [
             'students' => $this->studentRepository->studentsOrderBy('name')->get(),
             'school_classes' => $this->schoolClassRepository->schoolClassesOrderBy('name')->get(),
             'school_majors' => $this->schoolMajorRepository->schoolMajorsOrderBy('name')->get()
@@ -29,20 +29,20 @@ class StudentController extends Controller
     {
         $this->studentRepository->store($request);
 
-        return redirect()->route('admin.siswa.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('siswa.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
     {
         $this->studentRepository->update($request, $id);
 
-        return redirect()->route('admin.siswa.index')->with('success', 'Data berhasil diubah!');
+        return redirect()->route('siswa.index')->with('success', 'Data berhasil diubah!');
     }
 
     public function destroy($id)
     {
         $this->studentRepository->findStudent($id)->delete();
 
-        return redirect()->route('admin.siswa.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('siswa.index')->with('success', 'Data berhasil dihapus!');
     }
 }

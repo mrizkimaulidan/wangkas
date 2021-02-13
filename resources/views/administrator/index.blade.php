@@ -1,4 +1,4 @@
-@extends('layouts.mazer.app', ['title' => 'Jurusan', 'page_heading' => 'Data Jurusan'])
+@extends('layouts.mazer.app', ['title' => 'Administrator', 'page_heading' => 'Data Administrator'])
 
 @section('content')
 <section class="row">
@@ -6,7 +6,7 @@
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
-                data-bs-target="#addSchoolMajorModal">
+                data-bs-target="#addAdministratorModal">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
         </div>
@@ -15,37 +15,43 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nama</th>
-                    <th scope="col">Singkatan</th>
+                    <th scope="col">Nama Lengkap</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Tanggal Ditambahkan</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($school_majors as $key => $school_major)
+                @foreach ($administrators as $administrator)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $school_major->name }}</td>
-                    <td>{{ $school_major->abbreviated_word }}</td>
+                    <td>{{ $administrator->name }}</td>
+                    <td>{{ $administrator->email }}</td>
+                    <td>{{ date('d-m-Y H:i:s', strtotime($administrator->created_at)) }}</td>
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $school_major->id }}"
-                                    class="btn btn-primary btn-sm school-major-detail" data-bs-toggle="modal"
-                                    data-bs-target="#showSchoolMajorModal">
+                                <button type="button" data-id="{{ $administrator->id }}"
+                                    class="btn btn-primary btn-sm administrator-detail" data-bs-toggle="modal"
+                                    data-bs-target="#showAdministratorModal">
                                     <i class="bi bi-search"></i>
                                 </button>
                             </div>
-
+                            @if(auth()->user()->id === $administrator->id)
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $school_major->id }}"
-                                    class="btn btn-success btn-sm school-major-edit" data-bs-toggle="modal"
-                                    data-bs-target="#editSchoolMajorModal">
+                                <button type="button" data-id="{{ $administrator->id }}"
+                                    class="btn btn-success btn-sm administrator-edit" data-bs-toggle="modal"
+                                    data-bs-target="#editAdministratorModal">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </div>
-
+                            @endif
+                            @if(auth()->user()->id !== $administrator->id)
+                            <div style="margin-left: 50%">
+                            </div>
+                            @endif
                             <div class="mx-1">
-                                <form action="{{ route('admin.jurusan.destroy', $school_major->id) }}" method="POST">
+                                <form action="{{ route('administrator.destroy', $administrator->id) }}" method="POST">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-notification">
                                         <i class="bi bi-trash-fill"></i>
@@ -63,11 +69,11 @@
 @endsection
 
 @push('modal')
-@include('admin.school_majors.modal.create')
-@include('admin.school_majors.modal.show')
-@include('admin.school_majors.modal.edit')
+@include('administrator.modal.create')
+@include('administrator.modal.show')
+@include('administrator.modal.edit')
 @endpush
 
 @push('js')
-@include('admin.school_majors.script')
+@include('administrator.script')
 @endpush

@@ -330,35 +330,35 @@
         <li class="sidebar-title"><i class="bi bi-menu-button-wide"></i></li>
 
         <li class="sidebar-item {{ request()->is('siswa*') ? 'active' : '' }}">
-            <a href="{{ route('admin.siswa.index') }}" class='sidebar-link'>
+            <a href="{{ route('siswa.index') }}" class='sidebar-link'>
                 <i class="bi bi-people-fill"></i>
                 <span>Siswa</span>
             </a>
         </li>
 
         <li class="sidebar-item {{ request()->is('kelas*') ? 'active' : '' }}">
-            <a href="{{ route('admin.kelas.index') }}" class='sidebar-link'>
+            <a href="{{ route('kelas.index') }}" class='sidebar-link'>
                 <i class="bi bi-bookmark-fill"></i>
                 <span>Kelas</span>
             </a>
         </li>
 
         <li class="sidebar-item {{ request()->is('jurusan*') ? 'active' : '' }}">
-            <a href="{{ route('admin.jurusan.index') }}" class='sidebar-link'>
+            <a href="{{ route('jurusan.index') }}" class='sidebar-link'>
                 <i class="bi bi-briefcase-fill"></i>
                 <span>Jurusan</span>
             </a>
         </li>
 
         <li class="sidebar-item {{ request()->is('kas*') ? 'active' : '' }}">
-            <a href="{{ route('admin.kas.index') }}" class='sidebar-link'>
+            <a href="{{ route('kas.index') }}" class='sidebar-link'>
                 <i class="bi bi-cash-stack"></i>
                 <span>Kas</span>
             </a>
         </li>
 
         <li class="sidebar-item {{ request()->is('administrator*') ? 'active' : '' }}">
-            <a href="{{ route('admin.administrator.index') }}" class='sidebar-link'>
+            <a href="{{ route('administrator.index') }}" class='sidebar-link'>
                 <i class="bi bi-person-badge-fill"></i>
                 <span>Administrator</span>
             </a>

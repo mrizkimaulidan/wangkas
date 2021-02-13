@@ -1,4 +1,4 @@
-@extends('layouts.mazer.app', ['title' => 'Administrator', 'page_heading' => 'Data Administrator'])
+@extends('layouts.mazer.app', ['title' => 'Siswa', 'page_heading' => 'Data Siswa'])
 
 @section('content')
 <section class="row">
@@ -6,7 +6,7 @@
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
-                data-bs-target="#addAdministratorModal">
+                data-bs-target="#addStudentModal">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
         </div>
@@ -15,44 +15,43 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">NIS/NISN</th>
                     <th scope="col">Nama Lengkap</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Tanggal Ditambahkan</th>
+                    <th scope="col">Kelas</th>
+                    <th scope="col">Jurusan</th>
+                    <th scope="col">TA</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($administrators as $administrator)
+                @foreach ($students as $student)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $administrator->name }}</td>
-                    <td>{{ $administrator->email }}</td>
-                    <td>{{ date('d-m-Y H:i:s', strtotime($administrator->created_at)) }}</td>
+                    <td>{{ $student->student_identification_number }}</td>
+                    <td>{{ $student->name }}</td>
+                    <td>{{ $student->school_classes->name }}
+                    <td>{{ $student->school_majors->name }}</td>
+                    <td>{{ $student->school_year_start }}-{{ $student->school_year_end }}</td>
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $administrator->id }}"
-                                    class="btn btn-primary btn-sm administrator-detail" data-bs-toggle="modal"
-                                    data-bs-target="#showAdministratorModal">
+                                <button type="button" data-id="{{ $student->id }}"
+                                    class="btn btn-primary btn-sm student-detail" data-bs-toggle="modal"
+                                    data-bs-target="#showStudentModal">
                                     <i class="bi bi-search"></i>
                                 </button>
                             </div>
-                            @if(auth()->user()->id === $administrator->id)
+
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $administrator->id }}"
-                                    class="btn btn-success btn-sm administrator-edit" data-bs-toggle="modal"
-                                    data-bs-target="#editAdministratorModal">
+                                <button type="button" data-id="{{ $student->id }}"
+                                    class="btn btn-success btn-sm student-edit" data-bs-toggle="modal"
+                                    data-bs-target="#editStudentModal">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </div>
-                            @endif
-                            @if(auth()->user()->id !== $administrator->id)
-                            <div style="margin-left: 50%">
-                            </div>
-                            @endif
+
                             <div class="mx-1">
-                                <form action="{{ route('admin.administrator.destroy', $administrator->id) }}"
-                                    method="POST">
+                                <form action="{{ route('siswa.destroy', $student->id) }}" method="POST">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-notification">
                                         <i class="bi bi-trash-fill"></i>
@@ -70,11 +69,11 @@
 @endsection
 
 @push('modal')
-@include('admin.administrator.modal.create')
-@include('admin.administrator.modal.show')
-@include('admin.administrator.modal.edit')
+@include('students.modal.create')
+@include('students.modal.show')
+@include('students.modal.edit')
 @endpush
 
 @push('js')
-@include('admin.administrator.script')
+@include('students.script')
 @endpush

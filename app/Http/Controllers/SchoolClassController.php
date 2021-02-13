@@ -15,7 +15,7 @@ class SchoolClassController extends Controller
 
     public function index()
     {
-        return view('admin.school_classes.index', [
+        return view('school_classes.index', [
             'school_classes' => $this->schoolClassRepository->schoolClassesOrderBy('name')->get()
         ]);
     }
@@ -24,14 +24,14 @@ class SchoolClassController extends Controller
     {
         $this->schoolClassRepository->store($request);
 
-        return redirect()->route('admin.kelas.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('kelas.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     public function update(Request $request, $id)
     {
         $this->schoolClassRepository->update($request, $id);
 
-        return redirect()->route('admin.kelas.index')->with('success', 'Data berhasil diubah!');
+        return redirect()->route('kelas.index')->with('success', 'Data berhasil diubah!');
     }
 
     public function destroy($id)
@@ -39,11 +39,11 @@ class SchoolClassController extends Controller
         $school_class = $this->schoolClassRepository->findSchoolClass($id);
 
         if ($school_class->students()->exists()) {
-            return redirect()->route('admin.kelas.index')->with('warning', 'Data yang memiliki relasi tidak dapat dihapus!');
+            return redirect()->route('kelas.index')->with('warning', 'Data yang memiliki relasi tidak dapat dihapus!');
         }
 
         $school_class->delete();
 
-        return redirect()->route('admin.kelas.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('kelas.index')->with('success', 'Data berhasil dihapus!');
     }
 }

@@ -205,7 +205,7 @@
                             </div>
 
                             <div class="mx-1">
-                                <form action="{{ route('admin.kas.destroy', $cash_transaction->id) }}" method="POST">
+                                <form action="{{ route('kas.destroy', $cash_transaction->id) }}" method="POST">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-notification">
                                         <i class="bi bi-trash-fill"></i>
@@ -223,12 +223,12 @@
 @endsection
 
 @push('modal')
-@include('admin.cash_transactions.modal.create')
-@include('admin.cash_transactions.modal.show')
-@include('admin.cash_transactions.modal.edit')
-@include('admin.cash_transactions.modal.look-more')
+@include('cash_transactions.modal.create')
+@include('cash_transactions.modal.show')
+@include('cash_transactions.modal.edit')
+@include('cash_transactions.modal.look-more')
 @endpush
 
 @push('js')
-@include('admin.cash_transactions.script')
+@include('cash_transactions.script')
 @endpush

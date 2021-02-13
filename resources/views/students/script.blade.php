@@ -30,7 +30,7 @@
         let url = "{{ route('api.siswa.show', ':id') }}";
         url = url.replace(':id', id);
 
-        let form_edit_url = "{{ route('admin.siswa.update', ':id') }}"
+        let form_edit_url = "{{ route('siswa.update', ':id') }}"
         form_edit_url = form_edit_url.replace(':id', id);
 
         let edit_student_modal_input = $('#editStudentModal input:not([name=_method], [name=_token])');

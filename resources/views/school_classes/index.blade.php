@@ -1,4 +1,4 @@
-@extends('layouts.mazer.app', ['title' => 'Siswa', 'page_heading' => 'Data Siswa'])
+@extends('layouts.mazer.app', ['title' => 'Kelas', 'page_heading' => 'Data Kelas'])
 
 @section('content')
 <section class="row">
@@ -6,7 +6,7 @@
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
             <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
-                data-bs-target="#addStudentModal">
+                data-bs-target="#addSchoolClassModal">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
         </div>
@@ -15,43 +15,35 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">NIS/NISN</th>
-                    <th scope="col">Nama Lengkap</th>
-                    <th scope="col">Kelas</th>
-                    <th scope="col">Jurusan</th>
-                    <th scope="col">TA</th>
+                    <th scope="col">Nama</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($students as $student)
+                @foreach ($school_classes as $school_class)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $student->student_identification_number }}</td>
-                    <td>{{ $student->name }}</td>
-                    <td>{{ $student->school_classes->name }}
-                    <td>{{ $student->school_majors->name }}</td>
-                    <td>{{ $student->school_year_start }}-{{ $student->school_year_end }}</td>
+                    <td>{{ $school_class->name }}
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $student->id }}"
-                                    class="btn btn-primary btn-sm student-detail" data-bs-toggle="modal"
-                                    data-bs-target="#showStudentModal">
+                                <button type="button" data-id="{{ $school_class->id }}"
+                                    class="btn btn-primary btn-sm school-class-detail" data-bs-toggle="modal"
+                                    data-bs-target="#showSchoolClassModal">
                                     <i class="bi bi-search"></i>
                                 </button>
                             </div>
 
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $student->id }}"
-                                    class="btn btn-success btn-sm student-edit" data-bs-toggle="modal"
-                                    data-bs-target="#editStudentModal">
+                                <button type="button" data-id="{{ $school_class->id }}"
+                                    class="btn btn-success btn-sm school-class-edit" data-bs-toggle="modal"
+                                    data-bs-target="#editSchoolClassModal">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </div>
 
                             <div class="mx-1">
-                                <form action="{{ route('admin.siswa.destroy', $student->id) }}" method="POST">
+                                <form action="{{ route('kelas.destroy', $school_class->id) }}" method="POST">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-notification">
                                         <i class="bi bi-trash-fill"></i>
@@ -69,11 +61,11 @@
 @endsection
 
 @push('modal')
-@include('admin.students.modal.create')
-@include('admin.students.modal.show')
-@include('admin.students.modal.edit')
+@include('school_classes.modal.create')
+@include('school_classes.modal.show')
+@include('school_classes.modal.edit')
 @endpush
 
 @push('js')
-@include('admin.students.script')
+@include('school_classes.script')
 @endpush
