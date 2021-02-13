@@ -15,7 +15,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-8">
-                                    <h6 class="text-muted font-semibold">Siswa</h6>
+                                    <h6 class="text-muted font-semibold">Pelajar</h6>
                                     <h6 class="font-extrabold {{ $student_count <= 0 ? 'text-danger' : '' }} mb-0">
                                         {{ $student_count }}</h6>
                                 </div>

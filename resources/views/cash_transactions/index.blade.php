@@ -164,7 +164,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Nama Siswa</th>
+                    <th scope="col">Nama Pelajar</th>
                     <th scope="col">Tagihan</th>
                     <th scope="col">Total Bayar</th>
                     <th scope="col">Tanggal</th>

@@ -332,7 +332,7 @@
         <li class="sidebar-item {{ request()->is('siswa*') ? 'active' : '' }}">
             <a href="{{ route('siswa.index') }}" class='sidebar-link'>
                 <i class="bi bi-people-fill"></i>
-                <span>Siswa</span>
+                <span>Pelajar</span>
             </a>
         </li>
 
