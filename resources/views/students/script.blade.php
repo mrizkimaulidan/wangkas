@@ -1,6 +1,6 @@
 <script>
     $('.student-detail').click(function() {
-        let url = "{{ route('api.siswa.show', ':id') }}";
+        let url = "{{ route('api.pelajar.show', ':id') }}";
         let id = $(this).data('id');
         url = url.replace(':id', id);
 
@@ -27,10 +27,10 @@
 
     $('.student-edit').click(function() {
         let id = $(this).data('id');
-        let url = "{{ route('api.siswa.show', ':id') }}";
+        let url = "{{ route('api.pelajar.show', ':id') }}";
         url = url.replace(':id', id);
 
-        let form_edit_url = "{{ route('siswa.update', ':id') }}"
+        let form_edit_url = "{{ route('pelajar.update', ':id') }}"
         form_edit_url = form_edit_url.replace(':id', id);
 
         let edit_student_modal_input = $('#editStudentModal input:not([name=_method], [name=_token])');

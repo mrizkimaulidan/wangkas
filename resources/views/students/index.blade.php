@@ -1,4 +1,4 @@
-@extends('layouts.mazer.app', ['title' => 'Siswa', 'page_heading' => 'Data Siswa'])
+@extends('layouts.mazer.app', ['title' => 'Pelajar', 'page_heading' => 'Data Pelajar'])
 
 @section('content')
 <section class="row">
@@ -60,7 +60,7 @@
                             </div>
 
                             <div class="mx-1">
-                                <form action="{{ route('siswa.destroy', $student->id) }}" method="POST">
+                                <form action="{{ route('pelajar.destroy', $student->id) }}" method="POST">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-notification">
                                         <i class="bi bi-trash-fill"></i>

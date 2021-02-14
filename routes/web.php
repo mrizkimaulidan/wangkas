@@ -25,7 +25,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
-Route::resource('siswa', StudentController::class)->except('create', 'show', 'edit');
+Route::resource('pelajar', StudentController::class)->except('create', 'show', 'edit');
 Route::resource('kelas', SchoolClassController::class)->except('create', 'show', 'edit');
 Route::resource('jurusan', SchoolMajorController::class)->except('create', 'show', 'edit');
 Route::resource('administrator', AdministratorController::class)->except('create', 'show', 'edit');

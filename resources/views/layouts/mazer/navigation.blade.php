@@ -329,8 +329,8 @@
 
         <li class="sidebar-title"><i class="bi bi-menu-button-wide"></i></li>
 
-        <li class="sidebar-item {{ request()->is('siswa*') ? 'active' : '' }}">
-            <a href="{{ route('siswa.index') }}" class='sidebar-link'>
+        <li class="sidebar-item {{ request()->is('pelajar*') ? 'active' : '' }}">
+            <a href="{{ route('pelajar.index') }}" class='sidebar-link'>
                 <i class="bi bi-people-fill"></i>
                 <span>Pelajar</span>
             </a>

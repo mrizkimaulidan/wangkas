@@ -24,7 +24,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::name('api.')->prefix('v1')->group(function () {
     Route::get('/kelas/{id}', [SchoolClassController::class, 'show'])->name('kelas.show');
-    Route::get('/siswa/{id}', [StudentController::class, 'show'])->name('siswa.show');
+    Route::get('/pelajar/{id}', [StudentController::class, 'show'])->name('pelajar.show');
     Route::get('/jurusan/{id}', [SchoolMajorController::class, 'show'])->name('jurusan.show');
     Route::get('/administrator/{id}', [AdministratorController::class, 'show'])->name('administrator.show');
     Route::get('/kas/{id}', [CashTransactionController::class, 'show'])->name('kas.show');
