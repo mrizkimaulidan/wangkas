@@ -21,7 +21,7 @@ class DashboardController extends Controller
 
     public function index()
     {
-        return view('dashboard', [
+        return view('dashboard.index', [
             'student_count' => count_data($this->studentRepository->studentsOrderBy('name')->get()),
             'school_class_count' => count_data($this->schoolClassRepository->schoolClassesOrderBy('name')->get()),
             'school_major_count' => count_data($this->schoolMajorRepository->schoolMajorsOrderBy('name')->get()),

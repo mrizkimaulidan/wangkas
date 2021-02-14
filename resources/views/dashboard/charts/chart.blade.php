@@ -12,5 +12,5 @@
 </div>
 
 @push('js')
-@include('charts.script')
+@include('dashboard.charts.script')
 @endpush
