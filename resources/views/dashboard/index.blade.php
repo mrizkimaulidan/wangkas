@@ -86,7 +86,7 @@
         </div>
         @include('dashboard.charts.chart')
         <div class="row">
-            <div class="col-12 col-xl-8">
+            <div class="col-12 col-xl-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>5 Transaksi Terakhir</h4>
@@ -99,6 +99,7 @@
                                         <th>Nama Pelajar</th>
                                         <th>Total Bayar</th>
                                         <th>Tanggal</th>
+                                        <th>Pencatat</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -120,50 +121,15 @@
                                                 {{ date('d-m-Y', strtotime($latest_cash_transaction_by_limit->date)) }}
                                             </p>
                                         </td>
+                                        <td class="col-auto">
+                                            <p class=" mb-0">
+                                                {{ $latest_cash_transaction_by_limit->users->name }}
+                                            </p>
+                                        </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-xl-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Recent Messages</h4>
-                    </div>
-                    <div class="card-content pb-4">
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg">
-                                <img src="assets/images/faces/4.jpg">
-                            </div>
-                            <div class="name ms-4">
-                                <h5 class="mb-1">Hank Schrader</h5>
-                                <h6 class="text-muted mb-0">@johnducky</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg">
-                                <img src="assets/images/faces/5.jpg">
-                            </div>
-                            <div class="name ms-4">
-                                <h5 class="mb-1">Dean Winchester</h5>
-                                <h6 class="text-muted mb-0">@imdean</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg">
-                                <img src="assets/images/faces/1.jpg">
-                            </div>
-                            <div class="name ms-4">
-                                <h5 class="mb-1">John Dodol</h5>
-                                <h6 class="text-muted mb-0">@dodoljohn</h6>
-                            </div>
-                        </div>
-                        <div class="px-4">
-                            <button class='btn btn-block btn-xl btn-light-primary font-bold mt-3'>Start
-                                Conversation</button>
                         </div>
                     </div>
                 </div>
