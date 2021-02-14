@@ -35,6 +35,7 @@
     $('#editCashTransactionModal input').prop('disabled', true);
     $('#editCashTransactionModal select').prop('disabled', true);
     $('#editCashTransactionModal textarea').prop('disabled', true);
+    $('#editCashTransactionModal .modal-footer button[type=submit]').prop('disabled', true);
     $('#editCashTransactionModal textarea').val('Sedang mengambil data..');
     $('#editCashTransactionModal input[type=number]').prop('type', 'text').val('Sedang mengambil data..');
     
@@ -45,6 +46,7 @@
                 $('#editCashTransactionModal input').prop('disabled', false);
                 $('#editCashTransactionModal textarea').prop('disabled', false);
                 $('#editCashTransactionModal select').prop('disabled', false);
+                $('#editCashTransactionModal .modal-footer button[type=submit]').prop('disabled', false);
                 $('#editCashTransactionModal #student_id').val(data.data.student_id);
                 $('#editCashTransactionModal #bill').val(data.data.bill);
                 $('#editCashTransactionModal #amount').val(data.data.amount);

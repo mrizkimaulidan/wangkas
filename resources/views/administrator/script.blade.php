@@ -25,13 +25,14 @@
 
     $('#editAdministratorModal input:not([name=_method], [name=_token]').val('Sedang mengambil data..');
     $('#editAdministratorModal input').prop('disabled', true);
+    $('#editAdministatorModal .modal-footer button[type=submit]').prop('disabled', true);
     
     $.ajax({
     url: url,
     success: function(data) {
                 $('#editAdministratorModal #administrator-edit-form').attr('action', form_action_url);
                 $('#editAdministratorModal input').prop('disabled', false);
-
+                $('#editAdministatorModal .modal-footer button[type=submit]').prop('disabled', false);
                 $('#editAdministratorModal #name').val(data.data.name);
                 $('#editAdministratorModal #email').val(data.data.email);
             }

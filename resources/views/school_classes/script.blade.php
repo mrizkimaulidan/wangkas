@@ -32,11 +32,14 @@
         let form_action_url = "{{ route('kelas.update', ':id') }}";
         form_action_url = form_action_url.replace(':id', id)
 
+        $('#editSchoolClassModal .modal-footer button[type=submit]').prop('disabled', true);
+
         $.ajax({
             url: url,
             success: function(data) {
                 edit_button_input.val(data.data.name);
                 edit_button_input.prop('disabled', false);
+                $('#editSchoolClassModal .modal-footer button[type=submit]').prop('disabled', false);
                 $('#editSchoolClassModal #edit-school-class-form').attr('action', form_action_url);
             },
             error: function() {
@@ -44,7 +47,7 @@
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Terjadi kesalahan, reload halaman ini atau lapor kepada administrator!'
-                });
+            });
             }
         });
     });

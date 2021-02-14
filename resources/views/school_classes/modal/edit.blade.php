@@ -12,13 +12,15 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama</label>
-                                <input type="text" class="form-control" name="name" id="name" placeholder="Masukkan nama kelas.." required>
+                                <input type="text" class="form-control" name="name" id="name"
+                                    placeholder="Masukkan nama kelas.." required>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary clear-input" data-bs-dismiss="modal">Tutup</button>
-                        <button type="submit" class="btn btn-primary">Ubah</button>
+                        <button type="button" class="btn btn-secondary clear-input"
+                            data-bs-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>
             </div>
