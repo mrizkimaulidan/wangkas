@@ -19,5 +19,4 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap5.min.css">
     <link rel="shortcut icon" href="{{ asset('images/favicon.svg" type="image/x-icon') }}">
-    <script src="{{ asset('vendors/sweetalert2/sweetalert2.all.min.css') }}"></script>
 </head>

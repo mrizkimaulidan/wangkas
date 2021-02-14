@@ -15,7 +15,8 @@
 <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 
-<script src="{{ asset('vendors/apexcharts/apexcharts.js') }}"></script>
+{{-- <script src="{{ asset('vendors/apexcharts/apexcharts.js') }}"></script> --}}
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="{{ asset('js/pages/dashboard.js') }}"></script>
 
 <script src="{{ asset('vendors/toastify/toastify.js') }}"></script>
@@ -24,7 +25,7 @@
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>
 <script src="{{ asset('vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
-
+<script src="{{ asset('js/vendors.js') }}"></script>
 @include('utilities.toastify-flash-message')
 
 @stack('js')

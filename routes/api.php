@@ -6,6 +6,7 @@ use App\Http\Controllers\API\v1\SchoolClassController;
 use App\Http\Controllers\API\v1\SchoolMajorController;
 use App\Http\Controllers\API\v1\AdministratorController;
 use App\Http\Controllers\API\v1\CashTransactionController;
+use App\Http\Controllers\API\v1\DashboardChartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,4 +29,6 @@ Route::name('api.')->prefix('v1')->group(function () {
     Route::get('/jurusan/{id}', [SchoolMajorController::class, 'show'])->name('jurusan.show');
     Route::get('/administrator/{id}', [AdministratorController::class, 'show'])->name('administrator.show');
     Route::get('/kas/{id}', [CashTransactionController::class, 'show'])->name('kas.show');
+
+    Route::get('/chart', [DashboardChartController::class, 'getDataSeparateByMonths'])->name('chart');
 });
