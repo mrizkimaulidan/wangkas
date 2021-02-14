@@ -60,7 +60,6 @@ $.ajax({
         );
 
         chart.render();
-        console.log(data.data.jan);
     },
 });
 </script>
