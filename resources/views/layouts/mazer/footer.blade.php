@@ -24,7 +24,7 @@
 <script src="{{ asset('js/main.js') }}"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="{{ asset('vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
 
 @stack('js')
 @stack('modal')
