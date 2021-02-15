@@ -9,7 +9,7 @@
                 <form action="{{ route('pelajar.store') }}" method="POST">
                     @csrf
                     <div class="row">
-                        <div class="col-sm-4 col-md-4">
+                        <div class="col-sm-12 col-md-4">
                             <div class="mb-3">
                                 <label for="name" class="form-label">NIS/NISN</label>
                                 <input type="number"
@@ -26,7 +26,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-4 col-md-4">
+                        <div class="col-sm-12 col-md-4">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Lengkap</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
@@ -40,9 +40,10 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-4 col-md-4">
+                        <div class="col-sm-12 col-md-4">
                             <label for="gender" class="form-label">Jenis Kelamin</label>
-                            <select class="form-select @error('gender') is-invalid @enderror" name="gender" id="gender">
+                            <select class="form-select select2 @error('gender') is-invalid @enderror" name="gender"
+                                id="gender">
                                 <option selected>Pilih Jenis Kelamin</option>
                                 <option value="1">Laki-laki</option>
                                 <option value="2">Perempuan</option>
@@ -60,7 +61,7 @@
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="school_class_id" class="form-label">Kelas</label>
-                                <select class="form-select @error('school_class_id') is-invalid @enderror"
+                                <select class="form-select select2 @error('school_class_id') is-invalid @enderror"
                                     name="school_class_id" id="school_class_id">
                                     <option selected>Pilih Kelas</option>
                                     @foreach($school_classes as $school_class)
@@ -79,7 +80,7 @@
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="school_major_id" class="form-label">Jurusan</label>
-                                <select class="form-select @error('school_major_id') is-invalid @enderror"
+                                <select class="form-select select2 @error('school_major_id') is-invalid @enderror"
                                     name="school_major_id" id="school_major_id">
                                     <option selected>Pilih Jurusan</option>
                                     @foreach ($school_majors as $school_major)

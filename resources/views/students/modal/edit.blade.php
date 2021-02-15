@@ -9,7 +9,7 @@
                 <form action="#" method="POST" id="edit-student-form">
                     @csrf @method('PUT')
                     <div class="row">
-                        <div class="col-sm-4 col-md-4">
+                        <div class="col-sm-12 col-md-4">
                             <div class="mb-3">
                                 <label for="student_identification_number" class="form-label">NIS/NISN</label>
                                 <input type="number" class="form-control" name="student_identification_number"
@@ -17,7 +17,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-4 col-md-4">
+                        <div class="col-sm-12 col-md-4">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Lengkap</label>
                                 <input type="text" class="form-control" name="name" id="name"
@@ -25,10 +25,10 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-4 col-md-4">
+                        <div class="col-sm-12 col-md-4">
                             <div class="mb-3">
                                 <label for="gender" class="form-label">Jenis Kelamin</label>
-                                <select class="form-select" name="gender" id="gender">
+                                <select class="form-select select2" name="gender" id="gender">
                                     <option selected>Pilih jenis kelamin</option>
                                     <option value="1">Laki-laki</option>
                                     <option value="2">Perempuan</option>
@@ -41,7 +41,7 @@
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="school_class_id" class="form-label">Kelas</label>
-                                <select class="form-select" name="school_class_id" id="school_class_id">
+                                <select class="form-select select2" name="school_class_id" id="school_class_id">
                                     <option selected>Pilih kelas</option>
                                     @foreach($school_classes as $school_class)
                                     <option value="{{ $school_class->id }}">{{ $school_class->name }}</option>
@@ -53,7 +53,7 @@
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="school_major_id" class="form-label">Jurusan</label>
-                                <select class="form-select" name="school_major_id" id="school_major_id">
+                                <select class="form-select select2" name="school_major_id" id="school_major_id">
                                     <option selected>Pilih jurusan</option>
                                     @foreach ($school_majors as $school_major)
                                     <option value="{{ $school_major->id }}">{{ $school_major->abbreviated_word }} -

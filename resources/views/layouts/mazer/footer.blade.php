@@ -19,11 +19,12 @@
 
 <script src="{{ asset('vendors/toastify/toastify.js') }}"></script>
 
-<script src="{{ asset('js/main.js') }}"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap5.min.js"></script>
 <script src="{{ asset('vendors/sweetalert2/sweetalert2.all.min.js') }}"></script>
 <script src="{{ asset('js/vendors.js') }}"></script>
+<script src="{{ asset('js/main.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 @include('utilities.toastify-flash-message')
 
 @stack('js')
