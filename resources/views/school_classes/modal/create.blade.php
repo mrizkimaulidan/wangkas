@@ -13,7 +13,7 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                                    id="name" placeholder="Masukkan nama kelas..">
+                                    id="name" value="{{ old('name') }}" placeholder="Masukkan nama kelas..">
 
                                 @error('name')
                                 <div class="invalid-feedback d-block">
