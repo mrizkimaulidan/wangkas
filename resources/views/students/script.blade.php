@@ -39,12 +39,14 @@
         edit_student_modal_select.prop('disabled', true);
         edit_student_modal_input.prop('disabled', true);
         edit_student_modal_input.val('Sedang mengambil data..');
+        $('#editStudentModal .modal-footer button[type=submit]').prop('disabled', true);
 
         $.ajax({
             url: url,
             success: function(data) {
                 edit_student_modal_input.prop('disabled', false);
                 edit_student_modal_select.prop('disabled', false);
+                $('#editStudentModal .modal-footer button[type=submit]').prop('disabled', false);
                 $('#editStudentModal #edit-student-form').attr('action', form_edit_url)
                 
                 $('#editStudentModal #name').val(data.data.name);
