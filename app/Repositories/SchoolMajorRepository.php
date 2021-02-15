@@ -31,12 +31,12 @@ class SchoolMajorRepository extends Controller
     /**
      * Ambil single data dari tabel school_majors pada database berdasarkan id.
      *
-     * @param string $id adalah id dari school_major sesuai dengan di parameter.
+     * @param object $jurusan adalah model binding dari model SchoolMajor.
      * @return Object
      */
-    public function findSchoolMajor(string $id): Object
+    public function findSchoolMajor(object $jurusan): Object
     {
-        return $this->model->findOrFail($id);
+        return $jurusan;
     }
 
     /**
@@ -54,12 +54,12 @@ class SchoolMajorRepository extends Controller
      * Ubah data dari tabel school_majors pada database berdasarkan id.
      *
      * @param Request $request
-     * @param string $id adalah id dari school_major sesuai dengan di parameter.
+     * @param object $jurusan adalah model binding dari model SchoolMajor.
      * @return Bool
      */
-    public function update(Request $request, string $id): Bool
+    public function update(Request $request, object $jurusan): Bool
     {
-        $this->model = $this->findSchoolMajor($id);
+        $this->model = $this->findSchoolMajor($jurusan);
 
         return $this->model->update($request->only('name', 'abbreviated_word'));
     }

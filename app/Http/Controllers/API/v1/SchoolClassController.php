@@ -15,8 +15,8 @@ class SchoolClassController extends Controller
     ) {
     }
 
-    public function show($id)
+    public function show(SchoolClass $kela)
     {
-        return response()->json(['status' => Response::HTTP_OK, 'data' => $this->schoolClassRepository->findSchoolClass($id)], Response::HTTP_OK);
+        return response()->json(['status' => Response::HTTP_OK, 'data' => $this->schoolClassRepository->findSchoolClass($kela)], Response::HTTP_OK);
     }
 }

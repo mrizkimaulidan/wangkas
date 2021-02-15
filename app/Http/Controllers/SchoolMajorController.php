@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\SchoolMajorStoreRequest;
 use App\Http\Requests\SchoolMajorUpdateRequest;
+use App\Models\SchoolMajor;
 use App\Repositories\SchoolMajorRepository;
 use Illuminate\Http\Request;
 
@@ -28,16 +29,16 @@ class SchoolMajorController extends Controller
         return redirect()->route('jurusan.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(SchoolMajorUpdateRequest $request, $id)
+    public function update(SchoolMajorUpdateRequest $request, SchoolMajor $jurusan)
     {
-        $this->schoolMajorRepository->update($request, $id);
+        $this->schoolMajorRepository->update($request, $jurusan);
 
         return redirect()->route('jurusan.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy($id)
+    public function destroy(SchoolMajor $jurusan)
     {
-        $this->schoolMajorRepository->findSchoolMajor($id)->delete();
+        $this->schoolMajorRepository->findSchoolMajor($jurusan)->delete();
 
         return redirect()->route('jurusan.index')->with('success', 'Data berhasil dihapus!');
     }

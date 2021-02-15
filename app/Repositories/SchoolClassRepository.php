@@ -44,24 +44,24 @@ class SchoolClassRepository extends Controller
     /**
      * Ambil data kelas dari tabel school_classes
      *
-     * @param string $id
+     * @param object $kela adalah model binding dari model SchoolMajor.
      * @return Object
      */
-    public function findSchoolClass(string $id): Object
+    public function findSchoolClass(object $kela): Object
     {
-        return $this->model->findOrFail($id);
+        return $kela;
     }
 
     /**
      * Ubah data kelas berdasarkan id.
      *
      * @param Request $request adalah is dari input type name.
-     * @param string $id adalah id dari data kelas yang dipilih.
+     * @param object $kela adalah model binding dari model SchoolClass.
      * @return Bool
      */
-    public function update(Request $request, string $id): Bool
+    public function update(Request $request, object $kela): Bool
     {
-        $this->model = $this->findSchoolClass($id);
+        $this->model = $this->findSchoolClass($kela);
 
         return $this->model->update($request->only('name'));
     }
