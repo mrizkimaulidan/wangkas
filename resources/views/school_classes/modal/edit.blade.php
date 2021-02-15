@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nama</label>
+                                <label for="name" class="form-label">Nama Kelas</label>
                                 <input type="text" class="form-control" name="name" id="name"
                                     placeholder="Masukkan nama kelas.." required>
                             </div>

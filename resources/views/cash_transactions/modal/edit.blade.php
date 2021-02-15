@@ -13,7 +13,7 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Pelajar</label>
                                 <select class="form-select" name="student_id" id="student_id">
-                                    <option selected>Pilih pelajar</option>
+                                    <option selected>Pilih Pelajar</option>
                                     @foreach ($students as $student)
                                     <option value="{{ $student->id }}">
                                         {{ $student->student_identification_number }} - {{ $student->name }}</option>

@@ -11,12 +11,12 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nama</label>
+                                <label for="name" class="form-label">Nama Jurusan</label>
                                 <input type="text" class="form-control" name="name" id="name"
                                     placeholder="Masukkan nama jurusan..">
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Singkatan</label>
+                                <label for="name" class="form-label">Singkatan Jurusan</label>
                                 <input type="text" class="form-control" name="abbreviated_word" id="abbreviated_word"
                                     placeholder="Masukkan singkatan jurusan">
                             </div>

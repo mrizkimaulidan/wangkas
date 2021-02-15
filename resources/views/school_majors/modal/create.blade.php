@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nama</label>
+                                <label for="name" class="form-label">Nama Jurusan</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                                     id="name" value="{{ old('name') }}" placeholder="Masukkan nama jurusan..">
 
@@ -22,7 +22,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="abbreviated_word" class="form-label">Singkatan</label>
+                                <label for="abbreviated_word" class="form-label">Singkatan Jurusan</label>
                                 <input type="text" class="form-control @error('abbreviated_word') is-invalid @enderror"
                                     name="abbreviated_word" id="abbreviated_word" value="{{ old('abbreviated_word') }}"
                                     placeholder="Masukkan singkatan jurusan..">
