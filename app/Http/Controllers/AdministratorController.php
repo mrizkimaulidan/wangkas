@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdministratorStoreRequest;
 use App\Http\Requests\AdministratorUpdateRequest;
+use App\Models\User;
 use App\Repositories\AdministratorRepository;
 use Illuminate\Http\Request;
 
@@ -28,16 +29,16 @@ class AdministratorController extends Controller
         return redirect()->route('administrator.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(AdministratorUpdateRequest $request, $id)
+    public function update(AdministratorUpdateRequest $request, User $administrator)
     {
-        $this->administratorRepository->update($request, $id);
+        $this->administratorRepository->update($request, $administrator);
 
-        return redirect()->route('administrator.index')->with('sucess', 'Data berhasil diubah!');
+        return redirect()->route('administrator.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy($id)
+    public function destroy(User $administrator)
     {
-        $this->administratorRepository->findAdministrator($id)->delete();
+        $this->administratorRepository->findAdministrator($administrator)->delete();
 
         return redirect()->route('administrator.index')->with('success', 'Data berhasil dihapus!');
     }

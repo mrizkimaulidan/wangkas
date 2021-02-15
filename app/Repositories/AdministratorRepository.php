@@ -32,19 +32,18 @@ class AdministratorRepository extends Controller
     /**
      * Ambil single data dari tabel users berdasarkan id.
      *
-     * @param string $id
+     * @param object $jurusan adalah model binding dari model User.
      * @return Object
      */
-    public function findAdministrator(string $id): Object
+    public function findAdministrator(object $administrator): Object
     {
-        return $this->model->findOrFail($id);
+        return $administrator;
     }
 
-    public function update(Request $request, string $id): Bool
+    public function update(Request $request, object $administrator): Bool
     {
-        $this->model = $this->findAdministrator($id);
-
-        return $this->model->update($request->only('name', 'email'));
+        $this->model = $this->findAdministrator($administrator);
+        return $this->model->update(['name' => $request->name, 'email' => $request->email, 'password' => bcrypt($request->password)]);
     }
 
     /**

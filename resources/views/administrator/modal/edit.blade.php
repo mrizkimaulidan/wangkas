@@ -26,6 +26,15 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" name="password" id="password">
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary clear-input"
                             data-bs-dismiss="modal">Tutup</button>
