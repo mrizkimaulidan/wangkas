@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\SchoolClass;
+namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreSchoolClassRequest extends FormRequest
+class SchoolClassUpdateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,17 +28,12 @@ class StoreSchoolClassRequest extends FormRequest
         ];
     }
 
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
     public function messages()
     {
         return [
             'name.required' => 'Kolom nama wajib diisi!',
-            'name.min' => 'Kolom nama minimal :min karakter!',
-            'name.max' => 'Kolom nama maksimal :max karakter!'
+            'name.min' => 'Kolom nama minimal 3 karakter!',
+            'name.max' => 'Kolom nama maksimal 191 karakter!'
         ];
     }
 }

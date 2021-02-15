@@ -13,11 +13,10 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                                    id="name" placeholder="Masukkan nama kelas.." required>
+                                    id="name" placeholder="Masukkan nama kelas..">
 
                                 @error('name')
                                 <div class="invalid-feedback d-block">
-                                    <i class="bx bx-radio-circle"></i>
                                     {{ $message }}
                                 </div>
                                 @enderror

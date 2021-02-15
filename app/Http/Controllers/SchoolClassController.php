@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SchoolClass\StoreSchoolClassRequest;
+use App\Http\Requests\SchoolClassStoreRequest;
+use App\Http\Requests\SchoolClassUpdateRequest;
 use App\Repositories\SchoolClassRepository;
 use Illuminate\Http\Request;
 
@@ -20,14 +21,14 @@ class SchoolClassController extends Controller
         ]);
     }
 
-    public function store(StoreSchoolClassRequest $request)
+    public function store(SchoolClassStoreRequest $request)
     {
         $this->schoolClassRepository->store($request);
 
         return redirect()->route('kelas.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(Request $request, $id)
+    public function update(SchoolClassUpdateRequest $request, $id)
     {
         $this->schoolClassRepository->update($request, $id);
 
