@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AdministratorStoreRequest;
+use App\Http\Requests\AdministratorUpdateRequest;
 use App\Repositories\AdministratorRepository;
 use Illuminate\Http\Request;
 
@@ -19,14 +21,14 @@ class AdministratorController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(AdministratorStoreRequest $request)
     {
         $this->administratorRepository->store($request);
 
         return redirect()->route('administrator.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(Request $request, $id)
+    public function update(AdministratorUpdateRequest $request, $id)
     {
         $this->administratorRepository->update($request, $id);
 
