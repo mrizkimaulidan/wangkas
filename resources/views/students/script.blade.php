@@ -49,6 +49,7 @@
                 $('#editStudentModal .modal-footer button[type=submit]').prop('disabled', false);
                 $('#editStudentModal #edit-student-form').attr('action', form_edit_url)
                 
+                $('#editStudentModal #student_identification_number').val(data.data.student_identification_number);
                 $('#editStudentModal #name').val(data.data.name);
                 
                 $('#editStudentModal #gender').val(data.data.gender);

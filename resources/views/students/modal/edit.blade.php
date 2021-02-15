@@ -9,14 +9,23 @@
                 <form action="#" method="POST" id="edit-student-form">
                     @csrf @method('PUT')
                     <div class="row">
-                        <div class="col-sm-6 col-md-6">
+                        <div class="col-sm-4 col-md-4">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-control" name="name" id="name">
+                                <label for="student_identification_number" class="form-label">NIS/NISN</label>
+                                <input type="number" class="form-control" name="student_identification_number"
+                                    id="student_identification_number" placeholder="Masukkan nis/nisn..">
                             </div>
                         </div>
 
-                        <div class="col-sm-6 col-md-6">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">Nama Lengkap</label>
+                                <input type="text" class="form-control" name="name" id="name"
+                                    placeholder="Masukkan nama lengkap..">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-md-4">
                             <div class="mb-3">
                                 <label for="gender" class="form-label">Jenis Kelamin</label>
                                 <select class="form-select" name="gender" id="gender">
@@ -59,14 +68,16 @@
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="text" class="form-control" name="email" id="email">
+                                <input type="text" class="form-control" name="email" id="email"
+                                    placeholder="Masukkan email..">
                             </div>
                         </div>
 
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="phone_number" class="form-label">Nomor Handphone</label>
-                                <input type="text" class="form-control" name="phone_number" id="phone_number">
+                                <input type="text" class="form-control" name="phone_number" id="phone_number"
+                                    placeholder="Masukkan nomor handphone..">
                             </div>
                         </div>
                     </div>
@@ -75,9 +86,11 @@
                         <div class="col-sm-12 col-md-12">
                             <label for="school_year_start">Tahun Ajaran</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name="school_year_start" id="school_year_start">
+                                <input type="text" class="form-control" name="school_year_start" id="school_year_start"
+                                    placeholder="Masukkan awal tahun ajaran..">
                                 <span class="input-group-text">-</span>
-                                <input type="text" class="form-control" name="school_year_end" id="school_year_end">
+                                <input type="text" class="form-control" name="school_year_end" id="school_year_end"
+                                    placeholder="Masukkan akhir tahun ajaran..">
                             </div>
                         </div>
                     </div>

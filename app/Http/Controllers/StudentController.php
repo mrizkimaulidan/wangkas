@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentStoreRequest;
+use App\Http\Requests\StudentUpdateRequest;
 use App\Repositories\SchoolClassRepository;
 use App\Repositories\SchoolMajorRepository;
 use App\Repositories\StudentRepository;
@@ -33,7 +34,7 @@ class StudentController extends Controller
         return redirect()->route('pelajar.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(Request $request, $id)
+    public function update(StudentUpdateRequest $request, $id)
     {
         $this->studentRepository->update($request, $id);
 

@@ -134,7 +134,7 @@
                             <label for="school_year_start">Tahun Ajaran</label>
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control @error('school_year_start') is-invalid @enderror"
-                                    name="school_year_start" placeholder="Masukkan mulai tahun ajaran.."
+                                    name="school_year_start" placeholder="Masukkan awal tahun ajaran.."
                                     value="{{ date('Y') - 3 }}">
 
                                 @error('school_year_start')
