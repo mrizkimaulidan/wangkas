@@ -64,8 +64,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="is_paid" class="form-label">Status Pembayaran</label>
-                                <select class="form-select @error('is_paid') is-invalid @enderror" name="is_paid"
-                                    id="is_paid">
+                                <select class="form-select select2 @error('is_paid') is-invalid @enderror"
+                                    name="is_paid" id="is_paid">
                                     <option selected>Pilih Status Pembayaran</option>
                                     <option value="1">Lunas</option>
                                     <option value="0">Belum Lunas</option>

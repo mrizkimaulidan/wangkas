@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Ubah Data Kas</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close clear-input" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form action="#" method="POST" id="cash-transaction-edit-form">
@@ -45,8 +45,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="is_paid" class="form-label">Status Pembayaran</label>
-                                <select class="form-select" name="is_paid" id="is_paid">
-                                    <option selected>Pilih status pembayaran</option>
+                                <select class="form-select select2" name="is_paid" id="is_paid">
+                                    <option selected>Pilih Status Pembayaran</option>
                                     <option value="1">Lunas</option>
                                     <option value="0">Belum Lunas</option>
                                 </select>
@@ -70,7 +70,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-secondary clear-input"
+                            data-bs-dismiss="modal">Tutup</button>
                         <button type="submit" class="btn btn-primary">Simpan</button>
                     </div>
                 </form>

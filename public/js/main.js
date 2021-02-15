@@ -113,7 +113,7 @@ $(function () {
 
     $(".clear-input").on("click", function () {
         $("input:not([name=_method], [name=_token])").val("");
-        $("select").prop("selectedIndex", 0);
+        $("select").prop("selectedIndex", 0).change();
     });
 
     $(".delete-notification").click(function (e) {
