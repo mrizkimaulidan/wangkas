@@ -12,26 +12,47 @@
                         <div class="col-sm-4 col-md-4">
                             <div class="mb-3">
                                 <label for="name" class="form-label">NIS/NISN</label>
-                                <input type="number" class="form-control" name="student_identification_number"
-                                    id="student_identification_number" placeholder="Masukkan nis/nisn..">
+                                <input type="number"
+                                    class="form-control @error('student_identification_number') is-invalid @enderror"
+                                    name="student_identification_number" id="student_identification_number"
+                                    value="{{ old('student_identification_number') }}"
+                                    placeholder="Masukkan nis/nisn..">
+
+                                @error('student_identification_number')
+                                <div class="d-block invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="col-sm-4 col-md-4">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Lengkap</label>
-                                <input type="text" class="form-control" name="name" id="name"
-                                    placeholder="Masukkan nama lengkap..">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                                    id="name" value="{{ old('name') }}" placeholder="Masukkan nama lengkap..">
+
+                                @error('name')
+                                <div class="d-block invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="col-sm-4 col-md-4">
                             <label for="gender" class="form-label">Jenis Kelamin</label>
-                            <select class="form-select" name="gender" id="gender">
+                            <select class="form-select @error('gender') is-invalid @enderror" name="gender" id="gender">
                                 <option selected>Pilih Jenis Kelamin</option>
                                 <option value="1">Laki-laki</option>
                                 <option value="2">Perempuan</option>
                             </select>
+
+                            @error('gender')
+                            <div class="d-block invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                     </div>
 
@@ -39,25 +60,39 @@
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="school_class_id" class="form-label">Kelas</label>
-                                <select class="form-select" name="school_class_id" id="school_class_id">
+                                <select class="form-select @error('school_class_id') is-invalid @enderror"
+                                    name="school_class_id" id="school_class_id">
                                     <option selected>Pilih Kelas</option>
                                     @foreach($school_classes as $school_class)
                                     <option value="{{ $school_class->id }}">{{ $school_class->name }}</option>
                                     @endforeach
                                 </select>
+
+                                @error('school_class_id')
+                                <div class="d-block invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="school_major_id" class="form-label">Jurusan</label>
-                                <select class="form-select" name="school_major_id" id="school_major_id">
+                                <select class="form-select @error('school_major_id') is-invalid @enderror"
+                                    name="school_major_id" id="school_major_id">
                                     <option selected>Pilih Jurusan</option>
                                     @foreach ($school_majors as $school_major)
                                     <option value="{{ $school_major->id }}">{{ $school_major->abbreviated_word }} -
                                         {{ $school_major->name }}</option>
                                     @endforeach
                                 </select>
+
+                                @error('school_major_id')
+                                <div class="d-block is-invalid">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -66,16 +101,30 @@
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Alamat Email</label>
-                                <input type="email" class="form-control" name="email" id="email"
+                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                    name="email" id="email" value="{{ old('email') }}"
                                     placeholder="Masukkan alamat email..">
+
+                                @error('email')
+                                <div class="d-block invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="phone_number" class="form-label">Nomor Handphone</label>
-                                <input type="text" class="form-control" name="phone_number" id="phone_number"
+                                <input type="text" class="form-control @error('phone_number') is-invalid @enderror"
+                                    name="phone_number" id="phone_number" value="{{ old('phone_number') }}"
                                     placeholder="Masukkan nomor handphone..">
+
+                                @error('phone_number')
+                                <div class="d-block invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -84,11 +133,25 @@
                         <div class="col-sm-12 col-md-12">
                             <label for="school_year_start">Tahun Ajaran</label>
                             <div class="input-group mb-3">
-                                <input type="text" class="form-control" name="school_year_start"
-                                    placeholder="Masukkan mulai tahun ajaran.." value="{{ date('Y') - 3 }}">
+                                <input type="text" class="form-control @error('school_year_start') is-invalid @enderror"
+                                    name="school_year_start" placeholder="Masukkan mulai tahun ajaran.."
+                                    value="{{ date('Y') - 3 }}">
+
+                                @error('school_year_start')
+                                <div class="d-block invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                                 <span class="input-group-text">-</span>
-                                <input type="text" class="form-control" name="school_year_end"
-                                    placeholder="Masukkan akhir tahun ajaran.." value="{{ date('Y') }}">
+                                <input type="text" class="form-control @error('school_year_end') is-invalid @enderror"
+                                    name="school_year_end" placeholder="Masukkan akhir tahun ajaran.."
+                                    value="{{ date('Y') }}">
+
+                                @error('school_year_end')
+                                <div class="d-block invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
