@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CashTransactionStoreRequest;
+use App\Http\Requests\CashTransactionUpdateRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Repositories\StudentRepository;
@@ -31,14 +33,14 @@ class CashTransactionController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(CashTransactionStoreRequest $request)
     {
         $this->cashTransactionRepository->store($request);
 
         return redirect()->route('kas.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(Request $request, $id)
+    public function update(CashTransactionUpdateRequest $request, $id)
     {
         $this->cashTransactionRepository->update($request, $id);
 

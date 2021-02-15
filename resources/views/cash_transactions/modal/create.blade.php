@@ -12,13 +12,19 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Pelajar</label>
-                                <select class="form-select" name="student_id">
+                                <select class="form-select @error('student_id') is-invalid @enderror" name="student_id">
                                     <option selected>Pilih Pelajar</option>
                                     @foreach ($students as $student)
                                     <option value="{{ $student->id }}">
                                         {{ $student->student_identification_number }} - {{ $student->name }}</option>
                                     @endforeach
                                 </select>
+
+                                @error('student_id')
+                                <div class="d-block invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -27,16 +33,29 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="bill" class="form-label">Tagihan</label>
-                                <input type="number" class="form-control" name="bill" value="{{ config('app.bill') }}"
-                                    id="bill" readonly>
+                                <input type="number" class="form-control @error('bill') is-invalid @enderror"
+                                    name="bill" value="{{ config('app.bill') }}" id="bill" readonly>
+
+                                @error('bill')
+                                <div class="d-block invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="amount" class="form-label">Total Bayar</label>
-                                <input type="number" class="form-control" name="amount" id="amount"
+                                <input type="number" class="form-control @error('amount') is-invalid @enderror"
+                                    name="amount" id="amount" value="{{ old('amount') }}"
                                     placeholder="Masukkan total bayar..">
+
+                                @error('amount')
+                                <div class="d-block invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -45,19 +64,32 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="is_paid" class="form-label">Status Pembayaran</label>
-                                <select class="form-select" name="is_paid" id="is_paid">
-                                    <option selected>Pilih status pembayaran</option>
+                                <select class="form-select @error('is_paid') is-invalid @enderror" name="is_paid"
+                                    id="is_paid">
+                                    <option selected>Pilih Status Pembayaran</option>
                                     <option value="1">Lunas</option>
                                     <option value="0">Belum Lunas</option>
                                 </select>
+
+                                @error('is_paid')
+                                <div class="d-block invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="date" class="form-label">Tanggal</label>
-                                <input type="date" class="form-control" name="date" id="date"
-                                    value="{{ date('Y-m-d') }}">
+                                <input type="date" class="form-control @error('date') is-invalid @enderror" name="date"
+                                    id="date" value="{{ date('Y-m-d') }}">
+
+                                @error('date')
+                                <div class="d-block invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
@@ -65,8 +97,14 @@
                     <div class="row">
                         <div class="mb-3">
                             <label for="note" class="form-label">Catatan</label>
-                            <textarea class="form-control" name="note" id="note" rows="3"
-                                placeholder="Masukkan catatan (opsional).."></textarea>
+                            <textarea class="form-control @error('note') is-invalid @enderror" name="note" id="note"
+                                rows="3" placeholder="Masukkan catatan (opsional)..">{{ old('note') }}</textarea>
+
+                            @error('note')
+                            <div class="d-block invalid-feedback">
+                                {{ $message }}
+                            </div>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
