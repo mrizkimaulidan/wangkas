@@ -32,12 +32,12 @@ class StudentRepository extends Controller
     /**
      * Ambil data siswa berdasarkan id dari tabel students pada database.
      *
-     * @param string $id adalah id dari paramter.
+     * @param object $id adalah model binding dari model Student.
      * @return Object
      */
-    public function findStudent(string $id): Object
+    public function findStudent(object $pelajar): Object
     {
-        return $this->model->findOrFail($id);
+        return $pelajar;
     }
 
     /**
@@ -51,9 +51,9 @@ class StudentRepository extends Controller
         return $this->model->create($request->only('student_identification_number', 'school_class_id', 'school_major_id', 'name', 'email', 'phone_number', 'gender', 'school_year_start', 'school_year_end'));
     }
 
-    public function update(Request $request, string $id): Bool
+    public function update(Request $request, object $pelajar): Bool
     {
-        $this->model = $this->findStudent($id);
+        $this->model = $this->findStudent($pelajar);
 
         return $this->model->update($request->only('student_identification_number', 'school_class_id', 'school_major_id', 'name', 'email', 'phone_number', 'gender', 'school_year_start', 'school_year_end'));
     }

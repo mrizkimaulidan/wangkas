@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentStoreRequest;
 use App\Http\Requests\StudentUpdateRequest;
+use App\Models\Student;
 use App\Repositories\SchoolClassRepository;
 use App\Repositories\SchoolMajorRepository;
 use App\Repositories\StudentRepository;
@@ -34,16 +35,16 @@ class StudentController extends Controller
         return redirect()->route('pelajar.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(StudentUpdateRequest $request, $id)
+    public function update(StudentUpdateRequest $request, Student $pelajar)
     {
-        $this->studentRepository->update($request, $id);
+        $this->studentRepository->update($request, $pelajar);
 
         return redirect()->route('pelajar.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy($id)
+    public function destroy(Student $pelajar)
     {
-        $this->studentRepository->findStudent($id)->delete();
+        $this->studentRepository->findStudent($pelajar)->delete();
 
         return redirect()->route('pelajar.index')->with('success', 'Data berhasil dihapus!');
     }

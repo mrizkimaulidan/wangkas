@@ -53,8 +53,8 @@
                 $('#editStudentModal #name').val(data.data.name);
                 
                 $('#editStudentModal #gender').val(data.data.gender).select2();
-                $('#editStudentModal #school_class_id').val(data.data.school_classes.id).select2();
-                $('#editStudentModal #school_major_id').val(data.data.school_majors.id).select2();
+                $('#editStudentModal #school_class_id').val(data.data.school_class_id).select2();
+                $('#editStudentModal #school_major_id').val(data.data.school_major_id).select2();
                 $('#editStudentModal #email').val(data.data.email);
                 $('#editStudentModal #phone_number').val(data.data.phone_number);
                 

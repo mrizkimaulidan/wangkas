@@ -9,7 +9,7 @@
                 <form action="{{ route('pelajar.store') }}" method="POST">
                     @csrf
                     <div class="row">
-                        <div class="col-sm-12 col-md-4">
+                        <div class="col-sm-12 col-md-12 col-lg-4">
                             <div class="mb-3">
                                 <label for="name" class="form-label">NIS/NISN</label>
                                 <input type="number"
@@ -26,7 +26,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-4">
+                        <div class="col-sm-12 col-md-12 col-lg-4">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Lengkap</label>
                                 <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
@@ -40,7 +40,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-4">
+                        <div class="col-sm-12 col-md-12 col-lg-4">
                             <label for="gender" class="form-label">Jenis Kelamin</label>
                             <select class="form-select select2 @error('gender') is-invalid @enderror" name="gender"
                                 id="gender">

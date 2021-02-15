@@ -9,7 +9,7 @@
                 <form action="#" method="POST" id="edit-student-form">
                     @csrf @method('PUT')
                     <div class="row">
-                        <div class="col-sm-12 col-md-4">
+                        <div class="col-sm-12 col-md-12 col-lg-4">
                             <div class="mb-3">
                                 <label for="student_identification_number" class="form-label">NIS/NISN</label>
                                 <input type="number" class="form-control" name="student_identification_number"
@@ -17,7 +17,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-4">
+                        <div class="col-sm-12 col-md-12 col-lg-4">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Lengkap</label>
                                 <input type="text" class="form-control" name="name" id="name"
@@ -25,7 +25,7 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-12 col-md-4">
+                        <div class="col-sm-12 col-md-12 col-lg-4">
                             <div class="mb-3">
                                 <label for="gender" class="form-label">Jenis Kelamin</label>
                                 <select class="form-select select2" name="gender" id="gender">
@@ -76,7 +76,7 @@
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="phone_number" class="form-label">Nomor Handphone</label>
-                                <input type="text" class="form-control" name="phone_number" id="phone_number"
+                                <input type="number" class="form-control" name="phone_number" id="phone_number"
                                     placeholder="Masukkan nomor handphone..">
                             </div>
                         </div>
