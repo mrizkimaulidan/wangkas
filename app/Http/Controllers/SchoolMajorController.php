@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SchoolMajorStoreRequest;
+use App\Http\Requests\SchoolMajorUpdateRequest;
 use App\Repositories\SchoolMajorRepository;
 use Illuminate\Http\Request;
 
@@ -19,14 +21,14 @@ class SchoolMajorController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(SchoolMajorStoreRequest $request)
     {
         $this->schoolMajorRepository->store($request);
 
         return redirect()->route('jurusan.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(Request $request, $id)
+    public function update(SchoolMajorUpdateRequest $request, $id)
     {
         $this->schoolMajorRepository->update($request, $id);
 

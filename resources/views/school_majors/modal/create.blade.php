@@ -12,13 +12,26 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama</label>
-                                <input type="text" class="form-control" name="name" id="name"
-                                    placeholder="Masukkan nama jurusan.." required>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                                    id="name" value="{{ old('name') }}" placeholder="Masukkan nama jurusan..">
+
+                                @error('name')
+                                <div class="d-block invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Singkatan</label>
-                                <input type="text" class="form-control" name="abbreviated word" id="abbreviated word"
-                                    placeholder="Masukkan singkatan jurusan.." required>
+                                <label for="abbreviated_word" class="form-label">Singkatan</label>
+                                <input type="text" class="form-control @error('abbreviated_word') is-invalid @enderror"
+                                    name="abbreviated_word" id="abbreviated_word" value="{{ old('abbreviated_word') }}"
+                                    placeholder="Masukkan singkatan jurusan..">
+
+                                @error('abbreviated_word')
+                                <div class="d-block invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                         </div>
                     </div>
