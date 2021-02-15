@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentStoreRequest;
 use App\Repositories\SchoolClassRepository;
 use App\Repositories\SchoolMajorRepository;
 use App\Repositories\StudentRepository;
@@ -25,7 +26,7 @@ class StudentController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StudentStoreRequest $request)
     {
         $this->studentRepository->store($request);
 

@@ -9,7 +9,15 @@
                 <form action="{{ route('pelajar.store') }}" method="POST">
                     @csrf
                     <div class="row">
-                        <div class="col-sm-6 col-md-6">
+                        <div class="col-sm-4 col-md-4">
+                            <div class="mb-3">
+                                <label for="name" class="form-label">NIS/NISN</label>
+                                <input type="number" class="form-control" name="student_identification_number"
+                                    id="student_identification_number" placeholder="Masukkan nis/nisn..">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-4 col-md-4">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Lengkap</label>
                                 <input type="text" class="form-control" name="name" id="name"
@@ -17,10 +25,10 @@
                             </div>
                         </div>
 
-                        <div class="col-sm-6 col-md-6">
+                        <div class="col-sm-4 col-md-4">
                             <label for="gender" class="form-label">Jenis Kelamin</label>
                             <select class="form-select" name="gender" id="gender">
-                                <option selected>Pilih jenis kelamin</option>
+                                <option selected>Pilih Jenis Kelamin</option>
                                 <option value="1">Laki-laki</option>
                                 <option value="2">Perempuan</option>
                             </select>
@@ -32,7 +40,7 @@
                             <div class="mb-3">
                                 <label for="school_class_id" class="form-label">Kelas</label>
                                 <select class="form-select" name="school_class_id" id="school_class_id">
-                                    <option selected>Pilih kelas</option>
+                                    <option selected>Pilih Kelas</option>
                                     @foreach($school_classes as $school_class)
                                     <option value="{{ $school_class->id }}">{{ $school_class->name }}</option>
                                     @endforeach
@@ -44,7 +52,7 @@
                             <div class="mb-3">
                                 <label for="school_major_id" class="form-label">Jurusan</label>
                                 <select class="form-select" name="school_major_id" id="school_major_id">
-                                    <option selected>Pilih jurusan</option>
+                                    <option selected>Pilih Jurusan</option>
                                     @foreach ($school_majors as $school_major)
                                     <option value="{{ $school_major->id }}">{{ $school_major->abbreviated_word }} -
                                         {{ $school_major->name }}</option>
