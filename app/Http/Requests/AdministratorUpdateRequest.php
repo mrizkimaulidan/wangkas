@@ -26,7 +26,8 @@ class AdministratorUpdateRequest extends FormRequest
         return [
             'name' => 'required|min:3|max:191',
             'email' => 'required|email|max:191',
-            'password' => 'required|min:3|max:191'
+            'password' => 'required|min:3|max:191',
+            'password_confirmation' => 'required|same:password'
         ];
     }
 
@@ -44,6 +45,10 @@ class AdministratorUpdateRequest extends FormRequest
             'password.required' => 'Kolom password wajib diisi!',
             'password.min' => 'Kolom password minimal 3 karakter!',
             'password.max' => 'Kolom password maksimal 191 karakter!',
+
+
+            'password_confirmation.required' => 'Kolom ulangi password wajib diisi!',
+            'password_confirmation.same' => 'Kolom ulangi password harus sama dengan kolom password!',
         ];
     }
 }
