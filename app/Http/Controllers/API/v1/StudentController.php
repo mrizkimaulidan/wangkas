@@ -17,6 +17,8 @@ class StudentController extends Controller
 
     public function show(Student $pelajar)
     {
-        return response()->json(['status' => Response::HTTP_OK, 'data' => $this->studentRepository->findStudent($pelajar)], Response::HTTP_OK);
+        $data = $pelajar->with('school_classes', 'school_majors')->first();
+
+        return response()->json(['status' => Response::HTTP_OK, 'data' => $this->studentRepository->findStudent($data)], Response::HTTP_OK);
     }
 }
