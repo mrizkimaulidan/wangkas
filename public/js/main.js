@@ -140,6 +140,4 @@ $(function () {
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
-
-    $(".select2").select2();
 });

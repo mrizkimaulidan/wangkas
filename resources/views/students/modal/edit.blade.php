@@ -28,7 +28,7 @@
                         <div class="col-sm-12 col-md-12 col-lg-4">
                             <div class="mb-3">
                                 <label for="gender" class="form-label">Jenis Kelamin</label>
-                                <select class="form-select select2" name="gender" id="gender">
+                                <select class="form-select" name="gender" id="gender">
                                     <option selected>Pilih jenis kelamin</option>
                                     <option value="1">Laki-laki</option>
                                     <option value="2">Perempuan</option>
@@ -41,7 +41,7 @@
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="school_class_id" class="form-label">Kelas</label>
-                                <select class="form-select select2" name="school_class_id" id="school_class_id">
+                                <select class="form-select" name="school_class_id" id="school_class_id">
                                     <option selected>Pilih kelas</option>
                                     @foreach($school_classes as $school_class)
                                     <option value="{{ $school_class->id }}">{{ $school_class->name }}</option>
@@ -53,7 +53,7 @@
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="school_major_id" class="form-label">Jurusan</label>
-                                <select class="form-select select2" name="school_major_id" id="school_major_id">
+                                <select class="form-select" name="school_major_id" id="school_major_id">
                                     <option selected>Pilih jurusan</option>
                                     @foreach ($school_majors as $school_major)
                                     <option value="{{ $school_major->id }}">{{ $school_major->abbreviated_word }} -
