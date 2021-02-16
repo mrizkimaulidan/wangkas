@@ -1,4 +1,4 @@
-<div class="modal fade" id="addSchoolMajorModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="addSchoolMajorModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

@@ -1,4 +1,4 @@
-<div class="modal fade" id="addStudentModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" id="addStudentModal" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
