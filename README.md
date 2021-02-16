@@ -1,6 +1,6 @@
 # WANGKAS
 
-Aplikasi pendataan uang kas dibuat dengan Framework Laravel 8. Aplikasi ini cocok untuk digunakan untuk di sekolah atau masing masing kelas. <br>
+Aplikasi pendataan uang kas dibuat dengan Framework Laravel 8. Dengan sistem pembayaran kas sekali selama seminggu. Aplikasi ini cocok untuk digunakan untuk di sekolah atau masing masing kelas. <br>
 
 Beberapa CRUD menggunakan modal dan AJAX untuk pengambilan data agar mengurangi penggunaan pindah halaman.
 
