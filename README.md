@@ -113,7 +113,7 @@ Password    : secret
 
 Silahkan request melalui kolom `Pull Requests` jika ingin melakukan kontribusi
 
-Database Schema -> [dbdiagram](https://dbdiagram.io/embed/6023f5db80d742080a3a02b5)
+Database Schema -> [dbdiagram](https://dbdiagram.io/d/60115a6180d742080a380f79)
 
 ### Pembuat
 
