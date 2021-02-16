@@ -9,7 +9,6 @@
         $.ajax({
             url: url,
             success: function(data) {
-                console.log(data.data);
                 let gender = data.data.gender === 1 ? 'Laki-laki' : 'Perempuan';
 
                 $('#showStudentModal #name').val(data.data.name);
