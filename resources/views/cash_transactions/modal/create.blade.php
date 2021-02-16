@@ -34,7 +34,7 @@
                             <div class="mb-3">
                                 <label for="bill" class="form-label">Tagihan</label>
                                 <input type="number" class="form-control @error('bill') is-invalid @enderror"
-                                    name="bill" value="{{ old('bill') }}" id="bill">
+                                    name="bill" value="{{ old('bill') }}" id="bill" placeholder="Masukkan tagihan..">
 
                                 @error('bill')
                                 <div class="d-block invalid-feedback">
