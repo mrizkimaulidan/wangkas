@@ -7,7 +7,7 @@ use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\SchoolMajorController;
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\CashTransactionController;
-
+use App\Http\Controllers\CashTransactionReportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,5 +30,6 @@ Route::resource('kelas', SchoolClassController::class)->except('create', 'show',
 Route::resource('jurusan', SchoolMajorController::class)->except('create', 'show', 'edit');
 Route::resource('administrator', AdministratorController::class)->except('create', 'show', 'edit');
 Route::resource('kas', CashTransactionController::class)->except('create', 'show', 'edit');
+Route::resource('laporan', CashTransactionReportController::class);
 
 require __DIR__ . '/auth.php';
