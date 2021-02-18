@@ -49,6 +49,13 @@
             </a>
         </li>
 
+        <li class="sidebar-item">
+            <a href="#" class='sidebar-link'>
+                <i class="bi bi-file-earmark-spreadsheet-fill"></i>
+                <span>Laporan</span>
+            </a>
+        </li>
+
         <li class="sidebar-item {{ request()->is('administrator*') ? 'active' : '' }}">
             <a href="{{ route('administrator.index') }}" class='sidebar-link'>
                 <i class="bi bi-person-badge-fill"></i>
