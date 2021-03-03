@@ -46,6 +46,11 @@ class CashTransactionReportRepository extends Controller
         return $model->sum($column);
     }
 
+    /**
+     * Filter data kas pada tabel cash_transactions dengan rentang tanggal.
+     *
+     * @return void
+     */
     public function filter()
     {
         if ($_GET) {

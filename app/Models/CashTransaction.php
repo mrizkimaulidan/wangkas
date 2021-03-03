@@ -21,12 +21,4 @@ class CashTransaction extends Model
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
-
-    public function countHowManyCashTransaction(string $user_id, string $start_date, string $end_date)
-    {
-        $student = Student::where('id', $user_id)->pluck('id');
-        $cash_transaction = CashTransaction::whereBetween('date', [$start_date, $end_date])->whereIn('student_id', $student)->count();
-
-        return $cash_transaction;
-    }
 }
