@@ -103,7 +103,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($latest_cash_transactions_by_limit as $latest_cash_transaction_by_limit)
+                                    @forelse($latest_cash_transactions_by_limit as $latest_cash_transaction_by_limit)
                                     <tr>
                                         <td class="col-5">
                                             <div class="d-flex align-items-center">
@@ -127,7 +127,13 @@
                                             </p>
                                         </td>
                                     </tr>
-                                    @endforeach
+                                    @empty
+                                    <tr>
+                                        <td colspan="4">
+                                            <p class="fw-bold text-danger text-center text-uppercase">Data kosong!</p>
+                                        </td>
+                                    </tr>
+                                    @endforelse
                                 </tbody>
                             </table>
                         </div>
