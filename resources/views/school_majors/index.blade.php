@@ -26,7 +26,7 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $school_major->name }}</td>
                     <td>
-                        <span class="badge rounded-pill bg-primary">
+                        <span class="badge w-100 rounded-pill bg-primary">
                             {{ $school_major->abbreviated_word }}
                         </span>
                     </td>

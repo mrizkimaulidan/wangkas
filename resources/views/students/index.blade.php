@@ -31,13 +31,13 @@
                     <td>{{ $student->name }}</td>
                     <td>{{ $student->school_classes->name }}
                     <td>
-                        <span class="badge rounded-pill bg-success" data-bs-toggle="tooltip" data-placement="top"
+                        <span class="badge w-100 rounded-pill bg-success" data-bs-toggle="tooltip" data-placement="top"
                             title="{{ $student->school_majors->name }}">
                             {{ $student->school_majors->abbreviated_word }}
                         </span>
                     </td>
                     <td>
-                        <span class="badge rounded-pill bg-primary">
+                        <span class="badge w-100 rounded-pill bg-primary">
                             {{ $student->school_year_start }}-{{ $student->school_year_end }}
                         </span>
                     </td>

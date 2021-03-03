@@ -126,7 +126,7 @@
                     <b>{{ $count_student_who_not_paid_this_week }}</b> orang belum membayar pada minggu
                     ini!</button>
             </div>
-            <span class="badge rounded-pill bg-warning mb-3"></span>
+            <span class="badge w-100 rounded-pill bg-warning mb-3"></span>
             <div class="card-content pb-4">
                 <div class="row">
                     @foreach($students_who_not_paid_this_week_by_limit as $student_who_not_paid_this_week_by_limit)
@@ -182,7 +182,7 @@
                     <td>{{ date('d-m-Y', strtotime($cash_transaction->date)) }}</td>
                     <td>
                         <span
-                            class="badge rounded-pill mb-2 {{ $cash_transaction->is_paid === 1 ? 'bg-success' : 'bg-danger' }}"
+                            class="badge w-100 rounded-pill mb-2 {{ $cash_transaction->is_paid === 1 ? 'bg-success' : 'bg-danger' }}"
                             data-bs-toggle="tooltip" data-bs-placement="top"
                             title="{{ paid_status($cash_transaction->is_paid) }}">{{ paid_status($cash_transaction->is_paid) }}</span>
                     </td>

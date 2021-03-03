@@ -10,7 +10,7 @@
                 <div class="card-content pb-4">
                     <div class="row">
                         <div class="col-lg-12">
-                            <span class="badge rounded-pill bg-warning mb-3">Ada
+                            <span class="badge w-100 rounded-pill bg-warning mb-3">Ada
                                 {{ $count_student_who_not_paid_this_week }} orang belum membayar pada minggu
                                 ini!</span>
                         </div>
