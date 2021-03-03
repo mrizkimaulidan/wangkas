@@ -2,10 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Repositories\CashTransactionReportRepository;
 use Illuminate\Http\Request;
 
 class CashTransactionReportController extends Controller
 {
+    public function __construct(
+        private  CashTransactionReportRepository $cashTransactionReportRepository
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +19,12 @@ class CashTransactionReportController extends Controller
      */
     public function index()
     {
-        return view('reports.index');
+        $sum_this_day = $this->cashTransactionReportRepository->sumAmount('amount', 'this_day');
+        $sum_this_week = $this->cashTransactionReportRepository->sumAmount('amount', 'this_week');
+        $sum_this_month = $this->cashTransactionReportRepository->sumAmount('amount', 'this_month');
+        $sum_this_year = $this->cashTransactionReportRepository->sumAmount('amount', 'this_year');
+
+        return view('reports.index', compact('sum_this_day', 'sum_this_week', 'sum_this_month', 'sum_this_year'));
     }
 
     /**
