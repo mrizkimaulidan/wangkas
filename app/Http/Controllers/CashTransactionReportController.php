@@ -17,79 +17,22 @@ class CashTransactionReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $sum_this_day = $this->cashTransactionReportRepository->sumAmount('amount', 'this_day');
         $sum_this_week = $this->cashTransactionReportRepository->sumAmount('amount', 'this_week');
         $sum_this_month = $this->cashTransactionReportRepository->sumAmount('amount', 'this_month');
         $sum_this_year = $this->cashTransactionReportRepository->sumAmount('amount', 'this_year');
+        $filtered_results = $this->cashTransactionReportRepository->filter();
 
-        return view('reports.index', compact('sum_this_day', 'sum_this_week', 'sum_this_month', 'sum_this_year'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return view('reports.index', [
+            'sum_this_day' => $sum_this_day,
+            'sum_this_week' => $sum_this_week,
+            'sum_this_month' => $sum_this_month,
+            'sum_this_year' => $sum_this_year,
+            'reports_data' => $filtered_results['filtered_data'] ?? [],
+            'total_amount_is_paid' => $filtered_results['total_amount']['is_paid'] ?? 0,
+            'total_amount_is_not_paid' => $filtered_results['total_amount']['is_not_paid'] ?? 0,
+        ]);
     }
 }

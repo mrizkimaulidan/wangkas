@@ -84,7 +84,7 @@
 
     <div class="row">
         <div class="card px-3 py-3">
-            <form>
+            <form action="{{ route('kas.filter') }}" method="GET">
                 <div class="input-group">
                     <input type="date" name="start_date" class="form-control">
                     <input type="date" name="end_date" class="form-control">
@@ -94,6 +94,7 @@
         </div>
     </div>
 
+    @if($reports_data)
     <div class="row">
         <div class="card px-3 py-3">
             <div class="col-lg-12">
@@ -103,36 +104,47 @@
                 </button>
             </div>
 
-            <div class="table-responsive">
-                <table class="table table-sm text-center caption-top">
-                    <caption>Laporan data dari tanggal 01-01-2021 - 31-01-2021</caption>
+            <div class="table-responsive mt-3">
+                <table class="table table-sm text-center caption-top" id="datatable">
+                    <caption>Laporan data dari tanggal <span
+                            class="fw-bold">{{ date('d-m-Y', strtotime($_GET['start_date'])) }}</span> -
+                        <span class="fw-bold">{{ date('d-m-Y', strtotime($_GET['end_date'])) }}</span></caption>
                     <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Nama Pelajar</th>
                             <th scope="col">Tanggal</th>
                             <th scope="col">Status</th>
-                            <th scope="col">Telah Membayar Bulan Ini</th>
                             <th scope="col">Nominal Bayar</th>
+                            <th scope="col">Pencatat</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach ($reports_data as $report_data)
                         <tr>
-                            <th scope="row">#</th>
-                            <td>Muhammad Rizki Maulidan</td>
-                            <td>18-02-2021</td>
-                            <td>Lunas</td>
-                            <td>4x</td>
-                            <td>Rp10,000.00</td>
+                            <th>{{ $loop->iteration }}</th>
+                            <td>{{ $report_data->students->name }}</td>
+                            <td>{{ date('d-m-Y', strtotime($report_data->date)) }}</td>
+                            <td>{{ paid_status($report_data->is_paid) }}</td>
+                            <td>{{ indonesian_currency($report_data->amount) }}</td>
+                            <td>{{ $report_data->users->name }}</td>
                         </tr>
-                        <tr>
-                            <td colspan="5" align="right"><b>Total</b></td>
-                            <td>Rp10,000.00</td>
-                        </tr>
+                        @endforeach
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" align="right"><b>Total Lunas</b></td>
+                            <td>{{ indonesian_currency($total_amount_is_paid) }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" align="right"><b>Total Belum Lunas</b></td>
+                            <td>{{ indonesian_currency($total_amount_is_not_paid) }}</td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
     </div>
+    @endif
 </section>
 @endsection

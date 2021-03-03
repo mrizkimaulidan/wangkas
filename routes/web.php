@@ -30,6 +30,8 @@ Route::resource('kelas', SchoolClassController::class)->except('create', 'show',
 Route::resource('jurusan', SchoolMajorController::class)->except('create', 'show', 'edit');
 Route::resource('administrator', AdministratorController::class)->except('create', 'show', 'edit');
 Route::resource('kas', CashTransactionController::class)->except('create', 'show', 'edit');
-Route::resource('laporan', CashTransactionReportController::class);
+Route::get('/laporan', [CashTransactionReportController::class, 'index'])->name('laporan.index');
+
+Route::get('/laporan/filter', [CashTransactionReportController::class, 'index'])->name('kas.filter');
 
 require __DIR__ . '/auth.php';
