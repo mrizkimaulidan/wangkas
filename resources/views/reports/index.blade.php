@@ -103,33 +103,35 @@
                 </button>
             </div>
 
-            <table class="table table-sm text-center caption-top">
-                <caption>Laporan data dari tanggal 01-01-2021 - 31-01-2021</caption>
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nama Pelajar</th>
-                        <th scope="col">Tanggal</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Telah Membayar Bulan Ini</th>
-                        <th scope="col">Nominal Bayar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">#</th>
-                        <td>Muhammad Rizki Maulidan</td>
-                        <td>18-02-2021</td>
-                        <td>Lunas</td>
-                        <td>4x</td>
-                        <td>Rp10,000.00</td>
-                    </tr>
-                    <tr>
-                        <td colspan="5" align="right"><b>Total</b></td>
-                        <td>Rp10,000.00</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-responsive">
+                <table class="table table-sm text-center caption-top">
+                    <caption>Laporan data dari tanggal 01-01-2021 - 31-01-2021</caption>
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Nama Pelajar</th>
+                            <th scope="col">Tanggal</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Telah Membayar Bulan Ini</th>
+                            <th scope="col">Nominal Bayar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">#</th>
+                            <td>Muhammad Rizki Maulidan</td>
+                            <td>18-02-2021</td>
+                            <td>Lunas</td>
+                            <td>4x</td>
+                            <td>Rp10,000.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" align="right"><b>Total</b></td>
+                            <td>Rp10,000.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </section>
