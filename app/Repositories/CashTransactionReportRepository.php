@@ -49,7 +49,7 @@ class CashTransactionReportRepository extends Controller
     public function filter()
     {
         if ($_GET) {
-            $filtered_data = $this->model->whereBetween('date', [$_GET['start_date'], $_GET['end_date']])->orderBy('date')->get();
+            $filtered_data = $this->model->with('students', 'users')->whereBetween('date', [$_GET['start_date'], $_GET['end_date']])->orderBy('date')->get();
 
             $result = [
                 'filtered_data' => $filtered_data ?? [],
