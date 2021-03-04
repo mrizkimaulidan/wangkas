@@ -57,7 +57,7 @@ class CashTransactionRepository extends Controller
             'bill' => $request->bill,
             'amount' => $request->amount,
             'is_paid' => $request->is_paid,
-            'date' => $request->date,
+            'date' => date('Y-m-d', strtotime($request->date)),
             'note' => $request->note
         ]);
     }
