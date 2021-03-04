@@ -15,6 +15,8 @@ class CreateStudentsTable extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('school_class_id')->constrained();
+            $table->foreignId('school_major_id')->constrained();
             $table->string('student_identification_number');
             $table->string('name');
             $table->string('email')->unique();
@@ -23,9 +25,6 @@ class CreateStudentsTable extends Migration
             $table->integer('school_year_start');
             $table->integer('school_year_end');
             $table->timestamps();
-
-            $table->foreignId('school_class_id')->constrained();
-            $table->foreignId('school_major_id')->constrained();
         });
     }
 
