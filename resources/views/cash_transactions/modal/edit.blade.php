@@ -12,7 +12,7 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Pelajar</label>
-                                <select class="form-select" name="student_id" id="student_id">
+                                <select class="form-select select2" name="student_id" id="student_id">
                                     <option selected>Pilih Pelajar</option>
                                     @foreach ($students as $student)
                                     <option value="{{ $student->id }}">
@@ -45,7 +45,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="is_paid" class="form-label">Status Pembayaran</label>
-                                <select class="form-select" name="is_paid" id="is_paid">
+                                <select class="form-select select2" name="is_paid" id="is_paid">
                                     <option selected>Pilih Status Pembayaran</option>
                                     <option value="1">Lunas</option>
                                     <option value="0">Belum Lunas</option>

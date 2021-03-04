@@ -47,7 +47,7 @@
                 $('#editCashTransactionModal textarea').prop('disabled', false);
                 $('#editCashTransactionModal select').prop('disabled', false);
                 $('#editCashTransactionModal .modal-footer button[type=submit]').prop('disabled', false);
-                $('#editCashTransactionModal #student_id').val(data.data.student_id);
+                $('#editCashTransactionModal #student_id').val(data.data.student_id).select2();
                 $('#editCashTransactionModal #bill').val(data.data.bill);
                 $('#editCashTransactionModal #amount').val(data.data.amount);
                 
