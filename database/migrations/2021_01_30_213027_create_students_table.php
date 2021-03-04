@@ -17,7 +17,7 @@ class CreateStudentsTable extends Migration
             $table->id();
             $table->foreignId('school_class_id')->constrained();
             $table->foreignId('school_major_id')->constrained();
-            $table->string('student_identification_number');
+            $table->string('student_identification_number')->unique();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone_number')->unique();
