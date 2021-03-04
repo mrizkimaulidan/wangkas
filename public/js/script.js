@@ -40,5 +40,8 @@ $(function () {
     });
 
     $(".select2").select2();
-    $("input[type=date]").flatpickr();
+
+    $("input[type=date]").flatpickr({
+        locale: "id",
+    });
 });
