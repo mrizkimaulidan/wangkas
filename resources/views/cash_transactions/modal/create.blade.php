@@ -84,7 +84,7 @@
                             <div class="mb-3">
                                 <label for="date" class="form-label">Tanggal</label>
                                 <input type="date" class="form-control @error('date') is-invalid @enderror" name="date"
-                                    id="date" value="{{ date('Y-m-d') }}">
+                                    id="date">
 
                                 @error('date')
                                 <div class="d-block invalid-feedback">
