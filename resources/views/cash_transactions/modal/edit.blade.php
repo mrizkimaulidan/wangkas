@@ -57,7 +57,7 @@
                             <div class="mb-3">
                                 <label for="date" class="form-label">Tanggal</label>
                                 <input type="date" class="form-control" name="date" id="date"
-                                    value="{{ date('Y-m-d') }}">
+                                    placeholder="Pilih tanggal..">
                             </div>
                         </div>
                     </div>
