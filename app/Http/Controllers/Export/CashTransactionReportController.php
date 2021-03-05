@@ -20,13 +20,7 @@ class CashTransactionReportController extends Controller
 
         $this->setExcelContent($cash_transaction_results, $sheet);
 
-        $writer = new Xlsx($spreadsheet);
-
-        ob_end_clean();
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="' . $this->generateFileName($start_date, $end_date) . '".xlsx');
-        $writer->save('php://output');
-        exit();
+        $this->outputTheExcel($spreadsheet, $start_date, $end_date);
     }
 
     public function generateFileName(string $start_date, string $end_date): string
@@ -74,5 +68,16 @@ class CashTransactionReportController extends Controller
         }
 
         return $sheet;
+    }
+
+    public function outputTheExcel(object $spreadsheet, string $start_date, string $end_date)
+    {
+        $writer = new Xlsx($spreadsheet);
+
+        ob_end_clean();
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $this->generateFileName($start_date, $end_date) . '".xlsx');
+        $writer->save('php://output');
+        exit();
     }
 }
