@@ -48,7 +48,10 @@ class CashTransactionReportController extends Controller
         $sheet->setCellValue('D1', 'Status');
         $sheet->setCellValue('E1', 'Nominal Bayar');
         $sheet->setCellValue('F1', 'Pencatat');
-        $sheet->getColumnDimension('A')->setAutoSize(true);
+
+        foreach (range('A', 'F') as $paragraph) {
+            $sheet->getColumnDimension($paragraph)->setAutoSize(true);
+        }
 
         return $sheet;
     }
