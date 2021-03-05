@@ -7,6 +7,7 @@ use App\Models\CashTransaction;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
 
 class CashTransactionReportController extends Controller
 {
@@ -20,9 +21,19 @@ class CashTransactionReportController extends Controller
         $sheet->setCellValue('D1', 'Status');
         $sheet->setCellValue('E1', 'Nominal Bayar');
         $sheet->setCellValue('F1', 'Pencatat');
+        $sheet->getColumnDimension('A')->setAutoSize(true);
 
         $cash_transaction_results = CashTransaction::with('students', 'users')->whereBetween('date', [date('Y-m-d', strtotime($start_date)), date('Y-m-d', strtotime($end_date))])->orderBy('student_id')->get();
         $cell = 2;
+
+        $style_array = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN
+                ]
+            ]
+        ];
+
         foreach ($cash_transaction_results as $key => $row) {
             $sheet->setCellValue('A' . $cell, $key + 1);
             $sheet->setCellValue('B' . $cell, $row->students->name);
@@ -31,6 +42,7 @@ class CashTransactionReportController extends Controller
             $sheet->setCellValue('E' . $cell, $row->amount);
             $sheet->setCellValue('F' . $cell, $row->users->name);
             $cell++;
+            $sheet->getStyle('A1:F' . $cell - 1)->applyFromArray($style_array);
         }
 
         $writer = new Xlsx($spreadsheet);
