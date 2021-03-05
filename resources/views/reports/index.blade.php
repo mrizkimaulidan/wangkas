@@ -99,10 +99,11 @@
     <div class="row">
         <div class="card px-3 py-3">
             <div class="col-lg-12">
-                <button type="button" class="btn btn-primary float-end">
+                <a href="{{ route('laporan.export', [$_GET['start_date'], $_GET['end_date']]) }}"
+                    class="btn btn-primary float-end">
                     <i class="bi bi-file-earmark-excel-fill"></i>
                     Export Excel
-                </button>
+                </a>
             </div>
 
             <div class="table-responsive mt-3">
