@@ -100,7 +100,7 @@
         <div class="card px-3 py-3">
             <div class="col-lg-12">
                 <a href="{{ route('laporan.export', [$_GET['start_date'], $_GET['end_date']]) }}"
-                    class="btn btn-primary float-end">
+                    class="btn btn-success float-end">
                     <i class="bi bi-file-earmark-excel-fill"></i>
                     Export Excel
                 </a>
