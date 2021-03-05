@@ -14,6 +14,40 @@ class CashTransactionReportController extends Controller
     public function export(string $start_date, string $end_date)
     {
         $spreadsheet = new Spreadsheet();
+        $sheet = $this->setHeaderExcel($spreadsheet);
+
+        $cash_transaction_results = CashTransaction::with('students', 'users')->whereBetween('date', [date('Y-m-d', strtotime($start_date)), date('Y-m-d', strtotime($end_date))])->orderBy('student_id')->get();
+
+        $this->setExcelContent($cash_transaction_results, $sheet);
+
+
+        $writer = new Xlsx($spreadsheet);
+
+        ob_end_clean();
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment; filename="' . $this->generateFileName($start_date, $end_date) . '".xlsx');
+        $writer->save('php://output');
+        exit();
+    }
+
+    public function generateFileName(string $start_date, string $end_date): string
+    {
+        return 'laporan-kas-' . $start_date . '_' . $end_date . '_' . date('His');
+    }
+
+    public function setStyle(): array
+    {
+        return [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN
+                ]
+            ]
+        ];
+    }
+
+    public function setHeaderExcel(object $spreadsheet): object
+    {
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValue('A1', 'No');
         $sheet->setCellValue('B1', 'Nama Pelajar');
@@ -23,17 +57,12 @@ class CashTransactionReportController extends Controller
         $sheet->setCellValue('F1', 'Pencatat');
         $sheet->getColumnDimension('A')->setAutoSize(true);
 
-        $cash_transaction_results = CashTransaction::with('students', 'users')->whereBetween('date', [date('Y-m-d', strtotime($start_date)), date('Y-m-d', strtotime($end_date))])->orderBy('student_id')->get();
+        return $sheet;
+    }
+
+    public function setExcelContent(object $cash_transaction_results, object $sheet): object
+    {
         $cell = 2;
-
-        $style_array = [
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => Border::BORDER_THIN
-                ]
-            ]
-        ];
-
         foreach ($cash_transaction_results as $key => $row) {
             $sheet->setCellValue('A' . $cell, $key + 1);
             $sheet->setCellValue('B' . $cell, $row->students->name);
@@ -42,16 +71,9 @@ class CashTransactionReportController extends Controller
             $sheet->setCellValue('E' . $cell, $row->amount);
             $sheet->setCellValue('F' . $cell, $row->users->name);
             $cell++;
-            $sheet->getStyle('A1:F' . $cell - 1)->applyFromArray($style_array);
+            $sheet->getStyle('A1:F' . $cell - 1)->applyFromArray($this->setStyle());
         }
 
-        $writer = new Xlsx($spreadsheet);
-        $file_name = 'laporan-kas-' . $start_date . '_' . $end_date . '_' . date('His');
-
-        ob_end_clean();
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="' . $file_name . '".xlsx');
-        $writer->save('php://output');
-        exit();
+        return $sheet;
     }
 }
