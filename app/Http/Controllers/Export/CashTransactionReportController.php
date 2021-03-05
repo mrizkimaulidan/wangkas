@@ -20,7 +20,6 @@ class CashTransactionReportController extends Controller
 
         $this->setExcelContent($cash_transaction_results, $sheet);
 
-
         $writer = new Xlsx($spreadsheet);
 
         ob_end_clean();
