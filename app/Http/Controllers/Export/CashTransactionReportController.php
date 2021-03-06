@@ -11,7 +11,7 @@ use PhpOffice\PhpSpreadsheet\Style\Border;
 
 class CashTransactionReportController extends Controller
 {
-    public function export(string $start_date, string $end_date)
+    public function __invoke(string $start_date, string $end_date)
     {
         $spreadsheet = new Spreadsheet();
         $sheet = $this->setHeaderExcel($spreadsheet);
