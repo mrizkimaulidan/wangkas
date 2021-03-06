@@ -23,11 +23,21 @@ class StudentController extends Controller
         $this->outputTheExcel($spreadsheet);
     }
 
+    /**
+     * Generate nama file.
+     *
+     * @return string
+     */
     public function generateFileName(): string
     {
         return 'laporan-siswa-' . date('d-m-Y') . '_' . date('His');
     }
 
+    /**
+     * Kustomisasi untuk style excelnya.
+     *
+     * @return array
+     */
     public function setStyle(): array
     {
         return [
@@ -39,6 +49,12 @@ class StudentController extends Controller
         ];
     }
 
+    /**
+     * Menyiapkan isi header untuk excelnya.
+     *
+     * @param object $spreadsheet
+     * @return object
+     */
     public function setHeaderExcel(object $spreadsheet): object
     {
         $sheet = $spreadsheet->getActiveSheet();
@@ -56,6 +72,13 @@ class StudentController extends Controller
         return $sheet;
     }
 
+    /**
+     * Mengisi konten untuk excel.
+     *
+     * @param object $students adalah list siswa yang didapat dari eloquent/query builder.
+     * @param object $sheet adalah instansiasi dari class Spreadsheet phpoffice.
+     * @return object
+     */
     public function setExcelContent(object $students, object $sheet): object
     {
         $cell = 2;
@@ -73,6 +96,12 @@ class StudentController extends Controller
         return $sheet;
     }
 
+    /**
+     * Menampilkan pesan dialog download excel.
+     *
+     * @param object $spreadsheet
+     * @return void
+     */
     public function outputTheExcel(object $spreadsheet)
     {
         $writer = new Xlsx($spreadsheet);
