@@ -35,4 +35,5 @@ Route::get('/laporan', [CashTransactionReportController::class, 'index'])->name(
 Route::get('/laporan/filter', [CashTransactionReportController::class, 'index'])->name('kas.filter');
 Route::get('/laporan/filter/export/{start_date}/{end_date}', App\Http\Controllers\Export\CashTransactionReportController::class)->name('laporan.export');
 Route::get('/pelajar/export/', App\Http\Controllers\Export\StudentController::class)->name('pelajar.export');
+Route::get('/kas/export', App\Http\Controllers\Export\CashTransactionController::class)->name('kas.export');
 require __DIR__ . '/auth.php';
