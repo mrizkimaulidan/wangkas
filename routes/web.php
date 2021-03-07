@@ -19,9 +19,11 @@ use App\Http\Controllers\CashTransactionReportController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+require __DIR__ . '/auth.php';
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
@@ -34,5 +36,4 @@ Route::get('/laporan', [CashTransactionReportController::class, 'index'])->name(
 
 Route::get('/laporan/filter', [CashTransactionReportController::class, 'index'])->name('kas.filter');
 
-require __DIR__ . '/auth.php';
 require __DIR__ . '/export.php';
