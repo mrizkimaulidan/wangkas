@@ -5,7 +5,7 @@
     @include('utilities.alert-flash-message')
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
-            <a href="#" class="btn btn-success btn-sm mb-3">
+            <a href="{{ route('administrator.export') }}" class="btn btn-success btn-sm mb-3">
                 <i class="bi bi-file-earmark-excel-fill"></i>
                 Export Excel
             </a>
