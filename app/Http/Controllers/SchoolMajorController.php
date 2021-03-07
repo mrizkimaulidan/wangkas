@@ -38,7 +38,13 @@ class SchoolMajorController extends Controller
 
     public function destroy(SchoolMajor $jurusan)
     {
-        $this->schoolMajorRepository->findSchoolMajor($jurusan)->delete();
+        $school_major = $this->schoolMajorRepository->findSchoolMajor($jurusan);
+
+        if ($school_major->students()->exists()) {
+            return redirect()->route('jurusan.index')->with('warning', 'Data yang memiliki relasi tidak dapat dihapus!');
+        }
+
+        $school_major->delete();
 
         return redirect()->route('jurusan.index')->with('success', 'Data berhasil dihapus!');
     }
