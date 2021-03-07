@@ -1,9 +1,9 @@
 <script>
-    let url = "{{ route('api.kelas.show', ':id') }}";
-
     $('.school-class-detail').click(function() {
         let id = $(this).data('id');
+        let url = "{{ route('api.kelas.show', ':id') }}";
         url = url.replace(':id', id);
+
         $('#showSchoolClassModal #name').val("Sedang mengambil data..");
 
         $.ajax({
@@ -23,6 +23,7 @@
 
     $('.school-class-edit').click(function() {
         let id = $(this).data('id');
+        let url = "{{ route('api.kelas.show', ':id') }}";
         url = url.replace(':id', id);
 
         let edit_button_input = $('#editSchoolClassModal #name');
@@ -31,7 +32,7 @@
 
         let form_action_url = "{{ route('kelas.update', ':id') }}";
         form_action_url = form_action_url.replace(':id', id)
-
+        
         $('#editSchoolClassModal .modal-footer button[type=submit]').prop('disabled', true);
 
         $.ajax({

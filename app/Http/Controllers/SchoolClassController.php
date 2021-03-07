@@ -29,9 +29,9 @@ class SchoolClassController extends Controller
         return redirect()->route('kelas.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(SchoolClassUpdateRequest $request, SchoolClass $kela)
+    public function update(SchoolClassUpdateRequest $request, string $id)
     {
-        $this->schoolClassRepository->update($request, $kela);
+        $this->schoolClassRepository->update($request, $id);
 
         return redirect()->route('kelas.index')->with('success', 'Data berhasil diubah!');
     }
