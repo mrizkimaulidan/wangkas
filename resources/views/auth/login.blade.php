@@ -5,7 +5,7 @@
     <div class="col-lg-5 col-12">
         <div id="auth-left">
             <h1 class="auth-title">Login.</h1>
-            <p class="auth-subtitle mb-5">Masuk untuk melanjutkan ke dalam aplikasi.</p>
+            <p class="auth-subtitle mb-5">Masuk untuk melanjutkan.</p>
 
             <form action="{{ route('login') }}" method="POST">
                 @csrf
