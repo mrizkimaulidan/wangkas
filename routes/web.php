@@ -21,19 +21,21 @@ use App\Http\Controllers\CashTransactionReportController;
 
 require __DIR__ . '/auth.php';
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::middleware('auth')->group(function () {
+    Route::get('/', function () {
+        return view('welcome');
+    });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
 
-Route::resource('pelajar', StudentController::class)->except('create', 'show', 'edit');
-Route::resource('kelas', SchoolClassController::class)->except('create', 'show', 'edit');
-Route::resource('jurusan', SchoolMajorController::class)->except('create', 'show', 'edit');
-Route::resource('administrator', AdministratorController::class)->except('create', 'show', 'edit');
-Route::resource('kas', CashTransactionController::class)->except('create', 'show', 'edit');
-Route::get('/laporan', [CashTransactionReportController::class, 'index'])->name('laporan.index');
+    Route::resource('pelajar', StudentController::class)->except('create', 'show', 'edit');
+    Route::resource('kelas', SchoolClassController::class)->except('create', 'show', 'edit');
+    Route::resource('jurusan', SchoolMajorController::class)->except('create', 'show', 'edit');
+    Route::resource('administrator', AdministratorController::class)->except('create', 'show', 'edit');
+    Route::resource('kas', CashTransactionController::class)->except('create', 'show', 'edit');
+    Route::get('/laporan', [CashTransactionReportController::class, 'index'])->name('laporan.index');
 
-Route::get('/laporan/filter', [CashTransactionReportController::class, 'index'])->name('kas.filter');
+    Route::get('/laporan/filter', [CashTransactionReportController::class, 'index'])->name('kas.filter');
 
-require __DIR__ . '/export.php';
+    require __DIR__ . '/export.php';
+});
