@@ -90,7 +90,7 @@ class CashTransactionController extends Controller
             $sheet->setCellValue('E' . $cell,  date('d-m-Y', strtotime($row->date)));
             $sheet->setCellValue('F' . $cell, paid_status($row->is_paid));
             $cell++;
-            $sheet->getStyle('A1:F' . $cell - 1)->applyFromArray($this->setStyle());
+            $sheet->getStyle('A1:F' . ($cell - 1))->applyFromArray($this->setStyle());
         }
 
         return $sheet;

@@ -90,7 +90,7 @@ class StudentController extends Controller
             $sheet->setCellValue('E' . $cell, $row->school_majors->name);
             $sheet->setCellValue('F' . $cell, $row->school_year_start . ' - ' . $row->school_year_end);
             $cell++;
-            $sheet->getStyle('A1:F' . $cell - 1)->applyFromArray($this->setStyle());
+            $sheet->getStyle('A1:F' . ($cell - 1))->applyFromArray($this->setStyle());
         }
 
         return $sheet;

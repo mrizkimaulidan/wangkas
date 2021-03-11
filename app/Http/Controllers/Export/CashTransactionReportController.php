@@ -90,7 +90,7 @@ class CashTransactionReportController extends Controller
             $sheet->setCellValue('E' . $cell, $row->amount);
             $sheet->setCellValue('F' . $cell, $row->users->name);
             $cell++;
-            $sheet->getStyle('A1:F' . $cell - 1)->applyFromArray($this->setStyle());
+            $sheet->getStyle('A1:F' . ($cell - 1))->applyFromArray($this->setStyle());
         }
 
         return $sheet;

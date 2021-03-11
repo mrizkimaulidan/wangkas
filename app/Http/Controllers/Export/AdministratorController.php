@@ -86,7 +86,7 @@ class AdministratorController extends Controller
             $sheet->setCellValue('C' . $cell, $row->email);
             $sheet->setCellValue('D' . $cell, date('d-m-Y H:i:s', strtotime($row->created_at)));
             $cell++;
-            $sheet->getStyle('A1:D' . $cell - 1)->applyFromArray($this->setStyle());
+            $sheet->getStyle('A1:D' . ($cell - 1))->applyFromArray($this->setStyle());
         }
 
         return $sheet;
