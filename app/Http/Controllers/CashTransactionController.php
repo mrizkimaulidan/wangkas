@@ -21,7 +21,7 @@ class CashTransactionController extends Controller
     {
         return view('cash_transactions.index', [
             'cash_transactions' => $this->cashTransactionRepository->cashTransactionLatest(),
-            'students' => $this->studentRepository->studentsOrderBy('name')->get(),
+            'students' => $this->studentRepository->getStudentsOnlySelectedFieldOrderBy(['id', 'student_identification_number', 'name'], 'name')->get(),
             'has_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(true),
             'has_not_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(false),
             'count_student_who_paid_this_week' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaidThisWeek(true),
