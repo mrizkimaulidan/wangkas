@@ -36,9 +36,9 @@ class SchoolClassController extends Controller
         return redirect()->route('kelas.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy(SchoolClass $kela)
+    public function destroy($id)
     {
-        $school_class = $this->schoolClassRepository->findSchoolClass($kela);
+        $school_class = $this->schoolClassRepository->findSchoolClass($id);
 
         if ($school_class->students()->exists()) {
             return redirect()->route('kelas.index')->with('warning', 'Data yang memiliki relasi tidak dapat dihapus!');
