@@ -23,7 +23,9 @@ class CashTransactionRepository extends Controller
 
     /**
      * Ambil seluruh data paling terbaru pada tabel cash_transactions pada database.
-     * Jika $limit ada isinya, maka tampilkan data paling terbaru pada tabel cash_transactions dengan limi.
+     * 
+     * Jika $limit === null maka tampilkan seluruh data cash_transactions tanpa limit.
+     * Jika $limit !== null maka tampilkan seluruh data cash_transactions dengan limit.
      *
      * @param $limit
      * @return Object
@@ -32,13 +34,9 @@ class CashTransactionRepository extends Controller
     {
         $model = $this->model->with('students', 'users');
 
-        // Jika $limit !== null maka tampilkan seluruh data cash_transactions dengan limit.
-        if (!is_null($limit)) {
-            return $model->take($limit)->latest()->get();
-        }
-
-        // Jika $limit === null maka tampilkan seluruh data cash_transactions tanpa limit.
-        return $model->latest()->get();
+        return is_null($limit)
+            ? $model->latest()->get()
+            : $model->take($limit)->latest()->get();
     }
 
     /**
@@ -146,27 +144,24 @@ class CashTransactionRepository extends Controller
      */
     public function countStudentWhoPaidOrNotPaidThisWeek(bool $is_paid): Int
     {
-        if ($is_paid) {
-            return $this->students->whereIn('id', $this->pluck_student_id)->count();
-        }
-
-        return $this->students->whereNotIn('id', $this->pluck_student_id)->count();
+        return $is_paid
+            ? $this->students->whereIn('id', $this->pluck_student_id)->count()
+            : $this->students->whereNotIn('id', $this->pluck_student_id)->count();
     }
 
     /**
      * Ambil data siswa yang belum membayar uang kas pada minggu ini.
      *
+     * Jika limit === null maka tampilkan seluruh data siswa yang belum membayar minggu ini.
+     * Jika limit !== null maka tampilkan data siswa yang belum membayar minggu ini dengan limit.
+     * 
      * @param string $limit
      * @return Object
      */
     public function getStudentWhoNotPaidThisWeek(string $limit = null): Object
     {
-        // Jika limit === null maka tampilkan seluruh data siswa yang belum membayar minggu ini.
-        if (is_null($limit)) {
-            return $this->students->whereNotIn('id', $this->pluck_student_id)->orderBy('name')->get();
-        }
-
-        // Jika limit !== null maka tampilkan data siswa yang belum membayar minggu ini dengan limit.
-        return $this->students->whereNotIn('id', $this->pluck_student_id)->orderBy('name')->take($limit)->get();
+        return is_null($limit)
+            ? $this->students->whereNotIn('id', $this->pluck_student_id)->orderBy('name')->get()
+            : $this->students->whereNotIn('id', $this->pluck_student_id)->orderBy('name')->take($limit)->get();
     }
 }
