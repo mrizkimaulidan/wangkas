@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
 use App\Models\Student;
 use Carbon\Carbon;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class CashTransactionRepository extends Controller

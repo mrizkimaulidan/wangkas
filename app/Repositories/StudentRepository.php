@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Http\Controllers\Controller;
 use App\Models\Student;
-use DB;
 use Illuminate\Http\Request;
 
 class StudentRepository extends Controller

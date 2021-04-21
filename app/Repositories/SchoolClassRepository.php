@@ -2,11 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Models\SchoolClass;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SchoolClass\StoreSchoolClassRequest;
-use App\Models\SchoolClass;
-use DB;
-use Illuminate\Http\Request;
 
 class SchoolClassRepository extends Controller
 {
