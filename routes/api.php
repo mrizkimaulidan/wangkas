@@ -27,7 +27,7 @@ Route::name('api.')->prefix('v1')->group(function () {
     Route::get('/kelas/{id}', [SchoolClassController::class, 'show'])->name('kelas.show');
     Route::get('/pelajar/{pelajar}', [StudentController::class, 'show'])->name('pelajar.show');
     Route::get('/jurusan/{jurusan}', [SchoolMajorController::class, 'show'])->name('jurusan.show');
-    Route::get('/administrator/{administrator}', [AdministratorController::class, 'show'])->name('administrator.show');
+    Route::get('/administrator/{id}', [AdministratorController::class, 'show'])->name('administrator.show');
     Route::get('/kas/{id}', [CashTransactionController::class, 'show'])->name('kas.show');
 
     Route::get('/chart', [DashboardChartController::class, 'getDataSeparateByMonths'])->name('chart');

@@ -17,28 +17,38 @@ class AdministratorController extends Controller
 
     public function index()
     {
-        return view('administrator.index', [
-            'administrators' => $this->administratorRepository->administratorsOrderBy('name')->get()
-        ]);
+        $administrators = User::select('id', 'name', 'email', 'created_at')->orderBy('name')->get();
+
+        return view('administrator.index', compact('administrators'));
     }
 
     public function store(AdministratorStoreRequest $request)
     {
-        $this->administratorRepository->store($request);
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ]);
 
         return redirect()->route('administrator.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(AdministratorUpdateRequest $request, User $administrator)
+    public function update(Request $request, string $id)
     {
-        $this->administratorRepository->update($request, $administrator);
+        $administrator = User::findOrFail($id);
+
+        $administrator->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password === null ? $administrator->password : bcrypt($request->password)
+        ]);
 
         return redirect()->route('administrator.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy(User $administrator)
+    public function destroy(string $id)
     {
-        $this->administratorRepository->findAdministrator($administrator)->delete();
+        User::findOrFail($id)->delete();
 
         return redirect()->route('administrator.index')->with('success', 'Data berhasil dihapus!');
     }

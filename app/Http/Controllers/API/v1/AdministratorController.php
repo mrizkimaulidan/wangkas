@@ -15,8 +15,12 @@ class AdministratorController extends Controller
     ) {
     }
 
-    public function show(User $administrator)
+    public function show(string $id)
     {
-        return response()->json(['status' => Response::HTTP_OK, 'data' => $this->administratorRepository->findAdministrator($administrator)], Response::HTTP_OK);
+        return response()->json([
+            'status' => Response::HTTP_OK,
+            'message' => 'Data berhasil diambil!',
+            'data' => User::select('id', 'name', 'email', 'password')->findOrFail($id)
+        ], Response::HTTP_OK);
     }
 }

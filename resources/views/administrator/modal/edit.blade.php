@@ -30,7 +30,9 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" name="password" id="password">
+                                <input type="password" class="form-control" name="password" id="password"
+                                    placeholder="Masukkan password..">
+                                <small class="text-muted">*Kosongkan password jika tidak ingin diubah.</small>
                             </div>
                         </div>
                     </div>
@@ -40,7 +42,7 @@
                             <div class="mb-3">
                                 <label for="password_confirmation" class="form-label">Ulangi Password</label>
                                 <input type="password" class="form-control" name="password_confirmation"
-                                    id="password_confirmation">
+                                    id="password_confirmation" placeholder="Ulangi password..">
                             </div>
                         </div>
                     </div>

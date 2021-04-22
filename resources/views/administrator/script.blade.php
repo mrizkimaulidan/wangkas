@@ -23,7 +23,7 @@
     let form_action_url = "{{ route('administrator.update', ':id') }}";
     form_action_url = form_action_url.replace(':id', id);
 
-    $('#editAdministratorModal input:not([name=_method], [name=_token]').val('Sedang mengambil data..');
+    $('#editAdministratorModal input:not([name=_method], [name=_token], [id=password], [id=password_confirmation]').val('Sedang mengambil data..');
     $('#editAdministratorModal input').prop('disabled', true);
     $('#editAdministatorModal .modal-footer button[type=submit]').prop('disabled', true);
     
