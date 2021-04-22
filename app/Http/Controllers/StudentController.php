@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentStoreRequest;
 use App\Http\Requests\StudentUpdateRequest;
+use App\Models\SchoolClass;
+use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Repositories\SchoolClassRepository;
 use App\Repositories\SchoolMajorRepository;
@@ -12,39 +14,65 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    public function __construct(
-        private StudentRepository $studentRepository,
-        private SchoolClassRepository $schoolClassRepository,
-        private SchoolMajorRepository $schoolMajorRepository,
-    ) {
-    }
-
     public function index()
     {
-        return view('students.index', [
-            'students' => $this->studentRepository->studentsOrderBy('name')->get(),
-            'school_classes' => $this->schoolClassRepository->schoolClassesOrderBy('name')->get(),
-            'school_majors' => $this->schoolMajorRepository->schoolMajorsOrderBy('name')->get()
-        ]);
+        $students = Student::with('school_classes', 'school_majors')
+            ->select(
+                'id',
+                'school_class_id',
+                'school_major_id',
+                'student_identification_number',
+                'name',
+                'school_year_start',
+                'school_year_end'
+            )
+            ->get();
+
+        $school_classes = SchoolClass::select('id', 'name')->orderBy('name')->get();
+        $school_majors = SchoolMajor::select('id', 'name', 'abbreviated_word')->orderBy('name')->get();
+
+        return view('students.index', compact('students', 'school_classes', 'school_majors'));
     }
 
     public function store(StudentStoreRequest $request)
     {
-        $this->studentRepository->store($request);
+        Student::create([
+            'school_class_id' => $request->school_class_id,
+            'school_major_id' => $request->school_major_id,
+            'student_identification_number' => $request->student_identification_number,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'gender' => $request->gender,
+            'school_year_start' => $request->school_year_start,
+            'school_year_end' => $request->school_year_end
+        ]);
 
         return redirect()->route('pelajar.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(StudentUpdateRequest $request, Student $pelajar)
+    public function update(StudentUpdateRequest $request, string $id)
     {
-        $this->studentRepository->update($request, $pelajar);
+        $student = Student::findOrFail($id);
+
+        $student->update([
+            'school_class_id' => $request->school_class_id,
+            'school_major_id' => $request->school_major_id,
+            'student_identification_number' => $request->student_identification_number,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone_number' => $request->phone_number,
+            'gender' => $request->gender,
+            'school_year_start' => $request->school_year_start,
+            'school_year_end' => $request->school_year_end
+        ]);
 
         return redirect()->route('pelajar.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy(Student $pelajar)
+    public function destroy(string $id)
     {
-        $this->studentRepository->findStudent($pelajar)->delete();
+        Student::findOrFail($id)->delete();
 
         return redirect()->route('pelajar.index')->with('success', 'Data berhasil dihapus!');
     }
