@@ -42,7 +42,6 @@
     $.ajax({
         url: url,
         success: function(data) {
-                let is_paid = data.data.is_paid === 'Lunas' ? 1 : 0;
                 $('#editCashTransactionModal input').prop('disabled', false);
                 $('#editCashTransactionModal textarea').prop('disabled', false);
                 $('#editCashTransactionModal select').prop('disabled', false);
@@ -51,8 +50,8 @@
                 $('#editCashTransactionModal #bill').val(data.data.bill);
                 $('#editCashTransactionModal #amount').val(data.data.amount);
                 
-                $('#editCashTransactionModal #is_paid').val(is_paid).select2();
-                $('#editCashTransactionModal #date').val(data.data.date_update);
+                $('#editCashTransactionModal #is_paid').val(data.data.is_paid).select2();
+                $('#editCashTransactionModal #date').val(data.data.date);
                 $('#editCashTransactionModal #note').val(data.data.note);
 
                 $('#editCashTransactionModal #cash-transaction-edit-form').attr('action', form_action_url);

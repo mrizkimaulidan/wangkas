@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CashTransactionStoreRequest;
 use App\Http\Requests\CashTransactionUpdateRequest;
-use Carbon\Carbon;
+use App\Models\CashTransaction;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Repositories\StudentRepository;
 use App\Repositories\CashTransactionRepository;
@@ -12,16 +13,15 @@ use App\Repositories\CashTransactionRepository;
 class CashTransactionController extends Controller
 {
     public function __construct(
-        private CashTransactionRepository $cashTransactionRepository,
-        private StudentRepository $studentRepository,
+        private CashTransactionRepository $cashTransactionRepository
     ) {
     }
 
     public function index()
     {
         return view('cash_transactions.index', [
-            'cash_transactions' => $this->cashTransactionRepository->cashTransactionLatest(),
-            'students' => $this->studentRepository->getStudentsOnlySelectedFieldOrderBy(['id', 'student_identification_number', 'name'], 'name')->get(),
+            'cash_transactions' => CashTransaction::select('id', 'student_id', 'bill', 'amount', 'date', 'is_paid')->get(),
+            'students' => Student::select('id', 'student_identification_number', 'name')->orderBy('name')->get(),
             'has_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(true),
             'has_not_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(false),
             'count_student_who_paid_this_week' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaidThisWeek(true),
@@ -35,21 +35,39 @@ class CashTransactionController extends Controller
 
     public function store(CashTransactionStoreRequest $request)
     {
-        $this->cashTransactionRepository->store($request);
+        CashTransaction::create([
+            'user_id' => auth()->user()->id,
+            'student_id' => $request->student_id,
+            'bill' => $request->bill,
+            'amount' => $request->amount,
+            'is_paid' => $request->is_paid,
+            'date' => date('Y-m-d', strtotime($request->date)),
+            'note' => $request->note
+        ]);
 
         return redirect()->route('kas.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(CashTransactionUpdateRequest $request, $id)
+    public function update(CashTransactionUpdateRequest $request, string $id)
     {
-        $this->cashTransactionRepository->update($request, $id);
+        $cash_transaction = CashTransaction::findOrFail($id);
+
+        $cash_transaction->update([
+            'user_id' => auth()->user()->id,
+            'student_id' => $request->student_id,
+            'bill' => $request->bill,
+            'amount' => $request->amount,
+            'is_paid' => $request->is_paid,
+            'date' => date('Y-m-d', strtotime($request->date)),
+            'note' => $request->note
+        ]);
 
         return redirect()->route('kas.index')->with('success', 'Data berhasil diubah!');
     }
 
     public function destroy($id)
     {
-        $this->cashTransactionRepository->findCashTransaction($id)->delete();
+        CashTransaction::findOrFail($id)->delete();
 
         return redirect()->route('kas.index')->with('success', 'Data berhasil dihapus!');
     }

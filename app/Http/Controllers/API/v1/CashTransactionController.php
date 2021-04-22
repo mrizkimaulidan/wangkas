@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\CashTransaction;
 use App\Repositories\CashTransactionRepository;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,23 +14,25 @@ class CashTransactionController extends Controller
         private CashTransactionRepository $cashTransactionRepository
     ) {
     }
-    
-    public function show($id)
+
+    public function show(string $id)
     {
-        $data = $this->cashTransactionRepository->findCashTransaction($id);
+        $cash_transaction = CashTransaction::select('id', 'student_id', 'bill', 'amount', 'is_paid', 'date', 'note')
+            ->findOrFail($id);
 
         $response = [
-            'user_id' => $data->users->name,
-            'student_name' => $data->students->name,
-            'student_id' => $data->students->id,
-            'bill' => $data->bill,
-            'amount' => $data->amount,
-            'is_paid' => $data->is_paid === 1 ? 'Lunas' : 'Belum Lunas',
-            'date' => date('d-m-Y', strtotime($data->date)),
-            'date_update' => $data->date,
-            'note' => $data->note
+            'id' => $cash_transaction->id,
+            'student_id' => $cash_transaction->student_id,
+            'bill' => $cash_transaction->bill,
+            'amount' => $cash_transaction->amount,
+            'is_paid' => $cash_transaction->is_paid,
+            'date' => $cash_transaction->date,
+            'note' => $cash_transaction->note
         ];
 
-        return response()->json(['status' => Response::HTTP_OK, 'data' => $response], Response::HTTP_OK);
+        return response()->json([
+            'status' => Response::HTTP_OK,
+            'data' => $response
+        ], Response::HTTP_OK);
     }
 }
