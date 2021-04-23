@@ -2,23 +2,36 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use App\Http\Controllers\Controller;
 use App\Models\Student;
-use App\Repositories\StudentRepository;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 class StudentController extends Controller
 {
-    public function __construct(
-        private StudentRepository $studentRepository
-    ) {
-    }
-
-    public function show(Student $pelajar)
+    /**
+     * Handle the incoming request.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function __invoke(string $id)
     {
-        $data = $pelajar->with('school_classes', 'school_majors')->first();
-
-        return response()->json(['status' => Response::HTTP_OK, 'data' => $this->studentRepository->findStudent($data)], Response::HTTP_OK);
+        return response()->json([
+            'status' => Response::HTTP_OK,
+            'message' => 'Data berhasil diambil!',
+            'data' => Student::with('school_classes:id', 'school_majors:id')
+                ->select(
+                    'id',
+                    'school_class_id',
+                    'school_major_id',
+                    'student_identification_number',
+                    'name',
+                    'gender',
+                    'email',
+                    'phone_number',
+                    'school_year_start',
+                    'school_year_end'
+                )
+                ->findOrFail($id)
+        ], Response::HTTP_OK);
     }
 }
