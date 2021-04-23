@@ -4,19 +4,22 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\SchoolMajor;
-use App\Repositories\SchoolMajorRepository;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class SchoolMajorController extends Controller
 {
-    public function __construct(
-        private SchoolMajorRepository $schoolMajorRepository
-    ) {
-    }
-
-    public function show(SchoolMajor $jurusan)
+    /**
+     * Handle the incoming request.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function __invoke(string $id)
     {
-        return response()->json(['status' => Response::HTTP_OK, 'data' => $this->schoolMajorRepository->findSchoolMajor($jurusan)], Response::HTTP_OK);
+        return response()->json([
+            'status' => Response::HTTP_OK,
+            'message' => 'Data berhasil diambil!',
+            'data' => SchoolMajor::select('id', 'name', 'abbreviated_word')->findOrFail($id)
+        ], Response::HTTP_OK);
     }
 }
