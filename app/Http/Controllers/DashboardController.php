@@ -25,7 +25,7 @@ class DashboardController extends Controller
             'school_class_count' => SchoolClass::count(),
             'school_major_count' => SchoolMajor::count(),
             'cash_transaction_this_month' => indonesian_currency($this->cashTransactionRepository->sumAmountBy('month', month: date('m'))),
-            'latest_cash_transactions_by_limit' => $this->cashTransactionRepository->cashTransactionLatest(5)
+            'latest_cash_transactions_by_limit' => $this->cashTransactionRepository->cashTransactionLatest(['student_id', 'user_id', 'bill', 'amount', 'date'], 5)
         ]);
     }
 }

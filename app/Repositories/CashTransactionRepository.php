@@ -30,64 +30,13 @@ class CashTransactionRepository extends Controller
      * @param $limit
      * @return Object
      */
-    public function cashTransactionLatest(int $limit = null): Object
+    public function cashTransactionLatest(array $columns, ?int $limit): Object
     {
-        $model = $this->model->with('students', 'users');
+        $model = $this->model->with('students', 'users')->select($columns);
 
         return is_null($limit)
             ? $model->latest()->get()
             : $model->take($limit)->latest()->get();
-    }
-
-    /**
-     * Ubah data kas di tabel cash_transactions pada database sesuai dengan id kas tersebut.
-     *
-     * @param Request $request
-     * @param string $id
-     * @return Bool
-     */
-    public function update(Request $request, string $id): Bool
-    {
-        $this->model = $this->findCashTransaction($id);
-
-        return $this->model->update([
-            'student_id' => $request->student_id,
-            'bill' => $request->bill,
-            'amount' => $request->amount,
-            'is_paid' => $request->is_paid,
-            'date' => date('Y-m-d', strtotime($request->date)),
-            'note' => $request->note
-        ]);
-    }
-
-    /**
-     * Tambah data ke tabel cash_transactions pada database.
-     *
-     * @param Request $request
-     * @return Object
-     */
-    public function store(Request $request): Object
-    {
-        return $this->model->create([
-            'user_id' => auth()->user()->id,
-            'student_id' => $request->student_id,
-            'bill' => $request->bill,
-            'amount' => $request->amount,
-            'is_paid' => $request->is_paid,
-            'date' => date('Y-m-d', strtotime($request->date)),
-            'note' => $request->note
-        ]);
-    }
-
-    /**
-     * Ambil single data kas di tabel cash_transaction berdasarkan id di parameter.
-     *
-     * @param string $id
-     * @return Object
-     */
-    public function findCashTransaction(string $id): Object
-    {
-        return $this->model->findOrFail($id);
     }
 
     /**
