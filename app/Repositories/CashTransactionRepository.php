@@ -17,7 +17,7 @@ class CashTransactionRepository extends Controller
     {
         $this->model = $model;
         $this->students = $students;
-        $this->cash_transaction_is_paid = $model;
+        $this->cash_transaction_is_paid = $model->where('is_paid', 1);
         $this->pluck_student_id = DB::table('cash_transactions')->where('date', '>',  Carbon::now()->startOfWeek())->where('date', '<', Carbon::now()->endOfWeek())->pluck('student_id');
     }
 
