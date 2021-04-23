@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use App\Http\Controllers\Controller;
-use App\Models\CashTransaction;
-use App\Repositories\CashTransactionRepository;
 use Illuminate\Http\Request;
+use App\Models\CashTransaction;
+use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 class CashTransactionController extends Controller
 {
-    public function __construct(
-        private CashTransactionRepository $cashTransactionRepository
-    ) {
-    }
-
-    public function show(string $id)
+    /**
+     * Handle the incoming request.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function __invoke(string $id)
     {
         $cash_transaction = CashTransaction::select('id', 'student_id', 'bill', 'amount', 'is_paid', 'date', 'note')
             ->findOrFail($id);
