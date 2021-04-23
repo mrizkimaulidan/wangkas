@@ -2,20 +2,18 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Repositories\AdministratorRepository;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdministratorController extends Controller
 {
-    public function __construct(
-        private AdministratorRepository $administratorRepository
-    ) {
-    }
-
-    public function show(string $id)
+    /**
+     * Handle the incoming request.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function __invoke(string $id)
     {
         return response()->json([
             'status' => Response::HTTP_OK,
