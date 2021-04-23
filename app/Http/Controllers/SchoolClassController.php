@@ -10,35 +10,36 @@ use Illuminate\Http\Request;
 
 class SchoolClassController extends Controller
 {
-    public function __construct(
-        private SchoolClassRepository $schoolClassRepository
-    ) {
-    }
-
     public function index()
     {
-        return view('school_classes.index', [
-            'school_classes' => $this->schoolClassRepository->schoolClassesOrderBy('name')->get()
-        ]);
+        $school_classes = SchoolClass::select('id', 'name')->orderBy('name')->get();
+
+        return view('school_classes.index', compact('school_classes'));
     }
 
     public function store(SchoolClassStoreRequest $request)
     {
-        $this->schoolClassRepository->store($request);
+        SchoolClass::create([
+            'name' => $request->name
+        ]);
 
         return redirect()->route('kelas.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     public function update(SchoolClassUpdateRequest $request, string $id)
     {
-        $this->schoolClassRepository->update($request, $id);
+        $school_class = SchoolClass::findOrFail($id);
+
+        $school_class->update([
+            'name' => $request->name
+        ]);
 
         return redirect()->route('kelas.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy($id)
+    public function destroy(string $id)
     {
-        $school_class = $this->schoolClassRepository->findSchoolClass($id);
+        $school_class = SchoolClass::findOrFail($id);
 
         if ($school_class->students()->exists()) {
             return redirect()->route('kelas.index')->with('warning', 'Data yang memiliki relasi tidak dapat dihapus!');

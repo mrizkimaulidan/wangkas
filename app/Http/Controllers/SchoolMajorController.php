@@ -17,28 +17,36 @@ class SchoolMajorController extends Controller
 
     public function index()
     {
-        return view('school_majors.index', [
-            'school_majors' => $this->schoolMajorRepository->schoolMajorsOrderBy('name')->get()
-        ]);
+        $school_majors = SchoolMajor::select('id', 'name', 'abbreviated_word')->orderBy('name')->get();
+
+        return view('school_majors.index', compact('school_majors'));
     }
 
     public function store(SchoolMajorStoreRequest $request)
     {
-        $this->schoolMajorRepository->store($request);
+        SchoolMajor::create([
+            'name' => $request->name,
+            'abbreviated_word' => $request->abbreviated_word
+        ]);
 
         return redirect()->route('jurusan.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(SchoolMajorUpdateRequest $request, SchoolMajor $jurusan)
+    public function update(SchoolMajorUpdateRequest $request, string $id)
     {
-        $this->schoolMajorRepository->update($request, $jurusan);
+        $school_major = SchoolMajor::findOrFail($id);
+
+        $school_major->update([
+            'name' => $request->name,
+            'abbreviated_word' => $request->abbreviated_word
+        ]);
 
         return redirect()->route('jurusan.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy(SchoolMajor $jurusan)
+    public function destroy(string $id)
     {
-        $school_major = $this->schoolMajorRepository->findSchoolMajor($jurusan);
+        $school_major = SchoolMajor::findOrFail($id);
 
         if ($school_major->students()->exists()) {
             return redirect()->route('jurusan.index')->with('warning', 'Data yang memiliki relasi tidak dapat dihapus!');
