@@ -5,16 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SchoolMajorStoreRequest;
 use App\Http\Requests\SchoolMajorUpdateRequest;
 use App\Models\SchoolMajor;
-use App\Repositories\SchoolMajorRepository;
 use Illuminate\Http\Request;
 
 class SchoolMajorController extends Controller
 {
-    public function __construct(
-        private SchoolMajorRepository $schoolMajorRepository
-    ) {
-    }
-
     public function index()
     {
         $school_majors = SchoolMajor::select('id', 'name', 'abbreviated_word')->orderBy('name')->get();

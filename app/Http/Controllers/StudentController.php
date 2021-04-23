@@ -7,9 +7,6 @@ use App\Http\Requests\StudentUpdateRequest;
 use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
-use App\Repositories\SchoolClassRepository;
-use App\Repositories\SchoolMajorRepository;
-use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
