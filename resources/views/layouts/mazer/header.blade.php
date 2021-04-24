@@ -18,9 +18,9 @@
     <link rel="stylesheet" href="{{ asset('vendors/bootstrap-icons/bootstrap-icons.css') }}">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="{{ asset('vendors/datatable/dataTables.bootstrap5.min.css') }}">
 
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link href="{{ asset('vendors/select2/select2.min.css') }}" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('vendors/flatpickr/flatpickr.min.css') }}">
     <link rel="shortcut icon" href="{{ asset('images/favicon.svg" type="image/x-icon') }}">
 </head>
