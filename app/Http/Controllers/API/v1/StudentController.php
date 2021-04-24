@@ -18,7 +18,7 @@ class StudentController extends Controller
         return response()->json([
             'status' => Response::HTTP_OK,
             'message' => 'Data berhasil diambil!',
-            'data' => Student::with('school_classes:id', 'school_majors:id')
+            'data' => Student::with('school_classes:id,name', 'school_majors:id,name')
                 ->select(
                     'id',
                     'school_class_id',
