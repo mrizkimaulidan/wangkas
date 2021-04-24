@@ -23,8 +23,9 @@ $(function () {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Ya!",
             cancelButtonText: "Tidak",
+            confirmButtonText: "Ya!",
+            reverseButtons: true
         }).then((result) => {
             if (result.isConfirmed) {
                 $(this).parent().submit();
