@@ -11,12 +11,12 @@
         $.ajax({
             url: url,
             success: function(data) {
-                $('#showCashTransactionModal #user_id').val(data.data.user_id);
-                $('#showCashTransactionModal #student_id').val(data.data.student_name);
+                $('#showCashTransactionModal #user_id').val(data.data.users.name);
+                $('#showCashTransactionModal #student_id').val(data.data.students.name);
                 $('#showCashTransactionModal #bill').val(data.data.bill);
                 $('#showCashTransactionModal #amount').val(data.data.amount);
 
-                $('#showCashTransactionModal #is_paid').val(data.data.is_paid);
+                $('#showCashTransactionModal #is_paid').val(data.data.is_paid === 1 ? 'Lunas' : 'Belum Lunas');
                 $('#showCashTransactionModal #date').val(data.data.date);
                 $('#showCashTransactionModal #note').val(data.data.note);
             }

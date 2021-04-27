@@ -16,22 +16,13 @@ class CashTransactionController extends Controller
      */
     public function __invoke(string $id)
     {
-        $cash_transaction = CashTransaction::select('id', 'student_id', 'bill', 'amount', 'is_paid', 'date', 'note')
+        $cash_transaction = CashTransaction::with('students:id,name', 'users:id,name')
+            ->select('id', 'student_id', 'user_id', 'bill', 'amount', 'is_paid', 'date', 'note')
             ->findOrFail($id);
-
-        $response = [
-            'id' => $cash_transaction->id,
-            'student_id' => $cash_transaction->student_id,
-            'bill' => $cash_transaction->bill,
-            'amount' => $cash_transaction->amount,
-            'is_paid' => $cash_transaction->is_paid,
-            'date' => $cash_transaction->date,
-            'note' => $cash_transaction->note
-        ];
 
         return response()->json([
             'status' => Response::HTTP_OK,
-            'data' => $response
+            'data' => $cash_transaction
         ], Response::HTTP_OK);
     }
 }
