@@ -85,12 +85,18 @@ class CashTransactionReportController extends Controller
         foreach ($cash_transaction_results as $key => $row) {
             $sheet->setCellValue('A' . $cell, $key + 1);
             $sheet->setCellValue('B' . $cell, $row->students->name);
-            $sheet->setCellValue('C' . $cell, $row->date);
-            $sheet->setCellValue('D' . $cell, $row->is_paid);
-            $sheet->setCellValue('E' . $cell, $row->amount);
+            $sheet->setCellValue('C' . $cell, date('d-m-Y', strtotime($row->date)));
+            $sheet->setCellValue('D' . $cell, paid_status($row->is_paid));
+            $sheet->setCellValue('E' . $cell, indonesian_currency($row->amount));
             $sheet->setCellValue('F' . $cell, $row->users->name);
             $cell++;
             $sheet->getStyle('A1:F' . ($cell - 1))->applyFromArray($this->setStyle());
+
+            $sheet->setCellValue('D' . $cell, 'Total Lunas')->getStyle('D' . $cell)->applyFromArray($this->setStyle());
+            $sheet->setCellValue('D' . ($cell + 1), 'Total Belum Lunas')->getStyle('D' . ($cell + 1))->applyFromArray($this->setStyle());
+
+            $sheet->setCellValue('E' . $cell, indonesian_currency($cash_transaction_results->where('is_paid', 1)->sum('amount')))->getStyle('E' . $cell)->applyFromArray($this->setStyle());;
+            $sheet->setCellValue('E' . ($cell + 1), indonesian_currency($cash_transaction_results->where('is_paid', 0)->sum('amount')))->getStyle('E' . ($cell + 1))->applyFromArray($this->setStyle());;
         }
 
         return $sheet;
