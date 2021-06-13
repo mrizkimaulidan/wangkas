@@ -85,9 +85,9 @@ class CashTransactionController extends Controller
         foreach ($students as $key => $row) {
             $sheet->setCellValue('A' . $cell, $key + 1);
             $sheet->setCellValue('B' . $cell, $row->students->name);
-            $sheet->setCellValue('C' . $cell, $row->bill);
-            $sheet->setCellValue('D' . $cell, $row->amount);
-            $sheet->setCellValue('E' . $cell,  date('d-m-Y', strtotime($row->date)));
+            $sheet->setCellValue('C' . $cell, indonesian_currency($row->bill));
+            $sheet->setCellValue('D' . $cell, indonesian_currency($row->amount));
+            $sheet->setCellValue('E' . $cell, date('d-m-Y', strtotime($row->date)));
             $sheet->setCellValue('F' . $cell, paid_status($row->is_paid));
             $cell++;
             $sheet->getStyle('A1:F' . ($cell - 1))->applyFromArray($this->setStyle());
