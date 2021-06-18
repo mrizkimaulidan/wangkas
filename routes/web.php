@@ -40,6 +40,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/laporan/filter', [CashTransactionReportController::class, 'index'])->name('kas.filter');
 
+    // Soft Deletes Routes
     Route::get('/kelas/history', [SchoolClassHistoryController::class, 'index'])->name('kelas.index.history');
     Route::post('/kelas/history/{id}', [SchoolClassHistoryController::class, 'restore'])->name('kelas.restore.history');
     Route::delete('/kelas/history/{id}', [SchoolClassHistoryController::class, 'destroy'])->name('kelas.destroy.history');
