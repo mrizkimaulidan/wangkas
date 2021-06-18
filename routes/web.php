@@ -8,6 +8,9 @@ use App\Http\Controllers\SchoolMajorController;
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\CashTransactionController;
 use App\Http\Controllers\CashTransactionReportController;
+use App\Http\Controllers\SchoolClassHistoryController;
+use App\Http\Controllers\SchoolClassSoftDeleteController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,6 +39,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/laporan', [CashTransactionReportController::class, 'index'])->name('laporan.index');
 
     Route::get('/laporan/filter', [CashTransactionReportController::class, 'index'])->name('kas.filter');
+
+    Route::get('/kelas/history', [SchoolClassHistoryController::class, 'index'])->name('kelas.index.history');
+    Route::post('/kelas/history/{id}', [SchoolClassHistoryController::class, 'restore'])->name('kelas.restore.history');
+    Route::delete('/kelas/history/{id}', [SchoolClassHistoryController::class, 'destroy'])->name('kelas.destroy.history');
 
     require __DIR__ . '/export.php';
 });

@@ -33,6 +33,44 @@ $(function () {
         });
     });
 
+    $(".restore-button").click(function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: "Kembalikan?",
+            text: "Data yang dipilih akan dikembalikan",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "Tidak",
+            confirmButtonText: "Ya!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $(this).parent().submit();
+            }
+        });
+    });
+
+    $(".delete-permanent-button").click(function (e) {
+        e.preventDefault();
+        Swal.fire({
+            title: "Hapus permanen?",
+            text: "Data yang dipilih tidak akan bisa dikembalikan lagi!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            cancelButtonText: "Tidak",
+            confirmButtonText: "Ya!",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $(this).parent().submit();
+            }
+        });
+    });
+
     var tooltipTriggerList = [].slice.call(
         document.querySelectorAll('[data-bs-toggle="tooltip"]')
     );

@@ -12,8 +12,9 @@ class SchoolClassController extends Controller
     public function index()
     {
         $school_classes = SchoolClass::select('id', 'name')->orderBy('name')->get();
+        $count_school_classes_trashed = SchoolClass::onlyTrashed()->count();
 
-        return view('school_classes.index', compact('school_classes'));
+        return view('school_classes.index', compact('school_classes', 'count_school_classes_trashed'));
     }
 
     public function store(SchoolClassStoreRequest $request)

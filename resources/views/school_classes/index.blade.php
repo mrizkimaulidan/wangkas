@@ -5,10 +5,14 @@
     @include('utilities.alert-flash-message')
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
-            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
+            <button type="button" class="btn btn-primary float-end mx-2" data-bs-toggle="modal"
                 data-bs-target="#addSchoolClassModal">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
+
+            <a href="{{ route('kelas.index.history') }}" class="btn btn-secondary float-end mx-2">
+                <span class="badge">{{ $count_school_classes_trashed }}</span> Histori Data Kelas
+            </a>
         </div>
 
         <table class="table table-sm" id="datatable">
