@@ -12,8 +12,9 @@ class SchoolMajorController extends Controller
     public function index()
     {
         $school_majors = SchoolMajor::select('id', 'name', 'abbreviated_word')->orderBy('name')->get();
+        $count_school_majors_trashed = SchoolMajor::onlyTrashed()->count();
 
-        return view('school_majors.index', compact('school_majors'));
+        return view('school_majors.index', compact('school_majors', 'count_school_majors_trashed'));
     }
 
     public function store(SchoolMajorStoreRequest $request)

@@ -9,6 +9,10 @@
                 data-bs-target="#addSchoolMajorModal">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
+
+            <a href="{{ route('jurusan.index.history') }}" class="btn btn-secondary float-end mx-2">
+                <span class="badge">{{ $count_school_majors_trashed }}</span> Histori Data Jurusan
+            </a>
         </div>
 
         <table class="table table-sm" id="datatable">

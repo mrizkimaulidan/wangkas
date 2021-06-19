@@ -10,6 +10,7 @@ use App\Http\Controllers\CashTransactionController;
 use App\Http\Controllers\CashTransactionReportController;
 use App\Http\Controllers\SchoolClassHistoryController;
 use App\Http\Controllers\SchoolClassSoftDeleteController;
+use App\Http\Controllers\SchoolMajorHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/kelas/history', [SchoolClassHistoryController::class, 'index'])->name('kelas.index.history');
     Route::post('/kelas/history/{id}', [SchoolClassHistoryController::class, 'restore'])->name('kelas.restore.history');
     Route::delete('/kelas/history/{id}', [SchoolClassHistoryController::class, 'destroy'])->name('kelas.destroy.history');
+
+    Route::get('/jurusan/history', [SchoolMajorHistoryController::class, 'index'])->name('jurusan.index.history');
+    Route::post('/kelas/history/{id}', [SchoolMajorHistoryController::class, 'restore'])->name('jurusan.restore.history');
 
     require __DIR__ . '/export.php';
 });
