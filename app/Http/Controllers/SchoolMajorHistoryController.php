@@ -22,4 +22,11 @@ class SchoolMajorHistoryController extends Controller
 
         return redirect()->route('jurusan.index.history')->with('success', 'Data berhasil dikembalikan!');
     }
+
+    public function destroy(int $id): RedirectResponse
+    {
+        SchoolMajor::onlyTrashed()->findOrFail($id)->forceDelete();
+
+        return redirect()->route('jurusan.index.history')->with('success', 'Data berhasil dihapus!');
+    }
 }

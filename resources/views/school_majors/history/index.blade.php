@@ -40,7 +40,7 @@
                             </div>
 
                             <div class="mx-1">
-                                <form action="#" method="POST">
+                                <form action="{{ route('jurusan.destroy.history', $school_major->id) }}" method="POST">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-permanent-button">
                                         <i class="bi bi-trash-fill"></i>
