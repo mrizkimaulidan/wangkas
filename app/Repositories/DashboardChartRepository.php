@@ -28,6 +28,8 @@ class DashboardChartRepository extends Controller
         }
 
         /**
+         * Output yang akan diinginkan seperti dibawah ini
+         * 
          * $data = [
          *  'jan' => 10000,
          *  'feb' => 10000,
