@@ -10,7 +10,7 @@ class SchoolClass extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $guarded = ['created_at', 'updated_at'];
+    protected $fillable = ['name'];
 
     public function students(): Object
     {

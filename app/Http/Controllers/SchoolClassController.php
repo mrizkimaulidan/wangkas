@@ -21,9 +21,7 @@ class SchoolClassController extends Controller
 
     public function store(SchoolClassStoreRequest $request): RedirectResponse
     {
-        SchoolClass::create([
-            'name' => $request->name
-        ]);
+        SchoolClass::create($request->validated());
 
         return redirect()->route('kelas.index')->with('success', 'Data berhasil ditambahkan!');
     }
@@ -32,9 +30,7 @@ class SchoolClassController extends Controller
     {
         $school_class = SchoolClass::findOrFail($id);
 
-        $school_class->update([
-            'name' => $request->name
-        ]);
+        $school_class->update($request->validated());
 
         return redirect()->route('kelas.index')->with('success', 'Data berhasil diubah!');
     }

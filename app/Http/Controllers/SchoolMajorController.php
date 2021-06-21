@@ -21,10 +21,7 @@ class SchoolMajorController extends Controller
 
     public function store(SchoolMajorStoreRequest $request): RedirectResponse
     {
-        SchoolMajor::create([
-            'name' => $request->name,
-            'abbreviated_word' => $request->abbreviated_word
-        ]);
+        SchoolMajor::create($request->validated());
 
         return redirect()->route('jurusan.index')->with('success', 'Data berhasil ditambahkan!');
     }
@@ -33,10 +30,7 @@ class SchoolMajorController extends Controller
     {
         $school_major = SchoolMajor::findOrFail($id);
 
-        $school_major->update([
-            'name' => $request->name,
-            'abbreviated_word' => $request->abbreviated_word
-        ]);
+        $school_major->update($request->validated());
 
         return redirect()->route('jurusan.index')->with('success', 'Data berhasil diubah!');
     }

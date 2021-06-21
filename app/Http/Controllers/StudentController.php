@@ -35,17 +35,7 @@ class StudentController extends Controller
 
     public function store(StudentStoreRequest $request): RedirectResponse
     {
-        Student::create([
-            'school_class_id' => $request->school_class_id,
-            'school_major_id' => $request->school_major_id,
-            'student_identification_number' => $request->student_identification_number,
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'gender' => $request->gender,
-            'school_year_start' => $request->school_year_start,
-            'school_year_end' => $request->school_year_end
-        ]);
+        Student::create($request->validated());
 
         return redirect()->route('pelajar.index')->with('success', 'Data berhasil ditambahkan!');
     }
@@ -54,17 +44,7 @@ class StudentController extends Controller
     {
         $student = Student::findOrFail($id);
 
-        $student->update([
-            'school_class_id' => $request->school_class_id,
-            'school_major_id' => $request->school_major_id,
-            'student_identification_number' => $request->student_identification_number,
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'gender' => $request->gender,
-            'school_year_start' => $request->school_year_start,
-            'school_year_end' => $request->school_year_end
-        ]);
+        $student->update($request->validated());
 
         return redirect()->route('pelajar.index')->with('success', 'Data berhasil diubah!');
     }

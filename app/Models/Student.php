@@ -9,7 +9,11 @@ class Student extends Model
 {
     use HasFactory;
 
-    protected $guarded = ['created_at', 'updated_at'];
+    protected $fillable = [
+        'school_class_id', 'school_major_id', 'student_identification_number',
+        'name', 'email', 'phone_number', 'gender', 'school_year_start',
+        'school_year_end'
+    ];
 
     public function school_classes(): Object
     {
