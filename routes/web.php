@@ -9,15 +9,14 @@ use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\CashTransactionController;
 use App\Http\Controllers\CashTransactionReportController;
 use App\Http\Controllers\SchoolClassHistoryController;
-use App\Http\Controllers\SchoolClassSoftDeleteController;
 use App\Http\Controllers\SchoolMajorHistoryController;
 
 require __DIR__ . '/auth.php';
 
+// If accessing root path "/" it will be redirect to /login
+Route::redirect('/', 'login');
+
 Route::middleware('auth')->group(function () {
-    Route::get('/', function () {
-        return view('welcome');
-    });
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
