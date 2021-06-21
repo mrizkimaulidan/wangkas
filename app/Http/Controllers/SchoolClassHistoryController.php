@@ -6,10 +6,11 @@ use App\Models\SchoolClass;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class SchoolClassHistoryController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         return view('school_classes.history.index', [
             'school_classes' => SchoolClass::onlyTrashed()->get()

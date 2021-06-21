@@ -10,6 +10,7 @@ use App\Repositories\SchoolClassRepository;
 use App\Repositories\SchoolMajorRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class DashboardController extends Controller
 {
@@ -18,7 +19,7 @@ class DashboardController extends Controller
     ) {
     }
 
-    public function index()
+    public function index(): View
     {
         return view('dashboard.index', [
             'student_count' => Student::count(),

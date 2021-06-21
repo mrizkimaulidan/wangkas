@@ -9,6 +9,8 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use App\Repositories\StudentRepository;
 use App\Repositories\CashTransactionRepository;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class CashTransactionController extends Controller
 {
@@ -17,7 +19,7 @@ class CashTransactionController extends Controller
     ) {
     }
 
-    public function index()
+    public function index(): View
     {
         return view('cash_transactions.index', [
             'cash_transactions' => CashTransaction::with('students:id,name')->select('id', 'student_id', 'bill', 'amount', 'date', 'is_paid')->get(),
@@ -33,7 +35,7 @@ class CashTransactionController extends Controller
         ]);
     }
 
-    public function store(CashTransactionStoreRequest $request)
+    public function store(CashTransactionStoreRequest $request): RedirectResponse
     {
         CashTransaction::create([
             'user_id' => auth()->user()->id,
@@ -48,7 +50,7 @@ class CashTransactionController extends Controller
         return redirect()->route('kas.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(CashTransactionUpdateRequest $request, string $id)
+    public function update(CashTransactionUpdateRequest $request, string $id): RedirectResponse
     {
         $cash_transaction = CashTransaction::findOrFail($id);
 
@@ -65,7 +67,7 @@ class CashTransactionController extends Controller
         return redirect()->route('kas.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy($id)
+    public function destroy($id): RedirectResponse
     {
         CashTransaction::findOrFail($id)->delete();
 

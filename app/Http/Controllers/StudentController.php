@@ -7,11 +7,13 @@ use App\Http\Requests\StudentUpdateRequest;
 use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class StudentController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $students = Student::with('school_classes', 'school_majors')
             ->select(
@@ -31,7 +33,7 @@ class StudentController extends Controller
         return view('students.index', compact('students', 'school_classes', 'school_majors'));
     }
 
-    public function store(StudentStoreRequest $request)
+    public function store(StudentStoreRequest $request): RedirectResponse
     {
         Student::create([
             'school_class_id' => $request->school_class_id,
@@ -48,7 +50,7 @@ class StudentController extends Controller
         return redirect()->route('pelajar.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(StudentUpdateRequest $request, string $id)
+    public function update(StudentUpdateRequest $request, string $id): RedirectResponse
     {
         $student = Student::findOrFail($id);
 
@@ -67,7 +69,7 @@ class StudentController extends Controller
         return redirect()->route('pelajar.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
         Student::findOrFail($id)->delete();
 

@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\SchoolClassStoreRequest;
 use App\Http\Requests\SchoolClassUpdateRequest;
 use App\Models\SchoolClass;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class SchoolClassController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $school_classes = SchoolClass::select('id', 'name')->orderBy('name')->get();
         $count_school_classes_trashed = SchoolClass::onlyTrashed()->count();
@@ -17,7 +19,7 @@ class SchoolClassController extends Controller
         return view('school_classes.index', compact('school_classes', 'count_school_classes_trashed'));
     }
 
-    public function store(SchoolClassStoreRequest $request)
+    public function store(SchoolClassStoreRequest $request): RedirectResponse
     {
         SchoolClass::create([
             'name' => $request->name
@@ -26,7 +28,7 @@ class SchoolClassController extends Controller
         return redirect()->route('kelas.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(SchoolClassUpdateRequest $request, string $id)
+    public function update(SchoolClassUpdateRequest $request, string $id): RedirectResponse
     {
         $school_class = SchoolClass::findOrFail($id);
 
@@ -37,7 +39,7 @@ class SchoolClassController extends Controller
         return redirect()->route('kelas.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
         $school_class = SchoolClass::findOrFail($id);
 

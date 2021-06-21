@@ -3,20 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AdministratorStoreRequest;
-use App\Http\Requests\AdministratorUpdateRequest;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AdministratorController extends Controller
 {
-    public function index()
+    public function index(): View
     {
         $administrators = User::select('id', 'name', 'email', 'created_at')->orderBy('name')->get();
 
         return view('administrator.index', compact('administrators'));
     }
 
-    public function store(AdministratorStoreRequest $request)
+    public function store(AdministratorStoreRequest $request): RedirectResponse
     {
         User::create([
             'name' => $request->name,
@@ -27,7 +28,7 @@ class AdministratorController extends Controller
         return redirect()->route('administrator.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, string $id): RedirectResponse
     {
         $administrator = User::findOrFail($id);
 
@@ -40,7 +41,7 @@ class AdministratorController extends Controller
         return redirect()->route('administrator.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy(string $id)
+    public function destroy(string $id): RedirectResponse
     {
         User::findOrFail($id)->delete();
 

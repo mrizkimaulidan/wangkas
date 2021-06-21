@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Models\Student;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
 class StudentController extends Controller
@@ -13,7 +14,7 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(string $id)
+    public function __invoke(string $id): JsonResponse
     {
         return response()->json([
             'status' => Response::HTTP_OK,

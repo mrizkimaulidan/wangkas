@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Repositories\CashTransactionReportRepository;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class CashTransactionReportController extends Controller
 {
@@ -17,7 +18,7 @@ class CashTransactionReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(): View
     {
         $filtered_results = $this->cashTransactionReportRepository->filter();
 
