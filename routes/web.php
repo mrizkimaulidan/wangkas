@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/jurusan/history', [SchoolMajorHistoryController::class, 'index'])->name('jurusan.index.history');
     Route::post('/kelas/history/{id}', [SchoolMajorHistoryController::class, 'restore'])->name('jurusan.restore.history');
     Route::delete('/kelas/history/{id}', [SchoolMajorHistoryController::class, 'destroy'])->name('jurusan.destroy.history');
+    // End Soft Deletes Routes
 
     require __DIR__ . '/export.php';
 });
