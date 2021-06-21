@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function () {
         return view('welcome');
     });
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::resource('pelajar', StudentController::class)->except('create', 'show', 'edit');
     Route::resource('kelas', SchoolClassController::class)->except('create', 'show', 'edit');
