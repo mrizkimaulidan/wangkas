@@ -6,10 +6,6 @@ use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Repositories\CashTransactionRepository;
-use App\Repositories\SchoolClassRepository;
-use App\Repositories\SchoolMajorRepository;
-use App\Repositories\StudentRepository;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class DashboardController extends Controller

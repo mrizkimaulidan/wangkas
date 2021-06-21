@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Export;
 
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
-use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;

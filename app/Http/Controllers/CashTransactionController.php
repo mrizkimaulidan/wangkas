@@ -6,8 +6,6 @@ use App\Http\Requests\CashTransactionStoreRequest;
 use App\Http\Requests\CashTransactionUpdateRequest;
 use App\Models\CashTransaction;
 use App\Models\Student;
-use Illuminate\Http\Request;
-use App\Repositories\StudentRepository;
 use App\Repositories\CashTransactionRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;

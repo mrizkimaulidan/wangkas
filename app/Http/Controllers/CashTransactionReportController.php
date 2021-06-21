@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\CashTransactionReportRepository;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CashTransactionReportController extends Controller

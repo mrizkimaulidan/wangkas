@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\SchoolClass;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;

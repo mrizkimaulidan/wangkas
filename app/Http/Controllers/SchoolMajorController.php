@@ -6,7 +6,6 @@ use App\Http\Requests\SchoolMajorStoreRequest;
 use App\Http\Requests\SchoolMajorUpdateRequest;
 use App\Models\SchoolMajor;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class SchoolMajorController extends Controller

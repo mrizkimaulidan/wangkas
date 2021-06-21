@@ -8,7 +8,6 @@ use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class StudentController extends Controller
