@@ -60,11 +60,12 @@ class StudentController extends Controller
         $sheet->setCellValue('A1', 'No');
         $sheet->setCellValue('B1', 'NIS/NISN');
         $sheet->setCellValue('C1', 'Nama Lengkap');
-        $sheet->setCellValue('D1', 'Kelas');
-        $sheet->setCellValue('E1', 'Jurusan');
-        $sheet->setCellValue('F1', 'Tahun Ajaran');
+        $sheet->setCellValue('D1', 'Jenis Kelamin');
+        $sheet->setCellValue('E1', 'Kelas');
+        $sheet->setCellValue('F1', 'Jurusan');
+        $sheet->setCellValue('G1', 'Tahun Ajaran');
 
-        foreach (range('A', 'F') as $paragraph) {
+        foreach (range('A', 'G') as $paragraph) {
             $sheet->getColumnDimension($paragraph)->setAutoSize(true);
         }
 
@@ -85,11 +86,12 @@ class StudentController extends Controller
             $sheet->setCellValue('A' . $cell, $key + 1);
             $sheet->setCellValue('B' . $cell, $row->student_identification_number);
             $sheet->setCellValue('C' . $cell, $row->name);
-            $sheet->setCellValue('D' . $cell, $row->school_classes->name);
-            $sheet->setCellValue('E' . $cell, $row->school_majors->name);
-            $sheet->setCellValue('F' . $cell, $row->school_year_start . ' - ' . $row->school_year_end);
+            $sheet->setCellValue('D' . $cell, $row->gender === 1 ? 'Laki-laki' : 'Perempuan');
+            $sheet->setCellValue('E' . $cell, $row->school_classes->name);
+            $sheet->setCellValue('F' . $cell, $row->school_majors->name);
+            $sheet->setCellValue('G' . $cell, $row->school_year_start . ' - ' . $row->school_year_end);
             $cell++;
-            $sheet->getStyle('A1:F' . ($cell - 1))->applyFromArray($this->setStyle());
+            $sheet->getStyle('A1:G' . ($cell - 1))->applyFromArray($this->setStyle());
         }
 
         return $sheet;
