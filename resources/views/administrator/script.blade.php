@@ -1,5 +1,6 @@
 <script>
-    $('.administrator-detail').click(function() {
+    $(function() {
+        $('.administrator-detail').click(function() {
         let id = $(this).data('id');
         let url = "{{ route('api.administrator.show', ':id') }}";
         url = url.replace(':id', id);
@@ -16,26 +17,27 @@
     });
 
     $('.administrator-edit').click(function() {
-    let id = $(this).data('id');
-    let url = "{{ route('api.administrator.show', ':id') }}";
-    url = url.replace(':id', id);
-    
-    let form_action_url = "{{ route('administrator.update', ':id') }}";
-    form_action_url = form_action_url.replace(':id', id);
+        let id = $(this).data('id');
+        let url = "{{ route('api.administrator.show', ':id') }}";
+        url = url.replace(':id', id);
+        
+        let form_action_url = "{{ route('administrator.update', ':id') }}";
+        form_action_url = form_action_url.replace(':id', id);
 
-    $('#editAdministratorModal input:not([name=_method], [name=_token], [id=password], [id=password_confirmation]').val('Sedang mengambil data..');
-    $('#editAdministratorModal input').prop('disabled', true);
-    $('#editAdministatorModal .modal-footer button[type=submit]').prop('disabled', true);
-    
-    $.ajax({
-    url: url,
-    success: function(data) {
-                $('#editAdministratorModal #administrator-edit-form').attr('action', form_action_url);
-                $('#editAdministratorModal input').prop('disabled', false);
-                $('#editAdministatorModal .modal-footer button[type=submit]').prop('disabled', false);
-                $('#editAdministratorModal #name').val(data.data.name);
-                $('#editAdministratorModal #email').val(data.data.email);
-            }
+        $('#editAdministratorModal input:not([name=_method], [name=_token], [id=password], [id=password_confirmation]').val('Sedang mengambil data..');
+        $('#editAdministratorModal input').prop('disabled', true);
+        $('#editAdministatorModal .modal-footer button[type=submit]').prop('disabled', true);
+        
+        $.ajax({
+        url: url,
+        success: function(data) {
+                    $('#editAdministratorModal #administrator-edit-form').attr('action', form_action_url);
+                    $('#editAdministratorModal input').prop('disabled', false);
+                    $('#editAdministatorModal .modal-footer button[type=submit]').prop('disabled', false);
+                    $('#editAdministratorModal #name').val(data.data.name);
+                    $('#editAdministratorModal #email').val(data.data.email);
+                }
+            });
         });
-    });
+    })
 </script>

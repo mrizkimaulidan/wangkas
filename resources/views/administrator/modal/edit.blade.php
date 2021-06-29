@@ -1,4 +1,5 @@
-<div class="modal fade" id="editAdministratorModal" aria-hidden="true">
+<div class="modal fade" id="editAdministratorModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
