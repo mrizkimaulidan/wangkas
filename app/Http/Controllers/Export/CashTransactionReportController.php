@@ -15,7 +15,10 @@ class CashTransactionReportController extends Controller
         $spreadsheet = new Spreadsheet();
         $sheet = $this->setHeaderExcel($spreadsheet);
 
-        $cash_transaction_results = CashTransaction::with('students', 'users')->whereBetween('date', [date('Y-m-d', strtotime($start_date)), date('Y-m-d', strtotime($end_date))])->orderBy('student_id')->get();
+        $cash_transaction_results = CashTransaction::with('students', 'users')
+            ->whereBetween('date', [date('Y-m-d', strtotime($start_date)), date('Y-m-d', strtotime($end_date))])
+            ->orderBy('student_id')
+            ->get();
 
         $this->setExcelContent($cash_transaction_results, $sheet);
 
