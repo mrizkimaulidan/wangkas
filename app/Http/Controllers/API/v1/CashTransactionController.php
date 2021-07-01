@@ -20,6 +20,10 @@ class CashTransactionController extends Controller
             ->select('id', 'student_id', 'user_id', 'bill', 'amount', 'is_paid', 'date', 'note')
             ->findOrFail($id);
 
+        $cash_transaction->bill = indonesian_currency($cash_transaction->bill);
+        $cash_transaction->amount = indonesian_currency($cash_transaction->amount);
+        $cash_transaction->date = date('d-m-Y', strtotime($cash_transaction->date));
+
         return response()->json([
             'status' => Response::HTTP_OK,
             'data' => $cash_transaction
