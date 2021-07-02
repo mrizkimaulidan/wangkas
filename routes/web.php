@@ -10,6 +10,7 @@ use App\Http\Controllers\CashTransactionController;
 use App\Http\Controllers\CashTransactionReportController;
 use App\Http\Controllers\SchoolClassHistoryController;
 use App\Http\Controllers\SchoolMajorHistoryController;
+use App\Http\Controllers\StudentHistoryController;
 
 require __DIR__ . '/auth.php';
 
@@ -30,6 +31,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/laporan/filter', [CashTransactionReportController::class, 'index'])->name('kas.filter');
 
     // Soft Deletes Routes
+    Route::get('/pelajar/history', [StudentHistoryController::class, 'index'])->name('pelajar.index.history');
+    Route::post('/pelajar/history/{id}', [StudentHistoryController::class, 'restore'])->name('pelajar.restore.history');
+    Route::delete('/pelajar/history/{id}', [StudentHistoryController::class, 'destroy'])->name('pelajar.destroy.history');
+
     Route::get('/kelas/history', [SchoolClassHistoryController::class, 'index'])->name('kelas.index.history');
     Route::post('/kelas/history/{id}', [SchoolClassHistoryController::class, 'restore'])->name('kelas.restore.history');
     Route::delete('/kelas/history/{id}', [SchoolClassHistoryController::class, 'destroy'])->name('kelas.destroy.history');
