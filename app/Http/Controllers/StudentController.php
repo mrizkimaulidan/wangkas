@@ -29,7 +29,9 @@ class StudentController extends Controller
         $school_classes = SchoolClass::select('id', 'name')->orderBy('name')->get();
         $school_majors = SchoolMajor::select('id', 'name', 'abbreviated_word')->orderBy('name')->get();
 
-        return view('students.index', compact('students', 'school_classes', 'school_majors'));
+        $count_students_trashed = Student::onlyTrashed()->count();
+
+        return view('students.index', compact('students', 'school_classes', 'school_majors', 'count_students_trashed'));
     }
 
     public function store(StudentStoreRequest $request): RedirectResponse

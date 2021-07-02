@@ -13,6 +13,9 @@
                 data-bs-target="#addStudentModal">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
+            <a href="{{ route('pelajar.index.history') }}" class="btn btn-secondary float-end mx-2">
+                <span class="badge">{{ $count_students_trashed }}</span> Histori Data Pelajar
+            </a>
         </div>
 
         <table class="table table-sm" id="datatable">
