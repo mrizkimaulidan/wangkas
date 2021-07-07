@@ -31,17 +31,23 @@ Route::middleware('auth')->group(function () {
     Route::get('/laporan/filter', [CashTransactionReportController::class, 'index'])->name('kas.filter');
 
     // Soft Deletes Routes
-    Route::get('/pelajar/history', [StudentHistoryController::class, 'index'])->name('pelajar.index.history');
-    Route::post('/pelajar/history/{id}', [StudentHistoryController::class, 'restore'])->name('pelajar.restore.history');
-    Route::delete('/pelajar/history/{id}', [StudentHistoryController::class, 'destroy'])->name('pelajar.destroy.history');
+    Route::prefix('/pelajar/histori')->name('pelajar.')->group(function () {
+        Route::get('', [StudentHistoryController::class, 'index'])->name('index.history');
+        Route::post('{id}', [StudentHistoryController::class, 'restore'])->name('restore.history');
+        Route::delete('{id}', [StudentHistoryController::class, 'destroy'])->name('destroy.history');
+    });
 
-    Route::get('/kelas/history', [SchoolClassHistoryController::class, 'index'])->name('kelas.index.history');
-    Route::post('/kelas/history/{id}', [SchoolClassHistoryController::class, 'restore'])->name('kelas.restore.history');
-    Route::delete('/kelas/history/{id}', [SchoolClassHistoryController::class, 'destroy'])->name('kelas.destroy.history');
+    Route::prefix('/kelas/histori')->name('kelas.')->group(function () {
+        Route::get('', [SchoolClassHistoryController::class, 'index'])->name('index.history');
+        Route::post('{id}', [SchoolClassHistoryController::class, 'restore'])->name('restore.history');
+        Route::delete('{id}', [SchoolClassHistoryController::class, 'destroy'])->name('destroy.history');
+    });
 
-    Route::get('/jurusan/history', [SchoolMajorHistoryController::class, 'index'])->name('jurusan.index.history');
-    Route::post('/kelas/history/{id}', [SchoolMajorHistoryController::class, 'restore'])->name('jurusan.restore.history');
-    Route::delete('/kelas/history/{id}', [SchoolMajorHistoryController::class, 'destroy'])->name('jurusan.destroy.history');
+    Route::prefix('/jurusan/histori')->name('jurusan.')->group(function () {
+        Route::get('', [SchoolMajorHistoryController::class, 'index'])->name('index.history');
+        Route::post('{id}', [SchoolMajorHistoryController::class, 'restore'])->name('restore.history');
+        Route::delete('{id}', [SchoolMajorHistoryController::class, 'destroy'])->name('destroy.history');
+    });
     // End Soft Deletes Routes
 
     require __DIR__ . '/export.php';
