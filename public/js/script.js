@@ -25,7 +25,7 @@ $(function () {
             cancelButtonColor: "#d33",
             cancelButtonText: "Tidak",
             confirmButtonText: "Ya!",
-            reverseButtons: true
+            reverseButtons: true,
         }).then((result) => {
             if (result.isConfirmed) {
                 $(this).parent().submit();
@@ -44,7 +44,7 @@ $(function () {
             cancelButtonColor: "#d33",
             cancelButtonText: "Tidak",
             confirmButtonText: "Ya!",
-            reverseButtons: true
+            reverseButtons: true,
         }).then((result) => {
             if (result.isConfirmed) {
                 $(this).parent().submit();
@@ -63,7 +63,7 @@ $(function () {
             cancelButtonColor: "#d33",
             cancelButtonText: "Tidak",
             confirmButtonText: "Ya!",
-            reverseButtons: true
+            reverseButtons: true,
         }).then((result) => {
             if (result.isConfirmed) {
                 $(this).parent().submit();
