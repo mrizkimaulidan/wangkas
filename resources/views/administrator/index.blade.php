@@ -31,7 +31,7 @@
                     <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $administrator->name }}</td>
                     <td>{{ $administrator->email }}</td>
-                    <td>{{ date('d-m-Y H:i:s', strtotime($administrator->created_at)) }}</td>
+                    <td>{{ date('d-m-Y H:i', strtotime($administrator->created_at)) }}</td>
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
