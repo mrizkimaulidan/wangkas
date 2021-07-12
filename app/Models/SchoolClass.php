@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SchoolClass extends Model
@@ -12,7 +13,7 @@ class SchoolClass extends Model
 
     protected $fillable = ['name'];
 
-    public function students(): Object
+    public function students(): HasMany
     {
         return $this->hasMany(Student::class);
     }

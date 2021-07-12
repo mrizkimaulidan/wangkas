@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Student extends Model
@@ -16,17 +18,17 @@ class Student extends Model
         'school_year_end'
     ];
 
-    public function school_classes(): Object
+    public function school_classes(): BelongsTo
     {
         return $this->belongsTo(SchoolClass::class, 'school_class_id', 'id');
     }
 
-    public function school_majors(): Object
+    public function school_majors(): BelongsTo
     {
         return $this->belongsTo(SchoolMajor::class, 'school_major_id', 'id');
     }
 
-    public function cash_transactions(): Object
+    public function cash_transactions(): HasMany
     {
         return $this->hasMany(CashTransaction::class);
     }

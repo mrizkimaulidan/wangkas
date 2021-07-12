@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CashTransaction extends Model
 {
@@ -12,12 +13,12 @@ class CashTransaction extends Model
 
     protected $guarded = ['created_at', 'updated_at'];
 
-    public function students()
+    public function students(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'student_id', 'id');
     }
 
-    public function users()
+    public function users(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
