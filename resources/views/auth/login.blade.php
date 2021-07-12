@@ -1,4 +1,4 @@
-@extends('layouts.mazer.auth.app')
+@extends('layouts.auth.main')
 
 @section('content')
 <div class="row h-100">
@@ -17,17 +17,13 @@
                 </div>
                 @endif
                 <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="email"
-                        class="form-control form-control-xl {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                        name="email" placeholder="Email" value="admin@mail.com" required>
+                    <input type="email" class="form-control form-control-xl {{ $errors->has('email') ? 'is-invalid' : '' }}" name="email" placeholder="Email" value="admin@mail.com" required>
                     <div class="form-control-icon">
                         <i class="bi bi-person"></i>
                     </div>
                 </div>
                 <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="password"
-                        class="form-control form-control-xl {{ $errors->has('password') ? 'is-invalid' : '' }}"
-                        name="password" placeholder="Password" value="secret" required>
+                    <input type="password" class="form-control form-control-xl {{ $errors->has('password') ? 'is-invalid' : '' }}" name="password" placeholder="Password" value="secret" required>
                     <div class="form-control-icon">
                         <i class="bi bi-shield-lock"></i>
                     </div>

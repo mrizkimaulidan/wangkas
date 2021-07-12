@@ -1,4 +1,4 @@
-@extends('layouts.mazer.app', ['title' => 'Dashboard', 'page_heading' => 'Dashboard'])
+@extends('layouts.main', ['title' => 'Dashboard', 'page_heading' => 'Dashboard'])
 
 @section('content')
 <section class="row">

@@ -1,4 +1,4 @@
-@extends('layouts.mazer.app', ['title' => 'Pelajar', 'page_heading' => 'Histori Daftar Pelajar Yang Telah Dihapus'])
+@extends('layouts.app', ['title' => 'Pelajar', 'page_heading' => 'Histori Daftar Pelajar Yang Telah Dihapus'])
 
 @section('content')
 <section class="row">
@@ -30,8 +30,7 @@
                     <td>{{ $student->name }}</td>
                     <td>{{ $student->school_classes->name }}
                     <td>
-                        <span class="badge w-100 rounded-pill bg-success" data-bs-toggle="tooltip" data-placement="top"
-                            title="{{ $student->school_majors->name }}">
+                        <span class="badge w-100 rounded-pill bg-success" data-bs-toggle="tooltip" data-placement="top" title="{{ $student->school_majors->name }}">
                             {{ $student->school_majors->abbreviated_word }}
                         </span>
                     </td>

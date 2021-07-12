@@ -1,4 +1,4 @@
-@extends('layouts.mazer.app', ['title' => 'Kelas', 'page_heading' => 'Histori Daftar Kelas Yang Telah Dihapus'])
+@extends('layouts.main', ['title' => 'Kelas', 'page_heading' => 'Histori Daftar Kelas Yang Telah Dihapus'])
 
 @section('content')
 <section class="row">

@@ -1,12 +1,11 @@
-@extends('layouts.mazer.app', ['title' => 'Kelas', 'page_heading' => 'Data Kelas'])
+@extends('layouts.main', ['title' => 'Kelas', 'page_heading' => 'Data Kelas'])
 
 @section('content')
 <section class="row">
     @include('utilities.alert-flash-message')
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
-            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
-                data-bs-target="#addSchoolClassModal">
+            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#addSchoolClassModal">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
 
@@ -31,17 +30,13 @@
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $school_class->id }}"
-                                    class="btn btn-primary btn-sm school-class-detail" data-bs-toggle="modal"
-                                    data-bs-target="#showSchoolClassModal">
+                                <button type="button" data-id="{{ $school_class->id }}" class="btn btn-primary btn-sm school-class-detail" data-bs-toggle="modal" data-bs-target="#showSchoolClassModal">
                                     <i class="bi bi-search"></i>
                                 </button>
                             </div>
 
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $school_class->id }}"
-                                    class="btn btn-success btn-sm school-class-edit" data-bs-toggle="modal"
-                                    data-bs-target="#editSchoolClassModal">
+                                <button type="button" data-id="{{ $school_class->id }}" class="btn btn-success btn-sm school-class-edit" data-bs-toggle="modal" data-bs-target="#editSchoolClassModal">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </div>

@@ -1,10 +1,10 @@
-@include('layouts.mazer.header')
+@include('layouts.partials.header')
 
 <body>
     <div id="app">
         <div id="sidebar" class="active">
             <div class="sidebar-wrapper active">
-                @include('layouts.mazer.navigation')
+                @include('layouts.partials.navigation')
             </div>
         </div>
         <div id="main">
@@ -20,4 +20,4 @@
             <div class="page-content">
                 @yield('content')
             </div>
-            @include('layouts.mazer.footer')
+            @include('layouts.partials.footer')
