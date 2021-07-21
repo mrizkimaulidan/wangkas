@@ -42,7 +42,6 @@
     $.ajax({
         url: url,
         success: function(data) {
-            console.log(data);
                 $('#editCashTransactionModal input').prop('disabled', false);
                 $('#editCashTransactionModal textarea').prop('disabled', false);
                 $('#editCashTransactionModal select').prop('disabled', false);
