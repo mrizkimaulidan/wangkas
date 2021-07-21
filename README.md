@@ -22,7 +22,8 @@ Jika Anda menggunakan XAMPP, untuk PHP dan MySQL sudah menjadi 1 (bundle) didala
 -   CRUD Data Jurusan
 -   CRUD Data Transaksi Uang Kas
 -   CRUD Data Administrator
--   Laporan **ongoing**
+-   Laporan
+
 ### Preview Gambar
 
 _Dashboard_
