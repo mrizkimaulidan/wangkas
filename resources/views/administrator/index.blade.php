@@ -9,7 +9,8 @@
                 <i class="bi bi-file-earmark-excel-fill"></i>
                 Export Excel
             </a>
-            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#addAdministratorModal">
+            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
+                data-bs-target="#addAdministratorModal">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
         </div>
@@ -34,22 +35,22 @@
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $administrator->id }}" class="btn btn-primary btn-sm administrator-detail" data-bs-toggle="modal" data-bs-target="#showAdministratorModal">
+                                <button type="button" data-id="{{ $administrator->id }}"
+                                    class="btn btn-primary btn-sm administrator-detail" data-bs-toggle="modal"
+                                    data-bs-target="#showAdministratorModal">
                                     <i class="bi bi-search"></i>
                                 </button>
                             </div>
-                            @if(auth()->id() === $administrator->id)
+
+                            @if (auth()->id() === $administrator->id)
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $administrator->id }}" class="btn btn-success btn-sm administrator-edit" data-bs-toggle="modal" data-bs-target="#editAdministratorModal">
+                                <button type="button" data-id="{{ $administrator->id }}"
+                                    class="btn btn-success btn-sm administrator-edit" data-bs-toggle="modal"
+                                    data-bs-target="#editAdministratorModal">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </div>
-                            @endif
-                            @if(auth()->id() !== $administrator->id)
-                            <div style="margin-left: 50%">
-                            </div>
-                            @endif
-                            @if(auth()->id() !== $administrator->id)
+
                             <div class="mx-1">
                                 <form action="{{ route('administrator.destroy', $administrator->id) }}" method="POST">
                                     @csrf @method('DELETE')
@@ -59,6 +60,7 @@
                                 </form>
                             </div>
                             @endif
+
                         </div>
                     </td>
                 </tr>
