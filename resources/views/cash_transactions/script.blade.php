@@ -50,7 +50,7 @@
                 $('#editCashTransactionModal #bill').val(data.data.bill);
                 $('#editCashTransactionModal #amount').val(data.data.amount);
                 
-                $('#editCashTransactionModal #is_paid').val(data.data.is_paid).select2();
+                $('#editCashTransactionModal #is_paid').val(data.data.is_paid);
                 $('#editCashTransactionModal #date').val(data.data.date);
                 $('#editCashTransactionModal #note').val(data.data.note);
 

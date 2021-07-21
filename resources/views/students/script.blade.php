@@ -52,7 +52,7 @@
                 $('#editStudentModal #student_identification_number').val(data.data.student_identification_number);
                 $('#editStudentModal #name').val(data.data.name);
                 
-                $('#editStudentModal #gender').val(data.data.gender).select2();
+                $('#editStudentModal #gender').val(data.data.gender);
                 $('#editStudentModal #school_class_id').val(data.data.school_class_id).select2();
                 $('#editStudentModal #school_major_id').val(data.data.school_major_id).select2();
                 $('#editStudentModal #email').val(data.data.email);

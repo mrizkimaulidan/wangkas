@@ -46,7 +46,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="is_paid" class="form-label">Status Pembayaran</label>
-                                <select class="form-select select2" name="is_paid" id="is_paid">
+                                <select class="form-select" name="is_paid" id="is_paid">
                                     <option selected>Pilih Status Pembayaran</option>
                                     <option value="1">Lunas</option>
                                     <option value="0">Belum Lunas</option>

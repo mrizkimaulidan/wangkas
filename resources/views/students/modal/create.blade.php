@@ -42,8 +42,7 @@
 
                         <div class="col-sm-12 col-md-12 col-lg-4">
                             <label for="gender" class="form-label">Jenis Kelamin</label>
-                            <select class="form-select select2 @error('gender') is-invalid @enderror" name="gender"
-                                id="gender">
+                            <select class="form-select @error('gender') is-invalid @enderror" name="gender" id="gender">
                                 <option selected>Pilih Jenis Kelamin</option>
                                 <option value="1">Laki-laki</option>
                                 <option value="2">Perempuan</option>
