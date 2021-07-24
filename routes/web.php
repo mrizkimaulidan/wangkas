@@ -21,14 +21,18 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    // Resource routes
     Route::resource('pelajar', StudentController::class)->except('create', 'show', 'edit');
     Route::resource('kelas', SchoolClassController::class)->except('create', 'show', 'edit');
     Route::resource('jurusan', SchoolMajorController::class)->except('create', 'show', 'edit');
     Route::resource('administrator', AdministratorController::class)->except('create', 'show', 'edit');
     Route::resource('kas', CashTransactionController::class)->except('create', 'show', 'edit');
-    Route::get('/laporan', [CashTransactionReportController::class, 'index'])->name('laporan.index');
+    // End of resource routes
 
+    //  Report routes
+    Route::get('/laporan', [CashTransactionReportController::class, 'index'])->name('laporan.index');
     Route::get('/laporan/filter', [CashTransactionReportController::class, 'index'])->name('kas.filter');
+    // End of report routes
 
     // Soft Deletes Routes
     Route::prefix('/pelajar/histori')->name('pelajar.')->group(function () {
