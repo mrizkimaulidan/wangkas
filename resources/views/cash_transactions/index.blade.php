@@ -152,7 +152,7 @@
     @include('utilities.alert-flash-message')
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
-            <a href="{{ route('kas.export') }}" class="btn btn-success btn-sm mb-3">
+            <a href="{{ route('cash-transactions.export') }}" class="btn btn-success btn-sm mb-3">
                 <i class="bi bi-file-earmark-excel-fill"></i>
                 Export Excel
             </a>
@@ -201,7 +201,7 @@
                             </div>
 
                             <div class="mx-1">
-                                <form action="{{ route('kas.destroy', $cash_transaction->id) }}" method="POST">
+                                <form action="{{ route('cash-transactions.destroy', $cash_transaction->id) }}" method="POST">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-notification">
                                         <i class="bi bi-trash-fill"></i>

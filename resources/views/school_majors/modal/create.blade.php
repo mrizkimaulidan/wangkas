@@ -6,14 +6,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('jurusan.store') }}" method="post">
+                <form action="{{ route('majors.store') }}" method="post">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Jurusan</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                                    id="name" value="{{ old('name') }}" placeholder="Masukkan nama jurusan..">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" placeholder="Masukkan nama jurusan..">
 
                                 @error('name')
                                 <div class="d-block invalid-feedback">
@@ -23,9 +22,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="abbreviated_word" class="form-label">Singkatan Jurusan</label>
-                                <input type="text" class="form-control @error('abbreviated_word') is-invalid @enderror"
-                                    name="abbreviated_word" id="abbreviated_word" value="{{ old('abbreviated_word') }}"
-                                    placeholder="Masukkan singkatan jurusan..">
+                                <input type="text" class="form-control @error('abbreviated_word') is-invalid @enderror" name="abbreviated_word" id="abbreviated_word" value="{{ old('abbreviated_word') }}" placeholder="Masukkan singkatan jurusan..">
 
                                 @error('abbreviated_word')
                                 <div class="d-block invalid-feedback">

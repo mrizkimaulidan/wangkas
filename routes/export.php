@@ -6,6 +6,6 @@ use App\Http\Controllers\Export\CashTransactionController;
 use App\Http\Controllers\Export\CashTransactionReportController;
 
 Route::get('/laporan/filter/export/{start_date}/{end_date}', CashTransactionReportController::class)->name('laporan.export');
-Route::get('/pelajar/export', StudentController::class)->name('pelajar.export');
-Route::get('/kas/export', CashTransactionController::class)->name('kas.export');
-Route::get('/administrator/export', AdministratorController::class)->name('administrator.export');
+Route::get('/students/export', StudentController::class)->name('students.export');
+Route::get('/cash-transactions/export', CashTransactionController::class)->name('cash-transactions.export');
+Route::get('/administrators/export', AdministratorController::class)->name('administrators.export');

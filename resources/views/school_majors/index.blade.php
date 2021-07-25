@@ -9,7 +9,7 @@
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
 
-            <a href="{{ route('jurusan.index.history') }}" class="btn btn-secondary float-end mx-2">
+            <a href="{{ route('majors.index.history') }}" class="btn btn-secondary float-end mx-2">
                 <span class="badge">{{ $count_school_majors_trashed }}</span> Histori Data Jurusan
             </a>
         </div>
@@ -48,7 +48,7 @@
                             </div>
 
                             <div class="mx-1">
-                                <form action="{{ route('jurusan.destroy', $school_major->id) }}" method="POST">
+                                <form action="{{ route('majors.destroy', $school_major->id) }}" method="POST">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-notification">
                                         <i class="bi bi-trash-fill"></i>

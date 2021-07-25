@@ -5,7 +5,7 @@
     <div class="col-12 col-lg-12">
         <div class="row">
             <div class="col-6 col-lg-3 col-md-6">
-                <a href="{{ route('pelajar.index') }}">
+                <a href="{{ route('students.index') }}">
                     <div class="card">
                         <div class="card-body px-3 py-4-5">
                             <div class="row">
@@ -25,7 +25,7 @@
                 </a>
             </div>
             <div class="col-6 col-lg-3 col-md-6">
-                <a href="{{ route('kelas.index') }}">
+                <a href="{{ route('classes.index') }}">
                     <div class="card">
                         <div class="card-body px-3 py-4-5">
                             <div class="row">
@@ -45,7 +45,7 @@
                 </a>
             </div>
             <div class="col-6 col-lg-3 col-md-6">
-                <a href="{{ route('jurusan.index') }}">
+                <a href="{{ route('majors.index') }}">
                     <div class="card">
                         <div class="card-body px-3 py-4-5">
                             <div class="row">
@@ -65,7 +65,7 @@
                 </a>
             </div>
             <div class="col-6 col-lg-3 col-md-6">
-                <a href="{{ route('kas.index') }}">
+                <a href="{{ route('cash-transactions.index') }}">
                     <div class="card">
                         <div class="card-body px-3 py-4-5">
                             <div class="row">

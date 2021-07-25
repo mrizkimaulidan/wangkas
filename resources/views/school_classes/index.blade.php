@@ -9,7 +9,7 @@
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
 
-            <a href="{{ route('kelas.index.history') }}" class="btn btn-secondary float-end mx-2">
+            <a href="{{ route('classes.index.history') }}" class="btn btn-secondary float-end mx-2">
                 <span class="badge">{{ $count_school_classes_trashed }}</span> Histori Data Kelas
             </a>
         </div>
@@ -42,7 +42,7 @@
                             </div>
 
                             <div class="mx-1">
-                                <form action="{{ route('kelas.destroy', $school_class->id) }}" method="POST">
+                                <form action="{{ route('classes.destroy', $school_class->id) }}" method="POST">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-notification">
                                         <i class="bi bi-trash-fill"></i>

@@ -21,29 +21,29 @@
 
         <li class="sidebar-title"><i class="bi bi-menu-button-wide"></i></li>
 
-        <li class="sidebar-item {{ request()->is('pelajar*') ? 'active' : '' }}">
-            <a href="{{ route('pelajar.index') }}" class='sidebar-link'>
+        <li class="sidebar-item {{ request()->routeIs('students.*') ? 'active' : '' }}">
+            <a href="{{ route('students.index') }}" class='sidebar-link'>
                 <i class="bi bi-people-fill"></i>
                 <span>Pelajar</span>
             </a>
         </li>
 
-        <li class="sidebar-item {{ request()->is('kelas*') ? 'active' : '' }}">
-            <a href="{{ route('kelas.index') }}" class='sidebar-link'>
+        <li class="sidebar-item {{ request()->routeIs('classes.*') ? 'active' : '' }}">
+            <a href="{{ route('classes.index') }}" class='sidebar-link'>
                 <i class="bi bi-bookmark-fill"></i>
                 <span>Kelas</span>
             </a>
         </li>
 
-        <li class="sidebar-item {{ request()->is('jurusan*') ? 'active' : '' }}">
-            <a href="{{ route('jurusan.index') }}" class='sidebar-link'>
+        <li class="sidebar-item {{ request()->routeIs('majors.*') ? 'active' : '' }}">
+            <a href="{{ route('majors.index') }}" class='sidebar-link'>
                 <i class="bi bi-briefcase-fill"></i>
                 <span>Jurusan</span>
             </a>
         </li>
 
-        <li class="sidebar-item {{ request()->is('kas*') ? 'active' : '' }}">
-            <a href="{{ route('kas.index') }}" class='sidebar-link'>
+        <li class="sidebar-item {{ request()->routeIs('cash-transactions.*') ? 'active' : '' }}">
+            <a href="{{ route('cash-transactions.index') }}" class='sidebar-link'>
                 <i class="bi bi-cash-stack"></i>
                 <span>Kas</span>
             </a>
@@ -56,8 +56,8 @@
             </a>
         </li>
 
-        <li class="sidebar-item {{ request()->is('administrator*') ? 'active' : '' }}">
-            <a href="{{ route('administrator.index') }}" class='sidebar-link'>
+        <li class="sidebar-item {{ request()->routeIs('administrators.*') ? 'active' : '' }}">
+            <a href="{{ route('administrators.index') }}" class='sidebar-link'>
                 <i class="bi bi-person-badge-fill"></i>
                 <span>Administrator</span>
             </a>
@@ -68,8 +68,7 @@
                 @csrf
 
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                    this.closest('form').submit();"
-                    class='sidebar-link'>
+                                                                    this.closest('form').submit();" class='sidebar-link'>
                     <i class="bi bi-box-arrow-left"></i>
                     <span>Logout</span>
                 </a>
