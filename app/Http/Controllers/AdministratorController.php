@@ -21,13 +21,11 @@ class AdministratorController extends Controller
     {
         User::create($request->validated());
 
-        return redirect()->route('administrator.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('administrators.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(Request $request, string $id): RedirectResponse
+    public function update(Request $request, User $administrator): RedirectResponse
     {
-        $administrator = User::findOrFail($id);
-
         $administrator->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -37,13 +35,13 @@ class AdministratorController extends Controller
             'password' => $request->password === null ? $administrator->password : bcrypt($request->password)
         ]);
 
-        return redirect()->route('administrator.index')->with('success', 'Data berhasil diubah!');
+        return redirect()->route('administrators.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy(string $id): RedirectResponse
+    public function destroy(User $administrator): RedirectResponse
     {
-        User::findOrFail($id)->delete();
+        $administrator->delete();
 
-        return redirect()->route('administrator.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('administrators.index')->with('success', 'Data berhasil dihapus!');
     }
 }
