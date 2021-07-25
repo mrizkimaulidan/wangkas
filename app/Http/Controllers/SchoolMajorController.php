@@ -22,28 +22,24 @@ class SchoolMajorController extends Controller
     {
         SchoolMajor::create($request->validated());
 
-        return redirect()->route('jurusan.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('majors.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(SchoolMajorUpdateRequest $request, string $id): RedirectResponse
+    public function update(SchoolMajorUpdateRequest $request, SchoolMajor $major): RedirectResponse
     {
-        $school_major = SchoolMajor::findOrFail($id);
+        $major->update($request->validated());
 
-        $school_major->update($request->validated());
-
-        return redirect()->route('jurusan.index')->with('success', 'Data berhasil diubah!');
+        return redirect()->route('majors.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy(string $id): RedirectResponse
+    public function destroy(SchoolMajor $major): RedirectResponse
     {
-        $school_major = SchoolMajor::findOrFail($id);
-
-        if ($school_major->students()->exists()) {
-            return redirect()->route('jurusan.index')->with('warning', 'Data yang memiliki relasi tidak dapat dihapus!');
+        if ($major->students()->exists()) {
+            return redirect()->route('majors.index')->with('warning', 'Data yang memiliki relasi tidak dapat dihapus!');
         }
 
-        $school_major->delete();
+        $major->delete();
 
-        return redirect()->route('jurusan.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('majors.index')->with('success', 'Data berhasil dihapus!');
     }
 }

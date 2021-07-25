@@ -22,27 +22,23 @@ class SchoolClassController extends Controller
     {
         SchoolClass::create($request->validated());
 
-        return redirect()->route('kelas.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('classes.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(SchoolClassUpdateRequest $request, string $id): RedirectResponse
+    public function update(SchoolClassUpdateRequest $request, SchoolClass $class): RedirectResponse
     {
-        $school_class = SchoolClass::findOrFail($id);
+        $class->update($request->validated());
 
-        $school_class->update($request->validated());
-
-        return redirect()->route('kelas.index')->with('success', 'Data berhasil diubah!');
+        return redirect()->route('classes.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy(string $id): RedirectResponse
+    public function destroy(SchoolClass $class): RedirectResponse
     {
-        $school_class = SchoolClass::findOrFail($id);
-
-        if ($school_class->students()->exists()) {
-            return redirect()->route('kelas.index')->with('warning', 'Data yang memiliki relasi tidak dapat dihapus!');
+        if ($class->students()->exists()) {
+            return redirect()->route('classes.index')->with('warning', 'Data yang memiliki relasi tidak dapat dihapus!');
         }
 
-        $school_class->delete();
+        $class->delete();
 
         return redirect()->route('kelas.index')->with('success', 'Data berhasil dihapus!');
     }

@@ -38,22 +38,20 @@ class StudentController extends Controller
     {
         Student::create($request->validated());
 
-        return redirect()->route('pelajar.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('students.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(StudentUpdateRequest $request, string $id): RedirectResponse
+    public function update(StudentUpdateRequest $request, Student $student): RedirectResponse
     {
-        $student = Student::findOrFail($id);
-
         $student->update($request->validated());
 
-        return redirect()->route('pelajar.index')->with('success', 'Data berhasil diubah!');
+        return redirect()->route('students.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy(string $id): RedirectResponse
+    public function destroy(Student $student): RedirectResponse
     {
-        Student::findOrFail($id)->delete();
+        $student->delete();
 
-        return redirect()->route('pelajar.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('students.index')->with('success', 'Data berhasil dihapus!');
     }
 }

@@ -48,11 +48,9 @@ class CashTransactionController extends Controller
         return redirect()->route('kas.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
-    public function update(CashTransactionUpdateRequest $request, string $id): RedirectResponse
+    public function update(CashTransactionUpdateRequest $request, CashTransaction $cashTransaction): RedirectResponse
     {
-        $cash_transaction = CashTransaction::findOrFail($id);
-
-        $cash_transaction->update([
+        $cashTransaction->update([
             'user_id' => auth()->user()->id,
             'student_id' => $request->student_id,
             'bill' => $request->bill,
@@ -65,9 +63,9 @@ class CashTransactionController extends Controller
         return redirect()->route('kas.index')->with('success', 'Data berhasil diubah!');
     }
 
-    public function destroy($id): RedirectResponse
+    public function destroy(CashTransaction $cashTransaction): RedirectResponse
     {
-        CashTransaction::findOrFail($id)->delete();
+        $cashTransaction->delete();
 
         return redirect()->route('kas.index')->with('success', 'Data berhasil dihapus!');
     }
