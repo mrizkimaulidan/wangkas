@@ -19,7 +19,7 @@ Route::redirect('/', 'login');
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
     // Resource routes
     Route::resource('pelajar', StudentController::class)->except('create', 'show', 'edit');

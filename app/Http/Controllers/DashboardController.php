@@ -15,7 +15,7 @@ class DashboardController extends Controller
     ) {
     }
 
-    public function index(): View
+    public function __invoke(): View
     {
         return view('dashboard.index', [
             'student_count' => Student::count(),
