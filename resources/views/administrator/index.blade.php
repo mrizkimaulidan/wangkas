@@ -5,12 +5,11 @@
     @include('utilities.alert-flash-message')
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
-            <a href="{{ route('administrator.export') }}" class="btn btn-success btn-sm mb-3">
+            <a href="{{ route('administrators.export') }}" class="btn btn-success btn-sm mb-3">
                 <i class="bi bi-file-earmark-excel-fill"></i>
                 Export Excel
             </a>
-            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
-                data-bs-target="#addAdministratorModal">
+            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#addAdministratorModal">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
         </div>
@@ -35,24 +34,20 @@
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $administrator->id }}"
-                                    class="btn btn-primary btn-sm administrator-detail" data-bs-toggle="modal"
-                                    data-bs-target="#showAdministratorModal">
+                                <button type="button" data-id="{{ $administrator->id }}" class="btn btn-primary btn-sm administrator-detail" data-bs-toggle="modal" data-bs-target="#showAdministratorModal">
                                     <i class="bi bi-search"></i>
                                 </button>
                             </div>
 
                             @if (auth()->id() === $administrator->id)
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $administrator->id }}"
-                                    class="btn btn-success btn-sm administrator-edit" data-bs-toggle="modal"
-                                    data-bs-target="#editAdministratorModal">
+                                <button type="button" data-id="{{ $administrator->id }}" class="btn btn-success btn-sm administrator-edit" data-bs-toggle="modal" data-bs-target="#editAdministratorModal">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </div>
 
                             <div class="mx-1">
-                                <form action="{{ route('administrator.destroy', $administrator->id) }}" method="POST">
+                                <form action="{{ route('administrators.destroy', $administrator->id) }}" method="POST">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-notification">
                                         <i class="bi bi-trash-fill"></i>
