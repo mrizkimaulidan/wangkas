@@ -9,7 +9,8 @@
                 <i class="bi bi-file-earmark-excel-fill"></i>
                 Export Excel
             </a>
-            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#addStudentModal">
+            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
+                data-bs-target="#addStudentModal">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
             <a href="{{ route('students.index.history') }}" class="btn btn-secondary float-end mx-2">
@@ -37,7 +38,8 @@
                     <td>{{ $student->name }}</td>
                     <td>{{ $student->school_classes->name }}
                     <td>
-                        <span class="badge w-100 rounded-pill bg-success" data-bs-toggle="tooltip" data-placement="top" title="{{ $student->school_majors->name }}">
+                        <span class="badge w-100 rounded-pill bg-success" data-bs-toggle="tooltip" data-placement="top"
+                            title="{{ $student->school_majors->name }}">
                             {{ $student->school_majors->abbreviated_word }}
                         </span>
                     </td>
@@ -49,13 +51,17 @@
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $student->id }}" class="btn btn-primary btn-sm student-detail" data-bs-toggle="modal" data-bs-target="#showStudentModal">
+                                <button type="button" data-id="{{ $student->id }}"
+                                    class="btn btn-primary btn-sm student-detail" data-bs-toggle="modal"
+                                    data-bs-target="#showStudentModal">
                                     <i class="bi bi-search"></i>
                                 </button>
                             </div>
 
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $student->id }}" class="btn btn-success btn-sm student-edit" data-bs-toggle="modal" data-bs-target="#editStudentModal">
+                                <button type="button" data-id="{{ $student->id }}"
+                                    class="btn btn-success btn-sm student-edit" data-bs-toggle="modal"
+                                    data-bs-target="#editStudentModal">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </div>
