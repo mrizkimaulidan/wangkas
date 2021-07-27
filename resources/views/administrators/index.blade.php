@@ -50,7 +50,9 @@
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </div>
+                            @endif
 
+                            @if (auth()->id() !== $administrator->id)
                             <div class="mx-1">
                                 <form action="{{ route('administrators.destroy', $administrator->id) }}" method="POST">
                                     @csrf @method('DELETE')
