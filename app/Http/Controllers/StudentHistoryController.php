@@ -21,7 +21,7 @@ class StudentHistoryController extends Controller
     {
         Student::onlyTrashed()->findOrFail($id)->restore();
 
-        return redirect()->route('pelajar.index.history')->with('success', 'Data berhasil dikembalikan!');
+        return redirect()->route('students.index.history')->with('success', 'Data berhasil dikembalikan!');
     }
 
     public function destroy(string $id): RedirectResponse
@@ -30,6 +30,6 @@ class StudentHistoryController extends Controller
         $student->cash_transactions()->delete();
         $student->forceDelete();
 
-        return redirect()->route('pelajar.index.history')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('students.index.history')->with('success', 'Data berhasil dihapus!');
     }
 }

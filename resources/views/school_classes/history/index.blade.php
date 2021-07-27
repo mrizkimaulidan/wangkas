@@ -5,7 +5,7 @@
     @include('utilities.alert-flash-message')
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
-            <a href="{{ route('kelas.index') }}" class="btn btn-primary float-end mx-2">
+            <a href="{{ route('classes.index') }}" class="btn btn-primary float-end mx-2">
                 <i class="bi bi-caret-left-square"></i> Kembali Ke Daftar Kelas
             </a>
         </div>
@@ -25,7 +25,7 @@
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
-                                <form action="{{ route('kelas.restore.history', $school_class->id) }}" method="POST">
+                                <form action="{{ route('classes.restore.history', $school_class->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="btn btn-success btn-sm restore-button">
                                         <i class="bi bi-arrow-bar-left"></i>
@@ -34,7 +34,7 @@
                             </div>
 
                             <div class="mx-1">
-                                <form action="{{ route('kelas.destroy.history', $school_class->id) }}" method="POST">
+                                <form action="{{ route('classes.destroy.history', $school_class->id) }}" method="POST">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-permanent-button">
                                         <i class="bi bi-trash-fill"></i>
