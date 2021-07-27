@@ -14,7 +14,7 @@ class AdministratorController extends Controller
     {
         $administrators = User::select('id', 'name', 'email', 'created_at')->orderBy('name')->get();
 
-        return view('administrator.index', compact('administrators'));
+        return view('administrators.index', compact('administrators'));
     }
 
     public function store(AdministratorStoreRequest $request): RedirectResponse
