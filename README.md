@@ -26,26 +26,29 @@ Jika Anda menggunakan XAMPP, untuk PHP dan MySQL sudah menjadi 1 (bundle) didala
 
 ### Preview Gambar
 
+_Login_
+![Login](https://i.imgur.com/qduIsY8.png)
+
 _Dashboard_
-![Image 1](https://i.imgur.com/MUkIIv7.png)
+![Dashboard](https://i.imgur.com/scxZIk0.png)
 
 _Daftar Pelajar_
-![Image 2](https://i.imgur.com/e1pEgWj.png)
+![Daftar Pelajar](https://i.imgur.com/QeQmoCU.png)
 
 _Daftar Kelas_
-![Image 3](https://i.imgur.com/4AbTouL.png)
+![Daftar Kelas](https://i.imgur.com/9Ve2U9O.png)
 
 _Daftar Jurusan_
-![Image 4](https://i.imgur.com/3fnieHm.png)
+![Daftar Jurusan](https://i.imgur.com/JbAE2LS.png)
 
-_Daftar Kas 1_
-![Image 5](https://i.imgur.com/VJevruz.png)
+_Daftar Kas_
+![Daftar Kas](https://i.imgur.com/NApoizJ.png)
 
-_Daftar Kas 2_
-![Image 6](https://i.imgur.com/TcDe35o.png)
+_Laporan_
+![Laporan](https://i.imgur.com/RPpQ1El.png)
 
-_Daftar Administrator Aplikasi_
-![Image 7](https://i.imgur.com/mmK00Z9.png)
+_Daftar Administrator_
+![Daftar Administrator](https://i.imgur.com/RPpQ1El.png)
 
 ### Langkah-langkah instalasi
 
@@ -65,7 +68,7 @@ git@github.com:mrizkimaulidan/wangkas.git
 
 -   Install seluruh packages yang dibutuhkan
 
-```
+```bash
 composer install
 ```
 
@@ -73,21 +76,23 @@ composer install
 -   Ubah value APP_NAME= pada file .env menjadi nama aplikasi yang anda inginkan
 -   Jika sudah, migrate seluruh migrasi dan seeding data
 
-```
+```bash
 php artisan migrate --seed
 ```
 
 -   Ketik perintah dibawah ini untuk membuat cache baru dari beberapa konfigurasi yang telah diubah
 
-```
+```bash
 php artisan optimize
 ```
 
 -   Jalankan local server
 
-```
+```bash
 php artisan serve
 ```
+
+-   _(Opsional)_ Secara default debugbar akan aktif, untuk menonaktifkannnya cari variabel `DEBUGBAR_ENABLED` pada file .env dan ubah valuenya menjadi `FALSE`
 
 -   Akses ke halaman
 
