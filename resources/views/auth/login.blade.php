@@ -10,20 +10,23 @@
             <form action="{{ route('login') }}" method="POST">
                 @csrf
 
-                @if ($errors->has('email'))
+                @error('email')
                 <div class="alert alert-danger alert-dismissible fade show text-sm" role="alert">
-                    <strong>Gagal!</strong> {{ $errors->first('email') }}.
+                    <strong>Gagal!</strong> {{ $message }}.
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                @endif
+                @enderror
+
                 <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="email" class="form-control form-control-xl {{ $errors->has('email') ? 'is-invalid' : '' }}" name="email" placeholder="Email" value="admin@mail.com" required>
+                    <input type="email" class="form-control form-control-xl @error('email') is-invalid @enderror"
+                        name="email" placeholder="Email" value="admin@mail.com" required>
                     <div class="form-control-icon">
                         <i class="bi bi-person"></i>
                     </div>
                 </div>
                 <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="password" class="form-control form-control-xl {{ $errors->has('password') ? 'is-invalid' : '' }}" name="password" placeholder="Password" value="secret" required>
+                    <input type="password" class="form-control form-control-xl @error('password') is-invalid @enderror"
+                        name="password" placeholder="Password" value="secret" required>
                     <div class="form-control-icon">
                         <i class="bi bi-shield-lock"></i>
                     </div>
