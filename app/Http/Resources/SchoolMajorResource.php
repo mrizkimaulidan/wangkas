@@ -16,7 +16,8 @@ class SchoolMajorResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'name' => $this->name
+            'name' => $this->name,
+            'abbreviated_word' => $this->abbreviated_word
         ];
     }
 }
