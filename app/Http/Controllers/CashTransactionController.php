@@ -45,7 +45,7 @@ class CashTransactionController extends Controller
             'note' => $request->note
         ]);
 
-        return redirect()->route('kas.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->route('cash-transactions.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     public function update(CashTransactionUpdateRequest $request, CashTransaction $cashTransaction): RedirectResponse
@@ -60,13 +60,13 @@ class CashTransactionController extends Controller
             'note' => $request->note
         ]);
 
-        return redirect()->route('kas.index')->with('success', 'Data berhasil diubah!');
+        return redirect()->route('cash-transactions.index')->with('success', 'Data berhasil diubah!');
     }
 
     public function destroy(CashTransaction $cashTransaction): RedirectResponse
     {
         $cashTransaction->delete();
 
-        return redirect()->route('kas.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->route('cash-transactions.index')->with('success', 'Data berhasil dihapus!');
     }
 }
