@@ -2,7 +2,7 @@
     $(function() {
         $('.administrator-detail').click(function() {
             let id = $(this).data('id');
-            let url = "{{ route('api.administrators.show', ':id') }}";
+            let url = "{{ route('api.administrator.show', ':id') }}";
             url = url.replace(':id', id);
 
             $('#showAdministratorModal input').val('Sedang mengambil data..');
@@ -18,7 +18,7 @@
 
         $('.administrator-edit').click(function() {
             let id = $(this).data('id');
-            let url = "{{ route('api.administrators.show', ':id') }}";
+            let url = "{{ route('api.administrator.show', ':id') }}";
             url = url.replace(':id', id);
 
             let form_action_url = "{{ route('administrators.update', ':id') }}";

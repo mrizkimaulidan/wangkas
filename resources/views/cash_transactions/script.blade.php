@@ -1,7 +1,7 @@
 <script>
     $('.cash-transaction-detail').click(function() {
         let id = $(this).data('id');
-        let url = "{{ route('api.cash-transactions.show', ':id') }}";
+        let url = "{{ route('api.cash-transaction.show', ':id') }}";
         url = url.replace(':id', id);
 
         $('#showCashTransactionModal input').val('Sedang mengambil data..');
@@ -25,7 +25,7 @@
 
     $('.cash-transaction-edit').click(function() {
         let id = $(this).data('id');
-        let url = "{{ route('api.cash-transactions.show', ':id') }}";
+        let url = "{{ route('api.cash-transaction.show', ':id') }}";
         url = url.replace(':id', id);
 
         let form_action_url = "{{ route('cash-transactions.update', ':id') }}";

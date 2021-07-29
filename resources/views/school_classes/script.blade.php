@@ -1,7 +1,7 @@
 <script>
     $('.school-class-detail').click(function() {
         let id = $(this).data('id');
-        let url = "{{ route('api.classes.show', ':id') }}";
+        let url = "{{ route('api.class.show', ':id') }}";
         url = url.replace(':id', id);
 
         $('#showSchoolClassModal #name').val("Sedang mengambil data..");
@@ -23,7 +23,7 @@
 
     $('.school-class-edit').click(function() {
         let id = $(this).data('id');
-        let url = "{{ route('api.classes.show', ':id') }}";
+        let url = "{{ route('api.class.show', ':id') }}";
         url = url.replace(':id', id);
 
         let edit_button_input = $('#editSchoolClassModal #name');

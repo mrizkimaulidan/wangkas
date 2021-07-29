@@ -1,7 +1,7 @@
 <script>
     $('.school-major-detail').click(function() {
         let id = $(this).data('id');
-        let url = "{{ route('api.majors.show', ':id') }}";
+        let url = "{{ route('api.major.show', ':id') }}";
         url = url.replace(':id', id);
 
         $('#showSchoolMajorModal input').val('Sedang mengambil data..');
@@ -17,7 +17,7 @@
 
     $('.school-major-edit').click(function() {
         let id = $(this).data('id');
-        let url = "{{ route('api.majors.show', ':id') }}";
+        let url = "{{ route('api.major.show', ':id') }}";
         url = url.replace(':id', id);
 
         let form_input_url = "{{ route('majors.update', ':id') }}";
