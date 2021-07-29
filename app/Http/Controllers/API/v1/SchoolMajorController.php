@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\SchoolMajorResource;
 use App\Models\SchoolMajor;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +20,7 @@ class SchoolMajorController extends Controller
         return response()->json([
             'status' => Response::HTTP_OK,
             'message' => 'Data berhasil diambil!',
-            'data' => SchoolMajor::select('id', 'name', 'abbreviated_word')->findOrFail($id)
+            'data' => new SchoolMajorResource(SchoolMajor::findOrFail($id))
         ], Response::HTTP_OK);
     }
 }
