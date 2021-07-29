@@ -25,8 +25,14 @@ class StudentResource extends JsonResource
             'phone_number' => $this->phone_number,
             'school_year_start' => $this->school_year_start,
             'school_year_end' => $this->school_year_end,
-            'school_classes' => new SchoolClassResource($this->school_classes),
-            'school_majors' => new SchoolMajorResource($this->school_majors)
+            'school_classes' => [
+                'id' => $this->school_classes->id,
+                'name' => $this->school_classes->name
+            ],
+            'school_majors' => [
+                'id' => $this->school_majors->id,
+                'name' => $this->school_majors->name
+            ],
         ];
     }
 }
