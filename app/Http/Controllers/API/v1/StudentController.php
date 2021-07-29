@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Models\Student;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\StudentResource;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -19,20 +20,7 @@ class StudentController extends Controller
         return response()->json([
             'status' => Response::HTTP_OK,
             'message' => 'Data berhasil diambil!',
-            'data' => Student::with('school_classes:id,name', 'school_majors:id,name')
-                ->select(
-                    'id',
-                    'school_class_id',
-                    'school_major_id',
-                    'student_identification_number',
-                    'name',
-                    'gender',
-                    'email',
-                    'phone_number',
-                    'school_year_start',
-                    'school_year_end'
-                )
-                ->findOrFail($id)
+            'data' => new StudentResource(Student::with('school_classes', 'school_majors')->findOrFail($id))
         ], Response::HTTP_OK);
     }
 }
