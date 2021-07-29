@@ -1,6 +1,6 @@
 <script>
     $('.student-detail').click(function() {
-        let url = "{{ route('api.students.show', ':id') }}";
+        let url = "{{ route('api.student.show', ':id') }}";
         let id = $(this).data('id');
         url = url.replace(':id', id);
 
@@ -27,7 +27,7 @@
 
     $('.student-edit').click(function() {
         let id = $(this).data('id');
-        let url = "{{ route('api.students.show', ':id') }}";
+        let url = "{{ route('api.student.show', ':id') }}";
         url = url.replace(':id', id);
 
         let form_edit_url = "{{ route('students.update', ':id') }}"
