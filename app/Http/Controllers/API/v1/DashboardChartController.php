@@ -14,10 +14,11 @@ class DashboardChartController extends Controller
     ) {
     }
 
-    public function getDataSeparateByMonths(): JsonResponse
+    public function __invoke(): JsonResponse
     {
-        $cash_transactions = $this->dashboardChartRepository->sumCashTransactionPerMonths();
-
-        return response()->json(['status' => Response::HTTP_OK, 'data' => $cash_transactions], Response::HTTP_OK);
+        return response()->json([
+            'status' => Response::HTTP_OK,
+            'data' => $this->dashboardChartRepository->sumCashTransactionPerMonths()
+        ], Response::HTTP_OK);
     }
 }

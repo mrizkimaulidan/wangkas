@@ -15,5 +15,5 @@ Route::name('api.')->prefix('v1')->group(function () {
     Route::get('/administrators/{id}', AdministratorController::class)->name('administrators.show');
     Route::get('/cash-transactions/{id}', CashTransactionController::class)->name('cash-transactions.show');
 
-    Route::get('/chart', [DashboardChartController::class, 'getDataSeparateByMonths'])->name('chart');
+    Route::get('/chart', DashboardChartController::class)->name('chart');
 });
