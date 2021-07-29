@@ -43,9 +43,9 @@
                         <div class="col-sm-12 col-md-12 col-lg-4">
                             <label for="gender" class="form-label">Jenis Kelamin</label>
                             <select class="form-select @error('gender') is-invalid @enderror" name="gender" id="gender">
-                                <option selected>Pilih Jenis Kelamin</option>
-                                <option value="1">Laki-laki</option>
-                                <option value="2">Perempuan</option>
+                                <option value="" selected>Pilih Jenis Kelamin</option>
+                                <option value="1" {{ old('gender') === '1' ? 'selected' : '' }}>Laki-laki</option>
+                                <option value="2" {{ old('gender') === '2' ? 'selected' : '' }}>Perempuan</option>
                             </select>
 
                             @error('gender')
@@ -60,11 +60,12 @@
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="school_class_id" class="form-label">Kelas</label>
-                                <select class="form-select select2 @error('school_class_id') is-invalid @enderror"
-                                    name="school_class_id" id="school_class_id">
-                                    <option selected>Pilih Kelas</option>
+                                <select class="form-select select2" name="school_class_id" id="school_class_id">
+                                    <option value="" selected>Pilih Kelas</option>
                                     @foreach($school_classes as $school_class)
-                                    <option value="{{ $school_class->id }}">{{ $school_class->name }}</option>
+                                    <option value="{{ $school_class->id }}"
+                                        {{ old('school_class_id') === "$school_class->id" ? 'selected' : '' }}>
+                                        {{ $school_class->name }}</option>
                                     @endforeach
                                 </select>
 
@@ -79,17 +80,18 @@
                         <div class="col-sm-6 col-md-6">
                             <div class="mb-3">
                                 <label for="school_major_id" class="form-label">Jurusan</label>
-                                <select class="form-select select2 @error('school_major_id') is-invalid @enderror"
-                                    name="school_major_id" id="school_major_id">
-                                    <option selected>Pilih Jurusan</option>
+                                <select class="form-select select2" name="school_major_id" id="school_major_id">
+                                    <option value="" selected>Pilih Jurusan</option>
                                     @foreach ($school_majors as $school_major)
-                                    <option value="{{ $school_major->id }}">{{ $school_major->abbreviated_word }} -
+                                    <option value="{{ $school_major->id }}"
+                                        {{ old('school_major_id') === "$school_major->id" ? 'selected' : '' }}>
+                                        {{ $school_major->abbreviated_word }} -
                                         {{ $school_major->name }}</option>
                                     @endforeach
                                 </select>
 
                                 @error('school_major_id')
-                                <div class="d-block is-invalid">
+                                <div class="d-block invalid-feedback">
                                     {{ $message }}
                                 </div>
                                 @enderror
