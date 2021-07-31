@@ -18,7 +18,9 @@ class CashTransactionRepository extends Controller
         $this->model = $model;
         $this->students = $students;
         $this->cash_transaction_is_paid = $model->where('is_paid', 1);
-        $this->pluck_student_id = DB::table('cash_transactions')->where('date', '>',  Carbon::now()->startOfWeek())->where('date', '<', Carbon::now()->endOfWeek())->pluck('student_id');
+        $this->pluck_student_id = DB::table('cash_transactions')->where('date', '>',  Carbon::now()
+            ->startOfWeek())->where('date', '<', Carbon::now()->endOfWeek())
+            ->pluck('student_id');
     }
 
     /**
@@ -65,17 +67,15 @@ class CashTransactionRepository extends Controller
      */
     public function sumAmountBy(string $status, string $year = null, string $month = null): Int
     {
-        $status_lowercase = strtolower($status);
-
         $model = $this->cash_transaction_is_paid;
 
         // Jika $status === `year` dan variabel $year ada isinya, maka hitung kolom amount berdasarkan tahun di parameter.
-        if ($status_lowercase === 'year' && isset($year)) {
+        if (strtolower($status) === 'year' && isset($year)) {
             $model->whereYear('date', $year);
         }
 
         // Jika $status === `month` dan variabel $month ada isinya, maka hitung kolom amount berdasarkan bulan di parameter.
-        if ($status_lowercase === 'month' && isset($month)) {
+        if (strtolower($status) === 'month' && isset($month)) {
             $model->whereYear('date', date('Y'))->whereMonth('date', $month);
         }
 
