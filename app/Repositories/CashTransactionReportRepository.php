@@ -54,10 +54,13 @@ class CashTransactionReportRepository extends Controller
     public function filter()
     {
         if ($_GET) {
-            $filtered_data = $this->model->with('students', 'users')->whereBetween('date', [date('Y-m-d', strtotime($_GET['start_date'])), date('Y-m-d', strtotime($_GET['end_date']))])->orderBy('date')->get();
+            $filtered_data = $this->model->with('students', 'users')
+                ->whereBetween('date', [date('Y-m-d', strtotime($_GET['start_date'])), date('Y-m-d', strtotime($_GET['end_date']))])
+                ->orderBy('date')
+                ->get();
 
             $result = [
-                'filtered_data' => $filtered_data ?? [],
+                'filtered_data' => $filtered_data ?? null,
                 'total_amount' => [
                     'is_paid' => $filtered_data->where('is_paid', 1)->sum('amount') ?? null,
                     'is_not_paid' => $filtered_data->where('is_paid', 0)->sum('amount') ?? null
@@ -65,6 +68,6 @@ class CashTransactionReportRepository extends Controller
             ];
         }
 
-        return $result ?? [];
+        return $result ?? null;
     }
 }
