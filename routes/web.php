@@ -30,8 +30,8 @@ Route::middleware('auth')->group(function () {
     // End of resource routes
 
     //  Report routes
-    Route::get('/laporan', [CashTransactionReportController::class, 'index'])->name('laporan.index');
-    Route::get('/laporan/filter', [CashTransactionReportController::class, 'index'])->name('kas.filter');
+    Route::get('/report', [CashTransactionReportController::class, 'index'])->name('report.index');
+    Route::get('/report/filter', [CashTransactionReportController::class, 'index'])->name('report.filter');
     // End of report routes
 
     // Soft Deletes Routes

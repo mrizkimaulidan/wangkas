@@ -49,8 +49,8 @@
             </a>
         </li>
 
-        <li class="sidebar-item {{ request()->is('laporan*') ? 'active' : '' }}">
-            <a href="{{ route('laporan.index') }}" class='sidebar-link'>
+        <li class="sidebar-item {{ request()->is('report*') ? 'active' : '' }}">
+            <a href="{{ route('report.index') }}" class='sidebar-link'>
                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
                 <span>Laporan</span>
             </a>

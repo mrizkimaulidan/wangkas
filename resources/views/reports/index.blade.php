@@ -84,7 +84,7 @@
 
     <div class="row">
         <div class="card px-3 py-3">
-            <form action="{{ route('kas.filter') }}" method="GET">
+            <form action="{{ route('report.filter') }}" method="GET">
                 <label for="start_date" class="pb-3">Filter Data dengan Rentang Tanggal</label>
                 <div class="input-group">
                     <input type="date" name="start_date" class="form-control" placeholder="Pilih tanggal awal..">
