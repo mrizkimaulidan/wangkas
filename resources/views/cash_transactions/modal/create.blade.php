@@ -15,8 +15,9 @@
                                 <select class="form-select select2 @error('student_id') is-invalid @enderror" name="student_id">
                                     <option selected>Pilih Pelajar</option>
                                     @foreach ($students as $student)
-                                    <option value="{{ $student->id }}">
-                                        {{ $student->student_identification_number }} - {{ $student->name }}</option>
+                                    <option value="{{ $student->id }}" {{ "$student->id" === old('student_id') ? 'selected' : '' }}>
+                                        {{ $student->student_identification_number }} - {{ $student->name }}
+                                    </option>
                                     @endforeach
                                 </select>
 
@@ -63,8 +64,8 @@
                                 <label for="is_paid" class="form-label">Status Pembayaran</label>
                                 <select class="form-select @error('is_paid') is-invalid @enderror" name="is_paid" id="is_paid">
                                     <option selected>Pilih Status Pembayaran</option>
-                                    <option value="1">Lunas</option>
-                                    <option value="0">Belum Lunas</option>
+                                    <option value="1" {{ old('is_paid') === "1" ? 'selected' : '' }}>Lunas</option>
+                                    <option value="0" {{ old('is_paid') === "0" ? 'selected' : '' }}>Belum Lunas</option>
                                 </select>
 
                                 @error('is_paid')
@@ -78,7 +79,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="date" class="form-label">Tanggal</label>
-                                <input type="date" class="form-control @error('date') is-invalid @enderror" name="date" id="date" placeholder="Pilih tanggal..">
+                                <input type="date" value="{{ date('Y-m-d') }}" class="form-control @error('date') is-invalid @enderror" name="date" id="date" placeholder="Pilih tanggal..">
 
                                 @error('date')
                                 <div class="d-block invalid-feedback">
