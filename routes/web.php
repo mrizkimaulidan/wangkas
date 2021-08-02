@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('students', StudentController::class)->except('create', 'show', 'edit');
     Route::resource('classes', SchoolClassController::class)->except('create', 'show', 'edit');
     Route::resource('majors', SchoolMajorController::class)->except('create', 'show', 'edit');
-    Route::resource('administrators', AdministratorController::class)->except('create', 'show', 'edit');
+    Route::resource('administrators', AdministratorController::class)->except('create', 'show', 'edit', 'destroy');
     Route::resource('cash-transactions', CashTransactionController::class)->except('create', 'show', 'edit');
     // End of resource routes
 
