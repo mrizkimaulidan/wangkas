@@ -12,12 +12,7 @@ class CashTransactionReportController extends Controller
     ) {
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(): View
+    public function __invoke(): View
     {
         $filtered_results = $this->cashTransactionReportRepository->filter();
 
