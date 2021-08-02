@@ -17,7 +17,8 @@
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Pelajar</h6>
                                     <h6 class="font-extrabold {{ $student_count <= 0 ? 'text-danger' : '' }} mb-0">
-                                        {{ $student_count }}</h6>
+                                        {{ $student_count }}
+                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -37,7 +38,8 @@
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Kelas</h6>
                                     <h6 class="font-extrabold {{ $school_class_count <= 0 ? 'text-danger' : '' }} mb-0">
-                                        {{ $school_class_count }}</h6>
+                                        {{ $school_class_count }}
+                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +59,8 @@
                                 <div class="col-md-8">
                                     <h6 class="text-muted font-semibold">Jurusan</h6>
                                     <h6 class="font-extrabold {{ $school_major_count <= 0 ? 'text-danger' : '' }} mb-0">
-                                        {{ $school_major_count }}</h6>
+                                        {{ $school_major_count }}
+                                    </h6>
                                 </div>
                             </div>
                         </div>
@@ -108,7 +111,8 @@
                                         <td class="col-5">
                                             <div class="d-flex align-items-center">
                                                 <p class="font-bold ms-3 mb-0">
-                                                    {{ $latest_cash_transaction_by_limit->students->name }}</p>
+                                                    {{ $latest_cash_transaction_by_limit->students->name }}
+                                                </p>
                                             </div>
                                         </td>
                                         <td class="col-auto">
