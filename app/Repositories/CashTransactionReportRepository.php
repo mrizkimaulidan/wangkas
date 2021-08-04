@@ -27,7 +27,7 @@ class CashTransactionReportRepository extends Controller
      * @param string $type adalah tipe sum yang mau diambil.
      * @return string
      */
-    public function sumAmount(string $column, string $type): string
+    public function sum(string $column, string $type): string
     {
         $model = $this->model->where('is_paid', 1)->whereYear('date', date('Y'));
 
