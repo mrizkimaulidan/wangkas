@@ -15,7 +15,8 @@
                         <div class="col-md-8">
                             <h6 class="text-muted font-semibold">Total Hari Ini</h6>
                             <h6 class="font-extrabold mb-0">
-                                {{ indonesian_currency($sum_this_day) }}</h6>
+                                {{ indonesian_currency($sum_this_day) }}
+                            </h6>
                         </div>
                     </div>
                 </div>
@@ -34,7 +35,8 @@
                         <div class="col-md-8">
                             <h6 class="text-muted font-semibold">Total Minggu Ini</h6>
                             <h6 class="font-extrabold mb-0">
-                                {{ indonesian_currency($sum_this_week) }}</h6>
+                                {{ indonesian_currency($sum_this_week) }}
+                            </h6>
                         </div>
                     </div>
                 </div>
@@ -55,7 +57,8 @@
                         <div class="col-md-8">
                             <h6 class="text-muted font-semibold">Total Bulan Ini</h6>
                             <h6 class="font-extrabold mb-0">
-                                {{ indonesian_currency($sum_this_month) }}</h6>
+                                {{ indonesian_currency($sum_this_month) }}
+                            </h6>
                         </div>
                     </div>
                 </div>
@@ -74,7 +77,8 @@
                         <div class="col-md-8">
                             <h6 class="text-muted font-semibold">Total Tahun Ini</h6>
                             <h6 class="font-extrabold mb-0">
-                                {{ indonesian_currency($sum_this_year) }}</h6>
+                                {{ indonesian_currency($sum_this_year) }}
+                            </h6>
                         </div>
                     </div>
                 </div>
@@ -95,7 +99,7 @@
         </div>
     </div>
 
-    @if($reports_data)
+    @isset($reports_data)
     <div class="row">
         <div class="card px-3 py-3">
             <div class="col-lg-12">
@@ -108,7 +112,8 @@
             <div class="table-responsive mt-3">
                 <table class="table table-sm text-center caption-top" id="datatable">
                     <caption>Laporan data dari tanggal <span class="fw-bold">{{ date('d-m-Y', strtotime($_GET['start_date'])) }}</span> -
-                        <span class="fw-bold">{{ date('d-m-Y', strtotime($_GET['end_date'])) }}</span></caption>
+                        <span class="fw-bold">{{ date('d-m-Y', strtotime($_GET['end_date'])) }}</span>
+                    </caption>
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -145,6 +150,6 @@
             </div>
         </div>
     </div>
-    @endif
+    @endisset
 </section>
 @endsection
