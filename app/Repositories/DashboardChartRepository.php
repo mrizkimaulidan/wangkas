@@ -22,15 +22,19 @@ class DashboardChartRepository extends Controller
         $months = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
 
         for ($i = 1; $i <= 12; $i++) {
-            $cash_transactions = $this->model->where('is_paid', 1)->whereYear('date', date('Y'))->whereMonth('date', "{$i}")->sum('amount');
+            // Looping dari angka 1-12 karena setiap tahun ada 12 bulan dan menghitung kolom amount berdasarkan bulannya
+            $cash_transactions = $this->model->where('is_paid', 1)
+                ->whereYear('date', date('Y'))
+                ->whereMonth('date', "{$i}")
+                ->sum('amount');
 
-            $data[$months[$i - 1]] = $cash_transactions;
+            $results[$months[$i - 1]] = $cash_transactions;
         }
 
         /**
-         * Output yang akan diinginkan seperti dibawah ini
+         * Output yang akan dihasilkan seperti dibawah ini
          * 
-         * $data = [
+         * $results = [
          *  'jan' => 10000,
          *  'feb' => 10000,
          *  'mar' => 10000,
@@ -42,10 +46,10 @@ class DashboardChartRepository extends Controller
          *  'sep' => 10000,
          *  'okt' => 10000,
          *  'nov' => 10000,
-         *  'des'
+         *  'des' => 10000
          * ];
          */
 
-        return $data;
+        return $results;
     }
 }
