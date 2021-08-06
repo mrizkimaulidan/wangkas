@@ -24,6 +24,7 @@ class StudentController extends Controller
                 'school_year_start',
                 'school_year_end'
             )
+            ->orderBy('name')
             ->get();
 
         $school_classes = SchoolClass::select('id', 'name')->orderBy('name')->get();
