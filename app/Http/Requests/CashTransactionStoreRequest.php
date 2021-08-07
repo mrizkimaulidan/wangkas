@@ -24,12 +24,12 @@ class CashTransactionStoreRequest extends FormRequest
     public function rules()
     {
         return [
-            'student_id' => 'required',
-            'bill' => 'required|integer|min:3',
-            'amount' => 'required|integer|min:3',
-            'is_paid' => 'required',
-            'date' => 'required|date',
-            'note' => 'max:191'
+            'student_id' => ['required'],
+            'bill' => ['required', 'integer', 'digits_between:3,191'],
+            'amount' => ['required', 'integer', 'digits_between:3,191'],
+            'is_paid' => ['required'],
+            'date' => ['required', 'date'],
+            'note' => ['max:191']
         ];
     }
 
@@ -40,20 +40,17 @@ class CashTransactionStoreRequest extends FormRequest
 
             'bill.required' => 'Kolom tagihan wajib diisi!',
             'bill.integer' => 'Kolom tagihan harus angka!',
-            'bill.min' => 'Kolom tagihan minimal 3 karakter!',
-            'bill.max' => 'Kolom tagihan maksimal 191 karakter!',
+            'bill.digits_betweeen' => 'Kolom tagihan harus diantara 3 sampai dengan 191 karakter!',
 
             'amount.required' => 'Kolom total bayar wajib diisi!',
             'amount.integer' => 'Kolom total bayar harus angka!',
-            'amount.min' => 'Kolom total bayar minimal 3 karakter!',
-            'amount.max' => 'Kolom total bayar maksimal 191 karakter!',
+            'amount.digits_betweeen' => 'Kolom total bayar harus diantara 3 sampai dengan 191 karakter!',
 
             'is_paid.required' => 'Kolom status pembayaran wajib diisi!',
-
             'date.required' => 'Kolom tanggal wajib diisi!',
-            'date.date' => 'Kolom tanggal harus tanggal yang valid!',
+            'date.date' => 'Kolom tanggal harus tanggal yang benar!',
 
-            'note.max' => 'Kolom keterangan maksimal 191 karakter!'
+            'note.max' => 'Kolom catatan maksimal 191 karakter!'
         ];
     }
 }

@@ -13,7 +13,7 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Pelajar</label>
                                 <select class="form-select select2 @error('student_id') is-invalid @enderror" name="student_id">
-                                    <option selected>Pilih Pelajar</option>
+                                    <option value="" selected>Pilih Pelajar</option>
                                     @foreach ($students as $student)
                                     <option value="{{ $student->id }}" {{ "$student->id" === old('student_id') ? 'selected' : '' }}>
                                         {{ $student->student_identification_number }} - {{ $student->name }}
@@ -63,7 +63,7 @@
                             <div class="mb-3">
                                 <label for="is_paid" class="form-label">Status Pembayaran</label>
                                 <select class="form-select @error('is_paid') is-invalid @enderror" name="is_paid" id="is_paid">
-                                    <option selected>Pilih Status Pembayaran</option>
+                                    <option value="" selected>Pilih Status Pembayaran</option>
                                     <option value="1" {{ old('is_paid') === "1" ? 'selected' : '' }}>Lunas</option>
                                     <option value="0" {{ old('is_paid') === "0" ? 'selected' : '' }}>Belum Lunas</option>
                                 </select>
