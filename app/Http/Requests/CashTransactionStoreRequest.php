@@ -25,8 +25,8 @@ class CashTransactionStoreRequest extends FormRequest
     {
         return [
             'student_id' => 'required',
-            'bill' => 'required|integer|min:3|max:191',
-            'amount' => 'required|integer|min:3|max:191',
+            'bill' => 'required|integer|min:3',
+            'amount' => 'required|integer|min:3',
             'is_paid' => 'required',
             'date' => 'required|date',
             'note' => 'max:191'
