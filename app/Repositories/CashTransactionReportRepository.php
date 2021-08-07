@@ -29,7 +29,10 @@ class CashTransactionReportRepository extends Controller
      */
     public function sum(string $column, string $type): string
     {
-        $model = $this->model->where('is_paid', 1)->whereYear('date', date('Y'));
+        $model = $this->model
+            ->select('date', 'is_paid', 'amount')
+            ->where('is_paid', 1)
+            ->whereYear('date', date('Y'));
 
         if ($type === 'this_day')
             $model->whereDay('date', date('d'));
