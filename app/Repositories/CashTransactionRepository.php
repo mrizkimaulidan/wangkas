@@ -18,8 +18,10 @@ class CashTransactionRepository extends Controller
         $this->model = $model;
         $this->students = $students;
         $this->cash_transaction_is_paid = $model->where('is_paid', 1);
-        $this->pluck_student_id = DB::table('cash_transactions')->where('date', '>',  Carbon::now()
-            ->startOfWeek())->where('date', '<', Carbon::now()->endOfWeek())
+        $this->pluck_student_id = DB::table('cash_transactions')
+            ->select('student_id', 'date')
+            ->where('date', '>',  Carbon::now()->startOfWeek())
+            ->where('date', '<', Carbon::now()->endOfWeek())
             ->pluck('student_id');
     }
 
@@ -110,7 +112,12 @@ class CashTransactionRepository extends Controller
     public function getStudentWhoNotPaidThisWeek(string $limit = null): Object
     {
         return is_null($limit)
-            ? $this->students->whereNotIn('id', $this->pluck_student_id)->orderBy('name')->get()
-            : $this->students->whereNotIn('id', $this->pluck_student_id)->orderBy('name')->take($limit)->get();
+            ? $this->students->select('id', 'student_identification_number', 'name')->whereNotIn('id', $this->pluck_student_id)
+            ->orderBy('name')
+            ->get()
+            :
+            $this->students->select('id', 'student_identification_number', 'name')->whereNotIn('id', $this->pluck_student_id)
+            ->orderBy('name')
+            ->take($limit)->get();
     }
 }
