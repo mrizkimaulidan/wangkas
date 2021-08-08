@@ -69,7 +69,7 @@ class CashTransactionRepository extends Controller
      */
     public function sumAmountBy(string $status, string $year = null, string $month = null): Int
     {
-        $model = $this->cash_transaction_is_paid;
+        $model = $this->cash_transaction_is_paid->select('date', 'is_paid', 'amount');
 
         // Jika $status === `year` dan variabel $year ada isinya, maka hitung kolom amount berdasarkan tahun di parameter.
         if (strtolower($status) === 'year' && isset($year)) {
