@@ -1,5 +1,11 @@
 <script>
     $(function() {
+        $('#addCashTransactionForm').keyup(function() {
+            let bill_value = $('#addCashTransactionForm #bill').val();
+
+            $('#addCashTransactionForm #amount').val(bill_value);
+        });
+
         $('.cash-transaction-detail').click(function() {
             let id = $(this).data('id');
             let url = "{{ route('api.cash-transaction.show', ':id') }}";
