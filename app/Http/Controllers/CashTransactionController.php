@@ -9,6 +9,7 @@ use App\Models\Student;
 use App\Repositories\CashTransactionRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CashTransactionController extends Controller
@@ -36,20 +37,14 @@ class CashTransactionController extends Controller
 
     public function store(CashTransactionStoreRequest $request): RedirectResponse
     {
-        $requests = $request->validated();
-        $requests['user_id'] = auth()->id();
-
-        CashTransaction::create($requests);
+        Auth::user()->cash_transactions()->create($request->validated());
 
         return redirect()->route('cash-transactions.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     public function update(CashTransactionUpdateRequest $request, CashTransaction $cashTransaction): RedirectResponse
     {
-        $requests = $request->validated();
-        $requests['user_id'] = auth()->id();
-
-        $cashTransaction->update($requests);
+        $cashTransaction->update($request->validated());
 
         return redirect()->route('cash-transactions.index')->with('success', 'Data berhasil diubah!');
     }

@@ -11,7 +11,7 @@ class CashTransaction extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'student_id', 'bill', 'amount', 'is_paid', 'date', 'note'];
+    protected $fillable = ['student_id', 'bill', 'amount', 'is_paid', 'date', 'note'];
 
     public function students(): BelongsTo
     {
