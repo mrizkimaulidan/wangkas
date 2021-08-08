@@ -103,6 +103,7 @@
                                         <th>Total Bayar</th>
                                         <th>Tanggal</th>
                                         <th>Pencatat</th>
+                                        <th>Detail</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -130,6 +131,13 @@
                                                 {{ $latest_cash_transaction_by_limit->users->name }}
                                             </p>
                                         </td>
+                                        <td class="col-auto">
+                                            <p class="mb-0">
+                                                <button type="button" data-id="{{ $latest_cash_transaction_by_limit->id }}" class="btn btn-primary btn-sm cash-transaction-detail" data-bs-toggle="modal" data-bs-target="#showCashTransactionModal">
+                                                    <i class="bi bi-search"></i>
+                                                </button>
+                                            </p>
+                                        </td>
                                     </tr>
                                     @empty
                                     <tr>
@@ -148,3 +156,11 @@
     </div>
 </section>
 @endsection
+
+@push('modal')
+@include('dashboard.modal.show')
+@endpush
+
+@push('js')
+@include('dashboard.script')
+@endpush
