@@ -22,7 +22,10 @@ class CashTransactionController extends Controller
     public function index(): View
     {
         return view('cash_transactions.index', [
-            'cash_transactions' => CashTransaction::with('students:id,name')->select('id', 'student_id', 'bill', 'amount', 'date', 'is_paid')->get(),
+            'cash_transactions' => CashTransaction::with('students:id,name')
+                ->select('id', 'student_id', 'bill', 'amount', 'date', 'is_paid')
+                ->latest()
+                ->get(),
             'students' => Student::select('id', 'student_identification_number', 'name')->orderBy('name')->get(),
             'has_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(true),
             'has_not_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(false),
