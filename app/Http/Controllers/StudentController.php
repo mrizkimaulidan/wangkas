@@ -14,7 +14,7 @@ class StudentController extends Controller
 {
     public function index(): View
     {
-        $students = Student::with('school_classes', 'school_majors')
+        $students = Student::with('school_classes:id,name', 'school_majors:id,name,abbreviated_word')
             ->select(
                 'id',
                 'school_class_id',
