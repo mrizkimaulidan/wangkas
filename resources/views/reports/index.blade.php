@@ -103,7 +103,7 @@
     <div class="row">
         <div class="card px-3 py-3">
             <div class="col-lg-12">
-                <a href="{{ route('laporan.export', [request()->get('start_date'), request()->get('end_date')]) }}" class="btn btn-success float-end">
+                <a href="{{ route('report.export', [request()->get('start_date'), request()->get('end_date')]) }}" class="btn btn-success float-end">
                     <i class="bi bi-file-earmark-excel-fill"></i>
                     Export Excel
                 </a>
