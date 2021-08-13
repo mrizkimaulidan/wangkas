@@ -16,9 +16,13 @@
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
     <strong>Gagal!</strong>
     <ul>
-        @foreach($errors->all() as $message)
-        <li>{{ $message }}</li>
-        @endforeach
+        <div class="row">
+            @foreach($errors->all() as $message)
+            <div class="col-md-6">
+                <li>{{ $message }}</li>
+            </div>
+            @endforeach
+        </div>
     </ul>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
