@@ -23,5 +23,4 @@
 
     <link href="{{ asset('vendors/select2/select2.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('vendors/flatpickr/flatpickr.min.css') }}">
-    <link rel="shortcut icon" href="{{ asset('images/favicon.svg" type="image/x-icon') }}">
 </head>
