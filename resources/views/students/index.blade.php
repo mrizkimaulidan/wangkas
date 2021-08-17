@@ -2,6 +2,46 @@
 
 @section('content')
 <section class="row">
+    <div class="col-6 col-lg-6">
+        <div class="card">
+            <div class="card-body px-3 py-4-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-icon green">
+                            <i class="iconly-boldProfile"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="text-muted font-semibold">Laki-laki</h6>
+                        <h6 class="font-extrabold mb-0">
+                            {{ $count_male_student }}
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-6 col-lg-6">
+        <div class="card">
+            <div class="card-body px-3 py-4-5">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="stats-icon blue">
+                            <i class="iconly-boldProfile"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h6 class="text-muted font-semibold">Perempuan</h6>
+                        <h6 class="font-extrabold mb-0">
+                            {{ $count_female_student }}
+                        </h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @include('utilities.alert-flash-message')
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">

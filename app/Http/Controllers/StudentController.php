@@ -7,11 +7,17 @@ use App\Http\Requests\StudentUpdateRequest;
 use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
+use App\Repositories\StudentRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class StudentController extends Controller
 {
+    public function __construct(
+        private StudentRepository $studentRepository
+    ) {
+    }
+
     public function index(): View
     {
         $students = Student::with('school_classes:id,name', 'school_majors:id,name,abbreviated_word')
@@ -31,8 +37,17 @@ class StudentController extends Controller
         $school_majors = SchoolMajor::select('id', 'name', 'abbreviated_word')->orderBy('name')->get();
 
         $count_students_trashed = Student::onlyTrashed()->count();
+        $count_male_student = $this->studentRepository->countStudentGender(1);
+        $count_female_student = $this->studentRepository->countStudentGender(2);
 
-        return view('students.index', compact('students', 'school_classes', 'school_majors', 'count_students_trashed'));
+        return view('students.index', [
+            'students' => $students,
+            'school_classes' => $school_classes,
+            'school_majors' => $school_majors,
+            'count_students_trashed' => $count_students_trashed,
+            'count_male_student' => $count_male_student,
+            'count_female_student' => $count_female_student,
+        ]);
     }
 
     public function store(StudentStoreRequest $request): RedirectResponse
