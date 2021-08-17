@@ -17,7 +17,7 @@ class StudentRepository extends Controller
      * Angka 1 untuk laki-laki.
      * Angka 2 untuk perempuan.
      *
-     * @param integer $gender
+     * @param int $gender
      * @return Int
      */
     public function countStudentGender(int $gender): Int
