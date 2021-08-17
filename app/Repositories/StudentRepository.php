@@ -13,7 +13,7 @@ class StudentRepository extends Controller
     }
 
     /**
-     * Menghitung jenis kelamin siswa berdasarkan value angka di parameter.
+     * Menghitung jenis kelamin pelajar berdasarkan value angka di parameter.
      * Angka 1 untuk laki-laki.
      * Angka 2 untuk perempuan.
      *
