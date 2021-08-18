@@ -21,7 +21,6 @@ class DashboardChartRepository extends Controller
     {
         $months = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
 
-
         for ($i = 1; $i <= 12; $i++) {
             // Looping dari angka 1-12 karena setiap tahun ada 12 bulan dan menghitung kolom amount berdasarkan bulannya
             $cash_transactions = $this->model
