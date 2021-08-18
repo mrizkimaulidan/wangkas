@@ -23,7 +23,7 @@ class CashTransaction extends Model
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    public function setDateAttribute(string $value)
+    public function setDateAttribute(string $value): void
     {
         $this->attributes['date'] = date('Y-m-d', strtotime($value));
     }
