@@ -7,6 +7,7 @@
                 <button type="button" class="btn-close clear-input" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                @include('utilities.loading-alert')
                 <div class="row">
                     <div class="col-sm-6 col-md-6">
                         <div class="mb-3">
