@@ -1,30 +1,36 @@
 <script>
     $(function () {
+        let loading_alert = $('.modal-body #loading-alert');
+
         $('.cash-transaction-detail').click(function () {
+            loading_alert.show();
+
             let id = $(this).data('id');
             let url = "{{ route('api.cash-transaction.show', ':id') }}";
             url = url.replace(':id', id);
 
-            $('#showCashTransactionModal input').val('Sedang mengambil data..');
-            $('#showCashTransactionModal textarea').val('Sedang mengambil data..');
-            $('#showCashTransactionModal input[type=number]').prop('type', 'text').val('Sedang mengambil data..');
+            $('#showCashTransactionModal .modal-content .modal-body :input')
+                .val('Sedang mengambil data..');
 
             $.ajax({
                 url: url,
-                success: function (data) {
-                    $('#showCashTransactionModal #user_id').val(data.data.users.name);
-                    $('#showCashTransactionModal #student_id').val(data.data.students.name);
-                    $('#showCashTransactionModal #bill').val(data.data.bill);
-                    $('#showCashTransactionModal #amount').val(data.data.amount);
+                success: function (res) {
+                    loading_alert.slideUp();
 
-                    $('#showCashTransactionModal #is_paid').val(data.data.is_paid === 1 ? 'Lunas' : 'Belum Lunas');
-                    $('#showCashTransactionModal #date').val(data.data.date);
-                    $('#showCashTransactionModal #note').val(data.data.note);
+                    $('#showCashTransactionModal .modal-content .modal-body #user_id').val(res.data.users.name);
+                    $('#showCashTransactionModal .modal-content .modal-body #student_id').val(res.data.students.name);
+                    $('#showCashTransactionModal .modal-content .modal-body #bill').val(res.data.bill);
+                    $('#showCashTransactionModal .modal-content .modal-body #amount').val(res.data.amount);
+                    $('#showCashTransactionModal .modal-content .modal-body #is_paid').val(res.data.is_paid === 1 ? 'Lunas' : 'Belum Lunas');
+                    $('#showCashTransactionModal .modal-content .modal-body #date').val(res.data.date);
+                    $('#showCashTransactionModal .modal-content .modal-body #note').val(res.data.note);
                 }
             });
         });
 
         $('.cash-transaction-edit').click(function () {
+            loading_alert.show();
+
             let id = $(this).data('id');
             let url = "{{ route('api.cash-transaction.show', ':id') }}";
             url = url.replace(':id', id);
@@ -32,30 +38,28 @@
             let form_action_url = "{{ route('cash-transactions.update', ':id') }}";
             form_action_url = form_action_url.replace(':id', id);
 
-            $('#editCashTransactionModal input:not([name=_method], [name=_token]').val('Sedang mengambil data..');
-            $('#editCashTransactionModal input').prop('disabled', true);
-            $('#editCashTransactionModal select').prop('disabled', true);
-            $('#editCashTransactionModal textarea').prop('disabled', true);
-            $('#editCashTransactionModal .modal-footer button[type=submit]').prop('disabled', true);
-            $('#editCashTransactionModal textarea').val('Sedang mengambil data..');
-            $('#editCashTransactionModal input[type=number]').prop('type', 'text').val('Sedang mengambil data..');
+            let edit_cash_transaction_modal_input = $('#editCashTransactionModal .modal-content .modal-body :input:not(button[type=button])');
+            edit_cash_transaction_modal_input.not('input[name=_method], input[name=_token]')
+            edit_cash_transaction_modal_input.prop('disabled', true);
+
+            let edit_cash_transaction_modal_button_submit = $('#editCashTransactionModal .modal-content .modal-footer button[type=submit]')
+            edit_cash_transaction_modal_button_submit.prop('disabled', true);
 
             $.ajax({
                 url: url,
-                success: function (data) {
-                    $('#editCashTransactionModal input').prop('disabled', false);
-                    $('#editCashTransactionModal textarea').prop('disabled', false);
-                    $('#editCashTransactionModal select').prop('disabled', false);
-                    $('#editCashTransactionModal .modal-footer button[type=submit]').prop('disabled', false);
-                    $('#editCashTransactionModal #student_id').val(data.data.student_id).select2();
-                    $('#editCashTransactionModal #bill').val(data.data.bill);
-                    $('#editCashTransactionModal #amount').val(data.data.amount);
+                success: function (res) {
+                    loading_alert.slideUp();
 
-                    $('#editCashTransactionModal #is_paid').val(data.data.is_paid);
-                    $('#editCashTransactionModal #date').val(data.data.date);
-                    $('#editCashTransactionModal #note').val(data.data.note);
+                    $('#editCashTransactionModal .modal-body #cash-transaction-edit-form').attr('action', form_action_url);
+                    edit_cash_transaction_modal_input.prop('disabled', false);
+                    edit_cash_transaction_modal_button_submit.prop('disabled', false);
 
-                    $('#editCashTransactionModal #cash-transaction-edit-form').attr('action', form_action_url);
+                    $('#editCashTransactionModal .modal-content .modal-body #student_id').val(res.data.student_id).select2();
+                    $('#editCashTransactionModal .modal-content .modal-body #bill').val(res.data.bill);
+                    $('#editCashTransactionModal .modal-content .modal-body #amount').val(res.data.amount);
+                    $('#editCashTransactionModal .modal-content .modal-body #is_paid').val(res.data.is_paid);
+                    $('#editCashTransactionModal .modal-content .modal-body #date').val(res.data.date);
+                    $('#editCashTransactionModal .modal-content .modal-body #note').val(res.data.note);
                 }
             });
         });

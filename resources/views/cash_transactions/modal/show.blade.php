@@ -7,6 +7,7 @@
                 <button type="button" class="btn-close clear-input" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
+                @include('utilities.loading-alert')
                 <div class="row">
                     <div class="col-md-12">
                         <div class="mb-3">
@@ -29,14 +30,14 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="bill" class="form-label">Tagihan</label>
-                            <input type="number" class="form-control" id="bill" disabled>
+                            <input type="text" class="form-control" id="bill" disabled>
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="amount" class="form-label">Total Bayar</label>
-                            <input type="number" class="form-control" id="amount" disabled>
+                            <input type="text" class="form-control" id="amount" disabled>
                         </div>
                     </div>
                 </div>
