@@ -1,22 +1,30 @@
 <script>
-    $(function() {
-        $('.administrator-detail').click(function() {
+    $(function () {
+        let loading_alert = $('.modal-body #loading-alert');
+
+        $('.administrator-detail').click(function () {
+            loading_alert.show();
+
             let id = $(this).data('id');
             let url = "{{ route('api.administrator.show', ':id') }}";
             url = url.replace(':id', id);
 
-            $('#showAdministratorModal input').val('Sedang mengambil data..');
+            $('#showAdministratorModal :input').val('Sedang mengambil data..');
 
             $.ajax({
-                url: url
-                , success: function(data) {
-                    $('#showAdministratorModal #name').val(data.data.name);
-                    $('#showAdministratorModal #email').val(data.data.email);
+                url: url,
+                success: function (res) {
+                    loading_alert.slideUp();
+
+                    $('#showAdministratorModal .modal-content .modal-body #name').val(res.data.name);
+                    $('#showAdministratorModal .modal-content .modal-body #email').val(res.data.email);
                 }
             });
         });
 
-        $('.administrator-edit').click(function() {
+        $('.administrator-edit').click(function () {
+            loading_alert.show();
+
             let id = $(this).data('id');
             let url = "{{ route('api.administrator.show', ':id') }}";
             url = url.replace(':id', id);
@@ -24,18 +32,27 @@
             let form_action_url = "{{ route('administrators.update', ':id') }}";
             form_action_url = form_action_url.replace(':id', id);
 
-            $('#editAdministratorModal input:not([name=_method], [name=_token], [id=password], [id=password_confirmation]').val('Sedang mengambil data..');
-            $('#editAdministratorModal input').prop('disabled', true);
-            $('#editAdministatorModal .modal-footer button[type=submit]').prop('disabled', true);
+            let edit_administrator_modal_input = $('#editAdministratorModal .modal-content .modal-body input:not([name=_method], [name=_token], [id=password], [id=password_confirmation]')
+            edit_administrator_modal_input.val('Sedang mengambil data..');
+
+            $('#editAdministratorModal .modal-content .modal-body input').prop('disabled', true);
+
+            let edit_administrator_modal_submit_button = $('#editAdministratorModal .modal-footer button[type=submit]');
+            edit_administrator_modal_submit_button.prop('disabled', true);
 
             $.ajax({
-                url: url
-                , success: function(data) {
-                    $('#editAdministratorModal #administrator-edit-form').attr('action', form_action_url);
-                    $('#editAdministratorModal input').prop('disabled', false);
-                    $('#editAdministatorModal .modal-footer button[type=submit]').prop('disabled', false);
-                    $('#editAdministratorModal #name').val(data.data.name);
-                    $('#editAdministratorModal #email').val(data.data.email);
+                url: url,
+                success: function (res) {
+                    loading_alert.slideUp();
+
+                    $('#editAdministratorModal .modal-content .modal-body #administrator-edit-form').attr('action', form_action_url);
+
+                    $('#editAdministratorModal .modal-content .modal-body input').prop('disabled', false);
+                    edit_administrator_modal_input.prop('disabled', false);
+                    edit_administrator_modal_submit_button.prop('disabled', false);
+
+                    $('#editAdministratorModal .modal-content .modal-body #name').val(res.data.name);
+                    $('#editAdministratorModal .modal-content .modal-body #email').val(res.data.email);
                 }
             });
         });
