@@ -1,12 +1,6 @@
 <script>
-    $(function() {
-        $('#addCashTransactionForm').keyup(function() {
-            let bill_value = $('#addCashTransactionForm #bill').val();
-
-            $('#addCashTransactionForm #amount').val(bill_value);
-        });
-
-        $('.cash-transaction-detail').click(function() {
+    $(function () {
+        $('.cash-transaction-detail').click(function () {
             let id = $(this).data('id');
             let url = "{{ route('api.cash-transaction.show', ':id') }}";
             url = url.replace(':id', id);
@@ -17,7 +11,7 @@
 
             $.ajax({
                 url: url,
-                success: function(data) {
+                success: function (data) {
                     $('#showCashTransactionModal #user_id').val(data.data.users.name);
                     $('#showCashTransactionModal #student_id').val(data.data.students.name);
                     $('#showCashTransactionModal #bill').val(data.data.bill);
@@ -30,7 +24,7 @@
             });
         });
 
-        $('.cash-transaction-edit').click(function() {
+        $('.cash-transaction-edit').click(function () {
             let id = $(this).data('id');
             let url = "{{ route('api.cash-transaction.show', ':id') }}";
             url = url.replace(':id', id);
@@ -48,7 +42,7 @@
 
             $.ajax({
                 url: url,
-                success: function(data) {
+                success: function (data) {
                     $('#editCashTransactionModal input').prop('disabled', false);
                     $('#editCashTransactionModal textarea').prop('disabled', false);
                     $('#editCashTransactionModal select').prop('disabled', false);
