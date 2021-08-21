@@ -1,44 +1,58 @@
 <script>
-    $('.school-major-detail').click(function() {
-        let id = $(this).data('id');
-        let url = "{{ route('api.major.show', ':id') }}";
-        url = url.replace(':id', id);
+    $(function () {
+        let loading_alert = $('.modal-body #loading-alert');
 
-        $('#showSchoolMajorModal input').val('Sedang mengambil data..');
+        $('.school-major-detail').click(function () {
+            loading_alert.show();
 
-        $.ajax({
-            url: url
-            , success: function(data) {
-                $('#showSchoolMajorModal #name').val(data.data.name);
-                $('#showSchoolMajorModal #abbreviated_word').val(data.data.abbreviated_word);
-            }
-        })
+            let id = $(this).data('id');
+            let url = "{{ route('api.major.show', ':id') }}";
+            url = url.replace(':id', id);
+
+            $('#showSchoolMajorModal :input').val('Sedang mengambil data..');
+
+            $.ajax({
+                url: url,
+                success: function (res) {
+                    loading_alert.slideUp();
+
+                    $('#showSchoolMajorModal .modal-content .modal-body #name').val(res.data.name);
+                    $('#showSchoolMajorModal .modal-content .modal-body #abbreviated_word').val(res.data.abbreviated_word);
+                }
+            })
+        });
+
+        $('.school-major-edit').click(function () {
+            loading_alert.show();
+
+            let id = $(this).data('id');
+            let url = "{{ route('api.major.show', ':id') }}";
+            url = url.replace(':id', id);
+
+            let form_input_url = "{{ route('majors.update', ':id') }}";
+            form_input_url = form_input_url.replace(':id', id);
+
+            let edit_school_major_input = $('#editSchoolMajorModal .modal-content .modal-body :input:not(input[name=_token], input[name=_method])')
+                .val('Sedang mengambil data..')
+                .prop('disabled', true);
+
+            let edit_school_major_button = $('#editSchoolMajorModal .modal-content .modal-footer button[type=submit]')
+                .prop('disabled', true);
+
+            $.ajax({
+                url: url,
+                success: function (res) {
+                    loading_alert.slideUp();
+
+                    $('#editSchoolMajorModal .modal-content .modal-body #school-major-edit-form').attr('action', form_input_url);
+
+                    $('#editSchoolMajorModal .modal-content .modal-body #name').val(res.data.name);
+                    $('#editSchoolMajorModal .modal-content .modal-body #abbreviated_word').val(res.data.abbreviated_word);
+
+                    edit_school_major_input.prop('disabled', false);
+                    edit_school_major_button.prop('disabled', false);
+                }
+            })
+        });
     });
-
-    $('.school-major-edit').click(function() {
-        let id = $(this).data('id');
-        let url = "{{ route('api.major.show', ':id') }}";
-        url = url.replace(':id', id);
-
-        let form_input_url = "{{ route('majors.update', ':id') }}";
-        form_input_url = form_input_url.replace(':id', id);
-
-        let edit_school_major_input = $('#editSchoolMajorModal input:not([name=_method], [name=_token])');
-        edit_school_major_input.val('Sedang mengambil data..');
-        edit_school_major_input.prop('disabled', true);
-        $('#editSchoolMajorModal .modal-footer button[type=submit]').prop('disabled', true);
-
-        $.ajax({
-            url: url
-            , success: function(data) {
-                $('#school-major-edit-form').attr('action', form_input_url);
-                $('#editSchoolMajorModal input').prop('disabled', false);
-
-                $('#editSchoolMajorModal #name').val(data.data.name);
-                $('#editSchoolMajorModal #abbreviated_word').val(data.data.abbreviated_word);
-                $('#editSchoolMajorModal .modal-footer button[type=submit]').prop('disabled', false);
-            }
-        })
-    });
-
 </script>
