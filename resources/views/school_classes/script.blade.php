@@ -1,18 +1,24 @@
 <script>
-    $(function() {
-        $('.school-class-detail').click(function() {
+    $(function () {
+        let loading_alert = $('.modal-body #loading-alert');
+
+        $('.school-class-detail').click(function () {
+            loading_alert.show();
+
             let id = $(this).data('id');
             let url = "{{ route('api.class.show', ':id') }}";
             url = url.replace(':id', id);
 
-            $('#showSchoolClassModal #name').val("Sedang mengambil data..");
+            $('#showSchoolClassModal .modal-content .modal-body :input').val("Sedang mengambil data..");
 
             $.ajax({
                 url: url,
-                success: function(data) {
-                    $('#showSchoolClassModal #name').val(data.data.name);
+                success: function (res) {
+                    loading_alert.slideUp();
+
+                    $('#showSchoolClassModal .modal-content .modal-body #name').val(res.data.name);
                 },
-                error: function() {
+                error: function () {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -22,29 +28,34 @@
             });
         });
 
-        $('.school-class-edit').click(function() {
+        $('.school-class-edit').click(function () {
+            loading_alert.show();
+
             let id = $(this).data('id');
             let url = "{{ route('api.class.show', ':id') }}";
             url = url.replace(':id', id);
 
-            let edit_button_input = $('#editSchoolClassModal #name');
-            edit_button_input.val("Sedang mengambil data..");
-            edit_button_input.prop('disabled', true);
+            let edit_school_class_modal_input = $('#editSchoolClassModal .modal-content .modal-body :input').val('Sedang mengambil data..').prop('disabled', true);
 
             let form_action_url = "{{ route('classes.update', ':id') }}";
             form_action_url = form_action_url.replace(':id', id)
 
-            $('#editSchoolClassModal .modal-footer button[type=submit]').prop('disabled', true);
+            let edit_school_class_button = $('#editSchoolClassModal .modal-content .modal-body .modal-footer button[type=submit]');
+
+            edit_school_class_button.prop('disabled', true);
 
             $.ajax({
                 url: url,
-                success: function(data) {
-                    edit_button_input.val(data.data.name);
-                    edit_button_input.prop('disabled', false);
-                    $('#editSchoolClassModal .modal-footer button[type=submit]').prop('disabled', false);
+                success: function (res) {
+                    loading_alert.slideUp();
+
                     $('#editSchoolClassModal #edit-school-class-form').attr('action', form_action_url);
+                    $('#editSchoolClassModal .modal-content .modal-body #name').val(res.data.name);
+
+                    edit_school_class_modal_input.prop('disabled', false);
+                    edit_school_class_button.prop('disabled', false)
                 },
-                error: function() {
+                error: function () {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
