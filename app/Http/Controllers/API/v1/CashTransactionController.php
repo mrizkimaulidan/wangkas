@@ -17,9 +17,8 @@ class CashTransactionController extends Controller
      */
     public function __invoke(string $id): JsonResponse
     {
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => new CashTransactionResource(CashTransaction::with('students', 'users')->findOrFail($id))
-        ], Response::HTTP_OK);
+        $cash_transactions = new CashTransactionResource(CashTransaction::with('students', 'users')->findOrFail($id));
+
+        return response()->success($cash_transactions, Response::HTTP_OK);
     }
 }

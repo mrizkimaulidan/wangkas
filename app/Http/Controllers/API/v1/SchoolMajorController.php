@@ -17,10 +17,8 @@ class SchoolMajorController extends Controller
      */
     public function __invoke(string $id): JsonResponse
     {
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'message' => 'Data berhasil diambil!',
-            'data' => new SchoolMajorResource(SchoolMajor::findOrFail($id))
-        ], Response::HTTP_OK);
+        $school_major = new SchoolMajorResource(SchoolMajor::findOrFail($id));
+
+        return response()->success($school_major, Response::HTTP_OK);
     }
 }

@@ -17,10 +17,8 @@ class SchoolClassController extends Controller
      */
     public function __invoke(string $id): JsonResponse
     {
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'message' => 'Data berhasil diambil!',
-            'data' => new SchoolClassResource(SchoolClass::findOrFail($id)),
-        ], Response::HTTP_OK);
+        $school_class = new SchoolClassResource(SchoolClass::findOrFail($id));
+
+        return response()->success($school_class, Response::HTTP_OK);
     }
 }
