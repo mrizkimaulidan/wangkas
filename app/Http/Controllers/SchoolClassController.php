@@ -10,7 +10,6 @@ use Illuminate\View\View;
 
 class SchoolClassController extends Controller
 {
-    // Route name for this class
     const ROUTE = 'classes.index';
 
     public function index(): View
