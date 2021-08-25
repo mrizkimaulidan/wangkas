@@ -10,6 +10,9 @@ use Illuminate\View\View;
 
 class SchoolClassController extends Controller
 {
+    // Route name for this classes
+    const ROUTE = 'classes.index';
+
     public function index(): View
     {
         $school_classes = SchoolClass::select('id', 'name')->orderBy('name')->get();
@@ -22,24 +25,24 @@ class SchoolClassController extends Controller
     {
         SchoolClass::create($request->validated());
 
-        return redirect()->route('classes.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->success(self::ROUTE, 'Data berhasil ditambahkan!');
     }
 
     public function update(SchoolClassUpdateRequest $request, SchoolClass $class): RedirectResponse
     {
         $class->update($request->validated());
 
-        return redirect()->route('classes.index')->with('success', 'Data berhasil diubah!');
+        return redirect()->success(self::ROUTE, 'Data berhasil diubah!');
     }
 
     public function destroy(SchoolClass $class): RedirectResponse
     {
         if ($class->students()->exists()) {
-            return redirect()->route('classes.index')->with('warning', 'Data yang memiliki relasi tidak dapat dihapus!');
+            return redirect()->warning(self::ROUTE, 'Data yang memiliki relasi tidak dapat dihapus!');
         }
 
         $class->delete();
 
-        return redirect()->route('kelas.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->success(self::ROUTE, 'Data berhasil dihapus!');
     }
 }
