@@ -13,6 +13,10 @@ class CashTransaction extends Model
 
     protected $fillable = ['student_id', 'bill', 'amount', 'is_paid', 'date', 'note'];
 
+    protected $casts = [
+        'is_paid' => 'integer',
+    ];
+
     public function students(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'student_id', 'id');
