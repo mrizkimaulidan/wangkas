@@ -10,6 +10,8 @@ use Illuminate\View\View;
 
 class SchoolMajorController extends Controller
 {
+    const INDEX_ROUTE = 'majors.index';
+
     public function index(): View
     {
         $school_majors = SchoolMajor::select('id', 'name', 'abbreviated_word')->orderBy('name')->get();
@@ -22,24 +24,24 @@ class SchoolMajorController extends Controller
     {
         SchoolMajor::create($request->validated());
 
-        return redirect()->route('majors.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil ditambahkan!');
     }
 
     public function update(SchoolMajorUpdateRequest $request, SchoolMajor $major): RedirectResponse
     {
         $major->update($request->validated());
 
-        return redirect()->route('majors.index')->with('success', 'Data berhasil diubah!');
+        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil diubah!');
     }
 
     public function destroy(SchoolMajor $major): RedirectResponse
     {
         if ($major->students()->exists()) {
-            return redirect()->route('majors.index')->with('warning', 'Data yang memiliki relasi tidak dapat dihapus!');
+            return redirect()->warning(self::INDEX_ROUTE, 'Data yang memiliki relasi tidak dapat dihapus!');
         }
 
         $major->delete();
 
-        return redirect()->route('majors.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dihapus!');
     }
 }

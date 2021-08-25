@@ -10,6 +10,8 @@ use Illuminate\View\View;
 
 class StudentHistoryController extends Controller
 {
+    const INDEX_ROUTE = 'students.index.history';
+
     public function index(): View
     {
         return view('students.history.index', [
@@ -21,7 +23,7 @@ class StudentHistoryController extends Controller
     {
         Student::onlyTrashed()->findOrFail($id)->restore();
 
-        return redirect()->route('students.index.history')->with('success', 'Data berhasil dikembalikan!');
+        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dikembalikan!');
     }
 
     public function destroy(string $id): RedirectResponse
@@ -30,6 +32,6 @@ class StudentHistoryController extends Controller
         $student->cash_transactions()->delete();
         $student->forceDelete();
 
-        return redirect()->route('students.index.history')->with('success', 'Data berhasil dihapus!');
+        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dihapus!');
     }
 }

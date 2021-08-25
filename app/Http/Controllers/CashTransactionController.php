@@ -14,6 +14,8 @@ use Illuminate\View\View;
 
 class CashTransactionController extends Controller
 {
+    const INDEX_ROUTE = 'cash-transactions.index';
+
     public function __construct(
         private CashTransactionRepository $cashTransactionRepository
     ) {
@@ -42,20 +44,20 @@ class CashTransactionController extends Controller
     {
         Auth::user()->cash_transactions()->create($request->validated());
 
-        return redirect()->route('cash-transactions.index')->with('success', 'Data berhasil ditambahkan!');
+        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil ditambahkan!');
     }
 
     public function update(CashTransactionUpdateRequest $request, CashTransaction $cashTransaction): RedirectResponse
     {
         $cashTransaction->update($request->validated());
 
-        return redirect()->route('cash-transactions.index')->with('success', 'Data berhasil diubah!');
+        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil diubah!');
     }
 
     public function destroy(CashTransaction $cashTransaction): RedirectResponse
     {
         $cashTransaction->delete();
 
-        return redirect()->route('cash-transactions.index')->with('success', 'Data berhasil dihapus!');
+        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dihapus!');
     }
 }

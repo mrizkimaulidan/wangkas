@@ -10,7 +10,7 @@ use Illuminate\View\View;
 
 class SchoolClassController extends Controller
 {
-    const ROUTE = 'classes.index';
+    const INDEX_ROUTE = 'classes.index';
 
     public function index(): View
     {
@@ -24,24 +24,24 @@ class SchoolClassController extends Controller
     {
         SchoolClass::create($request->validated());
 
-        return redirect()->success(self::ROUTE, 'Data berhasil ditambahkan!');
+        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil ditambahkan!');
     }
 
     public function update(SchoolClassUpdateRequest $request, SchoolClass $class): RedirectResponse
     {
         $class->update($request->validated());
 
-        return redirect()->success(self::ROUTE, 'Data berhasil diubah!');
+        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil diubah!');
     }
 
     public function destroy(SchoolClass $class): RedirectResponse
     {
         if ($class->students()->exists()) {
-            return redirect()->warning(self::ROUTE, 'Data yang memiliki relasi tidak dapat dihapus!');
+            return redirect()->warning(self::INDEX_ROUTE, 'Data yang memiliki relasi tidak dapat dihapus!');
         }
 
         $class->delete();
 
-        return redirect()->success(self::ROUTE, 'Data berhasil dihapus!');
+        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dihapus!');
     }
 }

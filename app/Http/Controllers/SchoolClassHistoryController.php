@@ -9,6 +9,8 @@ use Illuminate\View\View;
 
 class SchoolClassHistoryController extends Controller
 {
+    const INDEX_ROUTE = 'classes.index.history';
+
     public function index(): View
     {
         return view('school_classes.history.index', [
@@ -20,13 +22,13 @@ class SchoolClassHistoryController extends Controller
     {
         SchoolClass::onlyTrashed()->findOrFail($id)->restore();
 
-        return redirect()->route('kelas.index.history')->with('success', 'Data berhasil dikembalikan!');
+        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dikembalikan!');
     }
 
     public function destroy(int $id): RedirectResponse
     {
         SchoolClass::onlyTrashed()->findOrFail($id)->forceDelete();
 
-        return redirect()->route('kelas.index.history')->with('success', 'Data berhasil dihapus!');
+        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dihapus!');
     }
 }
