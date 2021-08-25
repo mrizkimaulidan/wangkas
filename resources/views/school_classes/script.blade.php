@@ -35,7 +35,11 @@
             let url = "{{ route('api.class.show', ':id') }}";
             url = url.replace(':id', id);
 
-            let edit_school_class_modal_input = $('#editSchoolClassModal .modal-content .modal-body :input').val('Sedang mengambil data..').prop('disabled', true);
+            let edit_school_class_modal_input = $('#editSchoolClassModal .modal-content .modal-body :input')
+
+            edit_school_class_modal_input.not('input[name=_token], input[name=_method]')
+                .val('Sedang mengambil data..')
+                .prop('disabled', true);
 
             let form_action_url = "{{ route('classes.update', ':id') }}";
             form_action_url = form_action_url.replace(':id', id)
