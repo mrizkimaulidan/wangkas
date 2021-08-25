@@ -43,7 +43,9 @@
 
             form_edit_url = form_edit_url.replace(':id', id);
 
-            let edit_student_modal_input = $('#editStudentModal .modal-body #edit-student-form :input');
+            let edit_student_modal_input = $('#editStudentModal .modal-body #edit-student-form :input')
+                .not('input[name=_token], input[name=_method]');
+
             let edit_student_modal_submit_button = $('#editStudentModal .modal-footer button[type=submit]');
 
             edit_student_modal_input.prop('disabled', true);
