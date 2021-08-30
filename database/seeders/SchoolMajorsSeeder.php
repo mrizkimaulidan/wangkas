@@ -29,7 +29,7 @@ class SchoolMajorsSeeder extends Seeder
             ]
         ];
 
-        foreach ($majors as $key => $major) {
+        foreach ($majors as $major) {
             SchoolMajor::create([
                 'name' => $major['name'],
                 'abbreviated_word' => $major['abbreviated_word']
