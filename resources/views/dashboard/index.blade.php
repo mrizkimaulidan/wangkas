@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-6 col-lg-3 col-md-6">
                 <a href="{{ route('students.index') }}">
-                    <div class="card">
+                    <div class="card card-stat">
                         <div class="card-body px-3 py-4-5">
                             <div class="row">
                                 <div class="col-md-4">
@@ -27,7 +27,7 @@
             </div>
             <div class="col-6 col-lg-3 col-md-6">
                 <a href="{{ route('classes.index') }}">
-                    <div class="card">
+                    <div class="card card-stat">
                         <div class="card-body px-3 py-4-5">
                             <div class="row">
                                 <div class="col-md-4">
@@ -48,7 +48,7 @@
             </div>
             <div class="col-6 col-lg-3 col-md-6">
                 <a href="{{ route('majors.index') }}">
-                    <div class="card">
+                    <div class="card card-stat">
                         <div class="card-body px-3 py-4-5">
                             <div class="row">
                                 <div class="col-md-4">
@@ -69,7 +69,7 @@
             </div>
             <div class="col-6 col-lg-3 col-md-6">
                 <a href="{{ route('cash-transactions.index') }}">
-                    <div class="card">
+                    <div class="card card-stat">
                         <div class="card-body px-3 py-4-5">
                             <div class="row">
                                 <div class="col-md-4">
@@ -133,7 +133,10 @@
                                         </td>
                                         <td class="col-auto">
                                             <p class="mb-0">
-                                                <button type="button" data-id="{{ $latest_cash_transaction_by_limit->id }}" class="btn btn-primary btn-sm cash-transaction-detail" data-bs-toggle="modal" data-bs-target="#showCashTransactionModal">
+                                                <button type="button"
+                                                    data-id="{{ $latest_cash_transaction_by_limit->id }}"
+                                                    class="btn btn-primary btn-sm cash-transaction-detail"
+                                                    data-bs-toggle="modal" data-bs-target="#showCashTransactionModal">
                                                     <i class="bi bi-search"></i>
                                                 </button>
                                             </p>

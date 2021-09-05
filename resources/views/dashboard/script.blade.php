@@ -1,6 +1,13 @@
 <script>
-    $(function() {
-        $('.cash-transaction-detail').click(function() {
+    $(function () {
+        $('.card-stat').hover(function () {
+            $(this).addClass('shadow')
+                .css('cursor', 'pointer');
+        }, function () {
+            $(this).removeClass('shadow');
+        });
+
+        $('.cash-transaction-detail').click(function () {
             let id = $(this).data('id');
             let url = "{{ route('api.cash-transaction.show', ':id') }}";
             url = url.replace(':id', id);
@@ -12,7 +19,7 @@
 
             $.ajax({
                 url: url,
-                success: function(data) {
+                success: function (data) {
                     console.log(data);
                     $('#showCashTransactionModal #user_id').val(data.data.users.name);
                     $('#showCashTransactionModal #student_id').val(data.data.students.name);
