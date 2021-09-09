@@ -16,7 +16,7 @@ class AdministratorController extends Controller
         $spreadsheet = new Spreadsheet();
         $sheet = $this->setHeaderExcel($spreadsheet);
 
-        $administrators = User::orderBy('name')->get();
+        $administrators = User::select('name', 'email', 'created_at')->orderBy('name')->get();
 
         $this->setExcelContent($administrators, $sheet);
 
