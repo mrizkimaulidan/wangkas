@@ -27,6 +27,7 @@ class ExportRepository
      * Menampilkan pesan dialog download excel.
      *
      * @param object $spreadsheet
+     * @param string $file_name
      * @return void
      */
     public static function outputTheExcel(object $spreadsheet, string $file_name)
