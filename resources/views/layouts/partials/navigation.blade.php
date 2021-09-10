@@ -28,15 +28,15 @@
             </a>
         </li>
 
-        <li class="sidebar-item {{ request()->routeIs('classes.*') ? 'active' : '' }}">
-            <a href="{{ route('classes.index') }}" class='sidebar-link'>
+        <li class="sidebar-item {{ request()->routeIs('school-classes.*') ? 'active' : '' }}">
+            <a href="{{ route('school-classes.index') }}" class='sidebar-link'>
                 <i class="bi bi-bookmark-fill"></i>
                 <span>Kelas</span>
             </a>
         </li>
 
-        <li class="sidebar-item {{ request()->routeIs('majors.*') ? 'active' : '' }}">
-            <a href="{{ route('majors.index') }}" class='sidebar-link'>
+        <li class="sidebar-item {{ request()->routeIs('school-majors.*') ? 'active' : '' }}">
+            <a href="{{ route('school-majors.index') }}" class='sidebar-link'>
                 <i class="bi bi-briefcase-fill"></i>
                 <span>Jurusan</span>
             </a>
@@ -68,7 +68,8 @@
                 @csrf
 
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                                    this.closest('form').submit();" class='sidebar-link'>
+                                                                    this.closest('form').submit();"
+                    class='sidebar-link'>
                     <i class="bi bi-box-arrow-left"></i>
                     <span>Logout</span>
                 </a>

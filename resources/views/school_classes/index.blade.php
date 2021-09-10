@@ -5,11 +5,12 @@
     @include('utilities.alert-flash-message')
     <div class="col-md-12 card px-3 py-3 table-responsive">
         <div class="col-md-12 py-2">
-            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal" data-bs-target="#addSchoolClassModal">
+            <button type="button" class="btn btn-primary float-end" data-bs-toggle="modal"
+                data-bs-target="#addSchoolClassModal">
                 <i class="bi bi-plus-circle"></i> Tambah Data
             </button>
 
-            <a href="{{ route('classes.index.history') }}" class="btn btn-secondary float-end mx-2">
+            <a href="{{ route('school-classes.index.history') }}" class="btn btn-secondary float-end mx-2">
                 <span class="badge">{{ $count_school_classes_trashed }}</span> Histori Data Kelas
             </a>
         </div>
@@ -30,19 +31,23 @@
                     <td>
                         <div class="btn-group" role="group">
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $school_class->id }}" class="btn btn-primary btn-sm school-class-detail" data-bs-toggle="modal" data-bs-target="#showSchoolClassModal">
+                                <button type="button" data-id="{{ $school_class->id }}"
+                                    class="btn btn-primary btn-sm school-class-detail" data-bs-toggle="modal"
+                                    data-bs-target="#showSchoolClassModal">
                                     <i class="bi bi-search"></i>
                                 </button>
                             </div>
 
                             <div class="mx-1">
-                                <button type="button" data-id="{{ $school_class->id }}" class="btn btn-success btn-sm school-class-edit" data-bs-toggle="modal" data-bs-target="#editSchoolClassModal">
+                                <button type="button" data-id="{{ $school_class->id }}"
+                                    class="btn btn-success btn-sm school-class-edit" data-bs-toggle="modal"
+                                    data-bs-target="#editSchoolClassModal">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                             </div>
 
                             <div class="mx-1">
-                                <form action="{{ route('classes.destroy', $school_class->id) }}" method="POST">
+                                <form action="{{ route('school-classes.destroy', $school_class->id) }}" method="POST">
                                     @csrf @method('DELETE')
                                     <button type="submit" class="btn btn-danger btn-sm delete-notification">
                                         <i class="bi bi-trash-fill"></i>

@@ -6,7 +6,7 @@
             loading_alert.show();
 
             let id = $(this).data('id');
-            let url = "{{ route('api.major.show', ':id') }}";
+            let url = "{{ route('api.school-major.show', ':id') }}";
             url = url.replace(':id', id);
 
             $('#showSchoolMajorModal :input').val('Sedang mengambil data..');
@@ -26,10 +26,10 @@
             loading_alert.show();
 
             let id = $(this).data('id');
-            let url = "{{ route('api.major.show', ':id') }}";
+            let url = "{{ route('api.school-major.show', ':id') }}";
             url = url.replace(':id', id);
 
-            let form_input_url = "{{ route('majors.update', ':id') }}";
+            let form_input_url = "{{ route('school-majors.update', ':id') }}";
             form_input_url = form_input_url.replace(':id', id);
 
             let edit_school_major_input = $('#editSchoolMajorModal .modal-content .modal-body :input:not(input[name=_token], input[name=_method])')

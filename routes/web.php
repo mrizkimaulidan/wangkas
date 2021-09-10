@@ -23,8 +23,8 @@ Route::middleware('auth')->group(function () {
 
     // Resource routes
     Route::resource('students', StudentController::class)->except('create', 'show', 'edit');
-    Route::resource('classes', SchoolClassController::class)->except('create', 'show', 'edit');
-    Route::resource('majors', SchoolMajorController::class)->except('create', 'show', 'edit');
+    Route::resource('school-classes', SchoolClassController::class)->except('create', 'show', 'edit');
+    Route::resource('school-majors', SchoolMajorController::class)->except('create', 'show', 'edit');
     Route::resource('administrators', AdministratorController::class)->except('create', 'show', 'edit', 'destroy');
     Route::resource('cash-transactions', CashTransactionController::class)->except('create', 'show', 'edit');
     // End of resource routes
@@ -41,13 +41,13 @@ Route::middleware('auth')->group(function () {
         Route::delete('{id}', [StudentHistoryController::class, 'destroy'])->name('destroy.history');
     });
 
-    Route::prefix('/classes/history')->name('classes.')->group(function () {
+    Route::prefix('/school-classes/history')->name('school-classes.')->group(function () {
         Route::get('', [SchoolClassHistoryController::class, 'index'])->name('index.history');
         Route::post('{id}', [SchoolClassHistoryController::class, 'restore'])->name('restore.history');
         Route::delete('{id}', [SchoolClassHistoryController::class, 'destroy'])->name('destroy.history');
     });
 
-    Route::prefix('/majors/history')->name('majors.')->group(function () {
+    Route::prefix('/school-majors/history')->name('school-majors.')->group(function () {
         Route::get('', [SchoolMajorHistoryController::class, 'index'])->name('index.history');
         Route::post('{id}', [SchoolMajorHistoryController::class, 'restore'])->name('restore.history');
         Route::delete('{id}', [SchoolMajorHistoryController::class, 'destroy'])->name('destroy.history');

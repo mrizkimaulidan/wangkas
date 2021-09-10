@@ -9,9 +9,9 @@ use App\Http\Controllers\API\v1\DashboardChartController;
 use App\Http\Controllers\API\v1\StudentController;
 
 Route::name('api.')->prefix('v1')->group(function () {
-    Route::get('/class/{id}', SchoolClassController::class)->name('class.show');
+    Route::get('/school-class/{id}', SchoolClassController::class)->name('school-class.show');
     Route::get('/student/{id}', StudentController::class)->name('student.show');
-    Route::get('/major/{id}', SchoolMajorController::class)->name('major.show');
+    Route::get('/school-major/{id}', SchoolMajorController::class)->name('school-major.show');
     Route::get('/administrator/{id}', AdministratorController::class)->name('administrator.show');
     Route::get('/cash-transaction/{id}', CashTransactionController::class)->name('cash-transaction.show');
 

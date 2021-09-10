@@ -6,13 +6,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('classes.store') }}" method="POST">
+                <form action="{{ route('school-classes.store') }}" method="POST">
                     @csrf
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Kelas</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name" value="{{ old('name') }}" placeholder="Masukkan nama kelas..">
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
+                                    id="name" value="{{ old('name') }}" placeholder="Masukkan nama kelas..">
 
                                 @error('name')
                                 <div class="invalid-feedback d-block">

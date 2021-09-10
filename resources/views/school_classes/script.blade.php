@@ -6,7 +6,7 @@
             loading_alert.show();
 
             let id = $(this).data('id');
-            let url = "{{ route('api.class.show', ':id') }}";
+            let url = "{{ route('api.school-class.show', ':id') }}";
             url = url.replace(':id', id);
 
             $('#showSchoolClassModal .modal-content .modal-body :input').val("Sedang mengambil data..");
@@ -32,7 +32,7 @@
             loading_alert.show();
 
             let id = $(this).data('id');
-            let url = "{{ route('api.class.show', ':id') }}";
+            let url = "{{ route('api.school-class.show', ':id') }}";
             url = url.replace(':id', id);
 
             let edit_school_class_modal_input = $('#editSchoolClassModal .modal-content .modal-body :input')
@@ -41,7 +41,7 @@
                 .val('Sedang mengambil data..')
                 .prop('disabled', true);
 
-            let form_action_url = "{{ route('classes.update', ':id') }}";
+            let form_action_url = "{{ route('school-classes.update', ':id') }}";
             form_action_url = form_action_url.replace(':id', id)
 
             let edit_school_class_button = $('#editSchoolClassModal .modal-content .modal-body .modal-footer button[type=submit]');
