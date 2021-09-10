@@ -24,17 +24,6 @@ class ExportRepository
     }
 
     /**
-     * Generate nama file.
-     *
-     * @param string $file_name
-     * @return string
-     */
-    public static function generateFileName(string $file_name): string
-    {
-        return $file_name . date('dmY_His');
-    }
-
-    /**
      * Menampilkan pesan dialog download excel.
      *
      * @param object $spreadsheet
@@ -46,7 +35,7 @@ class ExportRepository
 
         ob_end_clean();
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="' . self::generateFileName($file_name) . '".xlsx');
+        header('Content-Disposition: attachment; filename="' . $file_name . date('dmY_His') . '".xlsx');
         $writer->save('php://output');
         exit();
     }
