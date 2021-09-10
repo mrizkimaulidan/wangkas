@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Export;
 
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
+use App\Repositories\ExportRepository;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\Style\Border;
 
 class CashTransactionController extends Controller
 {
+    const FILE_NAME = 'laporan-kas';
+
     public function __invoke()
     {
         $spreadsheet = new Spreadsheet();
@@ -19,33 +20,7 @@ class CashTransactionController extends Controller
 
         $this->setExcelContent($students, $sheet);
 
-        $this->outputTheExcel($spreadsheet);
-    }
-
-    /**
-     * Generate nama file.
-     *
-     * @return string
-     */
-    public function generateFileName(): string
-    {
-        return 'laporan-kas-' . date('d-m-Y') . '_' . date('His');
-    }
-
-    /**
-     * Kustomisasi untuk style excelnya.
-     *
-     * @return array
-     */
-    public function setStyle(): array
-    {
-        return [
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => Border::BORDER_THIN
-                ]
-            ]
-        ];
+        ExportRepository::outputTheExcel($spreadsheet, self::FILE_NAME);
     }
 
     /**
@@ -89,26 +64,9 @@ class CashTransactionController extends Controller
             $sheet->setCellValue('E' . $cell, date('d-m-Y', strtotime($row->date)));
             $sheet->setCellValue('F' . $cell, paid_status($row->is_paid));
             $cell++;
-            $sheet->getStyle('A1:F' . ($cell - 1))->applyFromArray($this->setStyle());
+            $sheet->getStyle('A1:F' . ($cell - 1))->applyFromArray(ExportRepository::setStyle());
         }
 
         return $sheet;
-    }
-
-    /**
-     * Menampilkan pesan dialog download excel.
-     *
-     * @param object $spreadsheet
-     * @return void
-     */
-    public function outputTheExcel(object $spreadsheet)
-    {
-        $writer = new Xlsx($spreadsheet);
-
-        ob_end_clean();
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="' . $this->generateFileName() . '".xlsx');
-        $writer->save('php://output');
-        exit();
     }
 }

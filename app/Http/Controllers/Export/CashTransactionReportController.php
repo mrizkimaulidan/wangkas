@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Export;
 
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use App\Repositories\ExportRepository;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Style\Border;
 
 class CashTransactionReportController extends Controller
 {
+    const FILE_NAME = 'laporan-kas';
+
     public function __invoke(string $start_date, string $end_date)
     {
         $spreadsheet = new Spreadsheet();
@@ -22,33 +23,7 @@ class CashTransactionReportController extends Controller
 
         $this->setExcelContent($cash_transaction_results, $sheet);
 
-        $this->outputTheExcel($spreadsheet, $start_date, $end_date);
-    }
-
-    /**
-     * Generate nama file.
-     *
-     * @return string
-     */
-    public function generateFileName(string $start_date, string $end_date): string
-    {
-        return 'laporan-kas-' . $start_date . '_' . $end_date . '_' . date('His');
-    }
-
-    /**
-     * Kustomisasi untuk style excelnya.
-     *
-     * @return array
-     */
-    public function setStyle(): array
-    {
-        return [
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => Border::BORDER_THIN
-                ]
-            ]
-        ];
+        ExportRepository::outputTheExcel($spreadsheet, self::FILE_NAME);
     }
 
     /**
@@ -83,6 +58,8 @@ class CashTransactionReportController extends Controller
      */
     public function setExcelContent(object $cash_transaction_results, object $sheet): object
     {
+        $style = ExportRepository::setStyle();
+
         $cell = 2;
         foreach ($cash_transaction_results as $key => $row) {
             $sheet->setCellValue('A' . $cell, $key + 1);
@@ -92,32 +69,15 @@ class CashTransactionReportController extends Controller
             $sheet->setCellValue('E' . $cell, indonesian_currency($row->amount));
             $sheet->setCellValue('F' . $cell, $row->users->name);
             $cell++;
-            $sheet->getStyle('A1:F' . ($cell - 1))->applyFromArray($this->setStyle());
+            $sheet->getStyle('A1:F' . ($cell - 1))->applyFromArray($style);
 
-            $sheet->setCellValue('D' . $cell, 'Total Lunas')->getStyle('D' . $cell)->applyFromArray($this->setStyle());
-            $sheet->setCellValue('D' . ($cell + 1), 'Total Belum Lunas')->getStyle('D' . ($cell + 1))->applyFromArray($this->setStyle());
+            $sheet->setCellValue('D' . $cell, 'Total Lunas')->getStyle('D' . $cell)->applyFromArray($style);
+            $sheet->setCellValue('D' . ($cell + 1), 'Total Belum Lunas')->getStyle('D' . ($cell + 1))->applyFromArray($style);
 
-            $sheet->setCellValue('E' . $cell, indonesian_currency($cash_transaction_results->where('is_paid', 1)->sum('amount')))->getStyle('E' . $cell)->applyFromArray($this->setStyle());;
-            $sheet->setCellValue('E' . ($cell + 1), indonesian_currency($cash_transaction_results->where('is_paid', 0)->sum('amount')))->getStyle('E' . ($cell + 1))->applyFromArray($this->setStyle());;
+            $sheet->setCellValue('E' . $cell, indonesian_currency($cash_transaction_results->where('is_paid', 1)->sum('amount')))->getStyle('E' . $cell)->applyFromArray($style);;
+            $sheet->setCellValue('E' . ($cell + 1), indonesian_currency($cash_transaction_results->where('is_paid', 0)->sum('amount')))->getStyle('E' . ($cell + 1))->applyFromArray($style);;
         }
 
         return $sheet;
-    }
-
-    /**
-     * Menampilkan pesan dialog download excel.
-     *
-     * @param object $spreadsheet
-     * @return void
-     */
-    public function outputTheExcel(object $spreadsheet, string $start_date, string $end_date)
-    {
-        $writer = new Xlsx($spreadsheet);
-
-        ob_end_clean();
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment; filename="' . $this->generateFileName($start_date, $end_date) . '".xlsx');
-        $writer->save('php://output');
-        exit();
     }
 }
