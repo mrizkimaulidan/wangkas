@@ -35,7 +35,7 @@
             let url = "{{ route('api.school-class.show', ':id') }}";
             url = url.replace(':id', id);
 
-            let edit_school_class_modal_input = $('#editSchoolClassModal .modal-content .modal-body :input')
+            let edit_school_class_modal_input = $('#editSchoolClassModal .modal-content .modal-body input[id=name]')
 
             edit_school_class_modal_input.not('input[name=_token], input[name=_method]')
                 .val('Sedang mengambil data..')
