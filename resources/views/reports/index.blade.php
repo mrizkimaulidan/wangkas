@@ -103,7 +103,8 @@
     <div class="row">
         <div class="card px-3 py-3">
             <div class="col-lg-12">
-                <a href="{{ route('report.export', [request()->get('start_date'), request()->get('end_date')]) }}" class="btn btn-success float-end">
+                <a href="{{ route('report.export', [request()->get('start_date'), request()->get('end_date')]) }}"
+                    class="btn btn-success float-end">
                     <i class="bi bi-file-earmark-excel-fill"></i>
                     Export Excel
                 </a>
@@ -111,7 +112,8 @@
 
             <div class="table-responsive mt-3">
                 <table class="table table-sm text-center caption-top" id="datatable">
-                    <caption>Laporan data dari tanggal <span class="fw-bold">{{ date('d-m-Y', strtotime(request()->get('start_date'))) }}</span> -
+                    <caption>Laporan data dari tanggal <span
+                            class="fw-bold">{{ date('d-m-Y', strtotime(request()->get('start_date'))) }}</span> -
                         <span class="fw-bold">{{ date('d-m-Y', strtotime(request()->get('end_date'))) }}</span>
                     </caption>
                     <thead>
@@ -153,3 +155,7 @@
     @endisset
 </section>
 @endsection
+
+@push('js')
+@include('reports.script')
+@endpush
