@@ -9,13 +9,19 @@ use Illuminate\View\View;
 
 class SchoolClassHistoryController extends Controller
 {
-    const INDEX_ROUTE = 'classes.index.history';
+    const INDEX_ROUTE = 'school-classes.index.history';
 
-    public function index(): View
+    public function index()
     {
-        return view('school_classes.history.index', [
-            'school_classes' => SchoolClass::onlyTrashed()->get()
-        ]);
+        if (request()->ajax()) {
+            return datatables()->of(SchoolClass::onlyTrashed()->get())
+                ->addIndexColumn()
+                ->addColumn('action', 'school_classes.history.action')
+                ->rawColumns(['action'])
+                ->toJson();
+        }
+
+        return view('school_classes.history.index');
     }
 
     public function restore(int $id): RedirectResponse

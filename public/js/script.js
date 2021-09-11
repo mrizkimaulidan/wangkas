@@ -31,7 +31,7 @@ $(function () {
         });
     });
 
-    $(".restore-button").click(function (e) {
+    $("#datatable").on('click', '.restore-button', function (e) {
         e.preventDefault();
         Swal.fire({
             title: "Kembalikan?",
@@ -50,7 +50,7 @@ $(function () {
         });
     });
 
-    $(".delete-permanent-button").click(function (e) {
+    $("#datatable").on('click', '.delete-permanent-button', function (e) {
         e.preventDefault();
         Swal.fire({
             title: "Hapus permanen?",
