@@ -2,7 +2,20 @@
     $(function () {
         let loading_alert = $('.modal-body #loading-alert');
 
-        $('.administrator-detail').click(function () {
+        $('#datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('administrators.index') }}",
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                { data: 'name', name: 'name' },
+                { data: 'email', name: 'email' },
+                { data: 'created_at', name: 'created_at' },
+                { data: 'action', name: 'action' },
+            ]
+        });
+
+        $('#datatable').on('click', '.administrator-detail', function () {
             loading_alert.show();
 
             let id = $(this).data('id');
@@ -22,7 +35,7 @@
             });
         });
 
-        $('.administrator-edit').click(function () {
+        $('#datatable').on('click', '.administrator-edit', function () {
             loading_alert.show();
 
             let id = $(this).data('id');

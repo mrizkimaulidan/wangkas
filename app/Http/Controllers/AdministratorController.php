@@ -12,9 +12,19 @@ class AdministratorController extends Controller
 {
     const INDEX_ROUTE = 'administrators.index';
 
-    public function index(): View
+    public function index()
     {
         $administrators = User::select('id', 'name', 'email', 'created_at')->orderBy('name')->get();
+
+        if (request()->ajax()) {
+            return datatables()->of($administrators)
+                ->addIndexColumn()
+                ->addColumn('created_at', function ($model) {
+                    return date('d-m-Y H:i', strtotime($model->created_at));
+                })
+                ->addColumn('action', 'administrators.action')
+                ->toJson();
+        }
 
         return view('administrators.index', compact('administrators'));
     }
