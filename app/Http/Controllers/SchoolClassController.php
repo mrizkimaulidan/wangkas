@@ -10,7 +10,7 @@ use Illuminate\View\View;
 
 class SchoolClassController extends Controller
 {
-    const INDEX_ROUTE = 'classes.index';
+    const INDEX_ROUTE = 'school-classes.index';
 
     public function index(): View
     {
