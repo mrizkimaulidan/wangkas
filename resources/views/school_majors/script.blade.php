@@ -2,7 +2,19 @@
     $(function () {
         let loading_alert = $('.modal-body #loading-alert');
 
-        $('.school-major-detail').click(function () {
+        $('#datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('school-majors.index') }}",
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                { data: 'name', name: 'name' },
+                { data: 'abbreviated_word', name: 'abbreviated_word' },
+                { data: 'action', name: 'action' },
+            ]
+        });
+
+        $('#datatable').on('click', '.school-major-detail', function () {
             loading_alert.show();
 
             let id = $(this).data('id');
@@ -22,7 +34,7 @@
             })
         });
 
-        $('.school-major-edit').click(function () {
+        $('#datatable').on('click', '.school-major-edit', function () {
             loading_alert.show();
 
             let id = $(this).data('id');

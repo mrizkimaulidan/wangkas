@@ -1,5 +1,5 @@
 $(function () {
-    $("#datatable").DataTable({
+    $.extend(true, $.fn.dataTable.defaults, {
         language: {
             url: "https://cdn.datatables.net/plug-ins/1.10.22/i18n/id.json",
         },
@@ -14,7 +14,7 @@ $(function () {
         $("select").prop("selectedIndex", 0).change();
     });
 
-    $(".delete-notification").click(function (e) {
+    $("#datatable").on('click', '.delete-notification', function (e) {
         e.preventDefault();
         Swal.fire({
             title: "Hapus?",

@@ -7,17 +7,28 @@ use App\Http\Requests\SchoolMajorUpdateRequest;
 use App\Models\SchoolMajor;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use Yajra\DataTables\DataTables;
 
 class SchoolMajorController extends Controller
 {
     const INDEX_ROUTE = 'school-majors.index';
 
-    public function index(): View
+    public function index()
     {
         $school_majors = SchoolMajor::select('id', 'name', 'abbreviated_word')->orderBy('name')->get();
+
+        if (request()->ajax()) {
+            return datatables()->of($school_majors)
+                ->addIndexColumn()
+                ->addColumn('abbreviated_word', 'school_majors.datatable.abbreviated_word')
+                ->addColumn('action', 'school_majors.datatable.action')
+                ->rawColumns(['abbreviated_word', 'action'])
+                ->toJson();
+        }
+
         $count_school_majors_trashed = SchoolMajor::onlyTrashed()->count();
 
-        return view('school_majors.index', compact('school_majors', 'count_school_majors_trashed'));
+        return view('school_majors.index', compact('count_school_majors_trashed'));
     }
 
     public function store(SchoolMajorStoreRequest $request): RedirectResponse
