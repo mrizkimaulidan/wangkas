@@ -9,13 +9,22 @@ use Illuminate\View\View;
 
 class SchoolMajorHistoryController extends Controller
 {
-    const INDEX_ROUTE = 'majors.index.history';
+    const INDEX_ROUTE = 'school-majors.index.history';
 
-    public function index(): View
+    public function index()
     {
-        return view('school_majors.history.index', [
-            'school_majors' => SchoolMajor::onlyTrashed()->get()
-        ]);
+        $school_majors = SchoolMajor::onlyTrashed()->get();
+
+        if (request()->ajax()) {
+            return datatables()->of($school_majors)
+                ->addIndexColumn()
+                ->addColumn('abbreviated_word', 'school_majors.history.datatable.abbreviated_word')
+                ->addColumn('action', 'school_majors.history.action')
+                ->rawColumns(['abbreviated_word', 'action'])
+                ->toJson();
+        }
+
+        return view('school_majors.history.index');
     }
 
     public function restore(int $id): RedirectResponse
