@@ -2,7 +2,18 @@
     $(function () {
         let loading_alert = $('.modal-body #loading-alert');
 
-        $('.school-class-detail').click(function () {
+        $('#datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('school-classes.index') }}",
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                { data: 'name', name: 'name' },
+                { data: 'action', name: 'action' },
+            ]
+        });
+
+        $('#datatable').on('click', '.school-class-detail', function() {
             loading_alert.show();
 
             let id = $(this).data('id');
@@ -28,7 +39,7 @@
             });
         });
 
-        $('.school-class-edit').click(function () {
+        $('#datatable').on('click', '.school-class-edit', function() {
             loading_alert.show();
 
             let id = $(this).data('id');

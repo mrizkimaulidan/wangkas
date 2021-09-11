@@ -12,9 +12,18 @@ class SchoolClassController extends Controller
 {
     const INDEX_ROUTE = 'school-classes.index';
 
-    public function index(): View
+    public function index()
     {
         $school_classes = SchoolClass::select('id', 'name')->orderBy('name')->get();
+
+        if (request()->ajax()) {
+            return datatables()->of($school_classes)
+                ->addIndexColumn()
+                ->addColumn('action', 'school_classes.datatable.action')
+                ->rawColumns(['action'])
+                ->toJson();
+        }
+
         $count_school_classes_trashed = SchoolClass::onlyTrashed()->count();
 
         return view('school_classes.index', compact('school_classes', 'count_school_classes_trashed'));
@@ -27,9 +36,9 @@ class SchoolClassController extends Controller
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil ditambahkan!');
     }
 
-    public function update(SchoolClassUpdateRequest $request, SchoolClass $class): RedirectResponse
+    public function update(SchoolClassUpdateRequest $request, SchoolClass $school_class): RedirectResponse
     {
-        $class->update($request->validated());
+        $school_class->update($request->validated());
 
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil diubah!');
     }
