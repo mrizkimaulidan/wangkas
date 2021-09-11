@@ -3,10 +3,8 @@ $(function () {
         language: {
             url: "https://cdn.datatables.net/plug-ins/1.10.22/i18n/id.json",
         },
-        lengthMenu: [
-            [5, 10, 15, 20, 25, 50, 75, 100, -1],
-            [5, 10, 15, 20, 25, 50, 75, 100, "All"],
-        ],
+        "pageLength": 5,
+        "lengthMenu": [[5, 20, 25, 50, -1], [5, 20, 25, 50, 'All']]
     });
 
     $(".clear-input").on("click", function () {
