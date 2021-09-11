@@ -34,13 +34,13 @@ class SchoolClassController extends Controller
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil diubah!');
     }
 
-    public function destroy(SchoolClass $class): RedirectResponse
+    public function destroy(SchoolClass $school_class): RedirectResponse
     {
-        if ($class->students()->exists()) {
+        if ($school_class->students()->exists()) {
             return redirect()->warning(self::INDEX_ROUTE, 'Data yang memiliki relasi tidak dapat dihapus!');
         }
 
-        $class->delete();
+        $school_class->delete();
 
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dihapus!');
     }
