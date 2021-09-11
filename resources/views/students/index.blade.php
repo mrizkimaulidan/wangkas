@@ -71,53 +71,53 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($students as $student)
+                {{-- @foreach ($students as $student)
                 <tr>
                     <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $student->student_identification_number }}</td>
-                    <td>{{ $student->name }}</td>
-                    <td>{{ $student->school_classes->name }}
-                    <td>
-                        <span class="badge w-100 rounded-pill bg-success" data-bs-toggle="tooltip" data-placement="top"
-                            title="{{ $student->school_majors->name }}">
-                            {{ $student->school_majors->abbreviated_word }}
-                        </span>
-                    </td>
-                    <td>
-                        <span class="badge w-100 rounded-pill bg-primary">
-                            {{ $student->school_year_start }}-{{ $student->school_year_end }}
-                        </span>
-                    </td>
-                    <td>
-                        <div class="btn-group" role="group">
-                            <div class="mx-1">
-                                <button type="button" data-id="{{ $student->id }}"
-                                    class="btn btn-primary btn-sm student-detail" data-bs-toggle="modal"
-                                    data-bs-target="#showStudentModal">
-                                    <i class="bi bi-search"></i>
-                                </button>
-                            </div>
-
-                            <div class="mx-1">
-                                <button type="button" data-id="{{ $student->id }}"
-                                    class="btn btn-success btn-sm student-edit" data-bs-toggle="modal"
-                                    data-bs-target="#editStudentModal">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </div>
-
-                            <div class="mx-1">
-                                <form action="{{ route('students.destroy', $student->id) }}" method="POST">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm delete-notification">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button>
-                                </form>
-                            </div>
+                <td>{{ $student->student_identification_number }}</td>
+                <td>{{ $student->name }}</td>
+                <td>{{ $student->school_classes->name }}
+                <td>
+                    <span class="badge w-100 rounded-pill bg-success" data-bs-toggle="tooltip" data-placement="top"
+                        title="{{ $student->school_majors->name }}">
+                        {{ $student->school_majors->abbreviated_word }}
+                    </span>
+                </td>
+                <td>
+                    <span class="badge w-100 rounded-pill bg-primary">
+                        {{ $student->school_year_start }}-{{ $student->school_year_end }}
+                    </span>
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <div class="mx-1">
+                            <button type="button" data-id="{{ $student->id }}"
+                                class="btn btn-primary btn-sm student-detail" data-bs-toggle="modal"
+                                data-bs-target="#showStudentModal">
+                                <i class="bi bi-search"></i>
+                            </button>
                         </div>
-                    </td>
+
+                        <div class="mx-1">
+                            <button type="button" data-id="{{ $student->id }}"
+                                class="btn btn-success btn-sm student-edit" data-bs-toggle="modal"
+                                data-bs-target="#editStudentModal">
+                                <i class="bi bi-pencil-square"></i>
+                            </button>
+                        </div>
+
+                        <div class="mx-1">
+                            <form action="{{ route('students.destroy', $student->id) }}" method="POST">
+                                @csrf @method('DELETE')
+                                <button type="submit" class="btn btn-danger btn-sm delete-notification">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </td>
                 </tr>
-                @endforeach
+                @endforeach --}}
             </tbody>
         </table>
     </div>

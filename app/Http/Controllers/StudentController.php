@@ -20,7 +20,7 @@ class StudentController extends Controller
     ) {
     }
 
-    public function index(): View
+    public function index()
     {
         $students = Student::with('school_classes:id,name', 'school_majors:id,name,abbreviated_word')
             ->select(
@@ -35,6 +35,19 @@ class StudentController extends Controller
             ->orderBy('name')
             ->get();
 
+        if (request()->ajax()) {
+            return datatables()->of($students)
+                ->addIndexColumn()
+                ->addColumn('school_class_id', function ($model) {
+                    return $model->school_classes->name;
+                })
+                ->addColumn('school_major', 'students.datatable.school_major')
+                ->addColumn('school_year', 'students.datatable.school_year')
+                ->addColumn('action', 'students.datatable.action')
+                ->rawColumns(['action', 'school_major', 'school_year'])
+                ->toJson();
+        }
+
         $school_classes = SchoolClass::select('id', 'name')->orderBy('name')->get();
         $school_majors = SchoolMajor::select('id', 'name', 'abbreviated_word')->orderBy('name')->get();
 
@@ -43,7 +56,6 @@ class StudentController extends Controller
         $count_female_student = $this->studentRepository->countStudentGender(2);
 
         return view('students.index', [
-            'students' => $students,
             'school_classes' => $school_classes,
             'school_majors' => $school_majors,
             'count_students_trashed' => $count_students_trashed,

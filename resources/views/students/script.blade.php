@@ -2,7 +2,22 @@
     $(function () {
         let loading_alert = $('.modal-body #loading-alert');
 
-        $('.student-detail').click(function () {
+        $('#datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('students.index') }}",
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                { data: 'student_identification_number', name: 'student_identification_number' },
+                { data: 'name', name: 'name' },
+                { data: 'school_class_id', name: 'school_classes.name' },
+                { data: 'school_major', name: 'school_majors.name' },
+                { data: 'school_year', name: 'school_year' },
+                { data: 'action', name: 'action' },
+            ]
+        });
+
+        $('#datatable').on('click', '.student-detail', function() {
             loading_alert.show();
 
             let url = "{{ route('api.student.show', ':id') }}";
@@ -31,7 +46,7 @@
             });
         });
 
-        $('.student-edit').click(function () {
+        $('#datatable').on('click', '.student-edit', function() {
             loading_alert.show();
 
             let id = $(this).data('id');
