@@ -2,7 +2,22 @@
     $(function () {
         let loading_alert = $('.modal-body #loading-alert');
 
-        $('.cash-transaction-detail').click(function () {
+        $('#datatable').DataTable({
+            processing: true,
+            serverSide: true,
+            ajax: "{{ route('cash-transactions.index') }}",
+            columns: [
+                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
+                { data: 'students.name', name: 'students.name' },
+                { data: 'bill', name: 'bill' },
+                { data: 'amount', name: 'amount' },
+                { data: 'date', name: 'date' },
+                { data: 'status', name: 'status' },
+                { data: 'action', name: 'action' },
+            ]
+        });
+
+        $('#datatable').on('click', '.cash-transaction-detail', function () {
             loading_alert.show();
 
             let id = $(this).data('id');
@@ -28,7 +43,7 @@
             });
         });
 
-        $('.cash-transaction-edit').click(function () {
+        $('#datatable').on('click', '.cash-transaction-edit', function () {
             loading_alert.show();
 
             let id = $(this).data('id');

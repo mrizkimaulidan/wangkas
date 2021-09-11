@@ -21,13 +21,32 @@ class CashTransactionController extends Controller
     ) {
     }
 
-    public function index(): View
+    public function index()
     {
+        $cash_transactions = CashTransaction::with('students:id,name')
+            ->select('id', 'student_id', 'bill', 'amount', 'date', 'is_paid')
+            ->latest()
+            ->get();
+
+        if (request()->ajax()) {
+            return datatables()->of($cash_transactions)
+                ->addIndexColumn()
+                ->addColumn('bill', function ($model) {
+                    return indonesian_currency($model->bill);
+                })
+                ->addColumn('amount', function ($model) {
+                    return indonesian_currency($model->amount);
+                })
+                ->addColumn('date', function ($model) {
+                    return date('d-m-Y', strtotime($model->date));
+                })
+                ->addColumn('status', 'cash_transactions.datatable.status')
+                ->addColumn('action', 'cash_transactions.action')
+                ->rawColumns(['status', 'action'])
+                ->toJson();
+        }
+
         return view('cash_transactions.index', [
-            'cash_transactions' => CashTransaction::with('students:id,name')
-                ->select('id', 'student_id', 'bill', 'amount', 'date', 'is_paid')
-                ->latest()
-                ->get(),
             'students' => Student::select('id', 'student_identification_number', 'name')->orderBy('name')->get(),
             'has_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(true),
             'has_not_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(false),
