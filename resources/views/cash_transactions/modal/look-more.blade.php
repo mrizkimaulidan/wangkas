@@ -11,14 +11,14 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <span class="badge w-100 rounded-pill bg-warning mb-3">Ada
-                                {{ $count_student_who_not_paid_this_week }} orang belum membayar pada minggu
+                                {{ $data['student_counts']['not_paid_this_week'] }} orang belum membayar pada minggu
                                 ini!</span>
                         </div>
                     </div>
 
 
                     <div class="row">
-                        @foreach($get_all_students_who_not_paid_this_week as $get_all_student_who_not_paid_this_week)
+                        @foreach($data['students']['not_paid_this_week'] as $get_all_student_who_not_paid_this_week)
                         <div class="col-6 col-lg-6 col-md-6">
                             <div class="recent-message d-flex px-4 py-3">
                                 <div class="name ms-4">

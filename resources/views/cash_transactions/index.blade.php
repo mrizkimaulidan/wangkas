@@ -15,7 +15,7 @@
                     <div class="col-md-8">
                         <h6 class="text-muted font-semibold">Lunas</h6>
                         <h6 class="font-extrabold mb-0">
-                            {{ $has_paid_count }}</h6>
+                            {{ $data['counts']['paid'] }}</h6>
                     </div>
                 </div>
             </div>
@@ -34,7 +34,7 @@
                     <div class="col-md-8">
                         <h6 class="text-muted font-semibold">Belum Lunas</h6>
                         <h6 class="font-extrabold mb-0">
-                            {{ $has_not_paid_count }}</h6>
+                            {{ $data['counts']['not_paid'] }}</h6>
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                     <div class="col-md-8">
                         <h6 class="text-muted font-semibold">Total Bulan Ini</h6>
                         <h6 class="font-extrabold mb-0">
-                            {{ $total_this_month }}</h6>
+                            {{ $data['totals']['this_month'] }}</h6>
                     </div>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                     <div class="col-md-8">
                         <h6 class="text-muted font-semibold">Total Tahun Ini</h6>
                         <h6 class="font-extrabold mb-0">
-                            {{ $total_this_year }}</h6>
+                            {{ $data['totals']['this_year'] }}</h6>
                     </div>
                 </div>
             </div>
@@ -89,7 +89,7 @@
                     <div class="col-md-8">
                         <h6 class="text-muted font-semibold">Sudah Membayar Minggu Ini</h6>
                         <h6 class="font-extrabold mb-0">
-                            {{ $count_student_who_paid_this_week }}</h6>
+                            {{ $data['student_counts']['paid_this_week'] }}</h6>
                     </div>
                 </div>
             </div>
@@ -108,7 +108,7 @@
                     <div class="col-md-8">
                         <h6 class="text-muted font-semibold">Belum Membayar Minggu Ini</h6>
                         <h6 class="font-extrabold mb-0">
-                            {{ $count_student_who_not_paid_this_week }}</h6>
+                            {{ $data['student_counts']['not_paid_this_week'] }}</h6>
                     </div>
                 </div>
             </div>
@@ -123,13 +123,14 @@
             <div class="px-4">
                 <button type="button" class='btn btn-block btn-xl btn-light-danger font-bold mt-3'
                     data-bs-toggle="modal" data-bs-target="#lookMoreModal">Ada
-                    <b>{{ $count_student_who_not_paid_this_week }}</b> orang belum membayar pada minggu
+                    <b>{{ $data['student_counts']['not_paid_this_week'] }}</b> orang belum membayar pada minggu
                     ini!</button>
             </div>
             <span class="badge w-100 rounded-pill bg-warning mb-3"></span>
             <div class="card-content pb-4">
                 <div class="row">
-                    @foreach($students_who_not_paid_this_week_by_limit as $student_who_not_paid_this_week_by_limit)
+                    @foreach($data['students']['not_paid_this_week_limit'] as
+                    $student_who_not_paid_this_week_by_limit)
                     <div class="col-6 col-lg-6 col-md-6">
                         <div class="recent-message d-flex px-4 py-3">
                             <div class="name ms-4">

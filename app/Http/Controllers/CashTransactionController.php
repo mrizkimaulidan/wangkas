@@ -46,14 +46,7 @@ class CashTransactionController extends Controller
 
         return view('cash_transactions.index', [
             'students' => Student::select('id', 'student_identification_number', 'name')->orderBy('name')->get(),
-            'has_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(true),
-            'has_not_paid_count' => $this->cashTransactionRepository->countPaidOrNotPaid(false),
-            'count_student_who_paid_this_week' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaidThisWeek(true),
-            'count_student_who_not_paid_this_week' => $this->cashTransactionRepository->countStudentWhoPaidOrNotPaidThisWeek(false),
-            'students_who_not_paid_this_week_by_limit' => $this->cashTransactionRepository->getStudentWhoNotPaidThisWeek(6),
-            'total_this_year' => indonesian_currency($this->cashTransactionRepository->sumAmountBy('year', year: date('Y'))),
-            'total_this_month' => indonesian_currency($this->cashTransactionRepository->sumAmountBy('month', month: date('m'))),
-            'get_all_students_who_not_paid_this_week' => $this->cashTransactionRepository->getStudentWhoNotPaidThisWeek(),
+            'data' => $this->cashTransactionRepository->results(),
         ]);
     }
 

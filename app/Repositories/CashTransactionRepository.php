@@ -123,4 +123,31 @@ class CashTransactionRepository extends Controller
             ? $students->whereDoesntHave('cash_transactions', $callback)->get()
             : $students->whereDoesntHave('cash_transactions', $callback)->limit($limit)->get();
     }
+
+    /**
+     * Mengembalikan seluruh data yang dibutuhkan
+     *
+     * @return array
+     */
+    public function results(): array
+    {
+        return [
+            'students' => [
+                'not_paid_this_week' => $this->getStudentWhoNotPaidThisWeek(),
+                'not_paid_this_week_limit' => $this->getStudentWhoNotPaidThisWeek(6),
+            ],
+            'counts' => [
+                'paid' => $this->countPaidOrNotPaid(true),
+                'not_paid' => $this->countPaidOrNotPaid(false),
+            ],
+            'student_counts' => [
+                'paid_this_week' => $this->countStudentWhoPaidOrNotPaidThisWeek(true),
+                'not_paid_this_week' => $this->countStudentWhoPaidOrNotPaidThisWeek(false),
+            ],
+            'totals' => [
+                'this_month' => indonesian_currency($this->sumAmountBy('month', month: date('m'))),
+                'this_year' => indonesian_currency($this->sumAmountBy('year', year: date('Y'))),
+            ]
+        ];
+    }
 }
