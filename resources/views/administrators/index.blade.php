@@ -26,35 +26,6 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($administrators as $administrator)
-                <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
-                <td>{{ $administrator->name }}</td>
-                <td>{{ $administrator->email }}</td>
-                <td>{{ date('d-m-Y H:i', strtotime($administrator->created_at)) }}</td>
-                <td>
-                    <div class="btn-group" role="group">
-                        <div class="mx-1">
-                            <button type="button" data-id="{{ $administrator->id }}"
-                                class="btn btn-primary btn-sm administrator-detail" data-bs-toggle="modal"
-                                data-bs-target="#showAdministratorModal">
-                                <i class="bi bi-search"></i>
-                            </button>
-                        </div>
-
-                        @if (auth()->id() === $administrator->id)
-                        <div class="mx-1">
-                            <button type="button" data-id="{{ $administrator->id }}"
-                                class="btn btn-success btn-sm administrator-edit" data-bs-toggle="modal"
-                                data-bs-target="#editAdministratorModal">
-                                <i class="bi bi-pencil-square"></i>
-                            </button>
-                        </div>
-                        @endif
-                    </div>
-                </td>
-                </tr>
-                @endforeach --}}
             </tbody>
         </table>
     </div>

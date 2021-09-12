@@ -178,53 +178,6 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($cash_transactions as $cash_transaction)
-                <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
-                <td>{{ $cash_transaction->students->name }}</td>
-                <td>{{ indonesian_currency($cash_transaction->bill) }}</td>
-                <td>{{ indonesian_currency($cash_transaction->amount) }}</td>
-                <td>{{ date('d-m-Y', strtotime($cash_transaction->date)) }}</td>
-                <td>
-                    <span
-                        class="badge w-100 rounded-pill py-2 {{ $cash_transaction->is_paid === 1 ? 'bg-success' : 'bg-danger' }}"
-                        data-bs-toggle="tooltip" data-bs-placement="top"
-                        title="{{ paid_status($cash_transaction->is_paid) }}">
-                        <i
-                            class="bi bi-{{ $cash_transaction->is_paid === 1 ? 'check-square' : 'exclamation-square' }}"></i>
-                    </span>
-                </td>
-                <td>
-                    <div class=" btn-group" role="group">
-                        <div class="mx-1">
-                            <button type="button" data-id="{{ $cash_transaction->id }}"
-                                class="btn btn-primary btn-sm cash-transaction-detail" data-bs-toggle="modal"
-                                data-bs-target="#showCashTransactionModal">
-                                <i class="bi bi-search"></i>
-                            </button>
-                        </div>
-
-                        <div class="mx-1">
-                            <button type="button" data-id="{{ $cash_transaction->id }}"
-                                class="btn btn-success btn-sm cash-transaction-edit" data-bs-toggle="modal"
-                                data-bs-target="#editCashTransactionModal">
-                                <i class="bi bi-pencil-square"></i>
-                            </button>
-                        </div>
-
-                        <div class="mx-1">
-                            <form action="{{ route('cash-transactions.destroy', $cash_transaction->id) }}"
-                                method="POST">
-                                @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm delete-notification">
-                                    <i class="bi bi-trash-fill"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </td>
-                </tr>
-                @endforeach --}}
             </tbody>
         </table>
     </div>
