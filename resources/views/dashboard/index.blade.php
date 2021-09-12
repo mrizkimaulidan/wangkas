@@ -144,7 +144,7 @@
 									</tr>
 									@empty
 									<tr>
-										<td colspan="4">
+										<td colspan="5">
 											<p class="fw-bold text-danger text-center text-uppercase">Data kosong!</p>
 										</td>
 									</tr>
