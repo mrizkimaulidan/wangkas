@@ -2,27 +2,23 @@
 
 namespace App\Repositories;
 
-use App\Http\Controllers\Controller;
-use App\Models\CashTransaction;
-use App\Models\Student;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
+use App\Models\Student;
+use App\Models\CashTransaction;
+use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
 
 class CashTransactionRepository extends Controller
 {
-    private $model, $students, $cash_transaction_is_paid, $pluck_student_id;
+    private $model, $students, $cash_transaction_is_paid, $start_of_week, $end_of_week;
 
     public function __construct(CashTransaction $model, Student $students)
     {
         $this->model = $model;
         $this->students = $students;
         $this->cash_transaction_is_paid = $model->where('is_paid', 1);
-        $this->pluck_student_id = DB::table('cash_transactions')
-            ->select('student_id', 'date')
-            ->where('date', '>',  Carbon::now()->startOfWeek())
-            ->where('date', '<', Carbon::now()->endOfWeek())
-            ->pluck('student_id');
+        $this->start_of_week = now()->startOfWeek()->format('Y-m-d');
+        $this->end_of_week = now()->endOfWeek()->format('Y-m-d');
     }
 
     /**
@@ -95,9 +91,15 @@ class CashTransactionRepository extends Controller
      */
     public function countStudentWhoPaidOrNotPaidThisWeek(bool $is_paid): Int
     {
+        $students = $this->students->select('id');
+
         return $is_paid
-            ? $this->students->whereIn('id', $this->pluck_student_id)->count()
-            : $this->students->whereNotIn('id', $this->pluck_student_id)->count();
+            ?  $students->whereHas('cash_transactions', function (Builder $query) {
+                return $query->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
+            })->count()
+            : $students->whereDoesntHave('cash_transactions', function (Builder $query) {
+                return $query->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
+            })->count();
     }
 
     /**
@@ -111,13 +113,14 @@ class CashTransactionRepository extends Controller
      */
     public function getStudentWhoNotPaidThisWeek(string $limit = null): Object
     {
+        $students = $this->students->select(['name', 'student_identification_number']);
+
         return is_null($limit)
-            ? $this->students->select('id', 'student_identification_number', 'name')->whereNotIn('id', $this->pluck_student_id)
-            ->orderBy('name')
-            ->get()
-            :
-            $this->students->select('id', 'student_identification_number', 'name')->whereNotIn('id', $this->pluck_student_id)
-            ->orderBy('name')
-            ->take($limit)->get();
+            ? $students->whereDoesntHave('cash_transactions', function (Builder $query) {
+                return $query->select('date')->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
+            })->get()
+            : $students->whereDoesntHave('cash_transactions', function (Builder $query) {
+                return $query->select('date')->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
+            })->limit($limit)->get();
     }
 }

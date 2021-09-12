@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
+use App\Models\CashTransaction;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
+use App\Repositories\CashTransactionRepository;
 use App\Http\Requests\CashTransactionStoreRequest;
 use App\Http\Requests\CashTransactionUpdateRequest;
-use App\Models\CashTransaction;
-use App\Models\Student;
-use App\Repositories\CashTransactionRepository;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\View\View;
 
 class CashTransactionController extends Controller
 {
