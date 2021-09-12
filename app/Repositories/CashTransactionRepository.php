@@ -93,13 +93,13 @@ class CashTransactionRepository extends Controller
     {
         $students = $this->students->select('id');
 
+        $callback = function (Builder $query) {
+            return $query->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
+        };
+
         return $is_paid
-            ?  $students->whereHas('cash_transactions', function (Builder $query) {
-                return $query->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
-            })->count()
-            : $students->whereDoesntHave('cash_transactions', function (Builder $query) {
-                return $query->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
-            })->count();
+            ?  $students->whereHas('cash_transactions', $callback)->count()
+            : $students->whereDoesntHave('cash_transactions', $callback)->count();
     }
 
     /**
@@ -115,12 +115,12 @@ class CashTransactionRepository extends Controller
     {
         $students = $this->students->select(['name', 'student_identification_number']);
 
+        $callback = function (Builder $query) {
+            return $query->select('date')->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
+        };
+
         return is_null($limit)
-            ? $students->whereDoesntHave('cash_transactions', function (Builder $query) {
-                return $query->select('date')->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
-            })->get()
-            : $students->whereDoesntHave('cash_transactions', function (Builder $query) {
-                return $query->select('date')->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
-            })->limit($limit)->get();
+            ? $students->whereDoesntHave('cash_transactions', $callback)->get()
+            : $students->whereDoesntHave('cash_transactions', $callback)->limit($limit)->get();
     }
 }
