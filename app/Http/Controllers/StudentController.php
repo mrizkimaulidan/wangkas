@@ -38,9 +38,10 @@ class StudentController extends Controller
         if (request()->ajax()) {
             return datatables()->of($students)
                 ->addIndexColumn()
-                ->addColumn('school_class_id', function ($model) {
-                    return $model->school_classes->name;
-                })
+                ->addColumn(
+                    'school_class_id',
+                    fn ($model) => $model->school_classes->name
+                )
                 ->addColumn('school_major', 'students.datatable.school_major')
                 ->addColumn('school_year', 'students.datatable.school_year')
                 ->addColumn('action', 'students.datatable.action')

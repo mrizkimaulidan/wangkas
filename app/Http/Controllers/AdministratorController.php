@@ -19,9 +19,7 @@ class AdministratorController extends Controller
         if (request()->ajax()) {
             return datatables()->of($administrators)
                 ->addIndexColumn()
-                ->addColumn('created_at', function ($model) {
-                    return date('d-m-Y H:i', strtotime($model->created_at));
-                })
+                ->addColumn('created_at', fn ($model) => date('d-m-Y H:i', strtotime($model->created_at)))
                 ->addColumn('action', 'administrators.action')
                 ->toJson();
         }
