@@ -1,4 +1,5 @@
-<div class="modal fade" id="addCashTransactionModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
+<div class="modal fade" id="addCashTransactionModal" data-bs-backdrop="static" data-bs-keyboard="false"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,10 +13,12 @@
                         <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Pelajar</label>
-                                <select class="form-select select2 @error('student_id') is-invalid @enderror" name="student_id">
+                                <select class="form-select select2 @error('student_id') is-invalid @enderror"
+                                    name="student_id">
                                     <option value="" selected>Pilih Pelajar</option>
                                     @foreach ($students as $student)
-                                    <option value="{{ $student->id }}" {{ "$student->id" === old('student_id') ? 'selected' : '' }}>
+                                    <option value="{{ $student->id }}"
+                                        {{ "$student->id" === old('student_id') ? 'selected' : '' }}>
                                         {{ $student->student_identification_number }} - {{ $student->name }}
                                     </option>
                                     @endforeach
@@ -34,7 +37,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="bill" class="form-label">Tagihan</label>
-                                <input type="number" class="form-control @error('bill') is-invalid @enderror" name="bill" value="{{ old('bill') }}" id="bill" placeholder="Masukkan tagihan..">
+                                <input type="number" class="form-control @error('bill') is-invalid @enderror"
+                                    name="bill" value="{{ old('bill') }}" id="bill" placeholder="Masukkan tagihan..">
 
                                 @error('bill')
                                 <div class="d-block invalid-feedback">
@@ -47,7 +51,9 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="amount" class="form-label">Total Bayar</label>
-                                <input type="number" class="form-control @error('amount') is-invalid @enderror" name="amount" id="amount" value="{{ old('amount') }}" placeholder="Masukkan total bayar..">
+                                <input type="number" class="form-control @error('amount') is-invalid @enderror"
+                                    name="amount" id="amount" value="{{ old('amount') }}"
+                                    placeholder="Masukkan total bayar..">
 
                                 @error('amount')
                                 <div class="d-block invalid-feedback">
@@ -62,10 +68,12 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="is_paid" class="form-label">Status Pembayaran</label>
-                                <select class="form-select @error('is_paid') is-invalid @enderror" name="is_paid" id="is_paid">
+                                <select class="form-select @error('is_paid') is-invalid @enderror" name="is_paid"
+                                    id="is_paid">
                                     <option value="" selected>Pilih Status Pembayaran</option>
                                     <option value="1" {{ old('is_paid') === "1" ? 'selected' : '' }}>Lunas</option>
-                                    <option value="0" {{ old('is_paid') === "0" ? 'selected' : '' }}>Belum Lunas</option>
+                                    <option value="0" {{ old('is_paid') === "0" ? 'selected' : '' }}>Belum Lunas
+                                    </option>
                                 </select>
 
                                 @error('is_paid')
@@ -79,7 +87,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="date" class="form-label">Tanggal</label>
-                                <input type="date" value="{{ date('Y-m-d') }}" class="form-control @error('date') is-invalid @enderror" name="date" id="date" placeholder="Pilih tanggal..">
+                                <input type="date" class="form-control @error('date') is-invalid @enderror" name="date"
+                                    id="date" placeholder="Pilih tanggal..">
 
                                 @error('date')
                                 <div class="d-block invalid-feedback">
@@ -93,7 +102,8 @@
                     <div class="row">
                         <div class="mb-3">
                             <label for="note" class="form-label">Catatan</label>
-                            <textarea class="form-control @error('note') is-invalid @enderror" name="note" id="note" rows="3" placeholder="Masukkan catatan (opsional)..">{{ old('note') }}</textarea>
+                            <textarea class="form-control @error('note') is-invalid @enderror" name="note" id="note"
+                                rows="3" placeholder="Masukkan catatan (opsional)..">{{ old('note') }}</textarea>
 
                             @error('note')
                             <div class="d-block invalid-feedback">
