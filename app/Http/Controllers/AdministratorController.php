@@ -24,7 +24,7 @@ class AdministratorController extends Controller
                 ->toJson();
         }
 
-        return view('administrators.index', compact('administrators'));
+        return view('administrators.index');
     }
 
     public function store(AdministratorStoreRequest $request): RedirectResponse

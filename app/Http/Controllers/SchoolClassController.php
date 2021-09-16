@@ -26,7 +26,7 @@ class SchoolClassController extends Controller
 
         $count_school_classes_trashed = SchoolClass::onlyTrashed()->count();
 
-        return view('school_classes.index', compact('school_classes', 'count_school_classes_trashed'));
+        return view('school_classes.index', compact('count_school_classes_trashed'));
     }
 
     public function store(SchoolClassStoreRequest $request): RedirectResponse
