@@ -16,7 +16,7 @@ class SchoolClassHistoryController extends Controller
         if (request()->ajax()) {
             return datatables()->of(SchoolClass::onlyTrashed()->get())
                 ->addIndexColumn()
-                ->addColumn('action', 'school_classes.history.action')
+                ->addColumn('action', 'school_classes.history.datatable.action')
                 ->rawColumns(['action'])
                 ->toJson();
         }

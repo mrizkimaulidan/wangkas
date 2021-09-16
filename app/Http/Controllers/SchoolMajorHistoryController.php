@@ -19,7 +19,7 @@ class SchoolMajorHistoryController extends Controller
             return datatables()->of($school_majors)
                 ->addIndexColumn()
                 ->addColumn('abbreviated_word', 'school_majors.history.datatable.abbreviated_word')
-                ->addColumn('action', 'school_majors.history.action')
+                ->addColumn('action', 'school_majors.history.datatable.action')
                 ->rawColumns(['abbreviated_word', 'action'])
                 ->toJson();
         }
