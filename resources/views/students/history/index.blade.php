@@ -23,48 +23,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($students as $student)
-                <tr>
-                    <th scope="row">{{ $loop->iteration }}</th>
-                    <td>{{ $student->student_identification_number }}</td>
-                    <td>{{ $student->name }}</td>
-                    <td>{{ $student->school_classes->name }}
-                    <td>
-                        <span class="badge w-100 rounded-pill bg-success" data-bs-toggle="tooltip" data-placement="top"
-                            title="{{ $student->school_majors->name }}">
-                            {{ $student->school_majors->abbreviated_word }}
-                        </span>
-                    </td>
-                    <td>
-                        <span class="badge w-100 rounded-pill bg-primary">
-                            {{ $student->school_year_start }}-{{ $student->school_year_end }}
-                        </span>
-                    </td>
-                    <td>
-                        <div class="btn-group" role="group">
-                            <div class="mx-1">
-                                <form action="{{ route('students.restore.history', $student->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit" class="btn btn-success btn-sm restore-button">
-                                        <i class="bi bi-arrow-bar-left"></i>
-                                    </button>
-                                </form>
-                            </div>
-
-                            <div class="mx-1">
-                                <form action="{{ route('students.destroy.history', $student->id) }}" method="POST">
-                                    @csrf @method('DELETE')
-                                    <button type="submit" class="btn btn-danger btn-sm delete-permanent-button">
-                                        <i class="bi bi-trash-fill"></i>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                @endforeach
             </tbody>
         </table>
     </div>
 </section>
 @endsection
+
+@push('js')
+@include('students.history.script')
+@endpush
