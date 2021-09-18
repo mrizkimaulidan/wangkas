@@ -1,6 +1,6 @@
 <script>
     $(function () {
-        let loading_alert = $('.modal-body #loading-alert');
+        let loadingAlert = $('.modal-body #loading-alert');
 
         $('#datatable').DataTable({
             processing: true,
@@ -16,56 +16,56 @@
         });
 
         $('#datatable').on('click', '.administrator-detail', function () {
-            loading_alert.show();
+            loadingAlert.show();
 
             let id = $(this).data('id');
             let url = "{{ route('api.administrator.show', ':id') }}";
             url = url.replace(':id', id);
 
-            $('#showAdministratorModal :input').val('Sedang mengambil data..');
+            $('#showAdministratorModal input').val('Sedang mengambil data..');
 
             $.ajax({
                 url: url,
                 success: function (res) {
-                    loading_alert.slideUp();
+                    loadingAlert.slideUp();
 
-                    $('#showAdministratorModal .modal-content .modal-body #name').val(res.data.name);
-                    $('#showAdministratorModal .modal-content .modal-body #email').val(res.data.email);
+                    $('#showAdministratorModal #name').val(res.data.name);
+                    $('#showAdministratorModal #email').val(res.data.email);
                 }
             });
         });
 
         $('#datatable').on('click', '.administrator-edit', function () {
-            loading_alert.show();
+            loadingAlert.show();
 
             let id = $(this).data('id');
-            let url = "{{ route('api.administrator.show', ':id') }}";
-            url = url.replace(':id', id);
+            let url = "{{ route('api.administrator.show', 'id') }}";
+            url = url.replace('id', id);
 
-            let form_action_url = "{{ route('administrators.update', ':id') }}";
-            form_action_url = form_action_url.replace(':id', id);
+            let formActionURL = "{{ route('administrators.update', 'id') }}";
+            formActionURL = formActionURL.replace('id', id);
 
-            let edit_administrator_modal_input = $('#editAdministratorModal .modal-content .modal-body input:not([name=_method], [name=_token], [id=password], [id=password_confirmation]')
-            edit_administrator_modal_input.val('Sedang mengambil data..');
+            let editAdministratorModalEveryInput = $('#editAdministratorModal input:not(input[name=_method], input[name=_token], input[name=password], input[name=password_confirmation])');
+            editAdministratorModalEveryInput.val('Sedang mengambil data..');
 
-            $('#editAdministratorModal .modal-content .modal-body input').prop('disabled', true);
+            $('#editAdministratorModal input').prop('disabled', true);
 
-            let edit_administrator_modal_submit_button = $('#editAdministratorModal .modal-footer button[type=submit]');
-            edit_administrator_modal_submit_button.prop('disabled', true);
+            let editAdministratorModalSubmitButton = $('#editAdministratorModal .modal-footer button[type=submit]');
+            editAdministratorModalSubmitButton.prop('disabled', true);
 
             $.ajax({
                 url: url,
                 success: function (res) {
-                    loading_alert.slideUp();
+                    loadingAlert.slideUp();
 
-                    $('#editAdministratorModal .modal-content .modal-body #administrator-edit-form').attr('action', form_action_url);
+                    $('#editAdministratorModal #administrator-edit-form').attr('action', formActionURL);
 
-                    $('#editAdministratorModal .modal-content .modal-body input').prop('disabled', false);
-                    edit_administrator_modal_input.prop('disabled', false);
-                    edit_administrator_modal_submit_button.prop('disabled', false);
+                    $('#editAdministratorModal').find('input[name=password], input[name=password_confirmation]').prop('disabled', false);
+                    editAdministratorModalEveryInput.prop('disabled', false);
+                    editAdministratorModalSubmitButton.prop('disabled', false);
 
-                    $('#editAdministratorModal .modal-content .modal-body #name').val(res.data.name);
-                    $('#editAdministratorModal .modal-content .modal-body #email').val(res.data.email);
+                    $('#editAdministratorModal #name').val(res.data.name);
+                    $('#editAdministratorModal #email').val(res.data.email);
                 }
             });
         });
