@@ -12,7 +12,8 @@ Route::name('api.')->prefix('v1')->group(function () {
     Route::get('/school-class/{id}', [SchoolClassController::class, 'show'])->name('school-class.show');
     Route::get('/school-class/{id}/edit', [SchoolClassController::class, 'edit'])->name('school-class.edit');
 
-    Route::get('/student/{id}', StudentController::class)->name('student.show');
+    Route::get('/student/{id}', [StudentController::class, 'show'])->name('student.show');
+    Route::get('/student/{id}/edit', [StudentController::class, 'edit'])->name('student.edit');
 
     Route::get('/school-major/{id}', [SchoolMajorController::class, 'show'])->name('school-major.show');
     Route::get('/school-major/{id}/edit', [SchoolMajorController::class, 'edit'])->name('school-major.edit');

@@ -1,6 +1,6 @@
 <script>
     $(function () {
-        let loading_alert = $('.modal-body #loading-alert');
+        let loadingAlert = $('.modal-body #loading-alert');
 
         $('#datatable').DataTable({
             processing: true,
@@ -18,75 +18,70 @@
         });
 
         $('#datatable').on('click', '.student-detail', function() {
-            loading_alert.show();
+            loadingAlert.show();
 
-            let url = "{{ route('api.student.show', ':id') }}";
+            let url = "{{ route('api.student.show', 'id') }}";
             let id = $(this).data('id');
 
-            url = url.replace(':id', id);
+            url = url.replace('id', id);
 
-            $('#showStudentModal .modal-body input').val("Sedang mengambil data..");
+            $('#showStudentModal input').val("Sedang mengambil data..");
 
             $.ajax({
                 url: url,
                 success: function (res) {
-                    loading_alert.slideUp();
+                    loadingAlert.slideUp();
 
-                    let gender = res.data.gender === 1 ? 'Laki-laki' : 'Perempuan';
-
-                    $('#showStudentModal .modal-body #name').val(res.data.name);
-                    $('#showStudentModal .modal-body #gender').val(gender);
-                    $('#showStudentModal .modal-body #school_class_id').val(res.data.school_classes.name);
-                    $('#showStudentModal .modal-body #school_major_id').val(res.data.school_majors.name);
-                    $('#showStudentModal .modal-body #email').val(res.data.email);
-                    $('#showStudentModal .modal-body #phone_number').val(res.data.phone_number);
-                    $('#showStudentModal .modal-body #school_year_start').val(res.data.school_year_start);
-                    $('#showStudentModal .modal-body #school_year_end').val(res.data.school_year_end);
+                    $('#showStudentModal #name').val(res.data.name);
+                    $('#showStudentModal #gender').val(res.data.gender);
+                    $('#showStudentModal #school_class_id').val(res.data.school_classes.name);
+                    $('#showStudentModal #school_major_id').val(res.data.school_majors.name);
+                    $('#showStudentModal #email').val(res.data.email);
+                    $('#showStudentModal #phone_number').val(res.data.phone_number);
+                    $('#showStudentModal #school_year_start').val(res.data.school_year_start);
+                    $('#showStudentModal #school_year_end').val(res.data.school_year_end);
                 }
             });
         });
 
         $('#datatable').on('click', '.student-edit', function() {
-            loading_alert.show();
+            loadingAlert.show();
 
             let id = $(this).data('id');
-            let url = "{{ route('api.student.show', ':id') }}";
+            let url = "{{ route('api.student.edit', 'id') }}";
 
-            url = url.replace(':id', id);
+            url = url.replace('id', id);
 
-            let form_edit_url = "{{ route('students.update', ':id') }}"
+            let formActionURL = "{{ route('students.update', 'id') }}"
 
-            form_edit_url = form_edit_url.replace(':id', id);
+            formActionURL = formActionURL.replace('id', id);
 
-            let edit_student_modal_input = $('#editStudentModal .modal-body #edit-student-form :input')
-                .not('input[name=_token], input[name=_method]');
+            let editStudentModalEveryInput = $('#editStudentModal :input:not(input[name=_token], input[name=_method])');
+            editStudentModalEveryInput.prop('disabled', true);
+            editStudentModalEveryInput.not('select').val('Sedang mengambil data..');
 
-            let edit_student_modal_submit_button = $('#editStudentModal .modal-footer button[type=submit]');
-
-            edit_student_modal_input.prop('disabled', true);
-            edit_student_modal_input.not('select').val('Sedang mengambil data..');
-
-            edit_student_modal_submit_button.prop('disabled', true);
+            let editStudentModalSubmitButton = $('#editStudentModal .modal-footer button[type=submit]');
+            editStudentModalSubmitButton.prop('disabled', true);
 
             $.ajax({
                 url: url,
                 success: function (res) {
-                    loading_alert.slideUp();
+                    loadingAlert.slideUp();
 
-                    edit_student_modal_input.prop('disabled', false);
-                    edit_student_modal_submit_button.prop('disabled', false)
+                    editStudentModalEveryInput.prop('disabled', false);
+                    editStudentModalSubmitButton.prop('disabled', false)
 
-                    $('#editStudentModal .modal-body #edit-student-form').attr('action', form_edit_url)
+                    $('#editStudentModal #edit-student-form').attr('action', formActionURL)
 
-                    $('#editStudentModal .modal-body #student_identification_number').val(res.data.student_identification_number);
-                    $('#editStudentModal .modal-body #name').val(res.data.name);
-                    $('#editStudentModal .modal-body #gender').val(res.data.gender);
-                    $('#editStudentModal .modal-body #school_class_id').val(res.data.school_class_id).select2();
-                    $('#editStudentModal .modal-body #school_major_id').val(res.data.school_major_id).select2();
-                    $('#editStudentModal .modal-body #email').val(res.data.email);
-                    $('#editStudentModal .modal-body #phone_number').val(res.data.phone_number);
-                    $('#editStudentModal .modal-body #school_year_start').val(res.data.school_year_start);
-                    $('#editStudentModal .modal-body #school_year_end').val(res.data.school_year_end);
+                    $('#editStudentModal #student_identification_number').val(res.data.student_identification_number);
+                    $('#editStudentModal #name').val(res.data.name);
+                    $('#editStudentModal #gender').val(res.data.gender);
+                    $('#editStudentModal #school_class_id').val(res.data.school_class_id).select2();
+                    $('#editStudentModal #school_major_id').val(res.data.school_major_id).select2();
+                    $('#editStudentModal #email').val(res.data.email);
+                    $('#editStudentModal #phone_number').val(res.data.phone_number);
+                    $('#editStudentModal #school_year_start').val(res.data.school_year_start);
+                    $('#editStudentModal #school_year_end').val(res.data.school_year_end);
                 }
             });
         });
