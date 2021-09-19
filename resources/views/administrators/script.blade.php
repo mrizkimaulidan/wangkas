@@ -39,7 +39,7 @@
             loadingAlert.show();
 
             let id = $(this).data('id');
-            let url = "{{ route('api.administrator.show', 'id') }}";
+            let url = "{{ route('api.administrator.edit', 'id') }}";
             url = url.replace('id', id);
 
             let formActionURL = "{{ route('administrators.update', 'id') }}";
