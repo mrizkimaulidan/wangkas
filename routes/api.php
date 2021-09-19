@@ -13,7 +13,10 @@ Route::name('api.')->prefix('v1')->group(function () {
     Route::get('/school-class/{id}/edit', [SchoolClassController::class, 'edit'])->name('school-class.edit');
 
     Route::get('/student/{id}', StudentController::class)->name('student.show');
-    Route::get('/school-major/{id}', SchoolMajorController::class)->name('school-major.show');
+
+    Route::get('/school-major/{id}', [SchoolMajorController::class, 'show'])->name('school-major.show');
+    Route::get('/school-major/{id}/edit', [SchoolMajorController::class, 'edit'])->name('school-major.edit');
+
     Route::get('/administrator/{id}', AdministratorController::class)->name('administrator.show');
 
     Route::get('/cash-transaction/{id}', [CashTransactionController::class, 'show'])->name('cash-transaction.show');
