@@ -35,7 +35,7 @@
                     $('#showCashTransactionModal #student_id').val(res.data.students.name);
                     $('#showCashTransactionModal #bill').val(res.data.bill);
                     $('#showCashTransactionModal #amount').val(res.data.amount);
-                    $('#showCashTransactionModal #is_paid').val(res.data.is_paid === 1 ? 'Lunas' : 'Belum Lunas');
+                    $('#showCashTransactionModal #is_paid').val(res.data.is_paid);
                     $('#showCashTransactionModal #date').val(res.data.date);
                     $('#showCashTransactionModal #note').val(res.data.note);
                 }
@@ -46,11 +46,11 @@
             loadingAlert.show();
 
             let id = $(this).data('id');
-            let url = "{{ route('api.cash-transaction.show', ':id') }}";
-            url = url.replace(':id', id);
+            let url = "{{ route('api.cash-transaction.edit', 'id') }}";
+            url = url.replace('id', id);
 
-            let formActionURL = "{{ route('cash-transactions.update', ':id') }}";
-            formActionURL = formActionURL.replace(':id', id);
+            let formActionURL = "{{ route('cash-transactions.update', 'id') }}";
+            formActionURL = formActionURL.replace('id', id);
 
             let editCashTransactionModalEveryInput = $('#editCashTransactionModal :input:not(button[type=button])');
             editCashTransactionModalEveryInput.not('input[name=_method], input[name=_token]')

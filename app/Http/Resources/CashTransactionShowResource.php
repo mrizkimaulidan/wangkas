@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CashTransactionResource extends JsonResource
+class CashTransactionShowResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -12,15 +12,15 @@ class CashTransactionResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id' => $this->id,
             'student_id' => $this->student_id,
             'user_id' => $this->user_id,
-            'bill' => $this->bill,
-            'amount' => $this->amount,
-            'is_paid' => $this->is_paid,
+            'bill' => indonesian_currency($this->bill),
+            'amount' => indonesian_currency($this->amount),
+            'is_paid' => paid_status($this->is_paid),
             'date' => date('d-m-Y', strtotime($this->date)),
             'note' => $this->note,
             'students' => [
