@@ -54,13 +54,15 @@ class CashTransactionStoreRequest extends FormRequest
         ];
     }
 
-    public function prepareForValidation()
+    /**
+     * Prepare the data for validation.
+     *
+     * @return void
+     */
+    protected function prepareForValidation()
     {
-        $input = $this->all();
-
-        // Mengubah (cast) tipe data menjadi object
-        $input['student_id'] = (object) $input['student_id'];
-
-        $this->replace($input);
+        $this->merge([
+            'student_id' => (object) $this->get('student_id')
+        ]);
     }
 }
