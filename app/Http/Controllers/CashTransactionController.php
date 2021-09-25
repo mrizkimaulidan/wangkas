@@ -9,6 +9,7 @@ use Illuminate\Http\RedirectResponse;
 use App\Repositories\CashTransactionRepository;
 use App\Http\Requests\CashTransactionStoreRequest;
 use App\Http\Requests\CashTransactionUpdateRequest;
+use Illuminate\Database\Eloquent\Builder;
 
 class CashTransactionController extends Controller
 {
@@ -26,6 +27,11 @@ class CashTransactionController extends Controller
             ->latest()
             ->get();
 
+        $students = Student::select('id', 'student_identification_number', 'name')
+            // ->whereDoesntHave('cash_transactions', fn (Builder $query) => $query->whereBetween('date', [now()->startOfWeek()->format('Y-m-d'), now()->endOfWeek()->format('Y-m-d')]))
+            ->orderBy('name')
+            ->get();
+
         if (request()->ajax()) {
             return datatables()->of($cash_transactions)
                 ->addIndexColumn()
@@ -39,14 +45,23 @@ class CashTransactionController extends Controller
         }
 
         return view('cash_transactions.index', [
-            'students' => Student::select('id', 'student_identification_number', 'name')->orderBy('name')->get(),
+            'students' => $students,
             'data' => $this->cashTransactionRepository->results(),
         ]);
     }
 
     public function store(CashTransactionStoreRequest $request): RedirectResponse
     {
-        Auth::user()->cash_transactions()->create($request->validated());
+        foreach ($request->student_id as $student_id) {
+            Auth::user()->cash_transactions()->create([
+                'student_id' => $student_id,
+                'bill' => $request->bill,
+                'amount' => $request->amount,
+                'is_paid' => $request->is_paid,
+                'date' => $request->date,
+                'note' => $request->note
+            ]);
+        }
 
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil ditambahkan!');
     }

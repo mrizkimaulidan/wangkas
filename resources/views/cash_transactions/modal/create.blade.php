@@ -14,8 +14,7 @@
                             <div class="mb-3">
                                 <label for="name" class="form-label">Nama Pelajar</label>
                                 <select class="form-select select2 @error('student_id') is-invalid @enderror"
-                                    name="student_id">
-                                    <option value="" selected>Pilih Pelajar</option>
+                                    name="student_id" multiple>
                                     @foreach ($students as $student)
                                     <option value="{{ $student->id }}"
                                         {{ "$student->id" === old('student_id') ? 'selected' : '' }}>

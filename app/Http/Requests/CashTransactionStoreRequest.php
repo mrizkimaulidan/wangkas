@@ -53,4 +53,14 @@ class CashTransactionStoreRequest extends FormRequest
             'note.max' => 'Kolom catatan maksimal 191 karakter!'
         ];
     }
+
+    public function prepareForValidation()
+    {
+        $input = $this->all();
+
+        // Mengubah (cast) tipe data menjadi object
+        $input['student_id'] = (object) $input['student_id'];
+
+        $this->replace($input);
+    }
 }
