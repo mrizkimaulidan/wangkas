@@ -59,7 +59,7 @@ class CashTransactionStoreRequest extends FormRequest
      *
      * @return void
      */
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         $this->merge([
             'student_id' => (object) $this->get('student_id')
