@@ -42,11 +42,19 @@
             </a>
         </li>
 
-        <li class="sidebar-item {{ request()->routeIs('cash-transactions.*') ? 'active' : '' }}">
-            <a href="{{ route('cash-transactions.index') }}" class='sidebar-link'>
+        <li class="sidebar-item has-sub {{ request()->routeIs('cash-transactions.*') ? 'active' : '' }}">
+            <a href="#" class='sidebar-link'>
                 <i class="bi bi-cash-stack"></i>
                 <span>Kas</span>
             </a>
+            <ul class="submenu {{ request()->routeIs('cash-transactions.*') ? 'active' : '' }}">
+                <li class="submenu-item {{ request()->routeIs('cash-transactions.index') ? 'active' : '' }}">
+                    <a href="{{ route('cash-transactions.index') }}">Kas Hari Ini</a>
+                </li>
+                <li class="submenu-item {{ request()->routeIs('cash-transactions.filter') ? 'active' : '' }}">
+                    <a href="{{ route('cash-transactions.filter') }}">Filter Kas</a>
+                </li>
+            </ul>
         </li>
 
         <li class="sidebar-item {{ request()->is('report*') ? 'active' : '' }}">

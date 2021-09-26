@@ -7,6 +7,7 @@ use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\SchoolMajorController;
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\CashTransactionController;
+use App\Http\Controllers\CashTransactionFilterController;
 use App\Http\Controllers\CashTransactionReportController;
 use App\Http\Controllers\SchoolClassHistoryController;
 use App\Http\Controllers\SchoolMajorHistoryController;
@@ -21,13 +22,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
-    // Resource routes
     Route::resource('students', StudentController::class)->except('create', 'show', 'edit');
     Route::resource('school-classes', SchoolClassController::class)->except('create', 'show', 'edit');
     Route::resource('school-majors', SchoolMajorController::class)->except('create', 'show', 'edit');
     Route::resource('administrators', AdministratorController::class)->except('create', 'show', 'edit', 'destroy');
+
+    Route::get('/cash-transactions/filter', CashTransactionFilterController::class)->name('cash-transactions.filter');
     Route::resource('cash-transactions', CashTransactionController::class)->except('create', 'show', 'edit');
-    // End of resource routes
 
     //  Report routes
     Route::get('/report', CashTransactionReportController::class)->name('report.index');

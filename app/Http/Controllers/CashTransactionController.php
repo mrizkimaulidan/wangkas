@@ -24,11 +24,11 @@ class CashTransactionController extends Controller
     {
         $cash_transactions = CashTransaction::with('students:id,name')
             ->select('id', 'student_id', 'bill', 'amount', 'date', 'is_paid')
+            ->whereBetween('date', [now()->startOfWeek()->format('Y-m-d'), now()->endOfWeek()->format('Y-m-d')])
             ->latest()
             ->get();
 
         $students = Student::select('id', 'student_identification_number', 'name')
-            // ->whereDoesntHave('cash_transactions', fn (Builder $query) => $query->whereBetween('date', [now()->startOfWeek()->format('Y-m-d'), now()->endOfWeek()->format('Y-m-d')]))
             ->orderBy('name')
             ->get();
 
