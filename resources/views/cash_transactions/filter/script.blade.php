@@ -4,27 +4,6 @@
             let start_date = $('#start_date').val();
             let end_date = $('#end_date').val();
 
-            if (start_date == "") {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Informasi',
-                    text: 'Tanggal awal belum dipilih!',
-                    showConfirmButton: true,
-                })
-
-                return;
-
-            } else if (end_date == "") {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Informasi',
-                    text: 'Tanggal akhir belum dipilih!',
-                    showConfirmButton: true,
-                })
-
-                return;
-            }
-
             $.ajax({
                 url: "{{ route('cash-transactions.filter') }}",
                 data: {
