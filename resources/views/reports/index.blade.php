@@ -89,7 +89,7 @@
     <div class="row">
         <div class="card px-3 py-3">
             <form action="{{ route('report.filter') }}" method="GET">
-                <label for="start_date" class="pb-3">Filter Data dengan Rentang Tanggal</label>
+                <label for="start_date" class="pb-3 fw-bold">Filter Data dengan Rentang Tanggal</label>
                 <div class="input-group">
                     <input type="date" name="start_date" class="form-control" placeholder="Pilih tanggal awal..">
                     <input type="date" name="end_date" class="form-control" placeholder="Pilih tanggal akhir..">
