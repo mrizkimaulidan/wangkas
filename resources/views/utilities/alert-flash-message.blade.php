@@ -14,6 +14,7 @@
 
 @if($errors->any())
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="bi bi-exclamation-octagon"></i>
     <strong>Gagal!</strong>
     <ul>
         <div class="row">
