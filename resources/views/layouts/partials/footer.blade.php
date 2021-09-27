@@ -29,90 +29,90 @@
 
 <script>
     $(function () {
-    $.extend(true, $.fn.dataTable.defaults, {
-        language: {
-            url: "{{ asset('vendors/datatable/plugins/id.json') }}",
-        },
-        "pageLength": 5,
-        "lengthMenu": [[5, 20, 25, 50, -1], [5, 20, 25, 50, 'All']]
-    });
+        $.extend(true, $.fn.dataTable.defaults, {
+            language: {
+                url: "{{ asset('vendors/datatable/plugins/id.json') }}",
+            },
+            "pageLength": 5,
+            "lengthMenu": [[5, 20, 25, 50, -1], [5, 20, 25, 50, 'All']]
+        });
 
-    $(".clear-input").on("click", function () {
-        $("input:not([name=_method], [name=_token])").val("");
-        $("select").prop("selectedIndex", 0).change();
-    });
+        $(".clear-input").on("click", function () {
+            $("input:not([name=_method], [name=_token])").val("");
+            $("select").prop("selectedIndex", 0).change();
+        });
 
-    $("#datatable").on('click', '.delete-notification', function (e) {
-        e.preventDefault();
-        Swal.fire({
-            title: "Hapus?",
-            text: "Data tidak akan bisa dikembalikan!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            cancelButtonText: "Tidak",
-            confirmButtonText: "Ya!",
-            reverseButtons: true,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $(this).parent().submit();
-            }
+        $("#datatable").on('click', '.delete-notification', function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: "Hapus?",
+                text: "Data tidak akan bisa dikembalikan!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "Tidak",
+                confirmButtonText: "Ya!",
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent().submit();
+                }
+            });
+        });
+
+        $("#datatable").on('click', '.restore-button', function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: "Kembalikan?",
+                text: "Data yang dipilih akan dikembalikan",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "Tidak",
+                confirmButtonText: "Ya!",
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent().submit();
+                }
+            });
+        });
+
+        $("#datatable").on('click', '.delete-permanent-button', function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: "Hapus permanen?",
+                text: "Data yang dipilih tidak akan bisa dikembalikan lagi!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                cancelButtonText: "Tidak",
+                confirmButtonText: "Ya!",
+                reverseButtons: true,
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(this).parent().submit();
+                }
+            });
+        });
+
+        var tooltipTriggerList = [].slice.call(
+            document.querySelectorAll('[data-bs-toggle="tooltip"]')
+        );
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
+
+        $(".select2").select2();
+
+        $("input[type=date]").flatpickr({
+            dateFormat: "d-m-Y",
+            locale: "id",
         });
     });
-
-    $("#datatable").on('click', '.restore-button', function (e) {
-        e.preventDefault();
-        Swal.fire({
-            title: "Kembalikan?",
-            text: "Data yang dipilih akan dikembalikan",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            cancelButtonText: "Tidak",
-            confirmButtonText: "Ya!",
-            reverseButtons: true,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $(this).parent().submit();
-            }
-        });
-    });
-
-    $("#datatable").on('click', '.delete-permanent-button', function (e) {
-        e.preventDefault();
-        Swal.fire({
-            title: "Hapus permanen?",
-            text: "Data yang dipilih tidak akan bisa dikembalikan lagi!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            cancelButtonText: "Tidak",
-            confirmButtonText: "Ya!",
-            reverseButtons: true,
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $(this).parent().submit();
-            }
-        });
-    });
-
-    var tooltipTriggerList = [].slice.call(
-        document.querySelectorAll('[data-bs-toggle="tooltip"]')
-    );
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
-    });
-
-    $(".select2").select2();
-
-    $("input[type=date]").flatpickr({
-        dateFormat: "d-m-Y",
-        locale: "id",
-    });
-});
 
 </script>
 
