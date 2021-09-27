@@ -12,7 +12,7 @@
 </div>
 @endif
 
-@if(count($errors) !== 0)
+@if($errors->any())
 <div class="alert alert-danger alert-dismissible fade show" role="alert">
     <strong>Gagal!</strong>
     <ul>
