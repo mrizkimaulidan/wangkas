@@ -1,11 +1,11 @@
-@if(request()->session()->get('success'))
+@if(session('success'))
 <div class="alert alert-success alert-dismissable fade show">
     <i class="bi bi-check-circle"></i> {{ session('success') }}
     <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 @endif
 
-@if(request()->session()->get('warning'))
+@if(session('warning'))
 <div class="alert alert-warning alert-dismissable fade show">
     <i class="bi bi-exclamation-triangle"></i> {{ session('warning') }}
     <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
