@@ -13,24 +13,30 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CashTransactionController extends Controller
 {
+    private $cashTransactionRepository, $start_of_week, $end_of_week;
     const INDEX_ROUTE = 'cash-transactions.index';
 
-    public function __construct(
-        private CashTransactionRepository $cashTransactionRepository
-    ) {
+    public function __construct(CashTransactionRepository $cashTransactionRepository)
+    {
+        $this->cashTransactionRepository = $cashTransactionRepository;
+        $this->start_of_week = now()->startOfWeek()->format('Y-m-d');
+        $this->end_of_week = now()->endOfWeek()->format('Y-m-d');
     }
 
     public function index()
     {
         $cash_transactions = CashTransaction::with('students:id,name')
             ->select('id', 'student_id', 'bill', 'amount', 'date')
-            ->whereBetween('date', [now()->startOfWeek()->format('Y-m-d'), now()->endOfWeek()->format('Y-m-d')])
+            ->whereBetween('date', [$this->start_of_week, $this->end_of_week])
             ->latest()
             ->get();
 
         $students = Student::select('id', 'student_identification_number', 'name')
-            ->orderBy('name')
-            ->get();
+            ->whereDoesntHave(
+                'cash_transactions',
+                fn (Builder $query) => $query->select(['date'])
+                    ->whereBetween('date', [$this->start_of_week, $this->end_of_week])
+            )->get();
 
         if (request()->ajax()) {
             return datatables()->of($cash_transactions)
