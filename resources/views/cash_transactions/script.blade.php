@@ -67,7 +67,8 @@
                     editCashTransactionModalEveryInput.prop('disabled', false);
                     editCashTransactionModalButtonSubmit.prop('disabled', false);
 
-                    $('#editCashTransactionModal #student_id').val(res.data.student_id).select2();
+                    $('#editCashTransactionModal #student_name').val(res.data.students.name);
+                    $('#editCashTransactionModal #student_id').val(res.data.student_id);
                     $('#editCashTransactionModal #bill').val(res.data.bill);
                     $('#editCashTransactionModal #amount').val(res.data.amount);
                     $('#editCashTransactionModal #is_paid').val(res.data.is_paid);

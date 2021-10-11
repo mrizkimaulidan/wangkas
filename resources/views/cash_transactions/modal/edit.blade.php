@@ -13,14 +13,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="mb-3">
-                                <label for="name" class="form-label">Nama Pelajar</label>
-                                <select class="form-select select2" name="student_id" id="student_id">
-                                    <option selected>Pilih Pelajar</option>
-                                    @foreach ($students as $student)
-                                    <option value="{{ $student->id }}">
-                                        {{ $student->student_identification_number }} - {{ $student->name }}</option>
-                                    @endforeach
-                                </select>
+                                <label for="student_id" class="form-label">Nama Pelajar</label>
+                                <input type="hidden" name="student_id" id="student_id">
+                                <input type="text" class="form-control" name="student_name"
+                                    id="student_name" readonly>
                             </div>
                         </div>
                     </div>
