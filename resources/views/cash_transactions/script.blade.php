@@ -53,6 +53,7 @@
 
             let editCashTransactionModalEveryInput = $('#editCashTransactionModal :input:not(button[type=button])');
             editCashTransactionModalEveryInput.not('input[name=_method], input[name=_token]')
+            editCashTransactionModalEveryInput.val('Sedang mengambil data..');
             editCashTransactionModalEveryInput.prop('disabled', true);
 
             let editCashTransactionModalButtonSubmit = $('#editCashTransactionModal .modal-content .modal-footer button[type=submit]')
