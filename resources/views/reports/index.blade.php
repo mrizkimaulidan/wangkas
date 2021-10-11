@@ -93,7 +93,7 @@
                 <div class="input-group">
                     <input type="date" name="start_date" class="form-control" placeholder="Pilih tanggal awal..">
                     <input type="date" name="end_date" class="form-control" placeholder="Pilih tanggal akhir..">
-                    <button type="submit" class="btn btn-primary mx-3">Filter</button>
+                    <button type="submit" class="btn btn-primary">Filter</button>
                 </div>
             </form>
         </div>
