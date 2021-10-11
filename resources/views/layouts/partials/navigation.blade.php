@@ -49,7 +49,7 @@
             </a>
             <ul class="submenu {{ request()->routeIs('cash-transactions.*') ? 'active' : '' }}">
                 <li class="submenu-item {{ request()->routeIs('cash-transactions.index') ? 'active' : '' }}">
-                    <a href="{{ route('cash-transactions.index') }}">Kas Hari Ini</a>
+                    <a href="{{ route('cash-transactions.index') }}">Kas Minggu Ini</a>
                 </li>
                 <li class="submenu-item {{ request()->routeIs('cash-transactions.filter') ? 'active' : '' }}">
                     <a href="{{ route('cash-transactions.filter') }}">Filter Kas</a>
