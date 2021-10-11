@@ -16,9 +16,13 @@ class CashTransactionController extends Controller
         $spreadsheet = new Spreadsheet();
         $sheet = $this->setHeaderExcel($spreadsheet);
 
-        $students = CashTransaction::orderBy('date')->get();
+        $cash_transactions = CashTransaction::with('students:id,name')
+            ->select('id', 'student_id', 'bill', 'amount', 'date')
+            ->whereBetween('date', [now()->startOfWeek()->format('Y-m-d'), now()->endOfWeek()->format('Y-m-d')])
+            ->latest()
+            ->get();
 
-        $this->setExcelContent($students, $sheet);
+        $this->setExcelContent($cash_transactions, $sheet);
 
         ExportRepository::outputTheExcel($spreadsheet, self::FILE_NAME);
     }
@@ -37,9 +41,8 @@ class CashTransactionController extends Controller
         $sheet->setCellValue('C1', 'Tagihan');
         $sheet->setCellValue('D1', 'Total Bayar');
         $sheet->setCellValue('E1', 'Tanggal');
-        $sheet->setCellValue('F1', 'Status');
 
-        foreach (range('A', 'F') as $paragraph) {
+        foreach (range('A', 'E') as $paragraph) {
             $sheet->getColumnDimension($paragraph)->setAutoSize(true);
         }
 
@@ -49,23 +52,29 @@ class CashTransactionController extends Controller
     /**
      * Mengisi konten untuk excel.
      *
-     * @param object $students adalah list siswa yang didapat dari eloquent/query builder.
+     * @param object $cash_transactions adalah yang didapat dari eloquent/query builder.
      * @param object $sheet adalah instansiasi dari class Spreadsheet phpoffice.
      * @return object
      */
-    public function setExcelContent(object $students, object $sheet): object
+    public function setExcelContent(object $cash_transactions, object $sheet): object
     {
         $cell = 2;
-        foreach ($students as $key => $row) {
+        foreach ($cash_transactions as $key => $row) {
             $sheet->setCellValue('A' . $cell, $key + 1);
             $sheet->setCellValue('B' . $cell, $row->students->name);
-            $sheet->setCellValue('C' . $cell, indonesian_currency($row->bill));
-            $sheet->setCellValue('D' . $cell, indonesian_currency($row->amount));
+            $sheet->setCellValue('C' . $cell, $row->bill);
+            $sheet->setCellValue('D' . $cell, $row->amount);
             $sheet->setCellValue('E' . $cell, date('d-m-Y', strtotime($row->date)));
-            $sheet->setCellValue('F' . $cell, paid_status($row->is_paid));
+            $sheet->getStyle('A1:E' . $cell)->applyFromArray(ExportRepository::setStyle());
             $cell++;
-            $sheet->getStyle('A1:F' . ($cell - 1))->applyFromArray(ExportRepository::setStyle());
         }
+
+        $sheet->setCellValue('C' . $cell, 'Jumlah');
+        $sheet->setCellValue('D' . $cell, $cash_transactions->sum('amount'));
+        $sheet->getStyle('C' . $cell)->applyFromArray(ExportRepository::setStyle());
+        $sheet->getStyle('D' . $cell)->applyFromArray(ExportRepository::setStyle());
+        $sheet->getColumnDimension('C')->setAutoSize(true);
+        $sheet->getColumnDimension('D')->setAutoSize(true);
 
         return $sheet;
     }

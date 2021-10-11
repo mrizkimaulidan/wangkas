@@ -20,7 +20,6 @@ class CashTransactionEditResource extends JsonResource
             'user_id' => $this->user_id,
             'bill' => $this->bill,
             'amount' => $this->amount,
-            'is_paid' => $this->is_paid,
             'date' => date('d-m-Y', strtotime($this->date)),
             'note' => $this->note,
             'students' => [

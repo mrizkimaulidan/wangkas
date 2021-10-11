@@ -23,7 +23,7 @@ class CashTransactionController extends Controller
     public function index()
     {
         $cash_transactions = CashTransaction::with('students:id,name')
-            ->select('id', 'student_id', 'bill', 'amount', 'date', 'is_paid')
+            ->select('id', 'student_id', 'bill', 'amount', 'date')
             ->whereBetween('date', [now()->startOfWeek()->format('Y-m-d'), now()->endOfWeek()->format('Y-m-d')])
             ->latest()
             ->get();
@@ -38,9 +38,8 @@ class CashTransactionController extends Controller
                 ->addColumn('bill', fn ($model) => indonesian_currency($model->bill))
                 ->addColumn('amount', fn ($model) => indonesian_currency($model->amount))
                 ->addColumn('date', fn ($model) => date('d-m-Y', strtotime($model->date)))
-                ->addColumn('status', 'cash_transactions.datatable.status')
                 ->addColumn('action', 'cash_transactions.datatable.action')
-                ->rawColumns(['status', 'action'])
+                ->rawColumns(['action'])
                 ->toJson();
         }
 
@@ -57,7 +56,6 @@ class CashTransactionController extends Controller
                 'student_id' => $student_id,
                 'bill' => $request->bill,
                 'amount' => $request->amount,
-                'is_paid' => $request->is_paid,
                 'date' => $request->date,
                 'note' => $request->note
             ]);

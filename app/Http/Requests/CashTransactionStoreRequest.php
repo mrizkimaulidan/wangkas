@@ -27,7 +27,6 @@ class CashTransactionStoreRequest extends FormRequest
             'student_id' => ['required'],
             'bill' => ['required', 'integer', 'digits_between:3,191'],
             'amount' => ['required', 'integer', 'digits_between:3,191'],
-            'is_paid' => ['required'],
             'date' => ['required', 'date'],
             'note' => ['max:191']
         ];
@@ -46,7 +45,6 @@ class CashTransactionStoreRequest extends FormRequest
             'amount.integer' => 'Kolom total bayar harus angka!',
             'amount.digits_betweeen' => 'Kolom total bayar harus diantara 3 sampai dengan 191 karakter!',
 
-            'is_paid.required' => 'Kolom status pembayaran wajib diisi!',
             'date.required' => 'Kolom tanggal wajib diisi!',
             'date.date' => 'Kolom tanggal harus tanggal yang benar!',
 

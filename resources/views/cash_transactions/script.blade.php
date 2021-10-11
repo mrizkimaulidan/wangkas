@@ -12,7 +12,6 @@
                 { data: 'bill', name: 'bill' },
                 { data: 'amount', name: 'amount' },
                 { data: 'date', name: 'date' },
-                { data: 'status', name: 'status' },
                 { data: 'action', name: 'action' },
             ]
         });

@@ -19,7 +19,6 @@ class CreateCashTransactionsTable extends Migration
             $table->foreignId('student_id')->constrained();
             $table->bigInteger('bill');
             $table->bigInteger('amount');
-            $table->boolean('is_paid');
             $table->date('date');
             $table->text('note')->nullable();
             $table->timestamps();

@@ -30,8 +30,7 @@ class CashTransactionReportRepository extends Controller
     public function sum(string $column, string $type): string
     {
         $model = $this->model
-            ->select('date', 'is_paid', 'amount')
-            ->where('is_paid', 1)
+            ->select('date', 'amount')
             ->whereYear('date', date('Y'));
 
         if ($type === 'this_day')
@@ -61,7 +60,7 @@ class CashTransactionReportRepository extends Controller
             $end_date = date('Y-m-d', strtotime($_GET['end_date']));
 
             $filtered_data = $this->model
-                ->select('user_id', 'student_id', 'amount', 'is_paid', 'date')
+                ->select('user_id', 'student_id', 'amount', 'date')
                 ->with('students:id,name', 'users:id,name')
                 ->whereBetween('date', [$start_date, $end_date])
                 ->orderBy('date')
@@ -70,8 +69,8 @@ class CashTransactionReportRepository extends Controller
             $result = [
                 'filtered_data' => $filtered_data ?? null,
                 'total_amount' => [
-                    'is_paid' => $filtered_data->where('is_paid', 1)->sum('amount') ?? null,
-                    'is_not_paid' => $filtered_data->where('is_paid', 0)->sum('amount') ?? null
+                    'is_paid' => $filtered_data->sum('amount') ?? null,
+                    'is_not_paid' => $filtered_data->sum('amount') ?? null
                 ]
             ];
         }

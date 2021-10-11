@@ -25,7 +25,6 @@ class DashboardChartRepository extends Controller
             // Looping dari angka 1-12 karena setiap tahun ada 12 bulan dan menghitung kolom amount berdasarkan bulannya
             $cash_transactions = $this->model
                 ->select('is_paid', 'amount', 'date')
-                ->where('is_paid', 1)
                 ->whereMonth('date', "{$i}")
                 ->whereYear('date', date('Y'))
                 ->sum('amount');

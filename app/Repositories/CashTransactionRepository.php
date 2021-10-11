@@ -16,7 +16,6 @@ class CashTransactionRepository extends Controller
     {
         $this->model = $model;
         $this->students = $students;
-        $this->cash_transaction_is_paid = $model->where('is_paid', 1);
         $this->start_of_week = now()->startOfWeek()->format('Y-m-d');
         $this->end_of_week = now()->endOfWeek()->format('Y-m-d');
     }
@@ -65,7 +64,7 @@ class CashTransactionRepository extends Controller
      */
     public function sumAmountBy(string $status, string $year = null, string $month = null): Int
     {
-        $model = $this->cash_transaction_is_paid->select('date', 'is_paid', 'amount');
+        $model = $this->model->select('date', 'amount');
 
         // Jika $status === `year` dan variabel $year ada isinya, maka hitung kolom amount berdasarkan tahun di parameter.
         if (strtolower($status) === 'year' && isset($year)) {
@@ -133,8 +132,8 @@ class CashTransactionRepository extends Controller
                 'not_paid_this_week_limit' => $this->getStudentWhoNotPaidThisWeek(6),
             ],
             'counts' => [
-                'paid' => $this->countPaidOrNotPaid(true),
-                'not_paid' => $this->countPaidOrNotPaid(false),
+                // 'paid' => $this->countPaidOrNotPaid(true),
+                // 'not_paid' => $this->countPaidOrNotPaid(false),
             ],
             'student_counts' => [
                 'paid_this_week' => $this->countStudentWhoPaidOrNotPaidThisWeek(true),

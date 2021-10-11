@@ -3,44 +3,7 @@
 @section('content')
 <section class="row">
     {{-- Start Statistics --}}
-    <div class="col-6 col-lg-3 col-md-6">
-        <div class="card">
-            <div class="card-body px-3 py-4-4">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="stats-icon green">
-                            <i class="iconly-boldPaper-Plus"></i>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <h6 class="text-muted font-semibold">Lunas</h6>
-                        <h6 class="font-extrabold mb-0">
-                            {{ $data['counts']['paid'] }}</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-6 col-lg-3 col-md-6">
-        <div class="card">
-            <div class="card-body px-3 py-4-4">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="stats-icon red">
-                            <i class="iconly-boldPaper-Fail"></i>
-                        </div>
-                    </div>
-                    <div class="col-md-8">
-                        <h6 class="text-muted font-semibold">Belum Lunas</h6>
-                        <h6 class="font-extrabold mb-0">
-                            {{ $data['counts']['not_paid'] }}</h6>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-6 col-lg-3 col-md-6">
+    <div class="col-6 col-lg-6 col-md-6">
         <div class="card">
             <div class="card-body px-3 py-4-4">
                 <div class="row">
@@ -58,7 +21,7 @@
             </div>
         </div>
     </div>
-    <div class="col-6 col-lg-3 col-md-6">
+    <div class="col-6 col-lg-6 col-md-6">
         <div class="card">
             <div class="card-body px-3 py-4-4">
                 <div class="row">
@@ -173,7 +136,6 @@
                     <th scope="col">Tagihan</th>
                     <th scope="col">Total Bayar</th>
                     <th scope="col">Tanggal</th>
-                    <th scope="col">Status</th>
                     <th scope="col">Aksi</th>
                 </tr>
             </thead>

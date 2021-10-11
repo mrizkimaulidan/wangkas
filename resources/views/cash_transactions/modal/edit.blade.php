@@ -44,18 +44,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="is_paid" class="form-label">Status Pembayaran</label>
-                                <select class="form-select" name="is_paid" id="is_paid">
-                                    <option selected>Pilih Status Pembayaran</option>
-                                    <option value="1">Lunas</option>
-                                    <option value="0">Belum Lunas</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="date" class="form-label">Tanggal</label>
                                 <input type="date" class="form-control" name="date" id="date"

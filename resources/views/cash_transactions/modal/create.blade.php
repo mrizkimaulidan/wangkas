@@ -64,26 +64,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="is_paid" class="form-label">Status Pembayaran</label>
-                                <select class="form-select @error('is_paid') is-invalid @enderror" name="is_paid"
-                                    id="is_paid">
-                                    <option value="" selected>Pilih Status Pembayaran</option>
-                                    <option value="1" {{ old('is_paid') === "1" ? 'selected' : '' }}>Lunas</option>
-                                    <option value="0" {{ old('is_paid') === "0" ? 'selected' : '' }}>Belum Lunas
-                                    </option>
-                                </select>
-
-                                @error('is_paid')
-                                <div class="d-block invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="mb-3">
                                 <label for="date" class="form-label">Tanggal</label>
                                 <input type="date" class="form-control @error('date') is-invalid @enderror" name="date"

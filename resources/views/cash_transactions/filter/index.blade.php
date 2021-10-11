@@ -23,7 +23,6 @@
                     <th scope="col">Tagihan</th>
                     <th scope="col">Total Bayar</th>
                     <th scope="col">Tanggal</th>
-                    <th scope="col">Status</th>
                     <th scope="col">Admin Pencatat</th>
                 </tr>
             </thead>
