@@ -121,7 +121,6 @@
                             <th scope="col">#</th>
                             <th scope="col">Nama Pelajar</th>
                             <th scope="col">Tanggal</th>
-                            <th scope="col">Status</th>
                             <th scope="col">Nominal Bayar</th>
                             <th scope="col">Pencatat</th>
                         </tr>
@@ -132,7 +131,6 @@
                             <th>{{ $loop->iteration }}</th>
                             <td>{{ $report_data->students->name }}</td>
                             <td>{{ date('d-m-Y', strtotime($report_data->date)) }}</td>
-                            <td>{{ paid_status($report_data->is_paid) }}</td>
                             <td>{{ indonesian_currency($report_data->amount) }}</td>
                             <td>{{ $report_data->users->name }}</td>
                         </tr>
@@ -140,12 +138,8 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="5" align="right"><b>Total Lunas</b></td>
+                            <td colspan="4" align="right"><b>Total</b></td>
                             <td>{{ indonesian_currency($total_amount_is_paid) }}</td>
-                        </tr>
-                        <tr>
-                            <td colspan="5" align="right"><b>Total Belum Lunas</b></td>
-                            <td>{{ indonesian_currency($total_amount_is_not_paid) }}</td>
                         </tr>
                     </tfoot>
                 </table>
