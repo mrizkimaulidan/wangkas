@@ -12,6 +12,8 @@
                 },
                 success: function (res) {
                     $('#datatable-wrap').removeAttr('style');
+                    $('#export-button').removeAttr('style');
+                    $('#export-button').attr('href', start_date + end_date);
 
                     Toastify({
                         text: "Berhasil mengambil data",

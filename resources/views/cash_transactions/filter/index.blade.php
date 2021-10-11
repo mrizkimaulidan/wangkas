@@ -15,6 +15,12 @@
 
     @include('utilities.alert-flash-message')
     <div class="col-md-12 card px-3 py-3 table-responsive" style="display: none;" id="datatable-wrap">
+        <div class="col-md-4 py-2">
+            <a href="{{ route('cash-transactions.export') }}" class="btn btn-success btn-sm mb-3" style="display: none;" id="export-button">
+                <i class="bi bi-file-earmark-excel-fill"></i>
+                Export Excel
+            </a>
+        </div>
         <table class="table table-sm" id="datatable">
             <thead>
                 <tr>
