@@ -12,7 +12,7 @@
                         <div class="col-lg-12">
                             <span class="badge w-100 rounded-pill bg-warning mb-3">Ada
                                 {{ $data['student_counts']['not_paid_this_week'] }} orang belum membayar pada minggu
-                                ini!</span>
+                                ini! <i class="bi bi-exclamation-triangle"></i></span>
                         </div>
                     </div>
 

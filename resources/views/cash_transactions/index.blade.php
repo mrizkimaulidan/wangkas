@@ -83,12 +83,14 @@
             <div class="card-header">
                 <h4>Belum Membayar Minggu Ini </h4>
             </div>
+            @if($data['student_counts']['not_paid_this_week'] > 0)
             <div class="px-4">
                 <button type="button" class='btn btn-block btn-xl btn-light-danger font-bold mt-3'
                     data-bs-toggle="modal" data-bs-target="#lookMoreModal">Ada
                     <b>{{ $data['student_counts']['not_paid_this_week'] }}</b> orang belum membayar pada minggu
-                    ini!</button>
+                    ini! <i class="bi bi-exclamation-triangle"></i></button>
             </div>
+
             <span class="badge w-100 rounded-pill bg-warning mb-3"></span>
             <div class="card-content pb-4">
                 <div class="row">
@@ -111,6 +113,11 @@
                         Selengkapnya</button>
                 </div>
             </div>
+            @else
+            <div class="px-4">
+                <p class='btn btn-block btn-xl btn-light-success font-bold my-3'>Terima kasih! Semua sudah membayar <i class="bi bi-emoji-laughing"></i></p>
+            </div>
+            @endif
         </div>
     </div>
     {{-- End of Statistics --}}
@@ -150,7 +157,8 @@
 @include('cash_transactions.modal.create')
 @include('cash_transactions.modal.show')
 @include('cash_transactions.modal.edit')
-@include('cash_transactions.modal.look-more')
+
+@includeIf($data['student_counts']['not_paid_this_week'] > 0, 'cash_transactions.modal.look-more')
 @endpush
 
 @push('js')
