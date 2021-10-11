@@ -62,7 +62,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">NIS/NISN</th>
+                    <th scope="col">NIS/NISN/NIM</th>
                     <th scope="col">Nama Lengkap</th>
                     <th scope="col">Kelas</th>
                     <th scope="col">Jurusan</th>
