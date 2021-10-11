@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-sm-12 col-md-12 col-lg-4">
                             <div class="mb-3">
-                                <label for="name" class="form-label">NIS/NISN</label>
+                                <label for="name" class="form-label">NIS/NISN/NIM</label>
                                 <input type="number"
                                     class="form-control @error('student_identification_number') is-invalid @enderror"
                                     name="student_identification_number" id="student_identification_number"
