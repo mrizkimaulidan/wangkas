@@ -16,8 +16,8 @@
                                 <select class="form-select select2 @error('student_id') is-invalid @enderror"
                                     name="student_id[]" multiple>
                                     @foreach ($students as $student)
-                                    <option value="{{ $student->id }}"
-                                        {{ "$student->id" === old('student_id') ? 'selected' : '' }}>
+                                    <option value="{{ $student->id }}" {{ collect(old('student_id'))->
+                                        contains($student->id) ? 'selected' : '' }}>
                                         {{ $student->student_identification_number }} - {{ $student->name }}
                                     </option>
                                     @endforeach
