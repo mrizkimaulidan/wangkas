@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-class AdministratorsSeeder extends Seeder
+class AdministratorSeeder extends Seeder
 {
     /**
      * Run the database seeds.

@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\SchoolMajor;
 use Illuminate\Database\Seeder;
 
-class SchoolMajorsSeeder extends Seeder
+class SchoolMajorSeeder extends Seeder
 {
     /**
      * Run the database seeds.

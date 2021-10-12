@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\CashTransaction;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
-class CashTransactionsSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +15,6 @@ class CashTransactionsSeeder extends Seeder
      */
     public function run()
     {
-        CashTransaction::factory(20)->create();
+        // 
     }
 }

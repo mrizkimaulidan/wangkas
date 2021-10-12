@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Student;
+use App\Models\CashTransaction;
 use Illuminate\Database\Seeder;
 
-class StudentsSeeder extends Seeder
+class CashTransactionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class StudentsSeeder extends Seeder
      */
     public function run()
     {
-        Student::factory(20)->create();
+        CashTransaction::factory(20)->create();
     }
 }
