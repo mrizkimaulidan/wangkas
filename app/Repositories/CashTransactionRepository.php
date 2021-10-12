@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CashTransactionRepository extends Controller
 {
-    private $model, $students, $cash_transaction_is_paid, $start_of_week, $end_of_week;
+    private $model, $students, $start_of_week, $end_of_week;
 
     public function __construct(CashTransaction $model, Student $students)
     {
@@ -26,7 +26,8 @@ class CashTransactionRepository extends Controller
      * Jika $limit === null maka tampilkan seluruh data cash_transactions tanpa limit.
      * Jika $limit !== null maka tampilkan seluruh data cash_transactions dengan limit.
      *
-     * @param $limit
+     * @param array $columns kolom apa saja yang ingin difetch.
+     * @param int $limit limit data yang ingin ditampilkan.
      * @return Object
      */
     public function cashTransactionLatest(array $columns, ?int $limit): Object
@@ -39,25 +40,18 @@ class CashTransactionRepository extends Controller
     }
 
     /**
-     * Hitung status lunas atau belum lunas berdasarkan parameter.
-     *
-     * @param bool $paid_status
-     * @return Int
-     */
-    public function countPaidOrNotPaid(bool $paid_status): Int
-    {
-        return $this->model->where('is_paid', $paid_status)->count();
-    }
-
-    /**
-     * Hitung total kolom amount di tabel cash_transactions berdasarkan tahun atau minggu.
+     * Hitung total kolom amount di tabel cash_transactions berdasarkan tahun atau bulan.
      * 
-     * Jika $status === `year` dan variabel $year ada isinya, maka hitung total kolom amount di tabel cash_transaction berdasarkan tahun sesuai di parameter.
-     * Jika $status === `month` dan variabel $month ada isinya, maka hitung total kolom amount di tabel cash_transaction berdasarkan bulan sesuai di parameter.
+     * Jika $status === `year` dan variabel $year ada isinya, maka hitung total kolom amount di tabel cash_transaction berdasarkan
+     * tahun sesuai di parameter.
+     * 
+     * Jika $status === `month` dan variabel $month ada isinya, maka hitung total kolom amount di tabel cash_transaction berdasarkan bulan
+     * sesuai di parameter.
      *
      * Jika $status === `year` maka hanya isi parameter $year.
      * jika $status === `month` maka hanya isi parameter $month.
      * 
+     * @param string $status ingin hitung total kolom berdasarkan tahun `year` atau bulan `month`.
      * @param string $year adalah tahun, contoh : 2021, 2022, 2023, dst..
      * @param string $month adalah bulan dengan 0, contoh : 01, 02, 03, dst..
      * @return Int
@@ -82,19 +76,19 @@ class CashTransactionRepository extends Controller
     /**
      * Hitung siswa yang sudah atau belum membayar pada minggu ini.
      * 
-     * Jika $is_paid === true, maka hitung berapa siswa yang sudah membayar pada minggu ini.
-     * Jika $is_paid === false, maka hitung berapa siswa yang belum membayar pada minggu ini.
+     * Jika $status === true, maka hitung berapa siswa yang sudah membayar pada minggu ini.
+     * Jika $status === false, maka hitung berapa siswa yang belum membayar pada minggu ini.
      *
-     * @param boolean $is_paid
+     * @param boolean $status
      * @return Int
      */
-    public function countStudentWhoPaidOrNotPaidThisWeek(bool $is_paid): Int
+    public function countStudentWhoPaidOrNotPaidThisWeek(bool $status): Int
     {
         $students = $this->students->select('id');
 
         $callback = fn (Builder $query) => $query->select(['date'])->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
 
-        return $is_paid
+        return $status === 'year'
             ?  $students->whereHas('cash_transactions', $callback)->count()
             : $students->whereDoesntHave('cash_transactions', $callback)->count();
     }
@@ -131,13 +125,9 @@ class CashTransactionRepository extends Controller
                 'not_paid_this_week' => $this->getStudentWhoNotPaidThisWeek(),
                 'not_paid_this_week_limit' => $this->getStudentWhoNotPaidThisWeek(6),
             ],
-            'counts' => [
-                // 'paid' => $this->countPaidOrNotPaid(true),
-                // 'not_paid' => $this->countPaidOrNotPaid(false),
-            ],
             'student_counts' => [
-                'paid_this_week' => $this->countStudentWhoPaidOrNotPaidThisWeek(true),
-                'not_paid_this_week' => $this->countStudentWhoPaidOrNotPaidThisWeek(false),
+                'paid_this_week' => $this->countStudentWhoPaidOrNotPaidThisWeek(status: 'year'),
+                'not_paid_this_week' => $this->countStudentWhoPaidOrNotPaidThisWeek(status: 'week'),
             ],
             'totals' => [
                 'this_month' => indonesian_currency($this->sumAmountBy('month', month: date('m'))),
