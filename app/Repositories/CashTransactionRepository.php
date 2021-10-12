@@ -88,7 +88,7 @@ class CashTransactionRepository extends Controller
 
         $callback = fn (Builder $query) => $query->select(['date'])->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
 
-        return $status === 'year'
+        return $status
             ?  $students->whereHas('cash_transactions', $callback)->count()
             : $students->whereDoesntHave('cash_transactions', $callback)->count();
     }
@@ -126,8 +126,8 @@ class CashTransactionRepository extends Controller
                 'not_paid_this_week_limit' => $this->getStudentWhoNotPaidThisWeek(6),
             ],
             'student_counts' => [
-                'paid_this_week' => $this->countStudentWhoPaidOrNotPaidThisWeek(status: 'year'),
-                'not_paid_this_week' => $this->countStudentWhoPaidOrNotPaidThisWeek(status: 'week'),
+                'paid_this_week' => $this->countStudentWhoPaidOrNotPaidThisWeek(true),
+                'not_paid_this_week' => $this->countStudentWhoPaidOrNotPaidThisWeek(false),
             ],
             'totals' => [
                 'this_month' => indonesian_currency($this->sumAmountBy('month', month: date('m'))),

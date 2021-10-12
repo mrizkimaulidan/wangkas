@@ -115,7 +115,8 @@
             </div>
             @else
             <div class="px-4">
-                <p class='btn btn-block btn-xl btn-light-success font-bold my-3'>Terima kasih! Semua sudah membayar <i class="bi bi-emoji-laughing"></i></p>
+                <p class='btn btn-block btn-xl btn-light-success font-bold my-3'>Terima kasih! Semua sudah membayar <i
+                        class="bi bi-emoji-laughing"></i></p>
             </div>
             @endif
         </div>
@@ -158,7 +159,7 @@
 @include('cash_transactions.modal.show')
 @include('cash_transactions.modal.edit')
 
-@includeIf($data['student_counts']['not_paid_this_week'] > 0, 'cash_transactions.modal.look-more')
+@includeIf($data['student_counts']['not_paid_this_week'] > 0, 'cash_transactions.modal.look-more' )
 @endpush
 
 @push('js')
