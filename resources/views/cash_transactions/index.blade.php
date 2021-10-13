@@ -159,7 +159,7 @@
 @include('cash_transactions.modal.show')
 @include('cash_transactions.modal.edit')
 
-@includeIf($data['student_counts']['not_paid_this_week'] > 0, 'cash_transactions.modal.look-more' )
+@include('cash_transactions.modal.look-more' )
 @endpush
 
 @push('js')
