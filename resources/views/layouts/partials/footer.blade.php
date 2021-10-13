@@ -30,8 +30,6 @@
 <script src="{{ asset('vendors/flatpickr/flatpickr.js') }}"></script>
 <script src="{{ asset('vendors/flatpickr/id.js') }}"></script>
 
-@stack('js')
-
 <script>
     $(function () {
         $.extend(true, $.fn.dataTable.defaults, {
@@ -118,12 +116,11 @@
             locale: "id",
         });
     });
-
 </script>
+
+@stack('js')
 
 @include('utilities.toastify-flash-message')
 
-
 </body>
-
 </html>
