@@ -15,7 +15,7 @@
                         <div class="col-md-8">
                             <h6 class="text-muted font-semibold">Total Hari Ini</h6>
                             <h6 class="font-extrabold mb-0">
-                                {{ indonesian_currency($sum_this_day) }}
+                                {{ $sums['this_day'] }}
                             </h6>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                         <div class="col-md-8">
                             <h6 class="text-muted font-semibold">Total Minggu Ini</h6>
                             <h6 class="font-extrabold mb-0">
-                                {{ indonesian_currency($sum_this_week) }}
+                                {{ $sums['this_week'] }}
                             </h6>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
                         <div class="col-md-8">
                             <h6 class="text-muted font-semibold">Total Bulan Ini</h6>
                             <h6 class="font-extrabold mb-0">
-                                {{ indonesian_currency($sum_this_month) }}
+                                {{ $sums['this_month'] }}
                             </h6>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                         <div class="col-md-8">
                             <h6 class="text-muted font-semibold">Total Tahun Ini</h6>
                             <h6 class="font-extrabold mb-0">
-                                {{ indonesian_currency($sum_this_year) }}
+                                {{ $sums['this_year'] }}
                             </h6>
                         </div>
                     </div>
