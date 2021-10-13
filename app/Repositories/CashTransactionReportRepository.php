@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
-use Carbon\Carbon;
 
 class CashTransactionReportRepository extends Controller
 {
@@ -37,7 +36,7 @@ class CashTransactionReportRepository extends Controller
             $model->whereDay('date', date('d'));
 
         if ($type === 'this_week')
-            $model->whereBetween('date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()]);
+            $model->whereBetween('date', [now()->startOfWeek(), now()->endOfWeek()]);
 
         if ($type === 'this_month')
             $model->whereMonth('date', date('m'));
