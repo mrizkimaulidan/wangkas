@@ -11,6 +11,9 @@
 </footer>
 </div>
 </div>
+
+@stack('modal')
+
 <script src="{{ asset('vendors/jquery/jquery-3.6.0.min.js') }}"></script>
 <script src="{{ asset('vendors/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
@@ -26,6 +29,8 @@
 <script src="{{ asset('vendors/select2/select2.min.js') }}"></script>
 <script src="{{ asset('vendors/flatpickr/flatpickr.js') }}"></script>
 <script src="{{ asset('vendors/flatpickr/id.js') }}"></script>
+
+@stack('js')
 
 <script>
     $(function () {
@@ -118,8 +123,7 @@
 
 @include('utilities.toastify-flash-message')
 
-@stack('modal')
-@stack('js')
+
 </body>
 
 </html>
