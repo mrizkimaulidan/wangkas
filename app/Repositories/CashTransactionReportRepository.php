@@ -13,12 +13,12 @@ class CashTransactionReportRepository extends Controller
     }
 
     /**
-     * Hitung total dari suatu kolom pada tabel cash_transactions pada database.
+     * Hitung total dari suatu kolom pada tabel table di database.
      * 
      * --------
-     * $type = 'this_day' sum suatu kolom/field dari tabel berdasarkan hari pada tahun ini.
-     * $type = 'this_week' sum suatu kolom/field dari tabel berdasarkan minggu pada tahun ini.
-     * $type = 'this_month' sum suatu kolom/field dari tabel berdasarkan bulan pada tahun ini.
+     * $type = 'this_day' sum suatu kolom/field dari tabel berdasarkan hari pada hari ini.
+     * $type = 'this_week' sum suatu kolom/field dari tabel berdasarkan minggu pada minggu ini.
+     * $type = 'this_month' sum suatu kolom/field dari tabel berdasarkan bulan pada bulan ini.
      * $type = 'this_year' sum suatu kolom/field dari tabel berdasarkan tahun ini.
      * -------
      * 
@@ -32,23 +32,26 @@ class CashTransactionReportRepository extends Controller
             ->select('date', 'amount')
             ->whereYear('date', date('Y'));
 
-        if ($type === 'this_day')
-            $model->whereDay('date', date('d'));
-
-        if ($type === 'this_week')
-            $model->whereBetween('date', [now()->startOfWeek(), now()->endOfWeek()]);
-
-        if ($type === 'this_month')
-            $model->whereMonth('date', date('m'));
-
-        if ($type === 'this_year')
-            $model->whereYear('date', date('Y'));
+        switch ($type) {
+            case 'this_day':
+                $model->whereDay('date', date('d'));
+                break;
+            case 'this_week':
+                $model->whereBetween('date', [now()->startOfWeek(), now()->endOfWeek()]);
+                break;
+            case 'this_month':
+                $model->whereMonth('date', date('m'));
+                break;
+            case 'this_year':
+                $model->whereYear('date', date('Y'));
+                break;
+        }
 
         return $model->sum($column);
     }
 
     /**
-     * Filter data kas pada tabel cash_transactions dengan rentang tanggal.
+     * Filter data kas pada tabel dengan rentang tanggal.
      *
      * @return void
      */
