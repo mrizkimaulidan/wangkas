@@ -40,11 +40,6 @@
             "lengthMenu": [[5, 20, 25, 50, -1], [5, 20, 25, 50, 'All']]
         });
 
-        $(".clear-input").on("click", function () {
-            $("input:not([name=_method], [name=_token])").val("");
-            $("select").prop("selectedIndex", 0).change();
-        });
-
         $("#datatable").on('click', '.delete-notification', function (e) {
             e.preventDefault();
             Swal.fire({
@@ -123,4 +118,5 @@
 @include('utilities.toastify-flash-message')
 
 </body>
+
 </html>
