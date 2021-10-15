@@ -99,12 +99,13 @@ class CashTransactionRepository extends Controller
      * Jika limit === null maka tampilkan seluruh data siswa yang belum membayar minggu ini.
      * Jika limit !== null maka tampilkan data siswa yang belum membayar minggu ini dengan limit.
      * 
-     * @param string $limit
+     * @param int $limit limit data yang akan ditampilkan.
+     * @param string $order urutkan data berdasarkan kolom/field di database.
      * @return Object
      */
-    public function getStudentWhoNotPaidThisWeek(string $limit = null): Object
+    public function getStudentWhoNotPaidThisWeek(?int $limit, string $order): Object
     {
-        $students = $this->students->select(['name', 'student_identification_number']);
+        $students = $this->students->select(['name', 'student_identification_number'])->orderBy($order);
 
         $callback = fn (Builder $query) => $query->select(['date'])->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
 
@@ -122,8 +123,8 @@ class CashTransactionRepository extends Controller
     {
         return [
             'students' => [
-                'not_paid_this_week' => $this->getStudentWhoNotPaidThisWeek(),
-                'not_paid_this_week_limit' => $this->getStudentWhoNotPaidThisWeek(6),
+                'not_paid_this_week' => $this->getStudentWhoNotPaidThisWeek(limit: null, order: 'name'),
+                'not_paid_this_week_limit' => $this->getStudentWhoNotPaidThisWeek(limit: 6, order: 'name'),
             ],
             'student_counts' => [
                 'paid_this_week' => $this->countStudentWhoPaidOrNotPaidThisWeek(true),
