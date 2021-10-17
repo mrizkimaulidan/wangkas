@@ -11,7 +11,6 @@
             let id = $(this).data('id');
             let url = "{{ route('api.cash-transaction.show', ':id') }}";
             url = url.replace(':id', id);
-            console.log(url);
 
             $('#showCashTransactionModal input').val('Sedang mengambil data..');
             $('#showCashTransactionModal textarea').val('Sedang mengambil data..');
@@ -19,16 +18,14 @@
 
             $.ajax({
                 url: url,
-                success: function (data) {
-                    console.log(data);
-                    $('#showCashTransactionModal #user_id').val(data.data.users.name);
-                    $('#showCashTransactionModal #student_id').val(data.data.students.name);
-                    $('#showCashTransactionModal #bill').val(data.data.bill);
-                    $('#showCashTransactionModal #amount').val(data.data.amount);
+                success: function (res) {
+                    $('#showCashTransactionModal #user_id').val(res.data.users.name);
+                    $('#showCashTransactionModal #student_id').val(res.data.students.name);
+                    $('#showCashTransactionModal #bill').val(res.data.bill);
+                    $('#showCashTransactionModal #amount').val(res.data.amount);
 
-                    $('#showCashTransactionModal #is_paid').val(data.data.is_paid === 1 ? 'Lunas' : 'Belum Lunas');
-                    $('#showCashTransactionModal #date').val(data.data.date);
-                    $('#showCashTransactionModal #note').val(data.data.note);
+                    $('#showCashTransactionModal #date').val(res.data.date);
+                    $('#showCashTransactionModal #note').val(res.data.note);
                 }
             });
         });

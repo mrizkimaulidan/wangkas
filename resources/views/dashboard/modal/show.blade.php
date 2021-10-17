@@ -41,14 +41,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="is_paid" class="form-label">Status Pembayaran</label>
-                            <input type="text" class="form-control" id="is_paid" disabled>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="mb-3">
                             <label for="date" class="form-label">Tanggal</label>
                             <input type="text" class="form-control" id="date" disabled>
