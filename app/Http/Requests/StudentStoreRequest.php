@@ -39,9 +39,9 @@ class StudentStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'student_identification_number.required' => 'Kolom nis/nisn wajib diisi!',
-            'student_identification_number.min' => 'Kolom nis/nisn minimal :min karakter!',
-            'student_identification_number.max' => 'Kolom nis/nisn maksimal :max karakter!!',
+            'student_identification_number.required' => 'Kolom nis/nisn/nim wajib diisi!',
+            'student_identification_number.min' => 'Kolom nis/nisn/nim minimal :min karakter!',
+            'student_identification_number.max' => 'Kolom nis/nisn/nim maksimal :max karakter!!',
 
             'name.required' => 'Kolom nama lengkap wajib diisi!',
             'name.min' => 'Kolom nama lengkap minimal :min karakter!',
