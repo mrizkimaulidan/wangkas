@@ -27,28 +27,30 @@ Jika Anda menggunakan XAMPP, untuk PHP dan MySQL sudah menjadi 1 (bundle) didala
 ### Preview Gambar
 
 _Login_
-![Login](https://i.imgur.com/qduIsY8.png)
+![Login](https://i.imgur.com/roFkqZM.png)
 
 _Dashboard_
-![Dashboard](https://i.imgur.com/scxZIk0.png)
+![Dashboard](https://i.imgur.com/TVBKaxK.png)
 
 _Daftar Pelajar_
-![Daftar Pelajar](https://i.imgur.com/QeQmoCU.png)
+![Daftar Pelajar](https://i.imgur.com/esVc0GZ.png)
 
 _Daftar Kelas_
-![Daftar Kelas](https://i.imgur.com/9Ve2U9O.png)
+![Daftar Kelas](https://i.imgur.com/D1AlY45.png)
 
 _Daftar Jurusan_
-![Daftar Jurusan](https://i.imgur.com/JbAE2LS.png)
+![Daftar Jurusan](https://i.imgur.com/KFuPEnn.png)
 
 _Daftar Kas_
-![Daftar Kas](https://i.imgur.com/NApoizJ.png)
+![Daftar Kas](https://i.imgur.com/4yr5Sja.png)
+
+![Filter Kas](https://i.imgur.com/ejffRnV.png)
 
 _Laporan_
-![Laporan](https://i.imgur.com/RPpQ1El.png)
+![Laporan](https://i.imgur.com/3yziMLW.png)
 
 _Daftar Administrator_
-![Daftar Administrator](https://i.imgur.com/RPpQ1El.png)
+![Daftar Administrator](https://i.imgur.com/pmsu7tF.png)
 
 ### Langkah-langkah instalasi
 
