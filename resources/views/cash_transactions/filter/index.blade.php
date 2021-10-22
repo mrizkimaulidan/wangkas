@@ -2,7 +2,6 @@
 
 @section('content')
 <section class="row">
-
     <div class="card px-3 py-3">
         <label for="start_date" class=" fw-bold pb-3">Filter Data dengan Rentang Tanggal :</label>
         <div class="input-group">
@@ -14,21 +13,23 @@
     </div>
 
     @include('utilities.alert-flash-message')
-    <div class="col-md-12 card px-3 py-3 table-responsive" style="display: none;" id="datatable-wrap">
-        <table class="table table-sm" id="datatable">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Nama Pelajar</th>
-                    <th scope="col">Tagihan</th>
-                    <th scope="col">Total Bayar</th>
-                    <th scope="col">Tanggal</th>
-                    <th scope="col">Admin Pencatat</th>
-                </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>
+    <div class="col card px-3 py-3" id="datatable-wrap" style="display: none;">
+        <div class="table-responsive">
+            <table class="table table-sm" id="datatable">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nama Pelajar</th>
+                        <th scope="col">Tagihan</th>
+                        <th scope="col">Total Bayar</th>
+                        <th scope="col">Tanggal</th>
+                        <th scope="col">Admin Pencatat</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
 </section>
 @endsection
