@@ -17,7 +17,7 @@
             ]
         });
 
-        $('#datatable').on('click', '.student-detail', function() {
+        $('#datatable').on('click', '.student-detail', function () {
             loadingAlert.show();
 
             let url = "{{ route('api.student.show', 'id') }}";
@@ -44,7 +44,7 @@
             });
         });
 
-        $('#datatable').on('click', '.student-edit', function() {
+        $('#datatable').on('click', '.student-edit', function () {
             loadingAlert.show();
 
             let id = $(this).data('id');

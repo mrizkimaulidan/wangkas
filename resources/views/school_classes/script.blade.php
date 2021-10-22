@@ -13,7 +13,7 @@
             ]
         });
 
-        $('#datatable').on('click', '.school-class-detail', function() {
+        $('#datatable').on('click', '.school-class-detail', function () {
             loadingAlert.show();
 
             let id = $(this).data('id');
@@ -39,7 +39,7 @@
             });
         });
 
-        $('#datatable').on('click', '.school-class-edit', function() {
+        $('#datatable').on('click', '.school-class-edit', function () {
             loadingAlert.show();
 
             let id = $(this).data('id');
