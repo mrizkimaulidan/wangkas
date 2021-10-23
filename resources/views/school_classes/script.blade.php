@@ -22,20 +22,18 @@
 
             $('#showSchoolClassModal :input').val("Sedang mengambil data..");
 
-            $.ajax({
-                url: url,
-                success: function (res) {
-                    loadingAlert.slideUp();
-
-                    $('#showSchoolClassModal #name').val(res.data.name);
+            fetch(url, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                error: function () {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Terjadi kesalahan, reload halaman ini atau lapor kepada administrator!'
-                    });
-                }
+            }).then(async res => {
+                loadingAlert.slideUp();
+
+                let response = await res.json();
+
+                $('#showSchoolClassModal #name').val(response.data.name);
             });
         });
 
@@ -59,24 +57,22 @@
 
             editSchoolClassButtonSubmit.prop('disabled', true);
 
-            $.ajax({
-                url: url,
-                success: function (res) {
-                    loadingAlert.slideUp();
-
-                    $('#editSchoolClassModal #edit-school-class-form').attr('action', formActionURL);
-                    $('#editSchoolClassModal #name').val(res.data.name);
-
-                    editSchoolClassModalEveryInput.prop('disabled', false);
-                    editSchoolClassButtonSubmit.prop('disabled', false)
+            fetch(url, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
-                error: function () {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Terjadi kesalahan, reload halaman ini atau lapor kepada administrator!'
-                    });
-                }
+            }).then(async res => {
+                loadingAlert.slideUp();
+
+                let response = await res.json();
+
+                $('#editSchoolClassModal #edit-school-class-form').attr('action', formActionURL);
+                $('#editSchoolClassModal #name').val(response.data.name);
+
+                editSchoolClassModalEveryInput.prop('disabled', false);
+                editSchoolClassButtonSubmit.prop('disabled', false)
             });
         });
     });

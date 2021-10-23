@@ -24,14 +24,19 @@
 
             $('#showAdministratorModal input').val('Sedang mengambil data..');
 
-            $.ajax({
-                url: url,
-                success: function (res) {
-                    loadingAlert.slideUp();
+            fetch(url, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            }).then(async res => {
+                loadingAlert.slideUp();
 
-                    $('#showAdministratorModal #name').val(res.data.name);
-                    $('#showAdministratorModal #email').val(res.data.email);
-                }
+                let response = await res.json();
+
+                $('#showAdministratorModal #name').val(response.data.name);
+                $('#showAdministratorModal #email').val(response.data.email);
             });
         });
 
@@ -53,22 +58,26 @@
             let editAdministratorModalSubmitButton = $('#editAdministratorModal .modal-footer button[type=submit]');
             editAdministratorModalSubmitButton.prop('disabled', true);
 
-            $.ajax({
-                url: url,
-                success: function (res) {
-                    loadingAlert.slideUp();
+            fetch(url, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            }).then(async res => {
+                loadingAlert.slideUp();
 
-                    $('#editAdministratorModal #administrator-edit-form').attr('action', formActionURL);
+                let response = await res.json();
 
-                    $('#editAdministratorModal').find('input[name=password], input[name=password_confirmation]').prop('disabled', false);
-                    editAdministratorModalEveryInput.prop('disabled', false);
-                    editAdministratorModalSubmitButton.prop('disabled', false);
+                $('#editAdministratorModal #administrator-edit-form').attr('action', formActionURL);
 
-                    $('#editAdministratorModal #name').val(res.data.name);
-                    $('#editAdministratorModal #email').val(res.data.email);
-                }
+                $('#editAdministratorModal').find('input[name=password], input[name=password_confirmation]').prop('disabled', false);
+                editAdministratorModalEveryInput.prop('disabled', false);
+                editAdministratorModalSubmitButton.prop('disabled', false);
+
+                $('#editAdministratorModal #name').val(response.data.name);
+                $('#editAdministratorModal #email').val(response.data.email);
             });
         });
-    })
-
+    });
 </script>

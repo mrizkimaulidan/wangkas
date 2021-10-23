@@ -23,15 +23,20 @@
 
             $('#showSchoolMajorModal :input').val('Sedang mengambil data..');
 
-            $.ajax({
-                url: url,
-                success: function (res) {
-                    loadingAlert.slideUp();
+            fetch(url, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            }).then(async res => {
+                loadingAlert.slideUp();
 
-                    $('#showSchoolMajorModal #name').val(res.data.name);
-                    $('#showSchoolMajorModal #abbreviated_word').val(res.data.abbreviated_word);
-                }
-            })
+                let response = await res.json();
+
+                $('#showSchoolMajorModal #name').val(response.data.name);
+                $('#showSchoolMajorModal #abbreviated_word').val(response.data.abbreviated_word);
+            });
         });
 
         $('#datatable').on('click', '.school-major-edit', function () {
@@ -52,20 +57,25 @@
             let editSchoolMajorSubmitButton = $('#editSchoolMajorModal .modal-content .modal-footer button[type=submit]')
                 .prop('disabled', true);
 
-            $.ajax({
-                url: url,
-                success: function (res) {
-                    loadingAlert.slideUp();
+            fetch(url, {
+                method: "GET",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            }).then(async res => {
+                loadingAlert.slideUp();
 
-                    $('#editSchoolMajorModal #school-major-edit-form').attr('action', formActionURL);
+                let response = await res.json();
 
-                    $('#editSchoolMajorModal #name').val(res.data.name);
-                    $('#editSchoolMajorModal #abbreviated_word').val(res.data.abbreviated_word);
+                $('#editSchoolMajorModal #school-major-edit-form').attr('action', formActionURL);
 
-                    editSchoolMajorEveryInput.prop('disabled', false);
-                    editSchoolMajorSubmitButton.prop('disabled', false);
-                }
-            })
+                $('#editSchoolMajorModal #name').val(response.data.name);
+                $('#editSchoolMajorModal #abbreviated_word').val(response.data.abbreviated_word);
+
+                editSchoolMajorEveryInput.prop('disabled', false);
+                editSchoolMajorSubmitButton.prop('disabled', false);
+            });
         });
     });
 </script>
