@@ -15,7 +15,7 @@
     @include('utilities.alert-flash-message')
     <div class="col card px-3 py-3" id="datatable-wrap" style="display: none;">
         <div class="table-responsive">
-            <table class="table table-sm" id="datatable">
+            <table class="table table-sm w-100" id="datatable">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
