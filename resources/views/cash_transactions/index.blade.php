@@ -139,7 +139,7 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table table-sm" id="datatable">
+            <table class="table table-sm w-100" id="datatable">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
