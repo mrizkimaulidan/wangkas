@@ -13,19 +13,6 @@ if (!function_exists('indonesian_currency')) {
     }
 }
 
-if (!function_exists('paid_status')) {
-    /**
-     * Ubah status menjadi string lunas/belum lunas.
-     *
-     * @param Integer $status
-     * @return String
-     */
-    function paid_status(int $status): String
-    {
-        return $status === 1 ? 'Lunas' : 'Belum Lunas';
-    }
-}
-
 if (!function_exists('get_gender_name')) {
     /**
      * Mengubah angka menjadi nama jenis kelamin.
