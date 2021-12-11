@@ -60,17 +60,9 @@ class CashTransactionRepository extends Controller
     {
         $model = $this->model->select('date', 'amount');
 
-        // Jika $status === `year` dan variabel $year ada isinya, maka hitung kolom amount berdasarkan tahun di parameter.
-        if (strtolower($status) === 'year' && isset($year)) {
-            $model->whereYear('date', $year);
-        }
-
-        // Jika $status === `month` dan variabel $month ada isinya, maka hitung kolom amount berdasarkan bulan di parameter.
-        if (strtolower($status) === 'month' && isset($month)) {
-            $model->whereYear('date', date('Y'))->whereMonth('date', $month);
-        }
-
-        return $model->sum('amount');
+        return $status === 'year'
+            ? $model->whereYear('date', $year)->sum('amount')
+            : $model->whereYear('date', date('Y'))->whereMonth('date', $month)->sum('amount');
     }
 
     /**
