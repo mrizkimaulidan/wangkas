@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use Carbon\Carbon;
 use App\Models\Student;
 use App\Models\CashTransaction;
 use App\Http\Controllers\Controller;
@@ -78,7 +77,8 @@ class CashTransactionRepository extends Controller
     {
         $students = $this->students->select('id');
 
-        $callback = fn (Builder $query) => $query->select(['date'])->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
+        $callback = fn (Builder $query) => $query->select(['date'])
+            ->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
 
         return $status
             ?  $students->whereHas('cash_transactions', $callback)->count()
@@ -99,7 +99,8 @@ class CashTransactionRepository extends Controller
     {
         $students = $this->students->select(['name', 'student_identification_number'])->orderBy($order);
 
-        $callback = fn (Builder $query) => $query->select(['date'])->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
+        $callback = fn (Builder $query) => $query->select(['date'])
+            ->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
 
         return is_null($limit)
             ? $students->whereDoesntHave('cash_transactions', $callback)->get()
