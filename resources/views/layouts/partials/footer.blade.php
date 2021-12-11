@@ -44,7 +44,7 @@
             e.preventDefault();
             Swal.fire({
                 title: "Hapus?",
-                text: "Data tidak akan bisa dikembalikan!",
+                text: "Data tersebut akan dihapus!",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
@@ -92,16 +92,30 @@
                 reverseButtons: true,
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $(this).parent().submit();
+                    Swal.fire({
+                        title: "Yakin?",
+                        text: "Anda yakin ingin menghapus data tersebut?",
+                        icon: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#3085d6",
+                        cancelButtonColor: "#d33",
+                        cancelButtonText: "Tidak",
+                        confirmButtonText: "Ya!",
+                        reverseButtons: true
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            $(this).parent().submit();
+                        }
+                    });
                 }
             });
-        });
 
-        $(".select2").select2();
+            $(".select2").select2();
 
-        $("input[type=date]").flatpickr({
-            dateFormat: "d-m-Y",
-            locale: "id",
+            $("input[type=date]").flatpickr({
+                dateFormat: "d-m-Y",
+                locale: "id",
+            });
         });
     });
 </script>
