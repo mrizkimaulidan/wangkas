@@ -13,14 +13,14 @@ class StudentController extends Controller
 {
     public function show(string $id): JsonResponse
     {
-        $student = new StudentShowResource(Student::with('school_classes:id,name', 'school_majors:id,name')->findOrFail($id));
+        $student = new StudentShowResource(Student::with('school_class:id,name', 'school_major:id,name')->findOrFail($id));
 
         return response()->success($student, Response::HTTP_OK);
     }
 
     public function edit(string $id): JsonResponse
     {
-        $student = new StudentEditResource(Student::with('school_classes:id,name', 'school_majors:id,name')->findOrFail($id));
+        $student = new StudentEditResource(Student::with('school_class:id,name', 'school_major:id,name')->findOrFail($id));
 
         return response()->success($student, Response::HTTP_OK);
     }

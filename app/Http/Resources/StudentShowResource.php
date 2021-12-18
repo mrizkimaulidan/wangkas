@@ -26,12 +26,12 @@ class StudentShowResource extends JsonResource
             'school_year_start' => $this->school_year_start,
             'school_year_end' => $this->school_year_end,
             'school_classes' => [
-                'id' => $this->school_classes->id,
-                'name' => $this->school_classes->name
+                'id' => $this->school_class->id,
+                'name' => $this->school_class->name
             ],
             'school_majors' => [
-                'id' => $this->school_majors->id,
-                'name' => $this->school_majors->name
+                'id' => $this->school_major->id,
+                'name' => $this->school_major->name
             ],
         ];
     }

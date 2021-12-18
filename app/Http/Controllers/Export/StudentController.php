@@ -62,8 +62,8 @@ class StudentController extends Controller
             $sheet->setCellValue('B' . $cell, $row->student_identification_number);
             $sheet->setCellValue('C' . $cell, $row->name);
             $sheet->setCellValue('D' . $cell, $row->gender === 1 ? 'Laki-laki' : 'Perempuan');
-            $sheet->setCellValue('E' . $cell, $row->school_classes->name);
-            $sheet->setCellValue('F' . $cell, $row->school_majors->name);
+            $sheet->setCellValue('E' . $cell, $row->school_class->name);
+            $sheet->setCellValue('F' . $cell, $row->school_major->name);
             $sheet->setCellValue('G' . $cell, $row->school_year_start . ' - ' . $row->school_year_end);
             $cell++;
             $sheet->getStyle('A1:G' . ($cell - 1))->applyFromArray(ExportRepository::setStyle());

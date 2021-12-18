@@ -18,12 +18,12 @@ class Student extends Model
         'school_year_end'
     ];
 
-    public function school_classes(): BelongsTo
+    public function school_class(): BelongsTo
     {
         return $this->belongsTo(SchoolClass::class, 'school_class_id', 'id');
     }
 
-    public function school_majors(): BelongsTo
+    public function school_major(): BelongsTo
     {
         return $this->belongsTo(SchoolMajor::class, 'school_major_id', 'id');
     }

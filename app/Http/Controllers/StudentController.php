@@ -22,7 +22,7 @@ class StudentController extends Controller
 
     public function index()
     {
-        $students = Student::with('school_classes:id,name', 'school_majors:id,name,abbreviated_word')
+        $students = Student::with('school_class:id,name', 'school_major:id,name,abbreviated_word')
             ->select(
                 'id',
                 'school_class_id',
@@ -40,7 +40,7 @@ class StudentController extends Controller
                 ->addIndexColumn()
                 ->addColumn(
                     'school_class_id',
-                    fn ($model) => $model->school_classes->name
+                    fn ($model) => $model->school_class->name
                 )
                 ->addColumn('school_major', 'students.datatable.school_major')
                 ->addColumn('school_year', 'students.datatable.school_year')
