@@ -9,7 +9,7 @@ if (!function_exists('indonesian_currency')) {
      */
     function indonesian_currency(int $number): String
     {
-        return 'Rp' . number_format($number, 2, ',',);
+        return 'Rp' . number_format((int) $number, 2, ',',);
     }
 }
 
