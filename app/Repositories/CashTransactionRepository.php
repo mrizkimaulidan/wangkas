@@ -9,14 +9,14 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CashTransactionRepository extends Controller
 {
-    private $model, $students, $start_of_week, $end_of_week;
+    private $model, $students, $startOfWeek, $endOfWeek;
 
     public function __construct(CashTransaction $model, Student $students)
     {
         $this->model = $model;
         $this->students = $students;
-        $this->start_of_week = now()->startOfWeek()->format('Y-m-d');
-        $this->end_of_week = now()->endOfWeek()->format('Y-m-d');
+        $this->startOfWeek = now()->startOfWeek()->format('Y-m-d');
+        $this->endOfWeek = now()->endOfWeek()->format('Y-m-d');
     }
 
     /**
@@ -78,7 +78,7 @@ class CashTransactionRepository extends Controller
         $students = $this->students->select('id');
 
         $callback = fn (Builder $query) => $query->select(['date'])
-            ->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
+            ->whereBetween('date', [$this->startOfWeek, $this->endOfWeek]);
 
         return $status
             ?  $students->whereHas('cash_transactions', $callback)->count()
@@ -100,7 +100,7 @@ class CashTransactionRepository extends Controller
         $students = $this->students->select(['name', 'student_identification_number'])->orderBy($order);
 
         $callback = fn (Builder $query) => $query->select(['date'])
-            ->whereBetween('date', [$this->start_of_week, $this->end_of_week]);
+            ->whereBetween('date', [$this->startOfWeek, $this->endOfWeek]);
 
         return is_null($limit)
             ? $students->whereDoesntHave('cash_transactions', $callback)->get()
@@ -116,16 +116,16 @@ class CashTransactionRepository extends Controller
     {
         return [
             'students' => [
-                'not_paid_this_week' => $this->getStudentWhoNotPaidThisWeek(limit: null, order: 'name'),
-                'not_paid_this_week_limit' => $this->getStudentWhoNotPaidThisWeek(limit: 6, order: 'name'),
+                'notPaidThisWeek' => $this->getStudentWhoNotPaidThisWeek(limit: null, order: 'name'),
+                'notPaidThisWeekLimit' => $this->getStudentWhoNotPaidThisWeek(limit: 6, order: 'name'),
             ],
-            'student_counts' => [
-                'paid_this_week' => $this->countStudentWhoPaidOrNotPaidThisWeek(true),
-                'not_paid_this_week' => $this->countStudentWhoPaidOrNotPaidThisWeek(false),
+            'studentCountWho' => [
+                'paidThisWeek' => $this->countStudentWhoPaidOrNotPaidThisWeek(true),
+                'notPaidThisWeek' => $this->countStudentWhoPaidOrNotPaidThisWeek(false),
             ],
             'totals' => [
-                'this_month' => indonesian_currency($this->sumAmountBy('month', month: date('m'))),
-                'this_year' => indonesian_currency($this->sumAmountBy('year', year: date('Y'))),
+                'thisMonth' => indonesian_currency($this->sumAmountBy('month', month: date('m'))),
+                'thisYear' => indonesian_currency($this->sumAmountBy('year', year: date('Y'))),
             ]
         ];
     }

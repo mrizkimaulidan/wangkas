@@ -15,10 +15,10 @@ class SchoolMajorController extends Controller
 
     public function index()
     {
-        $school_majors = SchoolMajor::select('id', 'name', 'abbreviated_word')->orderBy('name')->get();
+        $schoolMajors = SchoolMajor::select('id', 'name', 'abbreviated_word')->orderBy('name')->get();
 
         if (request()->ajax()) {
-            return datatables()->of($school_majors)
+            return datatables()->of($schoolMajors)
                 ->addIndexColumn()
                 ->addColumn('abbreviated_word', 'school_majors.datatable.abbreviated_word')
                 ->addColumn('action', 'school_majors.datatable.action')
@@ -26,9 +26,9 @@ class SchoolMajorController extends Controller
                 ->toJson();
         }
 
-        $count_school_majors_trashed = SchoolMajor::onlyTrashed()->count();
+        $schoolMajorTrashedCount = SchoolMajor::onlyTrashed()->count();
 
-        return view('school_majors.index', compact('count_school_majors_trashed'));
+        return view('school_majors.index', compact('schoolMajorTrashedCount'));
     }
 
     public function store(SchoolMajorStoreRequest $request): RedirectResponse

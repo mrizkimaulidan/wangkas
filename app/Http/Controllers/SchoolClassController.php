@@ -14,19 +14,19 @@ class SchoolClassController extends Controller
 
     public function index()
     {
-        $school_classes = SchoolClass::select('id', 'name')->orderBy('name')->get();
+        $schoolClasses = SchoolClass::select('id', 'name')->orderBy('name')->get();
 
         if (request()->ajax()) {
-            return datatables()->of($school_classes)
+            return datatables()->of($schoolClasses)
                 ->addIndexColumn()
                 ->addColumn('action', 'school_classes.datatable.action')
                 ->rawColumns(['action'])
                 ->toJson();
         }
 
-        $count_school_classes_trashed = SchoolClass::onlyTrashed()->count();
+        $schoolClassesTrashedCount = SchoolClass::onlyTrashed()->count();
 
-        return view('school_classes.index', compact('count_school_classes_trashed'));
+        return view('school_classes.index', compact('schoolClassesTrashedCount'));
     }
 
     public function store(SchoolClassStoreRequest $request): RedirectResponse

@@ -13,21 +13,21 @@ use Illuminate\Database\Eloquent\Builder;
 
 class CashTransactionController extends Controller
 {
-    private $cashTransactionRepository, $start_of_week, $end_of_week;
+    private $cashTransactionRepository, $startOfWeek, $endOfWeek;
     const INDEX_ROUTE = 'cash-transactions.index';
 
     public function __construct(CashTransactionRepository $cashTransactionRepository)
     {
         $this->cashTransactionRepository = $cashTransactionRepository;
-        $this->start_of_week = now()->startOfWeek()->format('Y-m-d');
-        $this->end_of_week = now()->endOfWeek()->format('Y-m-d');
+        $this->startOfWeek = now()->startOfWeek()->format('Y-m-d');
+        $this->endofWeek = now()->endOfWeek()->format('Y-m-d');
     }
 
     public function index()
     {
-        $cash_transactions = CashTransaction::with('students:id,name')
+        $cashTransactions = CashTransaction::with('students:id,name')
             ->select('id', 'student_id', 'bill', 'amount', 'date')
-            ->whereBetween('date', [$this->start_of_week, $this->end_of_week])
+            ->whereBetween('date', [$this->startOfWeek, $this->endofWeek])
             ->latest()
             ->get();
 
@@ -35,11 +35,11 @@ class CashTransactionController extends Controller
             ->whereDoesntHave(
                 'cash_transactions',
                 fn (Builder $query) => $query->select(['date'])
-                    ->whereBetween('date', [$this->start_of_week, $this->end_of_week])
+                    ->whereBetween('date', [$this->startOfWeek, $this->endofWeek])
             )->get();
 
         if (request()->ajax()) {
-            return datatables()->of($cash_transactions)
+            return datatables()->of($cashTransactions)
                 ->addIndexColumn()
                 ->addColumn('bill', fn ($model) => indonesian_currency($model->bill))
                 ->addColumn('amount', fn ($model) => indonesian_currency($model->amount))
