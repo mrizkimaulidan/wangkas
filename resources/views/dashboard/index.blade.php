@@ -16,8 +16,8 @@
 								</div>
 								<div class="col-md-8">
 									<h6 class="text-muted font-semibold">Pelajar</h6>
-									<h6 class="font-extrabold {{ $student_count <= 0 ? 'text-danger' : '' }} mb-0">
-										{{ $student_count }}
+									<h6 class="font-extrabold {{ $studentCount <= 0 ? 'text-danger' : '' }} mb-0">
+										{{ $studentCount }}
 									</h6>
 								</div>
 							</div>
@@ -37,8 +37,8 @@
 								</div>
 								<div class="col-md-8">
 									<h6 class="text-muted font-semibold">Kelas</h6>
-									<h6 class="font-extrabold {{ $school_class_count <= 0 ? 'text-danger' : '' }} mb-0">
-										{{ $school_class_count }}
+									<h6 class="font-extrabold {{ $schoolClassCount <= 0 ? 'text-danger' : '' }} mb-0">
+										{{ $schoolClassCount }}
 									</h6>
 								</div>
 							</div>
@@ -58,8 +58,8 @@
 								</div>
 								<div class="col-md-8">
 									<h6 class="text-muted font-semibold">Jurusan</h6>
-									<h6 class="font-extrabold {{ $school_major_count <= 0 ? 'text-danger' : '' }} mb-0">
-										{{ $school_major_count }}
+									<h6 class="font-extrabold {{ $schoolMajorCount <= 0 ? 'text-danger' : '' }} mb-0">
+										{{ $schoolMajorCount }}
 									</h6>
 								</div>
 							</div>
@@ -79,7 +79,7 @@
 								</div>
 								<div class="col-md-8">
 									<h6 class="text-muted font-semibold">Kas Bulan Ini</h6>
-									<h6 class="font-extrabold mb-0">{{ $cash_transaction_this_month }}</h6>
+									<h6 class="font-extrabold mb-0">{{ $amountThisMonth }}</h6>
 								</div>
 							</div>
 						</div>
@@ -107,36 +107,33 @@
 									</tr>
 								</thead>
 								<tbody>
-									@forelse($latest_cash_transactions_by_limit as $latest_cash_transaction_by_limit)
+									@forelse($latestCashTransactions as $latestCashTransaction)
 									<tr>
 										<td class="col-5">
 											<div class="d-flex align-items-center">
 												<p class="font-bold ms-3 mb-0">
-													{{ $latest_cash_transaction_by_limit->students->name }}
+													{{ $latestCashTransaction->students->name }}
 												</p>
 											</div>
 										</td>
 										<td class="col-auto">
 											<p class=" mb-0">
-												{{ indonesian_currency($latest_cash_transaction_by_limit->amount) }}
+												{{ indonesian_currency($latestCashTransaction->amount) }}
 											</p>
 										</td>
 										<td class="col-auto">
 											<p class=" mb-0">
-												{{ date('d-m-Y', strtotime($latest_cash_transaction_by_limit->date)) }}
+												{{ date('d-m-Y', strtotime($latestCashTransaction->date)) }}
 											</p>
 										</td>
 										<td class="col-auto">
 											<p class=" mb-0">
-												{{ $latest_cash_transaction_by_limit->users->name }}
+												{{ $latestCashTransaction->users->name }}
 											</p>
 										</td>
 										<td class="col-auto">
 											<p class="mb-0">
-												<button type="button"
-													data-id="{{ $latest_cash_transaction_by_limit->id }}"
-													class="btn btn-primary btn-sm cash-transaction-detail"
-													data-bs-toggle="modal" data-bs-target="#showCashTransactionModal">
+												<button type="button" data-id="{{ $latestCashTransaction->id }}" class="btn btn-primary btn-sm cash-transaction-detail" data-bs-toggle="modal" data-bs-target="#showCashTransactionModal">
 													<i class="bi bi-search"></i>
 												</button>
 											</p>

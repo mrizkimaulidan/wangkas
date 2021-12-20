@@ -49,19 +49,19 @@ class StudentController extends Controller
                 ->toJson();
         }
 
-        $school_classes = SchoolClass::select('id', 'name')->orderBy('name')->get();
-        $school_majors = SchoolMajor::select('id', 'name', 'abbreviated_word')->orderBy('name')->get();
+        $schoolClasses = SchoolClass::select('id', 'name')->orderBy('name')->get();
+        $schoolMajors = SchoolMajor::select('id', 'name', 'abbreviated_word')->orderBy('name')->get();
 
-        $count_students_trashed = Student::onlyTrashed()->count();
-        $count_male_student = $this->studentRepository->countStudentGender(1);
-        $count_female_student = $this->studentRepository->countStudentGender(2);
+        $studentTrashedCount = Student::onlyTrashed()->count();
+        $maleStudentCount = $this->studentRepository->countStudentGender(1);
+        $femaleStudentCount = $this->studentRepository->countStudentGender(2);
 
         return view('students.index', [
-            'school_classes' => $school_classes,
-            'school_majors' => $school_majors,
-            'count_students_trashed' => $count_students_trashed,
-            'count_male_student' => $count_male_student,
-            'count_female_student' => $count_female_student,
+            'schoolClasses' => $schoolClasses,
+            'schoolMajors' => $schoolMajors,
+            'studentTrashedCount' => $studentTrashedCount,
+            'maleStudentCount' => $maleStudentCount,
+            'femaleStudentCount' => $femaleStudentCount,
         ]);
     }
 
