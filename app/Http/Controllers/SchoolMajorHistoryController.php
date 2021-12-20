@@ -13,10 +13,10 @@ class SchoolMajorHistoryController extends Controller
 
     public function index()
     {
-        $school_majors = SchoolMajor::onlyTrashed()->get();
+        $schoolMajors = SchoolMajor::onlyTrashed()->get();
 
         if (request()->ajax()) {
-            return datatables()->of($school_majors)
+            return datatables()->of($schoolMajors)
                 ->addIndexColumn()
                 ->addColumn('abbreviated_word', 'school_majors.history.datatable.abbreviated_word')
                 ->addColumn('action', 'school_majors.history.datatable.action')
