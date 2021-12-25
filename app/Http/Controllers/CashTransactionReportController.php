@@ -14,20 +14,22 @@ class CashTransactionReportController extends Controller
 
     public function __invoke(): View
     {
-        $filtered_results = $this->cashTransactionReportRepository->filter();
+        $results = $this->cashTransactionReportRepository->filter();
 
-        $sums = [
-            'this_day' => indonesian_currency($this->cashTransactionReportRepository->sum('amount', 'this_day')),
-            'this_week' => indonesian_currency($this->cashTransactionReportRepository->sum('amount', 'this_week')),
-            'this_month' => indonesian_currency($this->cashTransactionReportRepository->sum('amount', 'this_month')),
-            'this_year' => indonesian_currency($this->cashTransactionReportRepository->sum('amount', 'this_year')),
+        $sum = [
+            'thisDay' => indonesian_currency($this->cashTransactionReportRepository->sum('amount', 'thisDay')),
+            'thisWeek' => indonesian_currency($this->cashTransactionReportRepository->sum('amount', 'thisWeek')),
+            'thisMonth' => indonesian_currency($this->cashTransactionReportRepository->sum('amount', 'thisMonth')),
+            'thisYear' => indonesian_currency($this->cashTransactionReportRepository->sum('amount', 'thisYear')),
         ];
 
         return view('reports.index', [
-            'sums' => $sums,
-            'reports_data' => $filtered_results['filtered_data'] ?? null,
-            'total_amount_is_paid' => $filtered_results['total_amount']['is_paid'] ?? null,
-            'total_amount_is_not_paid' => $filtered_results['total_amount']['is_not_paid'] ?? null,
+            'sum' => $sum,
+            'reports' => $results['filteredData'] ?? null,
+            'amount' => [
+                'isPaid' => $results['totalAmount']['isPaid'] ?? null,
+                'isNotPaid' => $results['totalAmount']['isNotPaid'] ?? null
+            ]
         ]);
     }
 }

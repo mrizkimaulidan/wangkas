@@ -33,16 +33,16 @@ class CashTransactionReportRepository extends Controller
             ->whereYear('date', date('Y'));
 
         switch ($type) {
-            case 'this_day':
+            case 'thisDay':
                 $model->whereDay('date', date('d'));
                 break;
-            case 'this_week':
+            case 'thisWeek':
                 $model->whereBetween('date', [now()->startOfWeek(), now()->endOfWeek()]);
                 break;
-            case 'this_month':
+            case 'thisMonth':
                 $model->whereMonth('date', date('m'));
                 break;
-            case 'this_year':
+            case 'thisYear':
                 $model->whereYear('date', date('Y'));
                 break;
         }
@@ -61,7 +61,7 @@ class CashTransactionReportRepository extends Controller
             $startDate = date('Y-m-d', strtotime($_GET['start_date']));
             $endDate = date('Y-m-d', strtotime($_GET['end_date']));
 
-            $filtered_data = $this->model
+            $filteredData = $this->model
                 ->select('user_id', 'student_id', 'amount', 'date')
                 ->with('students:id,name', 'users:id,name')
                 ->whereBetween('date', [$startDate, $endDate])
@@ -69,10 +69,10 @@ class CashTransactionReportRepository extends Controller
                 ->get();
 
             $result = [
-                'filtered_data' => $filtered_data ?? null,
-                'total_amount' => [
-                    'is_paid' => $filtered_data->sum('amount') ?? null,
-                    'is_not_paid' => $filtered_data->sum('amount') ?? null
+                'filteredData' => $filteredData ?? null,
+                'totalAmount' => [
+                    'isPaid' => $filteredData->sum('amount') ?? null,
+                    'isNotPaid' => $filteredData->sum('amount') ?? null
                 ]
             ];
         }

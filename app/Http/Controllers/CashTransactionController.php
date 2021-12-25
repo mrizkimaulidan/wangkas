@@ -20,7 +20,7 @@ class CashTransactionController extends Controller
     {
         $this->cashTransactionRepository = $cashTransactionRepository;
         $this->startOfWeek = now()->startOfWeek()->format('Y-m-d');
-        $this->endofWeek = now()->endOfWeek()->format('Y-m-d');
+        $this->endOfWeek = now()->endOfWeek()->format('Y-m-d');
     }
 
     public function index()
