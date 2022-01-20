@@ -23,7 +23,5 @@ class AdministratorSeeder extends Seeder
             'password' => bcrypt('secret'),
             'remember_token' => Str::random(10),
         ]);
-
-        User::factory(10)->create();
     }
 }
