@@ -27,7 +27,7 @@ class CashTransactionController extends Controller
     {
         $cashTransactions = CashTransaction::with('students:id,name')
             ->select('id', 'student_id', 'bill', 'amount', 'date')
-            ->whereBetween('date', [$this->startOfWeek, $this->endofWeek])
+            ->whereBetween('date', [$this->startOfWeek, $this->endOfWeek])
             ->latest()
             ->get();
 
@@ -35,7 +35,7 @@ class CashTransactionController extends Controller
             ->whereDoesntHave(
                 'cash_transactions',
                 fn (Builder $query) => $query->select(['date'])
-                    ->whereBetween('date', [$this->startOfWeek, $this->endofWeek])
+                    ->whereBetween('date', [$this->startOfWeek, $this->endOfWeek])
             )->get();
 
         if (request()->ajax()) {
