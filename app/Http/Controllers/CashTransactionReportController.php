@@ -25,10 +25,10 @@ class CashTransactionReportController extends Controller
 
         return view('reports.index', [
             'sum' => $sum,
-            'reports' => $results['filteredData'] ?? null,
+            'reports' => $results['filteredData'],
             'amount' => [
-                'isPaid' => $results['totalAmount']['isPaid'] ?? null,
-                'isNotPaid' => $results['totalAmount']['isNotPaid'] ?? null
+                'isPaid' => $results['totalAmount']['isPaid'],
+                'isNotPaid' => $results['totalAmount']['isNotPaid']
             ]
         ]);
     }

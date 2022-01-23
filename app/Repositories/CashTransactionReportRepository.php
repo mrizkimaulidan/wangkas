@@ -14,14 +14,14 @@ class CashTransactionReportRepository extends Controller
 
     /**
      * Hitung total dari suatu kolom pada tabel table di database.
-     * 
+     *
      * --------
      * $type = 'this_day' sum suatu kolom/field dari tabel berdasarkan hari pada hari ini.
      * $type = 'this_week' sum suatu kolom/field dari tabel berdasarkan minggu pada minggu ini.
      * $type = 'this_month' sum suatu kolom/field dari tabel berdasarkan bulan pada bulan ini.
      * $type = 'this_year' sum suatu kolom/field dari tabel berdasarkan tahun ini.
      * -------
-     * 
+     *
      * @param string $column adalah kolom/field dari tabel.
      * @param string $type adalah tipe sum yang mau diambil.
      * @return string
@@ -51,15 +51,17 @@ class CashTransactionReportRepository extends Controller
     }
 
     /**
-     * Filter data kas pada tabel dengan rentang tanggal.
+     * Filter laporan kas berdasarkan jarak antara tanggal awal dan tanggal akhir.
      *
-     * @return void
+     * @return Object
+     * @author @mrizkimaulidan <mrizkimaulidanx@gmail.com>
      */
-    public function filter()
+    public function filter(): Object
     {
-        if ($_GET) {
-            $startDate = date('Y-m-d', strtotime($_GET['start_date']));
-            $endDate = date('Y-m-d', strtotime($_GET['end_date']));
+        if (request()->get('start_date') && request()->get('end_date')) {
+
+            $startDate = date('Y-m-d', strtotime(request()->get('start_date')));
+            $endDate = date('Y-m-d', strtotime(request()->get('end_date')));
 
             $filteredData = $this->model
                 ->select('user_id', 'student_id', 'amount', 'date')
@@ -69,14 +71,14 @@ class CashTransactionReportRepository extends Controller
                 ->get();
 
             $result = [
-                'filteredData' => $filteredData ?? null,
+                'filteredData' => $filteredData,
                 'totalAmount' => [
-                    'isPaid' => $filteredData->sum('amount') ?? null,
-                    'isNotPaid' => $filteredData->sum('amount') ?? null
+                    'isPaid' => $filteredData->sum('amount'),
+                    'isNotPaid' => $filteredData->sum('amount')
                 ]
             ];
         }
 
-        return $result ?? null;
+        return $result;
     }
 }
