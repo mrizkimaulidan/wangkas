@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Export\AdministratorController;
 use App\Http\Controllers\Export\StudentController;
 use App\Http\Controllers\Export\CashTransactionController;

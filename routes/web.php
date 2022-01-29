@@ -32,7 +32,6 @@ Route::middleware('auth')->group(function () {
 
     //  Report routes
     Route::get('/report', CashTransactionReportController::class)->name('report.index');
-    Route::get('/report/filter', CashTransactionReportController::class)->name('report.filter');
     // End of report routes
 
     // Soft Deletes Routes
