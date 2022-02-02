@@ -133,7 +133,9 @@
 										</td>
 										<td class="col-auto">
 											<p class="mb-0">
-												<button type="button" data-id="{{ $latestCashTransaction->id }}" class="btn btn-primary btn-sm cash-transaction-detail" data-bs-toggle="modal" data-bs-target="#showCashTransactionModal">
+												<button type="button" data-id="{{ $latestCashTransaction->id }}"
+													class="btn btn-primary btn-sm cash-transaction-detail" data-bs-toggle="modal"
+													data-bs-target="#showCashTransactionModal">
 													<i class="bi bi-search"></i>
 												</button>
 											</p>
