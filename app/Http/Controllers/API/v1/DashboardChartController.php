@@ -16,9 +16,8 @@ class DashboardChartController extends Controller
 
     public function __invoke(): JsonResponse
     {
-        return response()->json([
-            'status' => Response::HTTP_OK,
-            'data' => $this->dashboardChartRepository->sumCashTransactionPerMonths()
-        ], Response::HTTP_OK);
+        $data = $this->dashboardChartRepository->sumCashTransactionPerMonths();
+
+        return response()->success($data, Response::HTTP_OK);
     }
 }
