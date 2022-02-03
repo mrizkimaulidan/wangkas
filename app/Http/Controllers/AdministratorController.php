@@ -12,7 +12,7 @@ class AdministratorController extends Controller
 {
     const INDEX_ROUTE = 'administrators.index';
 
-    public function index()
+    public function index(): View
     {
         $administrators = User::select('id', 'name', 'email', 'created_at')->orderBy('name')->get();
 
