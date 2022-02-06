@@ -38,20 +38,20 @@ class SchoolMajorController extends Controller
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil ditambahkan!');
     }
 
-    public function update(SchoolMajorUpdateRequest $request, SchoolMajor $major): RedirectResponse
+    public function update(SchoolMajorUpdateRequest $request, SchoolMajor $schoolMajor): RedirectResponse
     {
-        $major->update($request->validated());
+        $schoolMajor->update($request->validated());
 
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil diubah!');
     }
 
-    public function destroy(SchoolMajor $school_major): RedirectResponse
+    public function destroy(SchoolMajor $schoolMajor): RedirectResponse
     {
-        if ($school_major->students()->exists()) {
+        if ($schoolMajor->students()->exists()) {
             return redirect()->warning(self::INDEX_ROUTE, 'Data yang memiliki relasi tidak dapat dihapus!');
         }
 
-        $school_major->delete();
+        $schoolMajor->delete();
 
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dihapus!');
     }
