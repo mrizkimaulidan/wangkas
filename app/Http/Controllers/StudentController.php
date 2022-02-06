@@ -20,7 +20,12 @@ class StudentController extends Controller
     ) {
     }
 
-    public function index()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(): View
     {
         $students = Student::with('school_class:id,name', 'school_major:id,name,abbreviated_word')
             ->select(
@@ -65,6 +70,12 @@ class StudentController extends Controller
         ]);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\StudentStoreRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(StudentStoreRequest $request): RedirectResponse
     {
         Student::create($request->validated());
@@ -72,6 +83,13 @@ class StudentController extends Controller
         return redirect()->success('students.index', 'Data berhasil ditambahkan!');
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\StudentUpdateRequest  $request
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(StudentUpdateRequest $request, Student $student): RedirectResponse
     {
         $student->update($request->validated());
@@ -79,6 +97,12 @@ class StudentController extends Controller
         return redirect()->success('students.index', 'Data berhasil diubah!');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Student $student): RedirectResponse
     {
         $student->delete();

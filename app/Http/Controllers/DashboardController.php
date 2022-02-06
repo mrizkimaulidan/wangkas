@@ -15,6 +15,11 @@ class DashboardController extends Controller
     ) {
     }
 
+    /**
+     * Handle the incoming request.
+     *
+     * @return \Illuminate\View\View
+     */
     public function __invoke(): View
     {
         $amountThisMonth = indonesian_currency($this->cashTransactionRepository->sumAmountBy('month', month: date('m')));

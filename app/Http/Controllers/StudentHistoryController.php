@@ -5,14 +5,18 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class StudentHistoryController extends Controller
 {
     const INDEX_ROUTE = 'students.index.history';
 
-    public function index()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(): View
     {
         $students = Student::onlyTrashed()->get();
 
@@ -33,6 +37,12 @@ class StudentHistoryController extends Controller
         return view('students.history.index');
     }
 
+    /**
+     * Restore the specified resource from storage.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function restore(string $id): RedirectResponse
     {
         Student::onlyTrashed()->findOrFail($id)->restore();
@@ -40,6 +50,12 @@ class StudentHistoryController extends Controller
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dikembalikan!');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  string  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(string $id): RedirectResponse
     {
         $student = Student::onlyTrashed()->findOrFail($id);

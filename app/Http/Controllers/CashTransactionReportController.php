@@ -13,6 +13,11 @@ class CashTransactionReportController extends Controller
     ) {
     }
 
+    /**
+     * Handle the incoming request.
+     *
+     * @return \Illuminate\View\View
+     */
     public function __invoke(): View
     {
         $filteredResult = [];

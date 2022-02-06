@@ -4,17 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class CashTransactionFilterController extends Controller
 {
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function __invoke(): View
     {
         $start_date = date('Y-m-d', strtotime(request('start_date')));
         $end_date = date('Y-m-d', strtotime(request('end_date')));

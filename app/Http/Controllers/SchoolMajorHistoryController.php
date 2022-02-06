@@ -11,7 +11,12 @@ class SchoolMajorHistoryController extends Controller
 {
     const INDEX_ROUTE = 'school-majors.index.history';
 
-    public function index()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(): View
     {
         $schoolMajors = SchoolMajor::onlyTrashed()->get();
 
@@ -27,6 +32,12 @@ class SchoolMajorHistoryController extends Controller
         return view('school_majors.history.index');
     }
 
+    /**
+     * Restore the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function restore(int $id): RedirectResponse
     {
         SchoolMajor::onlyTrashed()->findOrFail($id)->restore();
@@ -34,6 +45,12 @@ class SchoolMajorHistoryController extends Controller
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dikembalikan!');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(int $id): RedirectResponse
     {
         SchoolMajor::onlyTrashed()->findOrFail($id)->forceDelete();

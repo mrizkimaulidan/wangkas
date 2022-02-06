@@ -12,6 +12,11 @@ class AdministratorController extends Controller
 {
     const INDEX_ROUTE = 'administrators.index';
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index(): View
     {
         $administrators = User::select('id', 'name', 'email', 'created_at')->orderBy('name')->get();
@@ -27,6 +32,12 @@ class AdministratorController extends Controller
         return view('administrators.index');
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\AdministratorStoreRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(AdministratorStoreRequest $request): RedirectResponse
     {
         User::create($request->validated());
@@ -34,6 +45,13 @@ class AdministratorController extends Controller
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil ditambahkan!');
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $administrator
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, User $administrator): RedirectResponse
     {
         $administrator->update([
@@ -48,6 +66,12 @@ class AdministratorController extends Controller
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil diubah!');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\User  $administrator
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(User $administrator): RedirectResponse
     {
         $administrator->delete();

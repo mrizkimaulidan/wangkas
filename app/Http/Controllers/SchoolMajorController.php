@@ -7,13 +7,17 @@ use App\Http\Requests\SchoolMajorUpdateRequest;
 use App\Models\SchoolMajor;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
-use Yajra\DataTables\DataTables;
 
 class SchoolMajorController extends Controller
 {
     const INDEX_ROUTE = 'school-majors.index';
 
-    public function index()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function index(): View
     {
         $schoolMajors = SchoolMajor::select('id', 'name', 'abbreviated_word')->orderBy('name')->get();
 
@@ -31,6 +35,12 @@ class SchoolMajorController extends Controller
         return view('school_majors.index', compact('schoolMajorTrashedCount'));
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\SchoolMajorStoreRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(SchoolMajorStoreRequest $request): RedirectResponse
     {
         SchoolMajor::create($request->validated());
@@ -38,6 +48,13 @@ class SchoolMajorController extends Controller
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil ditambahkan!');
     }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\SchoolMajorUpdateRequest  $request
+     * @param  \App\Models\SchoolMajor  $schoolMajor
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(SchoolMajorUpdateRequest $request, SchoolMajor $schoolMajor): RedirectResponse
     {
         $schoolMajor->update($request->validated());
@@ -45,6 +62,12 @@ class SchoolMajorController extends Controller
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil diubah!');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\SchoolMajor  $schoolMajor
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(SchoolMajor $schoolMajor): RedirectResponse
     {
         if ($schoolMajor->students()->exists()) {
