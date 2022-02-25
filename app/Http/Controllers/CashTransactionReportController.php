@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CashTransaction;
 use App\Repositories\CashTransactionReportRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 
 class CashTransactionReportController extends Controller
@@ -16,9 +17,9 @@ class CashTransactionReportController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse
      */
-    public function __invoke(): View
+    public function __invoke(): View|JsonResponse
     {
         $filteredResult = [];
 

@@ -10,6 +10,7 @@ use App\Repositories\CashTransactionRepository;
 use App\Http\Requests\CashTransactionStoreRequest;
 use App\Http\Requests\CashTransactionUpdateRequest;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 
 class CashTransactionController extends Controller
@@ -27,9 +28,9 @@ class CashTransactionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse
      */
-    public function index(): View
+    public function index(): View|JsonResponse
     {
         $cashTransactions = CashTransaction::with('students:id,name')
             ->select('id', 'student_id', 'bill', 'amount', 'date')

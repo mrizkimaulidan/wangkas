@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
+use Illuminate\Http\JsonResponse;
 use Illuminate\View\View;
 
 class CashTransactionFilterController extends Controller
@@ -11,9 +12,9 @@ class CashTransactionFilterController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse
      */
-    public function __invoke(): View
+    public function __invoke(): View|JsonResponse
     {
         $start_date = date('Y-m-d', strtotime(request('start_date')));
         $end_date = date('Y-m-d', strtotime(request('end_date')));

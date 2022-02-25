@@ -8,6 +8,7 @@ use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Repositories\StudentRepository;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -23,9 +24,9 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse
      */
-    public function index(): View
+    public function index(): View|JsonResponse
     {
         $students = Student::with('school_class:id,name', 'school_major:id,name,abbreviated_word')
             ->select(
