@@ -9,8 +9,8 @@ Beberapa CRUD menggunakan modal dan AJAX untuk pengambilan data agar mengurangi 
 Berikut beberapa hal yang perlu diinstal terlebih dahulu:
 
 -   Composer (https://getcomposer.org/)
--   PHP 8.x
--   MySQL 15.x
+-   PHP ^8.x.x
+-   MySQL ^15.x
 -   XAMPP
 
 Jika Anda menggunakan XAMPP, untuk PHP dan MySQL sudah menjadi 1 (bundle) didalam aplikasi XAMPP.
@@ -27,30 +27,30 @@ Jika Anda menggunakan XAMPP, untuk PHP dan MySQL sudah menjadi 1 (bundle) didala
 ### Preview Gambar
 
 _Login_
-![Login](https://i.imgur.com/roFkqZM.png)
+![Login](https://i.ibb.co/Ws6H4Kr/login.png)
 
 _Dashboard_
-![Dashboard](https://i.imgur.com/TVBKaxK.png)
+![Dashboard](https://i.ibb.co/jJsmpHQ/dashboard.png)
 
 _Daftar Pelajar_
-![Daftar Pelajar](https://i.imgur.com/esVc0GZ.png)
+![Daftar Pelajar](https://i.ibb.co/vQcMzNr/students.png)
 
 _Daftar Kelas_
-![Daftar Kelas](https://i.imgur.com/D1AlY45.png)
+![Daftar Kelas](https://i.ibb.co/brXRLbf/school-classes.png)
 
 _Daftar Jurusan_
-![Daftar Jurusan](https://i.imgur.com/KFuPEnn.png)
+![Daftar Jurusan](https://i.ibb.co/V2FwnR8/school-majors.png)
 
 _Daftar Kas_
-![Daftar Kas](https://i.imgur.com/4yr5Sja.png)
+![Daftar Kas](https://i.ibb.co/gZCXdDr/cash-transaction-this-week.png)
 
-![Filter Kas](https://i.imgur.com/ejffRnV.png)
+![Filter Kas](https://i.ibb.co/s3vZVgF/cash-transaction-filter.png)
 
 _Laporan_
-![Laporan](https://i.imgur.com/3yziMLW.png)
+![Laporan](https://i.ibb.co/FBj0LmZ/reports.png)
 
 _Daftar Administrator_
-![Daftar Administrator](https://i.imgur.com/pmsu7tF.png)
+![Daftar Administrator](https://i.ibb.co/Mfr1PD3/administrators.png)
 
 ### Langkah-langkah instalasi
 
@@ -94,7 +94,7 @@ php artisan optimize
 php artisan serve
 ```
 
--   _(Opsional)_ Secara default debugbar akan aktif, untuk menonaktifkannnya cari variabel `DEBUGBAR_ENABLED` pada file .env dan ubah valuenya menjadi `FALSE`
+-   _(Opsional)_ Secara default debugbar akan aktif, untuk menonaktifkannnya cari variabel `DEBUGBAR_ENABLED` pada file .env dan ubah valuenya menjadi `false`
 
 -   Akses ke halaman
 
@@ -115,7 +115,8 @@ Password    : secret
 
 ### Dibuat dengan
 
--   [Laravel](https://laravel.com) - Web Framework
+- [Laravel](https://laravel.com/) - Backend Framework
+- [Bootstrap](https://getbootstrap.com/) - Frontend Framework
 
 ### Kontribusi
 
@@ -125,7 +126,7 @@ Database Schema -> [dbdiagram](https://dbdiagram.io/d/60115a6180d742080a380f79)
 
 ### Pembuat
 
--   **Muhammad Rizki Maulidan** - _Programmer_ - [mrizkimaulidan](https://github.com/mrizkimaulidan)
+-   **Muhammad Rizki Maulidan**  - [mrizkimaulidan](https://github.com/mrizkimaulidan)
 
 ### Lisensi
 
