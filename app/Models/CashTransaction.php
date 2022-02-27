@@ -19,12 +19,12 @@ class CashTransaction extends Model
 
     public function students(): BelongsTo
     {
-        return $this->belongsTo(Student::class, 'student_id', 'id');
+        return $this->belongsTo(Student::class);
     }
 
     public function users(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class);
     }
 
     public function setDateAttribute(string $value): void

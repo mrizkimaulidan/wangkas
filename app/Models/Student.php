@@ -20,12 +20,12 @@ class Student extends Model
 
     public function school_class(): BelongsTo
     {
-        return $this->belongsTo(SchoolClass::class, 'school_class_id', 'id');
+        return $this->belongsTo(SchoolClass::class);
     }
 
     public function school_major(): BelongsTo
     {
-        return $this->belongsTo(SchoolMajor::class, 'school_major_id', 'id');
+        return $this->belongsTo(SchoolMajor::class);
     }
 
     public function cash_transactions(): HasMany
