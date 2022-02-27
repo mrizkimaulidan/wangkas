@@ -13,7 +13,7 @@ class CashTransactionReportRepository extends Controller
     }
 
     /**
-     * Hitung total dari suatu kolom pada tabel table di database.
+     * Hitung total dari suatu kolom pada tabel table di database dengan method sum().
      *
      * --------
      * $type = 'thisDay' sum suatu kolom/field dari tabel berdasarkan hari pada hari ini.
@@ -24,28 +24,20 @@ class CashTransactionReportRepository extends Controller
      *
      * @param string $column adalah kolom/field dari tabel.
      * @param string $type adalah tipe sum yang mau diambil.
-     * @return string
+     * @return Int
      */
-    public function sum(string $column, string $type): string
+    public function sum(string $column, string $type): Int
     {
         $model = $this->model
             ->select('date', 'amount')
             ->whereYear('date', date('Y'));
 
-        switch ($type) {
-            case 'thisDay':
-                $model->whereDay('date', date('d'));
-                break;
-            case 'thisWeek':
-                $model->whereBetween('date', [now()->startOfWeek(), now()->endOfWeek()]);
-                break;
-            case 'thisMonth':
-                $model->whereMonth('date', date('m'));
-                break;
-            case 'thisYear':
-                $model->whereYear('date', date('Y'));
-                break;
-        }
+        match ($type) {
+            'thisDay' => $model->whereDay('date', date('d')),
+            'thisWeek' => $model->whereBetween('date', [now()->startOfWeek(), now()->endOfWeek()]),
+            'thisMonth' => $model->whereMonth('date', date('m')),
+            'thisYear' => $model->whereYear('date', date('Y'))
+        };
 
         return $model->sum($column);
     }
