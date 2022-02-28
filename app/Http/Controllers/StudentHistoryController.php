@@ -26,7 +26,7 @@ class StudentHistoryController extends Controller
                 ->addIndexColumn()
                 ->addColumn(
                     'school_class_id',
-                    fn ($model) => $model->school_classes->name
+                    fn ($model) => $model->school_class->name
                 )
                 ->addColumn('school_major', 'students.datatable.school_major')
                 ->addColumn('school_year', 'students.datatable.school_year')
