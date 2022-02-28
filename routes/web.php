@@ -35,22 +35,22 @@ Route::middleware('auth')->group(function () {
     // End of report routes
 
     // Soft Deletes Routes
-    Route::prefix('/students/history')->name('students.')->group(function () {
-        Route::get('', [StudentHistoryController::class, 'index'])->name('index.history');
-        Route::post('{id}', [StudentHistoryController::class, 'restore'])->name('restore.history');
-        Route::delete('{id}', [StudentHistoryController::class, 'destroy'])->name('destroy.history');
+    Route::controller(StudentHistoryController::class)->prefix('/students/history')->name('students.')->group(function () {
+        Route::get('', 'index')->name('index.history');
+        Route::post('{id}', 'restore')->name('restore.history');
+        Route::delete('{id}', 'destroy')->name('destroy.history');
     });
 
-    Route::prefix('/school-classes/history')->name('school-classes.')->group(function () {
-        Route::get('', [SchoolClassHistoryController::class, 'index'])->name('index.history');
-        Route::post('{id}', [SchoolClassHistoryController::class, 'restore'])->name('restore.history');
-        Route::delete('{id}', [SchoolClassHistoryController::class, 'destroy'])->name('destroy.history');
+    Route::controller(SchoolClassHistoryController::class)->prefix('/school-classes/history')->name('school-classes.')->group(function () {
+        Route::get('', 'index')->name('index.history');
+        Route::post('{id}', 'restore')->name('restore.history');
+        Route::delete('{id}', 'destroy')->name('destroy.history');
     });
 
-    Route::prefix('/school-majors/history')->name('school-majors.')->group(function () {
-        Route::get('', [SchoolMajorHistoryController::class, 'index'])->name('index.history');
-        Route::post('{id}', [SchoolMajorHistoryController::class, 'restore'])->name('restore.history');
-        Route::delete('{id}', [SchoolMajorHistoryController::class, 'destroy'])->name('destroy.history');
+    Route::controller(SchoolMajorHistoryController::class)->prefix('/school-majors/history')->name('school-majors.')->group(function () {
+        Route::get('', 'index')->name('index.history');
+        Route::post('{id}', 'restore')->name('restore.history');
+        Route::delete('{id}', 'destroy')->name('destroy.history');
     });
     // End Soft Deletes Routes
 
