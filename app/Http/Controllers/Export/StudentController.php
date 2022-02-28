@@ -16,7 +16,7 @@ class StudentController extends Controller
         $spreadsheet = new Spreadsheet();
         $sheet = $this->setHeaderExcel($spreadsheet);
 
-        $students = Student::with('school_classes:id,name', 'school_majors:id,name')->orderBy('name')->get();
+        $students = Student::with('school_class:id,name', 'school_major:id,name')->orderBy('name')->get();
 
         $this->setExcelContent($students, $sheet);
 
