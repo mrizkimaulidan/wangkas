@@ -22,18 +22,17 @@
 
             $('#showSchoolClassModal :input').val("Sedang mengambil data..");
 
-            fetch(url, {
-                method: "GET",
+            $.ajax({
+                url: url,
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-            }).then(async res => {
-                loadingAlert.slideUp();
+                success: function (response) {
+                    loadingAlert.slideUp();
 
-                let response = await res.json();
-
-                $('#showSchoolClassModal #name').val(response.data.name);
+                    $('#showSchoolClassModal #name').val(response.data.name);
+                }
             });
         });
 
@@ -57,22 +56,21 @@
 
             editSchoolClassButtonSubmit.prop('disabled', true);
 
-            fetch(url, {
-                method: "GET",
+            $.ajax({
+                url: url,
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-            }).then(async res => {
-                loadingAlert.slideUp();
+                success: function (response) {
+                    loadingAlert.slideUp();
 
-                let response = await res.json();
+                    $('#editSchoolClassModal #edit-school-class-form').attr('action', formActionURL);
+                    $('#editSchoolClassModal #name').val(response.data.name);
 
-                $('#editSchoolClassModal #edit-school-class-form').attr('action', formActionURL);
-                $('#editSchoolClassModal #name').val(response.data.name);
-
-                editSchoolClassModalEveryInput.prop('disabled', false);
-                editSchoolClassButtonSubmit.prop('disabled', false)
+                    editSchoolClassModalEveryInput.prop('disabled', false);
+                    editSchoolClassButtonSubmit.prop('disabled', false)
+                }
             });
         });
     });

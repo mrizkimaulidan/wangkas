@@ -25,24 +25,22 @@
 
             $('#showCashTransactionModal :input').val('Sedang mengambil data..');
 
-            fetch(url, {
-                method: "GET",
+            $.ajax({
+                url: url,
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
                 },
-            }).then(async res => {
-                loadingAlert.slideUp();
+                success: function (response) {
+                    loadingAlert.slideUp();
 
-                let response = await res.json();
-
-                $('#showCashTransactionModal #user_id').val(response.data.users.name);
-                $('#showCashTransactionModal #student_id').val(response.data.students.name);
-                $('#showCashTransactionModal #bill').val(response.data.bill);
-                $('#showCashTransactionModal #amount').val(response.data.amount);
-                $('#showCashTransactionModal #is_paid').val(response.data.is_paid);
-                $('#showCashTransactionModal #date').val(response.data.date);
-                $('#showCashTransactionModal #note').val(response.data.note);
+                    $('#showCashTransactionModal #user_id').val(response.data.users.name);
+                    $('#showCashTransactionModal #student_id').val(response.data.students.name);
+                    $('#showCashTransactionModal #bill').val(response.data.bill);
+                    $('#showCashTransactionModal #amount').val(response.data.amount);
+                    $('#showCashTransactionModal #is_paid').val(response.data.is_paid);
+                    $('#showCashTransactionModal #date').val(response.data.date);
+                    $('#showCashTransactionModal #note').val(response.data.note);
+                }
             });
         });
 
@@ -64,28 +62,26 @@
             let editCashTransactionModalButtonSubmit = $('#editCashTransactionModal .modal-content .modal-footer button[type=submit]')
             editCashTransactionModalButtonSubmit.prop('disabled', true);
 
-            fetch(url, {
-                method: "GET",
+            $.ajax({
+                url: url,
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
                 },
-            }).then(async res => {
-                loadingAlert.slideUp();
+                success: function (response) {
+                    loadingAlert.slideUp();
 
-                let response = await res.json();
+                    $('#editCashTransactionModal .modal-body #cash-transaction-edit-form').attr('action', formActionURL);
+                    editCashTransactionModalEveryInput.prop('disabled', false);
+                    editCashTransactionModalButtonSubmit.prop('disabled', false);
 
-                $('#editCashTransactionModal .modal-body #cash-transaction-edit-form').attr('action', formActionURL);
-                editCashTransactionModalEveryInput.prop('disabled', false);
-                editCashTransactionModalButtonSubmit.prop('disabled', false);
-
-                $('#editCashTransactionModal #student_name').val(response.data.students.name);
-                $('#editCashTransactionModal #student_id').val(response.data.student_id);
-                $('#editCashTransactionModal #bill').val(response.data.bill);
-                $('#editCashTransactionModal #amount').val(response.data.amount);
-                $('#editCashTransactionModal #is_paid').val(response.data.is_paid);
-                $('#editCashTransactionModal #date').val(response.data.date);
-                $('#editCashTransactionModal #note').val(response.data.note);
+                    $('#editCashTransactionModal #student_name').val(response.data.students.name);
+                    $('#editCashTransactionModal #student_id').val(response.data.student_id);
+                    $('#editCashTransactionModal #bill').val(response.data.bill);
+                    $('#editCashTransactionModal #amount').val(response.data.amount);
+                    $('#editCashTransactionModal #is_paid').val(response.data.is_paid);
+                    $('#editCashTransactionModal #date').val(response.data.date);
+                    $('#editCashTransactionModal #note').val(response.data.note);
+                }
             });
         });
     });

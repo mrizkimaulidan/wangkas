@@ -2,17 +2,16 @@
     $(function () {
         let url = "{{ route('api.chart') }}";
 
-        fetch(url, {
-            method: "GET",
+        $.ajax({
+            url: url,
             headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
+                'Accept': 'application/json'
             },
-        }).then(async res => {
-            let response = await res.json();
-            let chart = initChart(response);
+            success: function (response) {
+                let chart = initChart(response);
 
-            chart.render();
+                chart.render();
+            }
         });
 
         function initChart(data) {

@@ -23,19 +23,17 @@
 
             $('#showSchoolMajorModal :input').val('Sedang mengambil data..');
 
-            fetch(url, {
-                method: "GET",
+            $.ajax({
+                url: url,
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
                 },
-            }).then(async res => {
-                loadingAlert.slideUp();
+                success: function (response) {
+                    loadingAlert.slideUp();
 
-                let response = await res.json();
-
-                $('#showSchoolMajorModal #name').val(response.data.name);
-                $('#showSchoolMajorModal #abbreviated_word').val(response.data.abbreviated_word);
+                    $('#showSchoolMajorModal #name').val(response.data.name);
+                    $('#showSchoolMajorModal #abbreviated_word').val(response.data.abbreviated_word);
+                }
             });
         });
 
@@ -57,24 +55,22 @@
             let editSchoolMajorSubmitButton = $('#editSchoolMajorModal .modal-content .modal-footer button[type=submit]')
                 .prop('disabled', true);
 
-            fetch(url, {
-                method: "GET",
+            $.ajax({
+                url: url,
                 headers: {
                     'Accept': 'application/json',
-                    'Content-Type': 'application/json'
                 },
-            }).then(async res => {
-                loadingAlert.slideUp();
+                success: function (response) {
+                    loadingAlert.slideUp();
 
-                let response = await res.json();
+                    $('#editSchoolMajorModal #school-major-edit-form').attr('action', formActionURL);
 
-                $('#editSchoolMajorModal #school-major-edit-form').attr('action', formActionURL);
+                    $('#editSchoolMajorModal #name').val(response.data.name);
+                    $('#editSchoolMajorModal #abbreviated_word').val(response.data.abbreviated_word);
 
-                $('#editSchoolMajorModal #name').val(response.data.name);
-                $('#editSchoolMajorModal #abbreviated_word').val(response.data.abbreviated_word);
-
-                editSchoolMajorEveryInput.prop('disabled', false);
-                editSchoolMajorSubmitButton.prop('disabled', false);
+                    editSchoolMajorEveryInput.prop('disabled', false);
+                    editSchoolMajorSubmitButton.prop('disabled', false);
+                }
             });
         });
     });

@@ -27,25 +27,24 @@
 
             $('#showStudentModal input').val("Sedang mengambil data..");
 
-            fetch(url, {
-                method: "GET",
+						$.ajax({
+                url: url,
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-            }).then(async res => {
-                loadingAlert.slideUp();
+                success: function (response) {
+									loadingAlert.slideUp();
 
-                let response = await res.json();
-
-                $('#showStudentModal #name').val(response.data.name);
-                $('#showStudentModal #gender').val(response.data.gender);
-                $('#showStudentModal #school_class_id').val(response.data.school_classes.name);
-                $('#showStudentModal #school_major_id').val(response.data.school_majors.name);
-                $('#showStudentModal #email').val(response.data.email);
-                $('#showStudentModal #phone_number').val(response.data.phone_number);
-                $('#showStudentModal #school_year_start').val(response.data.school_year_start);
-                $('#showStudentModal #school_year_end').val(response.data.school_year_end);
+									$('#showStudentModal #name').val(response.data.name);
+									$('#showStudentModal #gender').val(response.data.gender);
+									$('#showStudentModal #school_class_id').val(response.data.school_classes.name);
+									$('#showStudentModal #school_major_id').val(response.data.school_majors.name);
+									$('#showStudentModal #email').val(response.data.email);
+									$('#showStudentModal #phone_number').val(response.data.phone_number);
+									$('#showStudentModal #school_year_start').val(response.data.school_year_start);
+									$('#showStudentModal #school_year_end').val(response.data.school_year_end);
+                }
             });
         });
 
@@ -68,31 +67,30 @@
             let editStudentModalSubmitButton = $('#editStudentModal .modal-footer button[type=submit]');
             editStudentModalSubmitButton.prop('disabled', true);
 
-            fetch(url, {
-                method: "GET",
+						$.ajax({
+                url: url,
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-            }).then(async res => {
-                loadingAlert.slideUp();
+                success: function (response) {
+									loadingAlert.slideUp();
 
-                let response = await res.json();
+									editStudentModalEveryInput.prop('disabled', false);
+									editStudentModalSubmitButton.prop('disabled', false)
 
-                editStudentModalEveryInput.prop('disabled', false);
-                editStudentModalSubmitButton.prop('disabled', false)
+									$('#editStudentModal #edit-student-form').attr('action', formActionURL)
 
-                $('#editStudentModal #edit-student-form').attr('action', formActionURL)
-
-                $('#editStudentModal #student_identification_number').val(response.data.student_identification_number);
-                $('#editStudentModal #name').val(response.data.name);
-                $('#editStudentModal #gender').val(response.data.gender);
-                $('#editStudentModal #school_class_id').val(response.data.school_class_id).select2();
-                $('#editStudentModal #school_major_id').val(response.data.school_major_id).select2();
-                $('#editStudentModal #email').val(response.data.email);
-                $('#editStudentModal #phone_number').val(response.data.phone_number);
-                $('#editStudentModal #school_year_start').val(response.data.school_year_start);
-                $('#editStudentModal #school_year_end').val(response.data.school_year_end);
+									$('#editStudentModal #student_identification_number').val(response.data.student_identification_number);
+									$('#editStudentModal #name').val(response.data.name);
+									$('#editStudentModal #gender').val(response.data.gender);
+									$('#editStudentModal #school_class_id').val(response.data.school_class_id).select2();
+									$('#editStudentModal #school_major_id').val(response.data.school_major_id).select2();
+									$('#editStudentModal #email').val(response.data.email);
+									$('#editStudentModal #phone_number').val(response.data.phone_number);
+									$('#editStudentModal #school_year_start').val(response.data.school_year_start);
+									$('#editStudentModal #school_year_end').val(response.data.school_year_end);
+                }
             });
         });
     });
