@@ -32,4 +32,17 @@ class Student extends Model
     {
         return $this->hasMany(CashTransaction::class);
     }
+
+    /**
+     * Get student gender name.
+     *
+     * @return string
+     */
+    public function getGenderName(): string
+    {
+        return match ($this->gender) {
+            1 => 'Laki-laki',
+            2 => 'Perempuan'
+        };
+    }
 }
