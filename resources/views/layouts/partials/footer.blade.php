@@ -1,13 +1,13 @@
 <footer>
-    <div class="footer clearfix mb-0 text-muted">
-        <div class="float-start">
-            <p>{{ date('Y') }} &copy; Mazer</p>
-        </div>
-        <div class="float-end">
-            <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                    href="http://ahmadsaugi.com">A. Saugi</a></p>
-        </div>
-    </div>
+	<div class="footer clearfix mb-0 text-muted">
+		<div class="float-start">
+			<p>{{ date('Y') }} &copy; Mazer</p>
+		</div>
+		<div class="float-end">
+			<p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A.
+					Saugi</a></p>
+		</div>
+	</div>
 </footer>
 </div>
 </div>
@@ -31,93 +31,93 @@
 <script src="{{ asset('vendors/flatpickr/id.js') }}"></script>
 
 <script>
-    $(function () {
-        $(".select2").select2();
+	$(function () {
+		$(".select2").select2();
 
-        $("input[type=date]").flatpickr({
-            dateFormat: "d-m-Y",
-            locale: "id",
-        });
+		$("input[type=date]").flatpickr({
+			dateFormat: "d-m-Y",
+			locale: "id",
+		});
 
-        $.extend(true, $.fn.dataTable.defaults, {
-            language: {
-                url: "{{ asset('vendors/datatable/plugins/id.json') }}",
-            },
-            "pageLength": 5,
-            "lengthMenu": [[5, 20, 25, 50, -1], [5, 20, 25, 50, 'All']]
-        });
+		$.extend(true, $.fn.dataTable.defaults, {
+			language: {
+				url: "{{ asset('vendors/datatable/plugins/id.json') }}",
+			},
+			"pageLength": 5,
+			"lengthMenu": [[5, 20, 25, 50, -1], [5, 20, 25, 50, 'All']]
+		});
 
-        $("#datatable").on('click', '.delete-notification', function (e) {
-            e.preventDefault();
-            Swal.fire({
-                title: "Hapus?",
-                text: "Data tersebut akan dihapus!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                cancelButtonText: "Tidak",
-                confirmButtonText: "Ya!",
-                reverseButtons: true,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $(this).parent().submit();
-                }
-            });
-        });
+		$("#datatable").on('click', '.delete-notification', function (e) {
+			e.preventDefault();
+			Swal.fire({
+				title: "Hapus?",
+				text: "Data tersebut akan dihapus!",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				cancelButtonText: "Tidak",
+				confirmButtonText: "Ya!",
+				reverseButtons: true,
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$(this).parent().submit();
+				}
+			});
+		});
 
-        $("#datatable").on('click', '.restore-button', function (e) {
-            e.preventDefault();
-            Swal.fire({
-                title: "Kembalikan?",
-                text: "Data yang dipilih akan dikembalikan",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                cancelButtonText: "Tidak",
-                confirmButtonText: "Ya!",
-                reverseButtons: true,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $(this).parent().submit();
-                }
-            });
-        });
+		$("#datatable").on('click', '.restore-button', function (e) {
+			e.preventDefault();
+			Swal.fire({
+				title: "Kembalikan?",
+				text: "Data yang dipilih akan dikembalikan",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				cancelButtonText: "Tidak",
+				confirmButtonText: "Ya!",
+				reverseButtons: true,
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$(this).parent().submit();
+				}
+			});
+		});
 
-        $("#datatable").on('click', '.delete-permanent-button', function (e) {
-            e.preventDefault();
-            Swal.fire({
-                title: "Hapus permanen?",
-                text: "Data yang dipilih tidak akan bisa dikembalikan lagi!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#3085d6",
-                cancelButtonColor: "#d33",
-                cancelButtonText: "Tidak",
-                confirmButtonText: "Ya!",
-                reverseButtons: true,
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    Swal.fire({
-                        title: "Yakin?",
-                        text: "Anda yakin ingin menghapus data tersebut?",
-                        icon: "warning",
-                        showCancelButton: true,
-                        confirmButtonColor: "#3085d6",
-                        cancelButtonColor: "#d33",
-                        cancelButtonText: "Tidak",
-                        confirmButtonText: "Ya!",
-                        reverseButtons: true
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $(this).parent().submit();
-                        }
-                    });
-                }
-            });
-        });
-    });
+		$("#datatable").on('click', '.delete-permanent-button', function (e) {
+			e.preventDefault();
+			Swal.fire({
+				title: "Hapus permanen?",
+				text: "Data yang dipilih tidak akan bisa dikembalikan lagi!",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				cancelButtonText: "Tidak",
+				confirmButtonText: "Ya!",
+				reverseButtons: true,
+			}).then((result) => {
+				if (result.isConfirmed) {
+					Swal.fire({
+						title: "Yakin?",
+						text: "Anda yakin ingin menghapus data tersebut?",
+						icon: "warning",
+						showCancelButton: true,
+						confirmButtonColor: "#3085d6",
+						cancelButtonColor: "#d33",
+						cancelButtonText: "Tidak",
+						confirmButtonText: "Ya!",
+						reverseButtons: true
+					}).then((result) => {
+						if (result.isConfirmed) {
+							$(this).parent().submit();
+						}
+					});
+				}
+			});
+		});
+	});
 </script>
 
 @stack('js')
