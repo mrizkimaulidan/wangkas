@@ -18,16 +18,31 @@ class Student extends Model
         'school_year_end'
     ];
 
+    /**
+     * Get school class relation data.
+     *
+     * @return BelongsTo
+     */
     public function school_class(): BelongsTo
     {
         return $this->belongsTo(SchoolClass::class);
     }
 
+    /**
+     * Get school major relation data.
+     *
+     * @return BelongsTo
+     */
     public function school_major(): BelongsTo
     {
         return $this->belongsTo(SchoolMajor::class);
     }
 
+    /**
+     * Get cash transaction relation data.
+     *
+     * @return HasMany
+     */
     public function cash_transactions(): HasMany
     {
         return $this->hasMany(CashTransaction::class);

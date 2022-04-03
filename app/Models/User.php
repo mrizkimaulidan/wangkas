@@ -41,6 +41,11 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Get cash transactions relation data.
+     *
+     * @return HasMany
+     */
     public function cash_transactions(): HasMany
     {
         return $this->hasMany(CashTransaction::class);

@@ -13,6 +13,11 @@ class SchoolClass extends Model
 
     protected $fillable = ['name'];
 
+    /**
+     * Get students relation data.
+     *
+     * @return HasMany
+     */
     public function students(): HasMany
     {
         return $this->hasMany(Student::class);

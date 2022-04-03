@@ -17,16 +17,32 @@ class CashTransaction extends Model
         'is_paid' => 'integer',
     ];
 
+    /**
+     * Get students relation data.
+     *
+     * @return BelongsTo
+     */
     public function students(): BelongsTo
     {
         return $this->belongsTo(Student::class, 'student_id');
     }
 
+    /**
+     * Get users relation data.
+     *
+     * @return BelongsTo
+     */
     public function users(): BelongsTo
     {
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    /**
+     * Set date attribute when storing data.
+     *
+     * @param string $value
+     * @return void
+     */
     public function setDateAttribute(string $value): void
     {
         $this->attributes['date'] = date('Y-m-d', strtotime($value));

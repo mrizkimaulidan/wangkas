@@ -14,6 +14,11 @@ class SchoolMajor extends Model
 
     protected $fillable = ['name', 'abbreviated_word'];
 
+    /**
+     * Get students relation data.
+     *
+     * @return HasMany
+     */
     public function students(): HasMany
     {
         return $this->hasMany(Student::class);
