@@ -41,7 +41,11 @@ class AdministratorController extends Controller
      */
     public function store(AdministratorStoreRequest $request): RedirectResponse
     {
-        User::create($request->validated());
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ]);
 
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil ditambahkan!');
     }
