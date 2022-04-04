@@ -1,88 +1,85 @@
 <script>
-    $(function () {
-        let loadingAlert = $('.modal-body #loading-alert');
+	$(function () {
+		let loadingAlert = $('.modal-body #loading-alert');
 
-        $('#datatable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('cash-transactions.index') }}",
-            columns: [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'students.name', name: 'students.name' },
-                { data: 'bill', name: 'bill' },
-                { data: 'amount', name: 'amount' },
-                { data: 'date', name: 'date' },
-                { data: 'action', name: 'action' },
-            ]
-        });
+		$('#datatable').DataTable({
+			processing: true,
+			serverSide: true,
+			ajax: "{{ route('cash-transactions.index') }}",
+			columns: [
+				{ data: 'DT_RowIndex', name: 'DT_RowIndex' },
+				{ data: 'students.name', name: 'students.name' },
+				{ data: 'bill', name: 'bill' },
+				{ data: 'amount', name: 'amount' },
+				{ data: 'date', name: 'date' },
+				{ data: 'action', name: 'action' },
+			]
+		});
 
-        $('#datatable').on('click', '.cash-transaction-detail', function () {
-            loadingAlert.show();
+		$('#datatable').on('click', '.cash-transaction-detail', function () {
+			loadingAlert.show();
 
-            let id = $(this).data('id');
-            let url = "{{ route('api.cash-transaction.show', 'id') }}";
-            url = url.replace('id', id);
+			let id = $(this).data('id');
+			let url = "{{ route('api.cash-transaction.show', 'id') }}";
+			url = url.replace('id', id);
 
-            $('#showCashTransactionModal :input').val('Sedang mengambil data..');
+			$('#showCashTransactionModal :input').val('Sedang mengambil data..');
 
-            $.ajax({
-                url: url,
-                headers: {
-                    'Accept': 'application/json',
-                },
-                success: function (response) {
-                    loadingAlert.slideUp();
+			$.ajax({
+				url: url,
+				headers: {
+					'Accept': 'application/json',
+				},
+				success: function (response) {
+					loadingAlert.slideUp();
 
-                    $('#showCashTransactionModal #user_id').val(response.data.users.name);
-                    $('#showCashTransactionModal #student_id').val(response.data.students.name);
-                    $('#showCashTransactionModal #bill').val(response.data.bill);
-                    $('#showCashTransactionModal #amount').val(response.data.amount);
-                    $('#showCashTransactionModal #is_paid').val(response.data.is_paid);
-                    $('#showCashTransactionModal #date').val(response.data.date);
-                    $('#showCashTransactionModal #note').val(response.data.note);
-                }
-            });
-        });
+					$('#showCashTransactionModal #user_id').val(response.data.users.name);
+					$('#showCashTransactionModal #student_id').val(response.data.students.name);
+					$('#showCashTransactionModal #bill').val(response.data.bill);
+					$('#showCashTransactionModal #amount').val(response.data.amount);
+					$('#showCashTransactionModal #is_paid').val(response.data.is_paid);
+					$('#showCashTransactionModal #date').val(response.data.date);
+					$('#showCashTransactionModal #note').val(response.data.note);
+				}
+			});
+		});
 
-        $('#datatable').on('click', '.cash-transaction-edit', function () {
-            loadingAlert.show();
+		$('#datatable').on('click', '.cash-transaction-edit', function () {
+			loadingAlert.show();
 
-            let id = $(this).data('id');
-            let url = "{{ route('api.cash-transaction.edit', 'id') }}";
-            url = url.replace('id', id);
+			let id = $(this).data('id');
+			let url = "{{ route('api.cash-transaction.edit', 'id') }}";
+			url = url.replace('id', id);
 
-            let formActionURL = "{{ route('cash-transactions.update', 'id') }}";
-            formActionURL = formActionURL.replace('id', id);
+			let formActionURL = "{{ route('cash-transactions.update', 'id') }}";
+			formActionURL = formActionURL.replace('id', id);
 
-            let editCashTransactionModalEveryInput = $('#editCashTransactionModal :input:not(button[type=button])');
-            editCashTransactionModalEveryInput.not('input[name=_method], input[name=_token]')
-            editCashTransactionModalEveryInput.val('Sedang mengambil data..');
-            editCashTransactionModalEveryInput.prop('disabled', true);
+			let editSchoolClassModalEveryInput = $('#editCashTransactionModal :input').not('button[type=button], input[name=_token], input[name=_method]')
+				.each(function () {
+					$(this).not('select').val('Sedang mengambil data..');
+					$(this).prop('disabled', true);
+				});
 
-            let editCashTransactionModalButtonSubmit = $('#editCashTransactionModal .modal-content .modal-footer button[type=submit]')
-            editCashTransactionModalButtonSubmit.prop('disabled', true);
+			$.ajax({
+				url: url,
+				headers: {
+					'Accept': 'application/json',
+				},
+				success: function (response) {
+					loadingAlert.slideUp();
 
-            $.ajax({
-                url: url,
-                headers: {
-                    'Accept': 'application/json',
-                },
-                success: function (response) {
-                    loadingAlert.slideUp();
+					$('#editCashTransactionModal .modal-body #cash-transaction-edit-form').attr('action', formActionURL);
+					editSchoolClassModalEveryInput.prop('disabled', false);
 
-                    $('#editCashTransactionModal .modal-body #cash-transaction-edit-form').attr('action', formActionURL);
-                    editCashTransactionModalEveryInput.prop('disabled', false);
-                    editCashTransactionModalButtonSubmit.prop('disabled', false);
-
-                    $('#editCashTransactionModal #student_name').val(response.data.students.name);
-                    $('#editCashTransactionModal #student_id').val(response.data.student_id);
-                    $('#editCashTransactionModal #bill').val(response.data.bill);
-                    $('#editCashTransactionModal #amount').val(response.data.amount);
-                    $('#editCashTransactionModal #is_paid').val(response.data.is_paid);
-                    $('#editCashTransactionModal #date').val(response.data.date);
-                    $('#editCashTransactionModal #note').val(response.data.note);
-                }
-            });
-        });
-    });
+					$('#editCashTransactionModal #student_name').val(response.data.students.name);
+					$('#editCashTransactionModal #student_id').val(response.data.student_id);
+					$('#editCashTransactionModal #bill').val(response.data.bill);
+					$('#editCashTransactionModal #amount').val(response.data.amount);
+					$('#editCashTransactionModal #is_paid').val(response.data.is_paid);
+					$('#editCashTransactionModal #date').val(response.data.date);
+					$('#editCashTransactionModal #note').val(response.data.note);
+				}
+			});
+		});
+	});
 </script>
