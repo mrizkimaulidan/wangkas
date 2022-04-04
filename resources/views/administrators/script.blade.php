@@ -1,81 +1,77 @@
 <script>
-    $(function () {
-        let loadingAlert = $('.modal-body #loading-alert');
+	$(function () {
+		let loadingAlert = $('.modal-body #loading-alert');
 
-        $('#datatable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('administrators.index') }}",
-            columns: [
-                { data: 'DT_RowIndex', name: 'DT_RowIndex' },
-                { data: 'name', name: 'name' },
-                { data: 'email', name: 'email' },
-                { data: 'created_at', name: 'created_at' },
-                { data: 'action', name: 'action' },
-            ]
-        });
+		$('#datatable').DataTable({
+			processing: true,
+			serverSide: true,
+			ajax: "{{ route('administrators.index') }}",
+			columns: [
+				{ data: 'DT_RowIndex', name: 'DT_RowIndex' },
+				{ data: 'name', name: 'name' },
+				{ data: 'email', name: 'email' },
+				{ data: 'created_at', name: 'created_at' },
+				{ data: 'action', name: 'action' },
+			]
+		});
 
-        $('#datatable').on('click', '.administrator-detail', function () {
-            loadingAlert.show();
+		$('#datatable').on('click', '.administrator-detail', function () {
+			loadingAlert.show();
 
-            let id = $(this).data('id');
-            let url = "{{ route('api.administrator.show', ':id') }}";
-            url = url.replace(':id', id);
+			let id = $(this).data('id');
+			let url = "{{ route('api.administrator.show', ':id') }}";
+			url = url.replace(':id', id);
 
-            $('#showAdministratorModal input').val('Sedang mengambil data..');
+			$('#showAdministratorModal input').val('Sedang mengambil data..');
 
-            $.ajax({
-                url: url,
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                success: function (response) {
-                    loadingAlert.slideUp();
+			$.ajax({
+				url: url,
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				success: function (response) {
+					loadingAlert.slideUp();
 
-                    $('#showAdministratorModal #name').val(response.data.name);
-                    $('#showAdministratorModal #email').val(response.data.email);
-                }
-            });
-        });
+					$('#showAdministratorModal #name').val(response.data.name);
+					$('#showAdministratorModal #email').val(response.data.email);
+				}
+			});
+		});
 
-        $('#datatable').on('click', '.administrator-edit', function () {
-            loadingAlert.show();
+		$('#datatable').on('click', '.administrator-edit', function () {
+			loadingAlert.show();
 
-            let id = $(this).data('id');
-            let url = "{{ route('api.administrator.edit', 'id') }}";
-            url = url.replace('id', id);
+			let id = $(this).data('id');
+			let url = "{{ route('api.administrator.edit', 'id') }}";
+			url = url.replace('id', id);
 
-            let formActionURL = "{{ route('administrators.update', 'id') }}";
-            formActionURL = formActionURL.replace('id', id);
+			let formActionURL = "{{ route('administrators.update', 'id') }}";
+			formActionURL = formActionURL.replace('id', id);
 
-            let editAdministratorModalEveryInput = $('#editAdministratorModal input:not(input[name=_method], input[name=_token], input[name=password], input[name=password_confirmation])');
-            editAdministratorModalEveryInput.val('Sedang mengambil data..');
+			let editSchoolClassModalEveryInput = $('#editAdministratorModal :input').not('button[type=button], input[name=_token], input[name=_method]')
+				.each(function () {
+					$(this).not('input[id=password], input[id=password_confirmation]').val('Sedang mengambil data..');
+					$(this).prop('disabled', true);
+				});
 
-            $('#editAdministratorModal input').prop('disabled', true);
+			$.ajax({
+				url: url,
+				headers: {
+					'Accept': 'application/json',
+					'Content-Type': 'application/json'
+				},
+				success: function (response) {
+					loadingAlert.slideUp();
 
-            let editAdministratorModalSubmitButton = $('#editAdministratorModal .modal-footer button[type=submit]');
-            editAdministratorModalSubmitButton.prop('disabled', true);
+					$('#editAdministratorModal #administrator-edit-form').attr('action', formActionURL);
 
-            $.ajax({
-                url: url,
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                success: function (response) {
-                    loadingAlert.slideUp();
+					editSchoolClassModalEveryInput.prop('disabled', false);
 
-                    $('#editAdministratorModal #administrator-edit-form').attr('action', formActionURL);
-
-                    $('#editAdministratorModal').find('input[name=password], input[name=password_confirmation]').prop('disabled', false);
-                    editAdministratorModalEveryInput.prop('disabled', false);
-                    editAdministratorModalSubmitButton.prop('disabled', false);
-
-                    $('#editAdministratorModal #name').val(response.data.name);
-                    $('#editAdministratorModal #email').val(response.data.email);
-                }
-            });
-        });
-    });
+					$('#editAdministratorModal #name').val(response.data.name);
+					$('#editAdministratorModal #email').val(response.data.email);
+				}
+			});
+		});
+	});
 </script>
