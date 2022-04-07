@@ -38,6 +38,7 @@
 				success: function (response) {
 					loadingAlert.slideUp();
 
+					$('#showStudentModal #student_identification_number').val(response.data.student_identification_number);
 					$('#showStudentModal #name').val(response.data.name);
 					$('#showStudentModal #gender').val(response.data.gender);
 					$('#showStudentModal #school_class_id').val(response.data.school_classes.name);
