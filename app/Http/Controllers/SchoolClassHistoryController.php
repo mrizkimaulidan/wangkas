@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\HistoryInterface;
 use App\Models\SchoolClass;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class SchoolClassHistoryController extends Controller
+class SchoolClassHistoryController extends Controller implements HistoryInterface
 {
     const INDEX_ROUTE = 'school-classes.index.history';
 

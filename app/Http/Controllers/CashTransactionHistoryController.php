@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\HistoryInterface;
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
-class CashTransactionHistoryController extends Controller
+class CashTransactionHistoryController extends Controller implements HistoryInterface
 {
     const INDEX_ROUTE = 'cash-transactions.index.history';
 
