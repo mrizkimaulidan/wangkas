@@ -49,10 +49,10 @@ class StudentHistoryController extends Controller
     /**
      * Restore the specified resource from storage.
      *
-     * @param  string  $id
+     * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function restore(string $id): RedirectResponse
+    public function restore(int $id): RedirectResponse
     {
         Student::onlyTrashed()->findOrFail($id)->restore();
 
@@ -62,10 +62,10 @@ class StudentHistoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  string  $id
+     * @param  int  $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(string $id): RedirectResponse
+    public function destroy(int $id): RedirectResponse
     {
         $student = Student::onlyTrashed()->findOrFail($id);
         $student->cash_transactions()->delete();
