@@ -19,8 +19,10 @@ class SchoolClassHistoryController extends Controller
      */
     public function index(): View|JsonResponse
     {
+        $schoolClasses = SchoolClass::select('id', 'name')->onlyTrashed()->get();
+
         if (request()->ajax()) {
-            return datatables()->of(SchoolClass::onlyTrashed()->get())
+            return datatables()->of($schoolClasses)
                 ->addIndexColumn()
                 ->addColumn('action', 'school_classes.history.datatable.action')
                 ->rawColumns(['action'])

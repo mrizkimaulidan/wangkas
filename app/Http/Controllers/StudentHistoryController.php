@@ -19,7 +19,15 @@ class StudentHistoryController extends Controller
      */
     public function index(): View|JsonResponse
     {
-        $students = Student::onlyTrashed()->get();
+        $students = Student::select(
+            'id',
+            'student_identification_number',
+            'name',
+            'school_class_id',
+            'school_major_id',
+            'school_year_start',
+            'school_year_end'
+        )->with(['school_class:id,name', 'school_major:id,name,abbreviated_word'])->onlyTrashed()->get();
 
         if (request()->ajax()) {
             return datatables()->of($students)

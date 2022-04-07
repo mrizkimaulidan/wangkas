@@ -19,7 +19,7 @@ class SchoolMajorHistoryController extends Controller
      */
     public function index(): View|JsonResponse
     {
-        $schoolMajors = SchoolMajor::onlyTrashed()->get();
+        $schoolMajors = SchoolMajor::select('id', 'name', 'abbreviated_word')->onlyTrashed()->get();
 
         if (request()->ajax()) {
             return datatables()->of($schoolMajors)
