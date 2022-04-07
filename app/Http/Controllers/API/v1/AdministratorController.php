@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Contracts\ApiInterface;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
@@ -9,7 +10,7 @@ use App\Http\Resources\AdministratorEditResource;
 use Symfony\Component\HttpFoundation\Response;
 use App\Http\Resources\AdministratorShowResource;
 
-class AdministratorController extends Controller
+class AdministratorController extends Controller implements ApiInterface
 {
     public function show(int $id): JsonResponse
     {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API\v1;
 
+use App\Contracts\ApiInterface;
 use App\Models\Student;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\StudentEditResource;
@@ -9,7 +10,7 @@ use App\Http\Resources\StudentShowResource;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
-class StudentController extends Controller
+class StudentController extends Controller implements ApiInterface
 {
     public function show(int $id): JsonResponse
     {
