@@ -4,6 +4,8 @@ Aplikasi pendataan uang kas dibuat dengan Framework Laravel 8. Dengan sistem pem
 
 Beberapa CRUD menggunakan modal dan AJAX untuk pengambilan data agar mengurangi penggunaan pindah halaman. Dan seluruh menu menggunakan DataTable Server Side Processing.
 
+Website Demo : https://wangkas.herokuapp.com/
+
 ### Prasyarat
 
 Berikut beberapa hal yang perlu diinstal terlebih dahulu:
