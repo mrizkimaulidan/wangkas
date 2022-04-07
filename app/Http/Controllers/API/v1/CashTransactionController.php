@@ -11,14 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CashTransactionController extends Controller
 {
-    public function show(string $id): JsonResponse
+    public function show(int $id): JsonResponse
     {
         $cash_transactions = new CashTransactionShowResource(CashTransaction::with('students:id,name', 'users:id,name')->findOrFail($id));
 
         return response()->success($cash_transactions, Response::HTTP_OK);
     }
 
-    public function edit(string $id): JsonResponse
+    public function edit(int $id): JsonResponse
     {
         $cash_transactions = new CashTransactionEditResource(CashTransaction::with('students:id,name', 'users:id,name')->findOrFail($id));
 

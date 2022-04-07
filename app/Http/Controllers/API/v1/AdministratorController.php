@@ -11,14 +11,14 @@ use App\Http\Resources\AdministratorShowResource;
 
 class AdministratorController extends Controller
 {
-    public function show(string $id): JsonResponse
+    public function show(int $id): JsonResponse
     {
         $user = new AdministratorShowResource(User::findOrFail($id));
 
         return response()->success($user, Response::HTTP_OK);
     }
 
-    public function edit(string $id): JsonResponse
+    public function edit(int $id): JsonResponse
     {
         $user = new AdministratorEditResource(User::findOrFail($id));
 

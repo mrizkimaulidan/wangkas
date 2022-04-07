@@ -11,14 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 
 class StudentController extends Controller
 {
-    public function show(string $id): JsonResponse
+    public function show(int $id): JsonResponse
     {
         $student = new StudentShowResource(Student::with('school_class:id,name', 'school_major:id,name')->findOrFail($id));
 
         return response()->success($student, Response::HTTP_OK);
     }
 
-    public function edit(string $id): JsonResponse
+    public function edit(int $id): JsonResponse
     {
         $student = new StudentEditResource(Student::with('school_class:id,name', 'school_major:id,name')->findOrFail($id));
 
