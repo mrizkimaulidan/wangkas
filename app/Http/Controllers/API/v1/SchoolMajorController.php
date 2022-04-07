@@ -11,14 +11,14 @@ use App\Http\Resources\SchoolMajorShowResource;
 
 class SchoolMajorController extends Controller
 {
-    public function show(string $id): JsonResponse
+    public function show(int $id): JsonResponse
     {
         $school_major = new SchoolMajorShowResource(SchoolMajor::findOrFail($id));
 
         return response()->success($school_major, Response::HTTP_OK);
     }
 
-    public function edit(string $id): JsonResponse
+    public function edit(int $id): JsonResponse
     {
         $school_major = new SchoolMajorEditResource(SchoolMajor::findOrFail($id));
 
