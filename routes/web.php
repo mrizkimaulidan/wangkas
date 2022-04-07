@@ -8,6 +8,7 @@ use App\Http\Controllers\SchoolMajorController;
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\CashTransactionController;
 use App\Http\Controllers\CashTransactionFilterController;
+use App\Http\Controllers\CashTransactionHistoryController;
 use App\Http\Controllers\CashTransactionReportController;
 use App\Http\Controllers\SchoolClassHistoryController;
 use App\Http\Controllers\SchoolMajorHistoryController;
@@ -36,6 +37,12 @@ Route::middleware('auth')->group(function () {
 
     // Soft Deletes Routes
     Route::controller(StudentHistoryController::class)->prefix('/students/history')->name('students.')->group(function () {
+        Route::get('', 'index')->name('index.history');
+        Route::post('{id}', 'restore')->name('restore.history');
+        Route::delete('{id}', 'destroy')->name('destroy.history');
+    });
+
+    Route::controller(CashTransactionHistoryController::class)->prefix('/cash-transactions/history')->name('cash-transactions.')->group(function () {
         Route::get('', 'index')->name('index.history');
         Route::post('{id}', 'restore')->name('restore.history');
         Route::delete('{id}', 'destroy')->name('destroy.history');

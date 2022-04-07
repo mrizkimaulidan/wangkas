@@ -131,6 +131,9 @@
 					<i class="bi bi-file-earmark-excel-fill"></i>
 					Export Excel
 				</a>
+				<a href="{{ route('cash-transactions.index.history') }}" class="btn btn-secondary">
+					<span class="badge">{{ $cashTransactionTrashedCount }}</span> Histori Data Kas
+				</a>
 				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCashTransactionModal">
 					<i class="bi bi-plus-circle"></i> Tambah Data
 				</button>

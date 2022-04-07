@@ -56,9 +56,12 @@ class CashTransactionController extends Controller
                 ->toJson();
         }
 
+        $cashTransactionTrashedCount = CashTransaction::onlyTrashed()->count();
+
         return view('cash_transactions.index', [
             'students' => $students,
             'data' => $this->cashTransactionRepository->results(),
+            'cashTransactionTrashedCount' => $cashTransactionTrashedCount
         ]);
     }
 
