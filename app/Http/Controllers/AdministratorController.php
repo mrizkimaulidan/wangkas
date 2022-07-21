@@ -65,7 +65,7 @@ class AdministratorController extends Controller
 
             // Jika inputan password kosong, isikan password yang sekarang, jika tidak kosong, isikan sesuai password di inputan
             // dan lakukan enkripsi.
-            'password' => is_null($administrator->password) ? $administrator->password : bcrypt($request->password)
+            'password' => is_null($request->password) ? $administrator->password : bcrypt($request->password)
         ]);
 
         return redirect()->success(self::INDEX_ROUTE, 'Data berhasil diubah!');
