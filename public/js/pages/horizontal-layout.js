@@ -15,11 +15,11 @@ window.addEventListener('resize',(event) => {
 
 function checkWindowSize() {
     if(window.innerWidth < 1200) listener()
+    if(window.innerWidth > 1200) document.querySelector('.main-navbar').style.display = ""
 }
 
 function listener() {
     let menuItems = document.querySelectorAll('.menu-item.has-sub')
-    console.log(menuItems)
     menuItems.forEach(menuItem => {
         menuItem.querySelector('.menu-link').addEventListener('click', (e) => {
             e.preventDefault()
