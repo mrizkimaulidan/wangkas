@@ -5,7 +5,6 @@ namespace App\Http\Controllers\API\v1;
 use App\Http\Controllers\Controller;
 use App\Repositories\DashboardChartRepository;
 use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 class DashboardChartController extends Controller
 {
@@ -18,6 +17,9 @@ class DashboardChartController extends Controller
     {
         $data = $this->dashboardChartRepository->sumCashTransactionPerMonths();
 
-        return response()->success($data, Response::HTTP_OK);
+        return response()->json([
+            'code' => 200,
+            'data' => $data
+        ]);
     }
 }

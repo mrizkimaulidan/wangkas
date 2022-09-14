@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\StudentEditResource;
 use App\Http\Resources\StudentShowResource;
 use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 
 class StudentController extends Controller implements ApiInterface
 {
@@ -16,13 +15,19 @@ class StudentController extends Controller implements ApiInterface
     {
         $student = new StudentShowResource(Student::with('school_class:id,name', 'school_major:id,name')->findOrFail($id));
 
-        return response()->success($student, Response::HTTP_OK);
+        return response()->json([
+            'code' => 200,
+            'data' => $student
+        ]);
     }
 
     public function edit(int $id): JsonResponse
     {
         $student = new StudentEditResource(Student::with('school_class:id,name', 'school_major:id,name')->findOrFail($id));
 
-        return response()->success($student, Response::HTTP_OK);
+        return response()->json([
+            'code' => 200,
+            'data' => $student
+        ]);
     }
 }
