@@ -4,12 +4,40 @@ namespace App\Repositories;
 
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
+use Illuminate\Database\Eloquent\Collection;
 
 class CashTransactionReportRepository extends Controller
 {
     public function __construct(
         private CashTransaction $model
     ) {
+    }
+
+    /**
+     * Mendapatkan data hasil filter berdasarkan tanggal awal dan tanggal akhir.
+     *
+     * @param string $start tanggal awal.
+     * @param string $end tanggal akhir.
+     * @return array
+     */
+    public function filterByDateStartAndEnd(string $start, string $end): array
+    {
+        $filteredResult = [];
+
+        $startDate = date('Y-m-d', strtotime($start));
+        $endDate = date('Y-m-d', strtotime($end));
+
+        $cashTransactions = $this->model->select('user_id', 'student_id', 'amount', 'date')
+            ->with('students:id,name', 'users:id,name')
+            ->whereBetween('date', [$startDate, $endDate])
+            ->orderBy('date')->get();
+
+        $filteredResult['cashTransactions'] = $cashTransactions;
+        $filteredResult['sumOfAmount'] = $cashTransactions->sum('amount');
+        $filteredResult['startDate'] = date('d-m-Y', strtotime($startDate));
+        $filteredResult['endDate'] = date('d-m-Y', strtotime($endDate));
+
+        return $filteredResult;
     }
 
     /**

@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CashTransaction;
 use App\Repositories\CashTransactionReportRepository;
-use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class CashTransactionReportController extends Controller
@@ -17,25 +16,20 @@ class CashTransactionReportController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse
+     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function __invoke(): View|JsonResponse
+    public function __invoke(): View|RedirectResponse
     {
         $filteredResult = [];
+        $startDate = request()->get('start_date');
+        $endDate = request()->get('end_date');
 
         if (request()->has('start_date') && request()->has('end_date')) {
-            $startDate = date('Y-m-d', strtotime(request()->get('start_date')));
-            $endDate = date('Y-m-d', strtotime(request()->get('end_date')));
+            if ($startDate === null && $endDate === null) {
+                return redirect()->back()->with('warning', 'Tanggal awal atau tanggal akhir tidak boleh kosong!');
+            }
 
-            $cashTransactions = CashTransaction::select('user_id', 'student_id', 'amount', 'date')
-                ->with('students:id,name', 'users:id,name')
-                ->whereBetween('date', [$startDate, $endDate])
-                ->orderBy('date')->get();
-
-            $filteredResult['cashTransactions'] = $cashTransactions;
-            $filteredResult['sumOfAmount'] = $cashTransactions->sum('amount');
-            $filteredResult['startDate'] = date('d-m-Y', strtotime($startDate));
-            $filteredResult['endDate'] = date('d-m-Y', strtotime($endDate));
+            $filteredResult = $this->cashTransactionReportRepository->filterByDateStartAndEnd($startDate, $endDate);
         }
 
         $sum = [
