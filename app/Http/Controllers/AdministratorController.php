@@ -11,8 +11,6 @@ use Illuminate\View\View;
 
 class AdministratorController extends Controller
 {
-    const INDEX_ROUTE = 'administrators.index';
-
     /**
      * Display a listing of the resource.
      *
@@ -47,7 +45,7 @@ class AdministratorController extends Controller
             'password' => bcrypt($request->password)
         ]);
 
-        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil ditambahkan!');
+        return redirect()->route('administrators.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
@@ -68,7 +66,7 @@ class AdministratorController extends Controller
             'password' => is_null($request->password) ? $administrator->password : bcrypt($request->password)
         ]);
 
-        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil diubah!');
+        return redirect()->route('administrators.index')->with('success', 'Data berhasil diubah!');
     }
 
     /**
@@ -81,6 +79,6 @@ class AdministratorController extends Controller
     {
         $administrator->delete();
 
-        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dihapus!');
+        return redirect()->route('administrators.index')->with('success', 'Data berhasil dihapus!');
     }
 }

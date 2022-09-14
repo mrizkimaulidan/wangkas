@@ -16,7 +16,6 @@ use Illuminate\View\View;
 class CashTransactionController extends Controller
 {
     private $cashTransactionRepository, $startOfWeek, $endOfWeek;
-    const INDEX_ROUTE = 'cash-transactions.index';
 
     public function __construct(CashTransactionRepository $cashTransactionRepository)
     {
@@ -83,7 +82,7 @@ class CashTransactionController extends Controller
             ]);
         }
 
-        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil ditambahkan!');
+        return redirect()->route('cash-transactions.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
@@ -97,7 +96,7 @@ class CashTransactionController extends Controller
     {
         $cashTransaction->update($request->validated());
 
-        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil diubah!');
+        return redirect()->route('cash-transactions.index')->with('success', 'Data berhasil diubah!');
     }
 
     /**
@@ -110,6 +109,6 @@ class CashTransactionController extends Controller
     {
         $cashTransaction->delete();
 
-        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dihapus!');
+        return redirect()->route('cash-transactions.index')->with('success', 'Data berhasil dihapus!');
     }
 }

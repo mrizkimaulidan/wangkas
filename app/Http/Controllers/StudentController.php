@@ -14,8 +14,6 @@ use Illuminate\View\View;
 
 class StudentController extends Controller
 {
-    const INDEX_ROUTE = 'students.index';
-
     public function __construct(
         private StudentRepository $studentRepository
     ) {
@@ -81,7 +79,7 @@ class StudentController extends Controller
     {
         Student::create($request->validated());
 
-        return redirect()->success('students.index', 'Data berhasil ditambahkan!');
+        return redirect()->route('students.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
@@ -95,7 +93,7 @@ class StudentController extends Controller
     {
         $student->update($request->validated());
 
-        return redirect()->success('students.index', 'Data berhasil diubah!');
+        return redirect()->route('students.index')->with('success', 'Data berhasil diubah!');
     }
 
     /**
@@ -108,6 +106,6 @@ class StudentController extends Controller
     {
         $student->delete();
 
-        return redirect()->success('students.index', 'Data berhasil dihapus!');
+        return redirect()->route('students.index')->with('success', 'Data berhasil dihapus!');
     }
 }

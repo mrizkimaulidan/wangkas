@@ -11,8 +11,6 @@ use Illuminate\View\View;
 
 class CashTransactionHistoryController extends Controller implements HistoryInterface
 {
-    const INDEX_ROUTE = 'cash-transactions.index.history';
-
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +43,7 @@ class CashTransactionHistoryController extends Controller implements HistoryInte
     {
         CashTransaction::onlyTrashed()->findOrFail($id)->restore();
 
-        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dikembalikan!');
+        return redirect()->route('cash-transactions.index.history')->with('success', 'Data berhasil dikembalikan!');
     }
 
     /**
@@ -58,6 +56,6 @@ class CashTransactionHistoryController extends Controller implements HistoryInte
     {
         CashTransaction::onlyTrashed()->findOrFail($id)->forceDelete();
 
-        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dihapus!');
+        return redirect()->route('cash-transactions.index.history')->with('success', 'Data berhasil dihapus!');
     }
 }

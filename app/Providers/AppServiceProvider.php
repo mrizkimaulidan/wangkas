@@ -16,7 +16,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // 
+        //
     }
 
     /**
@@ -26,24 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Response::macro('success', function ($data, $status_code) {
-            return response()->json([
-                'status' => $status_code,
-                'message' => 'Data berhasil diambil!',
-                'data' => $data
-            ], $status_code);
-        });
-
-        Redirector::macro('success', function (string $route, string $message) {
-            return redirect()->route($route)->with('success', $message);
-        });
-
-        Redirector::macro('warning', function (string $route, string $message) {
-            return redirect()->route($route)->with('warning', $message);
-        });
-
-        Redirector::macro('error', function (string $route, string $message) {
-            return redirect()->route($route)->with('error', $message);
-        });
+        //
     }
 }

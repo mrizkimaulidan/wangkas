@@ -11,8 +11,6 @@ use Illuminate\View\View;
 
 class SchoolClassController extends Controller
 {
-    const INDEX_ROUTE = 'school-classes.index';
-
     /**
      * Display a listing of the resource.
      *
@@ -45,7 +43,7 @@ class SchoolClassController extends Controller
     {
         SchoolClass::create($request->validated());
 
-        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil ditambahkan!');
+        return redirect()->route('school-classes.index')->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
@@ -59,7 +57,7 @@ class SchoolClassController extends Controller
     {
         $schoolClass->update($request->validated());
 
-        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil diubah!');
+        return redirect()->route('school-classes.index')->with('success', 'Data berhasil diubah!');
     }
 
     /**
@@ -71,11 +69,11 @@ class SchoolClassController extends Controller
     public function destroy(SchoolClass $schoolClass): RedirectResponse
     {
         if ($schoolClass->students()->exists()) {
-            return redirect()->warning(self::INDEX_ROUTE, 'Data yang memiliki relasi tidak dapat dihapus!');
+            return redirect()->route('school-classes.index')->with('warning', 'Data yang memiliki relasi tidak dapat dihapus!');
         }
 
         $schoolClass->delete();
 
-        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dihapus!');
+        return redirect()->route('school-classes.index')->with('success', 'Data berhasil dihapus!');
     }
 }

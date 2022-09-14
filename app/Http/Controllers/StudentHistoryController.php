@@ -11,8 +11,6 @@ use Illuminate\View\View;
 
 class StudentHistoryController extends Controller implements HistoryInterface
 {
-    const INDEX_ROUTE = 'students.index.history';
-
     /**
      * Display a listing of the resource.
      *
@@ -57,7 +55,7 @@ class StudentHistoryController extends Controller implements HistoryInterface
     {
         Student::onlyTrashed()->findOrFail($id)->restore();
 
-        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dikembalikan!');
+        return redirect()->route('students.index.history')->with('success', 'Data berhasil dikembalikan!');
     }
 
     /**
@@ -72,6 +70,6 @@ class StudentHistoryController extends Controller implements HistoryInterface
         $student->cash_transactions()->delete();
         $student->forceDelete();
 
-        return redirect()->success(self::INDEX_ROUTE, 'Data berhasil dihapus!');
+        return redirect()->route('students.index.history')->with('success', 'Data berhasil dihapus!');
     }
 }
