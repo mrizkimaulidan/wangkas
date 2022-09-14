@@ -16,7 +16,7 @@
         "laravel/tinker": "^2.5",
         "maatwebsite/excel": "^3.1",
         "phpoffice/phpspreadsheet": "^1.17",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables-oracle": "^10.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.6",
