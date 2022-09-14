@@ -1,6 +1,6 @@
 # WANGKAS
 
-Aplikasi pendataan uang kas dibuat dengan Framework Laravel 8. Dengan sistem pembayaran kas sekali selama seminggu. Aplikasi ini cocok untuk digunakan untuk di sekolah atau masing masing kelas. <br>
+Aplikasi pendataan uang kas dibuat dengan Framework Laravel 9. Dengan sistem pembayaran kas sekali selama seminggu. Aplikasi ini cocok untuk digunakan untuk di sekolah atau masing masing kelas. <br>
 
 Beberapa CRUD menggunakan modal dan AJAX untuk pengambilan data agar mengurangi penggunaan pindah halaman. Dan seluruh menu menggunakan DataTable Server Side Processing.
 
@@ -11,11 +11,11 @@ Website Demo : https://wangkas.herokuapp.com/
 Berikut beberapa hal yang perlu diinstal terlebih dahulu:
 
 -   Composer (https://getcomposer.org/)
--   PHP ^8.x.x
--   MySQL ^15.x
+-   PHP ^8.1.x
+-   MySQL ^10.6
 -   XAMPP
 
-Jika Anda menggunakan XAMPP, untuk PHP dan MySQL sudah menjadi 1 (bundle) didalam aplikasi XAMPP.
+Jika Anda menggunakan XAMPP, untuk PHP dan MySQL sudah menjadi 1 (bundle) di dalam aplikasi XAMPP.
 
 ### Fitur
 
