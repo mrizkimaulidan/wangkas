@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Export;
 
+use App\Contracts\ExcelExportInterface;
 use App\Models\Student;
 use App\Http\Controllers\Controller;
 use App\Repositories\ExportRepository;
+use Illuminate\Support\Collection;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class StudentController extends Controller
+class StudentController extends Controller implements ExcelExportInterface
 {
     const FILE_NAME = 'laporan-siswa';
 
@@ -26,10 +29,10 @@ class StudentController extends Controller
     /**
      * Menyiapkan isi header untuk excelnya.
      *
-     * @param object $spreadsheet
-     * @return object
+     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @return \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      */
-    public function setHeaderExcel(object $spreadsheet): object
+    public function setExcelheader(Spreadsheet $spreadsheet): Worksheet
     {
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValue('A1', 'No');
@@ -50,11 +53,11 @@ class StudentController extends Controller
     /**
      * Mengisi konten untuk excel.
      *
-     * @param object $students adalah list siswa yang didapat dari eloquent/query builder.
-     * @param object $sheet adalah instansiasi dari class Spreadsheet phpoffice.
-     * @return object
+     * @param \Illuminate\Database\Eloquent\Collection adalah data yang didapat dari eloquent/query builder.
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet adalah instansiasi dari class Spreadsheet phpoffice.
+     * @return \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      */
-    public function setExcelContent(object $students, object $sheet): object
+    public function setExcelContent(Collection $students, Worksheet $sheet): Worksheet
     {
         $cell = 2;
         foreach ($students as $key => $row) {

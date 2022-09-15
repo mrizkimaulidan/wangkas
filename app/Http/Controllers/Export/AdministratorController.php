@@ -2,19 +2,22 @@
 
 namespace App\Http\Controllers\Export;
 
+use App\Contracts\ExcelExportInterface;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Repositories\ExportRepository;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use Illuminate\Database\Eloquent\Collection;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class AdministratorController extends Controller
+class AdministratorController extends Controller implements ExcelExportInterface
 {
     const FILE_NAME = 'laporan-administrator-aplikasi';
 
     public function __invoke()
     {
         $spreadsheet = new Spreadsheet();
-        $sheet = $this->setHeaderExcel($spreadsheet);
+        $sheet = $this->setExcelHeader($spreadsheet);
 
         $administrators = User::select('name', 'email', 'created_at')->orderBy('name')->get();
 
@@ -26,10 +29,10 @@ class AdministratorController extends Controller
     /**
      * Menyiapkan isi header untuk excelnya.
      *
-     * @param object $spreadsheet
-     * @return object
+     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @return \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      */
-    public function setHeaderExcel(object $spreadsheet): object
+    public function setExcelHeader(Spreadsheet $spreadsheet): Worksheet
     {
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValue('A1', 'No');
@@ -47,11 +50,11 @@ class AdministratorController extends Controller
     /**
      * Mengisi konten untuk excel.
      *
-     * @param object $administrators adalah list administrator yang didapat dari eloquent/query builder.
-     * @param object $sheet adalah instansiasi dari class Spreadsheet phpoffice.
-     * @return object
+     * @param \Illuminate\Database\Eloquent\Collection adalah data yang didapat dari eloquent/query builder.
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet adalah instansiasi dari class Spreadsheet phpoffice.
+     * @return \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      */
-    public function setExcelContent(object $administrators, object $sheet): object
+    public function setExcelContent(Collection $administrators, Worksheet $sheet): Worksheet
     {
         $cell = 2;
         foreach ($administrators as $key => $row) {

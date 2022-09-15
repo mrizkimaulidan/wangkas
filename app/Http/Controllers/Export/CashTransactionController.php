@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Export;
 
+use App\Contracts\ExcelExportInterface;
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
 use App\Repositories\ExportRepository;
+use Illuminate\Database\Eloquent\Collection;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class CashTransactionController extends Controller
+class CashTransactionController extends Controller implements ExcelExportInterface
 {
     const FILE_NAME = 'laporan-kas';
 
@@ -30,10 +33,10 @@ class CashTransactionController extends Controller
     /**
      * Menyiapkan isi header untuk excelnya.
      *
-     * @param object $spreadsheet
-     * @return object
+     * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
+     * @return \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      */
-    public function setHeaderExcel(object $spreadsheet): object
+    public function setExcelHeader(Spreadsheet $spreadsheet): Worksheet
     {
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValue('A1', 'No');
@@ -52,11 +55,11 @@ class CashTransactionController extends Controller
     /**
      * Mengisi konten untuk excel.
      *
-     * @param object $cash_transactions adalah yang didapat dari eloquent/query builder.
-     * @param object $sheet adalah instansiasi dari class Spreadsheet phpoffice.
-     * @return object
+     * @param \Illuminate\Database\Eloquent\Collection adalah data yang didapat dari eloquent/query builder.
+     * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet adalah instansiasi dari class Spreadsheet phpoffice.
+     * @return \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      */
-    public function setExcelContent(object $cash_transactions, object $sheet): object
+    public function setExcelContent(Collection $cash_transactions, Worksheet $sheet): Worksheet
     {
         $cell = 2;
         foreach ($cash_transactions as $key => $row) {
