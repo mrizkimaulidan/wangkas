@@ -85,8 +85,8 @@
 			</div>
 			@if($data['studentCountWho']['notPaidThisWeek'] > 0)
 			<div class="px-4">
-				<button type="button" class='btn btn-block btn-xl btn-light-danger font-bold mt-3' data-bs-toggle="modal"
-					data-bs-target="#lookMoreModal">Ada
+				<button type="button" class='btn btn-block btn-xl btn-light-danger font-bold mt-3'
+					data-bs-toggle="modal" data-bs-target="#lookMoreModal">Ada
 					<b>{{ $data['studentCountWho']['notPaidThisWeek'] }}</b> orang belum membayar pada minggu
 					ini! <i class="bi bi-exclamation-triangle"></i></button>
 			</div>
@@ -94,8 +94,7 @@
 			<span class="badge w-100 rounded-pill bg-warning mb-3"></span>
 			<div class="card-content pb-4">
 				<div class="row">
-					@foreach($data['students']['notPaidThisWeekLimit'] as
-					$studentNotPaidThisWeek)
+					@foreach($data['students']['notPaidThisWeekLimit'] as $studentNotPaidThisWeek)
 					<div class="col-6 col-lg-6 col-md-6">
 						<div class="recent-message d-flex px-4 py-3">
 							<div class="name ms-4">
@@ -108,8 +107,8 @@
 					@endforeach
 				</div>
 				<div class="px-4">
-					<button type="button" class='btn btn-block btn-xl btn-light-primary font-bold mt-3' data-bs-toggle="modal"
-						data-bs-target="#lookMoreModal">Lihat
+					<button type="button" class='btn btn-block btn-xl btn-light-primary font-bold mt-3'
+						data-bs-toggle="modal" data-bs-target="#lookMoreModal">Lihat
 						Selengkapnya</button>
 				</div>
 			</div>
@@ -134,7 +133,8 @@
 				<a href="{{ route('cash-transactions.index.history') }}" class="btn btn-secondary">
 					<span class="badge">{{ $cashTransactionTrashedCount }}</span> Histori Data Kas
 				</a>
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCashTransactionModal">
+				<button type="button" class="btn btn-primary" data-bs-toggle="modal"
+					data-bs-target="#addCashTransactionModal">
 					<i class="bi bi-plus-circle"></i> Tambah Data
 				</button>
 			</div>
