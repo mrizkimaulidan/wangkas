@@ -32,27 +32,30 @@ _Login_
 ![Login](https://i.ibb.co/Ws6H4Kr/login.png)
 
 _Dashboard_
-![Dashboard](https://i.ibb.co/jJsmpHQ/dashboard.png)
+![Dashboard](https://i.ibb.co/k3dCNyZ/dashboard.png)
 
 _Daftar Pelajar_
-![Daftar Pelajar](https://i.ibb.co/vQcMzNr/students.png)
+![Daftar Pelajar](https://i.ibb.co/TPdYWxh/pelajar.png)
 
 _Daftar Kelas_
-![Daftar Kelas](https://i.ibb.co/brXRLbf/school-classes.png)
+![Daftar Kelas](https://i.ibb.co/9ZD9Nm4/kelas.png)
 
 _Daftar Jurusan_
-![Daftar Jurusan](https://i.ibb.co/V2FwnR8/school-majors.png)
+![Daftar Jurusan](https://i.ibb.co/LkFzhsS/jurusan.png)
 
 _Daftar Kas_
-![Daftar Kas](https://i.ibb.co/gZCXdDr/cash-transaction-this-week.png)
+![Daftar Kas](https://i.ibb.co/kBJwv30/kas-minggu-ini.png)
 
-![Filter Kas](https://i.ibb.co/s3vZVgF/cash-transaction-filter.png)
+![Filter Kas](https://i.ibb.co/F88Gkyx/filter-kas.png)
 
 _Laporan_
-![Laporan](https://i.ibb.co/FBj0LmZ/reports.png)
+![Laporan](https://i.ibb.co/FmdXMBC/laporan.png)
 
 _Daftar Administrator_
-![Daftar Administrator](https://i.ibb.co/Mfr1PD3/administrators.png)
+![Daftar Administrator](https://i.ibb.co/pyk0dSk/administrator.png)
+
+_Logout_
+![Logout](https://i.ibb.co/0Jd6GDM/logout.png)
 
 ### Langkah-langkah instalasi
 
