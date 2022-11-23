@@ -2,10 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Contracts\ExportInterface;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 
-class ExportRepository
+class ExportRepository implements ExportInterface
 {
     /**
      * Kustomisasi untuk style excelnya.
@@ -30,7 +31,7 @@ class ExportRepository
      * @param string $fileName
      * @return void
      */
-    public static function outputTheExcel(object $spreadsheet, string $fileName)
+    public static function outputTheExcel(object $spreadsheet, string $fileName): void
     {
         $writer = new Xlsx($spreadsheet);
 

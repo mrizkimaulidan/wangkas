@@ -2,10 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Contracts\ChartInterface;
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
 
-class DashboardChartRepository extends Controller
+class DashboardChartRepository extends Controller implements ChartInterface
 {
     public function __construct(
         private CashTransaction $model,
