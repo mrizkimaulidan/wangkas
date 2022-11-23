@@ -2,10 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Contracts\StudentInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 
-class StudentRepository extends Controller
+class StudentRepository extends Controller implements StudentInterface
 {
     public function __construct(
         private Student $model

@@ -2,12 +2,13 @@
 
 namespace App\Repositories;
 
+use App\Contracts\CashTransactionInterface;
 use App\Models\Student;
 use App\Models\CashTransaction;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
 
-class CashTransactionRepository extends Controller
+class CashTransactionRepository extends Controller implements CashTransactionInterface
 {
     private $model, $students, $startOfWeek, $endOfWeek;
 
