@@ -22,7 +22,7 @@ class CashTransactionRepository extends Controller implements CashTransactionInt
 
     /**
      * Ambil seluruh data paling terbaru pada tabel cash_transactions pada database.
-     * 
+     *
      * Jika $limit === null maka tampilkan seluruh data cash_transactions tanpa limit.
      * Jika $limit !== null maka tampilkan seluruh data cash_transactions dengan limit.
      *
@@ -41,16 +41,16 @@ class CashTransactionRepository extends Controller implements CashTransactionInt
 
     /**
      * Hitung total kolom amount di tabel cash_transactions berdasarkan tahun atau bulan.
-     * 
+     *
      * Jika $status === `year` dan variabel $year ada isinya, maka hitung total kolom amount di tabel cash_transaction berdasarkan
      * tahun sesuai di parameter.
-     * 
+     *
      * Jika $status === `month` dan variabel $month ada isinya, maka hitung total kolom amount di tabel cash_transaction berdasarkan bulan
      * sesuai di parameter.
      *
      * Jika $status === `year` maka hanya isi parameter $year.
      * jika $status === `month` maka hanya isi parameter $month.
-     * 
+     *
      * @param string $status ingin hitung total kolom berdasarkan tahun `year` atau bulan `month`.
      * @param string $year adalah tahun, contoh : 2021, 2022, 2023, dst..
      * @param string $month adalah bulan dengan 0, contoh : 01, 02, 03, dst..
@@ -66,24 +66,33 @@ class CashTransactionRepository extends Controller implements CashTransactionInt
     }
 
     /**
-     * Hitung siswa yang sudah atau belum membayar pada minggu ini.
-     * 
-     * Jika $status === true, maka hitung berapa siswa yang sudah membayar pada minggu ini.
-     * Jika $status === false, maka hitung berapa siswa yang belum membayar pada minggu ini.
+     * Hitung siswa yang sudah membayar pada minggu ini.
      *
-     * @param boolean $status
      * @return Int
      */
-    public function countStudentWhoPaidOrNotPaidThisWeek(bool $status): Int
+    public function countStudentWhoPaidThisWeek(): Int
     {
         $students = $this->students->select('id');
 
         $callback = fn (Builder $query) => $query->select(['date'])
             ->whereBetween('date', [$this->startOfWeek, $this->endOfWeek]);
 
-        return $status
-            ?  $students->whereHas('cash_transactions', $callback)->count()
-            : $students->whereDoesntHave('cash_transactions', $callback)->count();
+        return $students->whereHas('cash_transactions', $callback)->count();
+    }
+
+    /**
+     * Hitung siswa yang belum membayar pada minggu ini.
+     *
+     * @return Int
+     */
+    public function countStudentWhoNotPaidThisWeek(): Int
+    {
+        $students = $this->students->select('id');
+
+        $callback = fn (Builder $query) => $query->select(['date'])
+            ->whereBetween('date', [$this->startOfWeek, $this->endOfWeek]);
+
+        return $students->whereDoesntHave('cash_transactions', $callback)->count();
     }
 
     /**
@@ -91,7 +100,7 @@ class CashTransactionRepository extends Controller implements CashTransactionInt
      *
      * Jika limit === null maka tampilkan seluruh data siswa yang belum membayar minggu ini.
      * Jika limit !== null maka tampilkan data siswa yang belum membayar minggu ini dengan limit.
-     * 
+     *
      * @param int $limit limit data yang akan ditampilkan.
      * @param string $order urutkan data berdasarkan kolom/field di database.
      * @return Object
@@ -121,8 +130,8 @@ class CashTransactionRepository extends Controller implements CashTransactionInt
                 'notPaidThisWeekLimit' => $this->getStudentWhoNotPaidThisWeek(limit: 6, order: 'name'),
             ],
             'studentCountWho' => [
-                'paidThisWeek' => $this->countStudentWhoPaidOrNotPaidThisWeek(true),
-                'notPaidThisWeek' => $this->countStudentWhoPaidOrNotPaidThisWeek(false),
+                'paidThisWeek' => $this->countStudentWhoPaidThisWeek(),
+                'notPaidThisWeek' => $this->countStudentWhoNotPaidThisWeek(),
             ],
             'totals' => [
                 'thisMonth' => indonesian_currency($this->sumAmountBy('month', month: date('m'))),
