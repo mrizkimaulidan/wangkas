@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AdministratorEditResource;
 use App\Http\Resources\AdministratorShowResource;
+use Symfony\Component\HttpFoundation\Response;
 
 class AdministratorController extends Controller implements APIInterface
 {
@@ -16,7 +17,7 @@ class AdministratorController extends Controller implements APIInterface
         $user = new AdministratorShowResource(User::findOrFail($id));
 
         return response()->json([
-            'code' => 200,
+            'code' => Response::HTTP_OK,
             'data' => $user
         ]);
     }
@@ -26,7 +27,7 @@ class AdministratorController extends Controller implements APIInterface
         $user = new AdministratorEditResource(User::findOrFail($id));
 
         return response()->json([
-            'code' => 200,
+            'code' => Response::HTTP_OK,
             'data' => $user
         ]);
     }

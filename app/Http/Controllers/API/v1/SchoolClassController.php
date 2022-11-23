@@ -8,6 +8,7 @@ use App\Http\Resources\SchoolClassEditResource;
 use App\Http\Resources\SchoolClassShowResource;
 use App\Models\SchoolClass;
 use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 class SchoolClassController extends Controller implements APIInterface
 {
@@ -16,7 +17,7 @@ class SchoolClassController extends Controller implements APIInterface
         $school_class = new SchoolClassShowResource(SchoolClass::findOrFail($id));
 
         return response()->json([
-            'code' => 200,
+            'code' => Response::HTTP_OK,
             'data' => $school_class
         ]);
     }
@@ -26,7 +27,7 @@ class SchoolClassController extends Controller implements APIInterface
         $school_class = new SchoolClassEditResource(SchoolClass::findOrFail($id));
 
         return response()->json([
-            'code' => 200,
+            'code' => Response::HTTP_OK,
             'data' => $school_class
         ]);
     }

@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SchoolMajorEditResource;
 use App\Http\Resources\SchoolMajorShowResource;
+use Symfony\Component\HttpFoundation\Response;
 
 class SchoolMajorController extends Controller implements APIInterface
 {
@@ -16,7 +17,7 @@ class SchoolMajorController extends Controller implements APIInterface
         $school_major = new SchoolMajorShowResource(SchoolMajor::findOrFail($id));
 
         return response()->json([
-            'code' => 200,
+            'code' => Response::HTTP_OK,
             'data' => $school_major
         ]);
     }
@@ -26,7 +27,7 @@ class SchoolMajorController extends Controller implements APIInterface
         $school_major = new SchoolMajorEditResource(SchoolMajor::findOrFail($id));
 
         return response()->json([
-            'code' => 200,
+            'code' => Response::HTTP_OK,
             'data' => $school_major
         ]);
     }
