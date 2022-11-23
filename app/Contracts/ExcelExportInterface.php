@@ -7,7 +7,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 /**
- * Set of export excel function.
+ * Interface untuk report excel.
  */
 interface ExcelExportInterface
 {

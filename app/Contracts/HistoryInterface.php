@@ -7,8 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 /**
- * An interface for history feature.
- * For supporting soft deletes feature when some Controller implement it.
+ * Interface untuk soft delete.
  */
 interface HistoryInterface
 {

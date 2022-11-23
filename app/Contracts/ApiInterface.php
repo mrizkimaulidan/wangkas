@@ -5,7 +5,7 @@ namespace App\Contracts;
 use Illuminate\Http\JsonResponse;
 
 /**
- * An interface for REST API feature.
+ * Interface untuk fitur REST API.
  */
 interface ApiInterface
 {
