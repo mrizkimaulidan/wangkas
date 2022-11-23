@@ -117,6 +117,25 @@
 				}
 			});
 		});
+
+		$('#logout').click(function (e) {
+			e.preventDefault();
+			Swal.fire({
+				title: "Logout?",
+				text: "Anda akan keluar dari aplikasi.",
+				icon: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				cancelButtonText: "Tidak",
+				confirmButtonText: "Ya!",
+				reverseButtons: true,
+			}).then((result) => {
+				if (result.isConfirmed) {
+					$(this).submit();
+				}
+			})
+		});
 	});
 </script>
 
