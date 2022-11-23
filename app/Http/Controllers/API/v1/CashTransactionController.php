@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use App\Contracts\ApiInterface;
+use App\Contracts\APIInterface;
 use App\Models\CashTransaction;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CashTransactionEditResource;
 use App\Http\Resources\CashTransactionShowResource;
 use Illuminate\Http\JsonResponse;
 
-class CashTransactionController extends Controller implements ApiInterface
+class CashTransactionController extends Controller implements APIInterface
 {
     public function show(int $id): JsonResponse
     {

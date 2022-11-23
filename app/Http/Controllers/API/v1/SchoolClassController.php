@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\API\v1;
 
-use App\Contracts\ApiInterface;
+use App\Contracts\APIInterface;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\SchoolClassEditResource;
 use App\Http\Resources\SchoolClassShowResource;
 use App\Models\SchoolClass;
 use Illuminate\Http\JsonResponse;
 
-class SchoolClassController extends Controller implements ApiInterface
+class SchoolClassController extends Controller implements APIInterface
 {
     public function show(int $id): JsonResponse
     {
