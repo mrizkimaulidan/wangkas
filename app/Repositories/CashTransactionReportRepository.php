@@ -5,7 +5,6 @@ namespace App\Repositories;
 use App\Contracts\CashTransactionReportInterface;
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
-use Illuminate\Database\Eloquent\Collection;
 
 class CashTransactionReportRepository extends Controller implements CashTransactionReportInterface
 {
