@@ -17,7 +17,7 @@ class CashTransactionController extends Controller implements ExcelExportInterfa
     public function __invoke()
     {
         $spreadsheet = new Spreadsheet();
-        $sheet = $this->setHeaderExcel($spreadsheet);
+        $sheet = $this->setExcelHeader($spreadsheet);
 
         $cash_transactions = CashTransaction::with('students:id,name')
             ->select('id', 'student_id', 'bill', 'amount', 'date')
