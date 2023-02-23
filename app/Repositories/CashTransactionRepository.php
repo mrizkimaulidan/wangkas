@@ -134,8 +134,8 @@ class CashTransactionRepository extends Controller implements CashTransactionInt
                 'notPaidThisWeek' => $this->countStudentWhoNotPaidThisWeek(),
             ],
             'totals' => [
-                'thisMonth' => indonesian_currency($this->sumAmountBy('month', month: date('m'))),
-                'thisYear' => indonesian_currency($this->sumAmountBy('year', year: date('Y'))),
+                'thisMonth' => indonesianCurrency($this->sumAmountBy('month', month: date('m'))),
+                'thisYear' => indonesianCurrency($this->sumAmountBy('year', year: date('Y'))),
             ]
         ];
     }

@@ -118,7 +118,7 @@
 										</td>
 										<td class="col-auto">
 											<p class=" mb-0">
-												{{ indonesian_currency($latestCashTransaction->amount) }}
+												{{ indonesianCurrency($latestCashTransaction->amount) }}
 											</p>
 										</td>
 										<td class="col-auto">

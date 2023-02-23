@@ -47,8 +47,8 @@ class CashTransactionController extends Controller
         if (request()->ajax()) {
             return datatables()->of($cashTransactions)
                 ->addIndexColumn()
-                ->addColumn('bill', fn ($model) => indonesian_currency($model->bill))
-                ->addColumn('amount', fn ($model) => indonesian_currency($model->amount))
+                ->addColumn('bill', fn ($model) => indonesianCurrency($model->bill))
+                ->addColumn('amount', fn ($model) => indonesianCurrency($model->amount))
                 ->addColumn('date', fn ($model) => date('d-m-Y', strtotime($model->date)))
                 ->addColumn('action', 'cash_transactions.datatable.action')
                 ->rawColumns(['action'])

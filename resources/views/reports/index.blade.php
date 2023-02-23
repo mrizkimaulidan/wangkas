@@ -130,7 +130,7 @@
 							<th>{{ $loop->iteration }}</th>
 							<td>{{ $cashTransaction->students->name }}</td>
 							<td>{{ date('d-m-Y', strtotime($cashTransaction->date)) }}</td>
-							<td>{{ indonesian_currency($cashTransaction->amount) }}</td>
+							<td>{{ indonesianCurrency($cashTransaction->amount) }}</td>
 							<td>{{ $cashTransaction->users->name }}</td>
 						</tr>
 						@endforeach
@@ -138,7 +138,7 @@
 					<tfoot>
 						<tr>
 							<td colspan="4" align="right"><b>Total</b></td>
-							<td>{{ indonesian_currency($filteredResult['sumOfAmount']) }}</td>
+							<td>{{ indonesianCurrency($filteredResult['sumOfAmount']) }}</td>
 						</tr>
 					</tfoot>
 				</table>

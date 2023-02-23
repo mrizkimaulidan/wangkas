@@ -33,10 +33,10 @@ class CashTransactionReportController extends Controller
         }
 
         $sum = [
-            'thisDay' => indonesian_currency($this->cashTransactionReportRepository->sum('amount', 'thisDay')),
-            'thisWeek' => indonesian_currency($this->cashTransactionReportRepository->sum('amount', 'thisWeek')),
-            'thisMonth' => indonesian_currency($this->cashTransactionReportRepository->sum('amount', 'thisMonth')),
-            'thisYear' => indonesian_currency($this->cashTransactionReportRepository->sum('amount', 'thisYear')),
+            'thisDay' => indonesianCurrency($this->cashTransactionReportRepository->sum('amount', 'thisDay')),
+            'thisWeek' => indonesianCurrency($this->cashTransactionReportRepository->sum('amount', 'thisWeek')),
+            'thisMonth' => indonesianCurrency($this->cashTransactionReportRepository->sum('amount', 'thisMonth')),
+            'thisYear' => indonesianCurrency($this->cashTransactionReportRepository->sum('amount', 'thisYear')),
         ];
 
         return view('reports.index', [

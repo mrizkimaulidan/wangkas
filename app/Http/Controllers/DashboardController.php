@@ -22,7 +22,7 @@ class DashboardController extends Controller
      */
     public function __invoke(): View
     {
-        $amountThisMonth = indonesian_currency($this->cashTransactionRepository->sumAmountBy('month', month: date('m')));
+        $amountThisMonth = indonesianCurrency($this->cashTransactionRepository->sumAmountBy('month', month: date('m')));
 
         $latestCashTransactions = $this->cashTransactionRepository
             ->cashTransactionLatest(['id', 'student_id', 'user_id', 'bill', 'amount', 'date'], 5);

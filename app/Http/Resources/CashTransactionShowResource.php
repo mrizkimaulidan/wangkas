@@ -18,8 +18,8 @@ class CashTransactionShowResource extends JsonResource
             'id' => $this->id,
             'student_id' => $this->student_id,
             'user_id' => $this->user_id,
-            'bill' => indonesian_currency($this->bill),
-            'amount' => indonesian_currency($this->amount),
+            'bill' => indonesianCurrency($this->bill),
+            'amount' => indonesianCurrency($this->amount),
             'date' => date('d-m-Y', strtotime($this->date)),
             'note' => $this->note,
             'students' => [
