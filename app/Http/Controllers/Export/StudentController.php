@@ -17,7 +17,7 @@ class StudentController extends Controller implements ExcelExportInterface
     public function __invoke()
     {
         $spreadsheet = new Spreadsheet();
-        $sheet = $this->setHeaderExcel($spreadsheet);
+        $sheet = $this->setExcelHeader($spreadsheet);
 
         $students = Student::with('school_class:id,name', 'school_major:id,name')->orderBy('name')->get();
 
@@ -32,7 +32,7 @@ class StudentController extends Controller implements ExcelExportInterface
      * @param \PhpOffice\PhpSpreadsheet\Spreadsheet $spreadsheet
      * @return \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet
      */
-    public function setExcelheader(Spreadsheet $spreadsheet): Worksheet
+    public function setExcelHeader(Spreadsheet $spreadsheet): Worksheet
     {
         $sheet = $spreadsheet->getActiveSheet();
         $sheet->setCellValue('A1', 'No');
