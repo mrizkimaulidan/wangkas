@@ -43,7 +43,7 @@
 
 		$.extend(true, $.fn.dataTable.defaults, {
 			language: {
-				url: "{{ asset('vendors/datatable/plugins/id.json') }}",
+				url: "https://cdn.datatables.net/plug-ins/1.13.3/i18n/id.json",
 			},
 			"pageLength": 5,
 			"lengthMenu": [[5, 20, 25, 50, -1], [5, 20, 25, 50, 'All']]
