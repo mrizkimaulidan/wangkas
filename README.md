@@ -4,8 +4,6 @@ Aplikasi pendataan uang kas dibuat dengan Framework Laravel 9. Dengan sistem pem
 
 Beberapa CRUD menggunakan modal dan AJAX untuk pengambilan data agar mengurangi penggunaan pindah halaman. Dan seluruh menu menggunakan DataTable Server Side Processing.
 
-Website Demo : https://wangkas.herokuapp.com/
-
 ### Prasyarat
 
 Berikut beberapa hal yang perlu diinstal terlebih dahulu:
@@ -126,8 +124,6 @@ Password    : secret
 ### Kontribusi
 
 Silahkan request melalui kolom `Pull Requests` jika ingin melakukan kontribusi
-
-Database Schema -> [dbdiagram](https://dbdiagram.io/d/60115a6180d742080a380f79)
 
 ### Pembuat
 
