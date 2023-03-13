@@ -25,7 +25,7 @@ class AdministratorStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:191',
-            'email' => 'required|email|max:191',
+            'email' => 'required|email|unique:users,email|max:191',
             'password' => 'required|min:3|max:191',
             'password_confirmation' => 'required|same:password'
         ];
@@ -45,6 +45,7 @@ class AdministratorStoreRequest extends FormRequest
 
             'email.required' => 'Kolom email wajib diisi!',
             'email.email' => 'Kolom email harus email yang valid!',
+            'email.unique' => 'Email tersebut sudah terdaftar!',
             'email.max' => 'Kolom email maksimal 191 karakter!',
 
             'password.required' => 'Kolom password wajib diisi!',
