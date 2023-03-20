@@ -4,8 +4,7 @@
 			<p>{{ date('Y') }} &copy; Mazer</p>
 		</div>
 		<div class="float-end">
-			<p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-					href="http://ahmadsaugi.com">A.
+			<p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A.
 					Saugi</a></p>
 		</div>
 	</div>
@@ -134,7 +133,19 @@
 				reverseButtons: true,
 			}).then((result) => {
 				if (result.isConfirmed) {
-					$(this).submit();
+					$.ajax({
+						url: "{{ route('api.logout') }}",
+						headers: {
+							'Authorization': 'Bearer ' + localStorage.getItem('token'),
+							'Accept': 'application/json',
+							'Content-Type': 'application/json'
+						},
+						method: 'post',
+						success: function(res) {
+							localStorage.removeItem('token');
+							$('#logout').submit();
+						}
+					});
 				}
 			})
 		});

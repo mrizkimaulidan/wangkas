@@ -7,12 +7,15 @@ use App\Http\Controllers\API\v1\AdministratorController;
 use App\Http\Controllers\API\v1\CashTransactionController;
 use App\Http\Controllers\API\v1\DashboardChartController;
 use App\Http\Controllers\API\v1\LoginController;
+use App\Http\Controllers\API\v1\LogoutController;
 use App\Http\Controllers\API\v1\StudentController;
 
 Route::name('api.')->prefix('v1')->group(function () {
     Route::post('/login', [LoginController::class, 'login'])->name('login');
 
     Route::middleware('jwt')->group(function () {
+        Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+
         Route::get('/school-class/{id}', [SchoolClassController::class, 'show'])->name('school-class.show');
         Route::get('/school-class/{id}/edit', [SchoolClassController::class, 'edit'])->name('school-class.edit');
 
