@@ -1,10 +1,11 @@
 <script>
-    $(function () {
+	$(function () {
         let url = "{{ route('api.chart') }}";
 
         $.ajax({
             url: url,
             headers: {
+								'Authorization': 'Bearer ' + localStorage.getItem('token'),
                 'Accept': 'application/json'
             },
             success: function (response) {

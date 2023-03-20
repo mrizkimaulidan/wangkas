@@ -11,6 +11,9 @@
 
 			$.ajax({
 				url: url,
+				headers: {
+					'Authorization': 'Bearer ' + localStorage.getItem('token')
+				},
 				success: function (res) {
 					$('#showCashTransactionModal #user_id').val(res.data.users.name);
 					$('#showCashTransactionModal #student_id').val(res.data.students.name);

@@ -26,6 +26,7 @@
 			$.ajax({
 				url: url,
 				headers: {
+					'Authorization': 'Bearer ' + localStorage.getItem('token'),
 					'Accept': 'application/json',
 				},
 				success: function (response) {
@@ -56,6 +57,7 @@
 			$.ajax({
 				url: url,
 				headers: {
+					'Authorization': 'Bearer ' + localStorage.getItem('token'),
 					'Accept': 'application/json',
 				},
 				success: function (response) {
