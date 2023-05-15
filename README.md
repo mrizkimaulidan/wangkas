@@ -85,6 +85,12 @@ composer install
 php artisan migrate --seed
 ```
 
+- Generate JWT Secret Token
+
+```bash
+php artisan jwt:secret
+```
+
 -   Ketik perintah dibawah ini untuk membuat cache baru dari beberapa konfigurasi yang telah diubah
 
 ```bash
