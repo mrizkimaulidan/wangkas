@@ -2,8 +2,8 @@
 	$(function () {
 		$('.cash-transaction-detail').click(function () {
 			let id = $(this).data('id');
-			let url = "{{ route('api.cash-transaction.show', ':id') }}";
-			url = url.replace(':id', id);
+			let url = "{{ route('api.cash-transaction.show', ':param') }}";
+			url = url.replace(':param', id);
 
 			$('#showCashTransactionModal input').val('Sedang mengambil data..');
 			$('#showCashTransactionModal textarea').val('Sedang mengambil data..');

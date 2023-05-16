@@ -20,10 +20,10 @@
 		$('#datatable').on('click', '.student-detail', function () {
 			loadingAlert.show();
 
-			let url = "{{ route('api.student.show', 'id') }}";
+			let url = "{{ route('api.student.show', ':param') }}";
 			let id = $(this).data('id');
 
-			url = url.replace('id', id);
+			url = url.replace(':param', id);
 
 			$('#showStudentModal input').each(function () {
 				$(this).val('Sedang mengambil data..');
@@ -56,11 +56,11 @@
 			loadingAlert.show();
 
 			let id = $(this).data('id');
-			let url = "{{ route('api.student.edit', 'id') }}";
-			url = url.replace('id', id);
+			let url = "{{ route('api.student.edit', ':param') }}";
+			url = url.replace(':param', id);
 
-			let formActionURL = "{{ route('students.update', 'id') }}"
-			formActionURL = formActionURL.replace('id', id);
+			let formActionURL = "{{ route('students.update', ':param') }}"
+			formActionURL = formActionURL.replace(':param', id);
 
 			let editStudentModalEveryInput = $('#editStudentModal :input').not('button[type=button], input[name=_token], input[name=_method]')
 				.each(function () {

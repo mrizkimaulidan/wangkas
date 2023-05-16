@@ -19,8 +19,8 @@
 			loadingAlert.show();
 
 			let id = $(this).data('id');
-			let url = "{{ route('api.administrator.show', ':id') }}";
-			url = url.replace(':id', id);
+			let url = "{{ route('api.administrator.show', ':param') }}";
+			url = url.replace(':param', id);
 
 			$('#showAdministratorModal input').val('Sedang mengambil data..');
 
@@ -44,11 +44,11 @@
 			loadingAlert.show();
 
 			let id = $(this).data('id');
-			let url = "{{ route('api.administrator.edit', 'id') }}";
-			url = url.replace('id', id);
+			let url = "{{ route('api.administrator.edit', ':param') }}";
+			url = url.replace(':param', id);
 
-			let formActionURL = "{{ route('administrators.update', 'id') }}";
-			formActionURL = formActionURL.replace('id', id);
+			let formActionURL = "{{ route('administrators.update', ':param') }}";
+			formActionURL = formActionURL.replace(':param', id);
 
 			let editSchoolClassModalEveryInput = $('#editAdministratorModal :input').not('button[type=button], input[name=_token], input[name=_method]')
 				.each(function () {

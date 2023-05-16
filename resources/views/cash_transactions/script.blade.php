@@ -20,8 +20,8 @@
 			loadingAlert.show();
 
 			let id = $(this).data('id');
-			let url = "{{ route('api.cash-transaction.show', 'id') }}";
-			url = url.replace('id', id);
+			let url = "{{ route('api.cash-transaction.show', ':param') }}";
+			url = url.replace(':param', id);
 
 			$('#showCashTransactionModal :input').val('Sedang mengambil data..');
 
@@ -49,11 +49,11 @@
 			loadingAlert.show();
 
 			let id = $(this).data('id');
-			let url = "{{ route('api.cash-transaction.edit', 'id') }}";
-			url = url.replace('id', id);
+			let url = "{{ route('api.cash-transaction.edit', ':param') }}";
+			url = url.replace(':param', id);
 
-			let formActionURL = "{{ route('cash-transactions.update', 'id') }}";
-			formActionURL = formActionURL.replace('id', id);
+			let formActionURL = "{{ route('cash-transactions.update', ':param') }}";
+			formActionURL = formActionURL.replace(':param', id);
 
 			let editSchoolClassModalEveryInput = $('#editCashTransactionModal :input').not('button[type=button], input[name=_token], input[name=_method]')
 				.each(function () {
