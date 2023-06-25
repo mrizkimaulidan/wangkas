@@ -14,6 +14,7 @@
 	<link rel="stylesheet" href="{{ asset('compiled/css/app.css') }}" />
 	<link rel="stylesheet" href="{{ asset('compiled/css/app-dark.css') }}" />
 	<link rel="stylesheet" href="{{ asset('compiled/css/iconly.css') }}" />
+	<link rel="stylesheet" href="{{ asset('extensions/bootstrap-icons/font/bootstrap-icons.css') }}" />
 </head>
 
 <body>
