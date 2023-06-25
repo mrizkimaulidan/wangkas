@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\API\v1\DataTables;
 
+use App\Http\Controllers\Controller;
 use App\Models\SchoolClass;
 use Illuminate\Http\Request;
 
@@ -12,15 +13,12 @@ class SchoolClassController extends Controller
      */
     public function index()
     {
-        return view('school_classes.index');
-    }
+        $schoolClasses = SchoolClass::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        return datatables()->of($schoolClasses)
+            ->addIndexColumn()
+            ->addColumn('action', 'school_classes.datatables.action')
+            ->toJson();
     }
 
     /**
@@ -34,15 +32,7 @@ class SchoolClassController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(SchoolClass $schoolClass)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(SchoolClass $schoolClass)
+    public function show(string $id)
     {
         //
     }
@@ -50,7 +40,7 @@ class SchoolClassController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SchoolClass $schoolClass)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +48,7 @@ class SchoolClassController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SchoolClass $schoolClass)
+    public function destroy(string $id)
     {
         //
     }

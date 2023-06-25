@@ -172,7 +172,7 @@
 
 	<script>
 		$(function () {
-			$('#table').DataTable({
+			$.extend(true, $.fn.dataTable.defaults, {
 				pageLength: 5,
 				lengthMenu: [[5, 10, 15, 20, 25, 50, -1], [5, 10, 15, 20, 25, 50, "All"]],
 				language: {
@@ -405,6 +405,8 @@
 			});
 		});
 	</script>
+
+	@stack('scripts')
 </body>
 
 </html>
