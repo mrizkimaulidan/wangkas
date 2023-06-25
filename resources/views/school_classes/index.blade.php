@@ -32,7 +32,7 @@
 		<div class="card-content">
 			<div class="card-body">
 				<div class="table-responsive">
-					<table class="table table-lg" id="table">
+					<table class="table table-xs table-hover" id="table">
 						<thead>
 							<tr>
 								<th>#</th>
