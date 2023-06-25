@@ -12,7 +12,9 @@ class SchoolClassController extends Controller
      */
     public function index()
     {
-        //
+        $schoolClasses = SchoolClass::all();
+
+        return view('school_classes.index', compact('schoolClasses'));
     }
 
     /**

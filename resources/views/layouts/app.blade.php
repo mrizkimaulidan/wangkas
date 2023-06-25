@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="{{ asset('compiled/css/app-dark.css') }}" />
 	<link rel="stylesheet" href="{{ asset('compiled/css/iconly.css') }}" />
 	<link rel="stylesheet" href="{{ asset('extensions/bootstrap-icons/font/bootstrap-icons.css') }}" />
+	<link rel="stylesheet" href="{{ asset('extensions/datatables.net-bs5/css/dataTables.bootstrap5.css') }}" />
 </head>
 
 <body>
@@ -160,12 +161,20 @@
 	<script src="{{ asset('extensions/jquery/jquery.min.js') }}"></script>
 	<script src="{{ asset('static/js/components/dark.js') }}"></script>
 	<script src="{{ asset('extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+	<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+	<script src="{{ asset('extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
 
 	<script src="{{ asset('compiled/js/app.js') }}"></script>
 
 	<!-- Need: Apexcharts -->
 	<script src="{{ asset('extensions/apexcharts/apexcharts.min.js') }}"></script>
 	<script src="{{ asset('static/js/pages/dashboard.js') }}"></script>
+
+	<script>
+		$(function() {
+			$('#table').DataTable();
+		});
+	</script>
 </body>
 
 </html>
