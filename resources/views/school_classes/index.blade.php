@@ -50,6 +50,10 @@
 </div>
 @endsection
 
+@pushOnce('modal')
+@include('school_classes.modal.show')
+@endPushOnce
+
 @pushOnce('scripts')
 @include('school_classes.script')
 @endPushOnce
