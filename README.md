@@ -4,8 +4,6 @@ Aplikasi pendataan uang kas dibuat dengan Framework Laravel 9. Dengan sistem pem
 
 Beberapa CRUD menggunakan modal dan AJAX untuk pengambilan data agar mengurangi penggunaan pindah halaman. Dan seluruh menu menggunakan DataTable Server Side Processing.
 
-Penting: **Sedang dilakukan rewrite untuk seluruh modul**
-
 ### Prasyarat
 
 Berikut beberapa hal yang perlu diinstal terlebih dahulu:
