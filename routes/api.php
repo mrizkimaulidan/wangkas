@@ -19,6 +19,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('v1/datatables/')->name('api.v1.datatables.')->group(function () {
+Route::prefix('v1/datatable/')->name('api.v1.datatables.')->group(function () {
     Route::apiResource('/school-classes', SchoolClassController::class);
 });
