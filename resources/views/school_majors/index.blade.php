@@ -67,6 +67,7 @@
 @endsection
 
 @pushOnce('modal')
+@include('school_majors.modal.create')
 @include('school_majors.modal.show')
 @include('school_majors.modal.edit')
 @endPushOnce

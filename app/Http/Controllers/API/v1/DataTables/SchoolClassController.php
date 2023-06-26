@@ -27,7 +27,13 @@ class SchoolClassController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $schoolClass = SchoolClass::create($request->all());
+
+        return response()->json([
+            'code' => Response::HTTP_CREATED,
+            'message' => 'success',
+            'data' => $schoolClass
+        ], Response::HTTP_CREATED);
     }
 
     /**

@@ -11,6 +11,45 @@
 			]
 		});
 
+		$('#createModal form').submit(function (e) {
+			e.preventDefault();
+
+			const formData = {
+				name: $('#createModal form #name').val()
+			};
+
+			$.ajax({
+				url: "{{ route('api.v1.datatables.school-classes.store') }}",
+				method: 'POST',
+				header: {
+					'Content-Type': 'application/json'
+				},
+				data: formData,
+				success: res => {
+					table.ajax.reload();
+					$('#createModal').modal('hide');
+
+					Swal.fire({
+						icon: 'success',
+						title: 'Data kelas berhasil ditambahkan!',
+						toast: true,
+						position: 'top-end',
+						showConfirmButton: false,
+						timer: 3000,
+						timerProgressBar: true,
+						didOpen: (toast) => {
+							toast.addEventListener('mouseenter', Swal.stopTimer)
+							toast.addEventListener('mouseleave', Swal.resumeTimer)
+						}
+					});
+				},
+				error: err => {
+					alert('error occured, check console');
+					console.log(err);
+				}
+			});
+		});
+
 		$('#table').on('click', '.show-modal', function () {
 			const id = $(this).data('id');
 			let url = "{{ route('api.v1.datatables.school-classes.show', ':paramID') }}".replace(':paramID', id);

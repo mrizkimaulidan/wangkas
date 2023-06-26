@@ -65,6 +65,7 @@
 @endsection
 
 @pushOnce('modal')
+@include('school_classes.modal.create')
 @include('school_classes.modal.show')
 @include('school_classes.modal.edit')
 @endPushOnce

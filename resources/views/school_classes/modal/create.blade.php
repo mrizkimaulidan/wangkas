@@ -1,9 +1,9 @@
-<div class="modal fade text-left" id="updateModal" tabindex="-1" role="dialog" aria-hidden="true">
+<div class="modal fade text-left" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
 	<div class="modal-dialog modal-dialog-scrollable" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">
-					Ubah Data Kelas
+					Tambah Data Kelas
 				</h5>
 				<button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
 					<i data-feather="x"></i>
@@ -16,13 +16,7 @@
 							<div class="col-12">
 								<div class="form-group">
 									<label for="first-name-vertical">Nama:</label>
-									<input type="text" class="form-control" id="name" />
-								</div>
-							</div>
-							<div class="col-12">
-								<div class="form-group">
-									<label for="first-name-vertical">Singkatan:</label>
-									<input type="text" class="form-control" id="abbreviation" />
+									<input type="text" class="form-control" id="name" placeholder="Masukkan nama..." />
 								</div>
 							</div>
 						</div>
@@ -32,9 +26,9 @@
 							<i class="bx bx-x d-block d-sm-none"></i>
 							<span class="d-none d-sm-block">Tutup</span>
 						</button>
-						<button type="submit" class="btn btn-success">
+						<button type="button" class="btn btn-success" data-bs-dismiss="modal">
 							<i class="bx bx-x d-block d-sm-none"></i>
-							<span class="d-none d-sm-block">Ubah</span>
+							<span class="d-none d-sm-block">Tambah</span>
 						</button>
 					</div>
 				</form>

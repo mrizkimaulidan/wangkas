@@ -28,7 +28,13 @@ class SchoolMajorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $schoolMajor = SchoolMajor::create($request->all());
+
+        return response()->json([
+            'code' => Response::HTTP_CREATED,
+            'message' => 'success',
+            'data' => $schoolMajor
+        ], Response::HTTP_CREATED);
     }
 
     /**
