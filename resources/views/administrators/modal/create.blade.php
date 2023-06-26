@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">
-					Tambah Data Kelas
+					Tambah Data Administrator
 				</h5>
 				<button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
 					<i data-feather="x"></i>
@@ -14,9 +14,54 @@
 					<div class="form-body">
 						<div class="row">
 							<div class="col-12">
-								<div class="form-group">
-									<label for="first-name-vertical">Nama:</label>
-									<input type="text" class="form-control" id="name" placeholder="Masukkan nama..." />
+								<div class="form-group has-icon-left">
+									<label for="name">Name:</label>
+									<div class="position-relative">
+										<input type="text" class="form-control" id="name" placeholder="Masukkan nama..." />
+										<div class="form-control-icon">
+											<i class="bi bi-person-fill"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group has-icon-left">
+									<label for="email">Email:</label>
+									<div class="position-relative">
+										<input type="email" class="form-control" id="email" placeholder="Masukkan email..." />
+										<div class="form-control-icon">
+											<i class="bi bi-envelope-fill"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group has-icon-left">
+									<label for="password">Password:</label>
+									<div class="position-relative">
+										<input type="password" class="form-control" id="password" placeholder="Masukkan password..." />
+										<div class="form-control-icon">
+											<i class="bi bi-lock-fill"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group has-icon-left">
+									<label for="password_confirmation">Konfirmasi Passowrd:</label>
+									<div class="position-relative">
+										<input type="password" class="form-control" id="password_confirmation"
+											placeholder="Masukkan konfirmasi password..." />
+										<div class="form-control-icon">
+											<i class="bi bi-lock-fill"></i>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -26,7 +71,7 @@
 							<i class="bx bx-x d-block d-sm-none"></i>
 							<span class="d-none d-sm-block">Tutup</span>
 						</button>
-						<button type="button" class="btn btn-success" data-bs-dismiss="modal">
+						<button type="submit" class="btn btn-success">
 							<i class="bx bx-x d-block d-sm-none"></i>
 							<span class="d-none d-sm-block">Tambah</span>
 						</button>

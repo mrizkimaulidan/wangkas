@@ -17,7 +17,10 @@
 			e.preventDefault();
 
 			const formData = {
-				name: $('#createModal form #name').val()
+				name: $('#createModal form #name').val(),
+				email: $('#createModal form #email').val(),
+				password: $('#createModal form #password').val(),
+				password_confirmation: $('#createModal form #password_confirmation').val(),
 			};
 
 			$.ajax({
