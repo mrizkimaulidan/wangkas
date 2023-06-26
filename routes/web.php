@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\SchoolMajorController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DashboardController;
@@ -28,3 +29,4 @@ Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
 Route::resource('/school-classes', SchoolClassController::class);
 Route::resource('/school-majors', SchoolMajorController::class);
+Route::resource('/administrators', AdministratorController::class);
