@@ -24,10 +24,13 @@ Route::get('/', function () {
 
 Route::get('/login', [AuthenticationController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthenticationController::class, 'login']);
-Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
-Route::get('/dashboard', DashboardController::class)->name('dashboard');
+Route::middleware('auth')->group(function () {
+    Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
-Route::resource('/school-classes', SchoolClassController::class);
-Route::resource('/school-majors', SchoolMajorController::class);
-Route::resource('/administrators', AdministratorController::class);
+    Route::get('/dashboard', DashboardController::class)->name('dashboard');
+
+    Route::resource('/school-classes', SchoolClassController::class);
+    Route::resource('/school-majors', SchoolMajorController::class);
+    Route::resource('/administrators', AdministratorController::class);
+});
