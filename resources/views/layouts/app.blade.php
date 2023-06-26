@@ -86,8 +86,8 @@
 								<span>Kelas</span>
 							</a>
 						</li>
-						<li class="sidebar-item">
-							<a href="#" class="sidebar-link">
+						<li class="sidebar-item {{ request()->routeIs('school-majors.*') ? 'active' : '' }}">
+							<a href="{{ route('school-majors.index') }}" class="sidebar-link">
 								<i class="bi bi-briefcase-fill"></i>
 								<span>Jurusan</span>
 							</a>
