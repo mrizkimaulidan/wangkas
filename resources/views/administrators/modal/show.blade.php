@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">
-					Lihat Data Kelas
+					Lihat Data Administrator
 				</h5>
 				<button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
 					<i data-feather="x"></i>
@@ -14,20 +14,55 @@
 					<div class="form-body">
 						<div class="row">
 							<div class="col-12">
-								<div class="form-group">
-									<label for="first-name-vertical">Nama:</label>
-									<input type="text" class="form-control" id="name" disabled />
+								<div class="form-group has-icon-left">
+									<label for="name">Nama:</label>
+									<div class="position-relative">
+										<input type="text" class="form-control" id="name" disabled />
+										<div class="form-control-icon">
+											<i class="bi bi-person-fill"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group has-icon-left">
+									<label for="email">Email:</label>
+									<div class="position-relative">
+										<input type="text" class="form-control" id="email" disabled />
+										<div class="form-control-icon">
+											<i class="bi bi-envelope-fill"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group has-icon-left">
+									<label for="created_at">Tanggal Ditambahkan:</label>
+									<div class="position-relative">
+										<input type="text" class="form-control" id="created_at" disabled />
+										<div class="form-control-icon">
+											<i class="bi bi-calendar2-date-fill"></i>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+							<i class="bx bx-x d-block d-sm-none"></i>
+							<span class="d-none d-sm-block">Tutup</span>
+						</button>
+						<button type="submit" class="btn btn-success">
+							<i class="bx bx-x d-block d-sm-none"></i>
+							<span class="d-none d-sm-block">Tambah</span>
+						</button>
+					</div>
 				</form>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-					<i class="bx bx-x d-block d-sm-none"></i>
-					<span class="d-none d-sm-block">Tutup</span>
-				</button>
 			</div>
 		</div>
 	</div>

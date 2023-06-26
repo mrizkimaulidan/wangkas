@@ -67,6 +67,8 @@
 				},
 				success: res => {
 					$('#showModal form #name').val(res.data.name);
+					$('#showModal form #email').val(res.data.email);
+					$('#showModal form #created_at').val(res.data.created_at);
 				},
 				error: err => {
 					alert('error occured, check console');
