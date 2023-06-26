@@ -94,6 +94,49 @@
 			});
 		});
 
+		$('#table').on('click', '.delete', function (e) {
+			e.preventDefault()
+
+			Swal.fire({
+				title: 'Hapus?',
+				text: "Data tersebut akan dihapus!",
+				icon: 'warning',
+				showCancelButton: true,
+				reverseButtons: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				cancelButtonText: 'Tidak',
+				confirmButtonText: 'Ya!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					const id = $(this).data('id');
+					const url = "{{ route('api.v1.datatables.school-classes.destroy', ':paramID') }}".replace(':paramID', id);
+
+					$.ajax({
+						url: url,
+						method: 'DELETE',
+						success: res => {
+							Swal.fire({
+								icon: 'success',
+								title: 'Data berhasil dihapus!',
+								toast: true,
+								position: 'top-end',
+								showConfirmButton: false,
+								timer: 3000,
+								timerProgressBar: true,
+								didOpen: (toast) => {
+									toast.addEventListener('mouseenter', Swal.stopTimer)
+									toast.addEventListener('mouseleave', Swal.resumeTimer)
+								}
+							})
+
+							table.ajax.reload();
+						}
+					});
+				}
+			})
+		});
+
 		$('.modal').on('hidden.bs.modal', function () {
 			$(this).find('form :input').val('');
 		});

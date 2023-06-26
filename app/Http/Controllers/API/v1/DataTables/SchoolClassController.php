@@ -59,8 +59,13 @@ class SchoolClassController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(SchoolClass $schoolClass)
     {
-        //
+        $schoolClass->delete();
+
+        return response()->json([
+            'code' => Response::HTTP_OK,
+            'message' => 'success',
+        ], Response::HTTP_OK);
     }
 }

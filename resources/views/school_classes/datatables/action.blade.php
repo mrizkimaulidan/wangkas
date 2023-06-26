@@ -8,7 +8,7 @@
 			data-bs-target="#updateModal">
 			<i class="bi bi-pencil-square"></i>
 		</button>
-		<button type="button" class="btn btn-danger btn-sm">
+		<button type="button" class="btn btn-danger btn-sm delete" data-id="{{ $model->id }}">
 			<i class="bi bi-trash-fill"></i>
 		</button>
 	</div>
