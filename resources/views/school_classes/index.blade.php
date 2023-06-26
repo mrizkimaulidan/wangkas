@@ -52,6 +52,7 @@
 
 @pushOnce('modal')
 @include('school_classes.modal.show')
+@include('school_classes.modal.edit')
 @endPushOnce
 
 @pushOnce('scripts')

@@ -45,9 +45,15 @@ class SchoolClassController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, SchoolClass $schoolClass)
     {
-        //
+        $schoolClass->update($request->all());
+
+        return response()->json([
+            'code' => Response::HTTP_OK,
+            'message' => 'success',
+            'data' => $schoolClass
+        ], Response::HTTP_OK);
     }
 
     /**

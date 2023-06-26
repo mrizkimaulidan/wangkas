@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="{{ asset('compiled/css/iconly.css') }}" />
 	<link rel="stylesheet" href="{{ asset('extensions/bootstrap-icons/font/bootstrap-icons.css') }}" />
 	<link rel="stylesheet" href="{{ asset('extensions/datatables.net-bs5/css/dataTables.bootstrap5.css') }}" />
+	<link rel="stylesheet" href="{{ asset('extensions/sweetalert2/sweetalert2.min.css') }}" />
 </head>
 
 <body>
@@ -172,6 +173,7 @@
 	<!-- Need: Apexcharts -->
 	<script src="{{ asset('extensions/apexcharts/apexcharts.min.js') }}"></script>
 	<script src="{{ asset('static/js/pages/dashboard.js') }}"></script>
+	<script src="{{ asset('extensions/sweetalert2/sweetalert2.min.js') }}"></script>
 
 	<script>
 		$(function () {
