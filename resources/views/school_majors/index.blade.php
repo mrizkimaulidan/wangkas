@@ -33,7 +33,7 @@
 <div class="row">
 	<div class="card">
 		<div class="card-body">
-			<div class="col card p-3">
+			<div class="col card">
 				<div class="d-flex justify-content-end pb-3">
 					<div class="btn-group gap gap-2">
 						<a href="#" class="btn btn-secondary">
