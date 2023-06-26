@@ -169,10 +169,6 @@
 	<script src="{{ asset('extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
 
 	<script src="{{ asset('compiled/js/app.js') }}"></script>
-
-	<!-- Need: Apexcharts -->
-	<script src="{{ asset('extensions/apexcharts/apexcharts.min.js') }}"></script>
-	<script src="{{ asset('static/js/pages/dashboard.js') }}"></script>
 	<script src="{{ asset('extensions/sweetalert2/sweetalert2.min.js') }}"></script>
 
 	<script>
