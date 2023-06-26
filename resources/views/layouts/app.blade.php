@@ -114,8 +114,8 @@
 								<span>Laporan</span>
 							</a>
 						</li>
-						<li class="sidebar-item">
-							<a href="#" class="sidebar-link">
+						<li class="sidebar-item {{ request()->routeIs('administrators.*') ? 'active' : '' }}">
+							<a href="{{ route('administrators.index') }}" class="sidebar-link">
 								<i class="bi bi-person-badge-fill"></i>
 								<span>Administrator</span>
 							</a>
