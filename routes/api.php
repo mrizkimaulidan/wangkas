@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\v1\DataTables\SchoolClassController;
+use App\Http\Controllers\API\v1\DataTables\SchoolMajorController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -20,5 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1/datatable/')->name('api.v1.datatables.')->group(function () {
-    Route::apiResource('/school-classes', SchoolClassController::class);
+    Route::apiResources([
+        '/school-classes' => SchoolClassController::class,
+        '/school-majors' => SchoolMajorController::class
+    ]);
 });
