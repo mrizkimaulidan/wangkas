@@ -121,10 +121,13 @@
 							</a>
 						</li>
 						<li class="sidebar-item">
-							<a href="#" class="sidebar-link">
-								<i class="bi bi-box-arrow-left"></i>
-								<span>Logout</span>
-							</a>
+							<form action="{{ route('logout') }}" method="POST" id="logout">
+								@csrf
+								<a href="{{ route('logout') }}" class="sidebar-link">
+									<i class="bi bi-box-arrow-left"></i>
+									<span>Logout</span>
+								</a>
+							</form>
 						</li>
 					</ul>
 				</div>
@@ -405,7 +408,25 @@
 				}
 			});
 
+			$('#logout').click(function (e) {
+				e.preventDefault();
 
+				Swal.fire({
+					title: 'Logout?',
+					text: "Anda akan logout dari aplikasi!",
+					icon: 'warning',
+					showCancelButton: true,
+					reverseButtons: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					cancelButtonText: 'Tidak',
+					confirmButtonText: 'Ya!'
+				}).then((result) => {
+					if (result.isConfirmed) {
+						$(this).submit();
+					}
+				})
+			});
 		});
 	</script>
 

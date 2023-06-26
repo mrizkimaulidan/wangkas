@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class AuthenticationController extends Controller
@@ -34,5 +35,16 @@ class AuthenticationController extends Controller
         }
 
         return redirect()->route('login')->with('error', 'Email atau password salah!');
+    }
+
+    public function logout(Request $request): RedirectResponse
+    {
+        auth()->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return redirect()->route('login')->with('success', 'Berhasil logout dari aplikasi!');
     }
 }
