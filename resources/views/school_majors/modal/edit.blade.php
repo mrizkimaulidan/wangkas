@@ -15,13 +15,13 @@
 						<div class="row">
 							<div class="col-12">
 								<div class="form-group">
-									<label for="first-name-vertical">Nama:</label>
+									<label for="name">Nama:</label>
 									<input type="text" class="form-control" id="name" />
 								</div>
 							</div>
 							<div class="col-12">
 								<div class="form-group">
-									<label for="first-name-vertical">Singkatan:</label>
+									<label for="abbreviation">Singkatan:</label>
 									<input type="text" class="form-control" id="abbreviation" />
 								</div>
 							</div>
