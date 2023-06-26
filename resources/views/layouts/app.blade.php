@@ -80,8 +80,8 @@
 								<span>Pelajar</span>
 							</a>
 						</li>
-						<li class="sidebar-item">
-							<a href="#" class="sidebar-link">
+						<li class="sidebar-item {{ request()->routeIs('school-classes.*') ? 'active' : '' }}">
+							<a href="{{ route('school-classes.index') }}" class="sidebar-link">
 								<i class="bi bi-bookmark-fill"></i>
 								<span>Kelas</span>
 							</a>
