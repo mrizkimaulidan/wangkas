@@ -39,7 +39,8 @@
 						<a href="#" class="btn btn-secondary">
 							<span class="badge">0</span> Histori Data Jurusan
 						</a>
-						<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
+						<button type="button" class="btn btn-primary icon icon-left" data-bs-toggle="modal"
+							data-bs-target="#createModal">
 							<i class="bi bi-plus-circle"></i> Tambah Data Jurusan
 						</button>
 					</div>
