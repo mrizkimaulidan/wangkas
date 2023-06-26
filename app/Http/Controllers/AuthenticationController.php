@@ -37,6 +37,13 @@ class AuthenticationController extends Controller
         return redirect()->route('login')->with('error', 'Email atau password salah!');
     }
 
+    /**
+     * Logout the user.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     * @author Muhammad Rizki Maulidan <mrizkimaulidanx@gmail.com>
+     */
     public function logout(Request $request): RedirectResponse
     {
         auth()->logout();
