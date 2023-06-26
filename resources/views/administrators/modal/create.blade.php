@@ -15,7 +15,7 @@
 						<div class="row">
 							<div class="col-12">
 								<div class="form-group has-icon-left">
-									<label for="name">Name:</label>
+									<label for="name">Nama:</label>
 									<div class="position-relative">
 										<input type="text" class="form-control" id="name" placeholder="Masukkan nama..." />
 										<div class="form-control-icon">
