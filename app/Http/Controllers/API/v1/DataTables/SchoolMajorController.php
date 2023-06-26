@@ -15,7 +15,7 @@ class SchoolMajorController extends Controller
      */
     public function index()
     {
-        $schoolMajors = SchoolMajor::all();
+        $schoolMajors = SchoolMajor::select('id', 'name', 'abbreviation')->get();
 
         return datatables()->of($schoolMajors)
             ->addIndexColumn()

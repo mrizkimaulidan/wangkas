@@ -14,7 +14,7 @@ class SchoolClassController extends Controller
      */
     public function index()
     {
-        $schoolClasses = SchoolClass::all();
+        $schoolClasses = SchoolClass::select('id', 'name')->get();
 
         return datatables()->of($schoolClasses)
             ->addIndexColumn()
