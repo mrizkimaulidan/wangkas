@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Data Kelas')
+
 @section('page-heading')
 <div class="page-heading">
 	<div class="page-title">
