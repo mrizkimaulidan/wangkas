@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\SchoolMajorController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\CashTransactionReportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SchoolClassController;
 use Illuminate\Support\Facades\Route;
@@ -33,4 +34,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('/school-classes', SchoolClassController::class);
     Route::resource('/school-majors', SchoolMajorController::class);
     Route::resource('/administrators', AdministratorController::class);
+
+    Route::resource('/cash-transactions/report', CashTransactionReportController::class);
 });
