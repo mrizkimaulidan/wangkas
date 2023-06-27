@@ -108,8 +108,8 @@
 								</li>
 							</ul>
 						</li>
-						<li class="sidebar-item">
-							<a href="#" class="sidebar-link">
+						<li class="sidebar-item {{ request()->routeIs('cash-transactions.report.*') ? 'active' : '' }}">
+							<a href="{{ route('cash-transactions.report.index') }}" class="sidebar-link">
 								<i class="bi bi-file-earmark-spreadsheet-fill"></i>
 								<span>Laporan</span>
 							</a>
