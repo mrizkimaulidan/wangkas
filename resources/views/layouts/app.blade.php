@@ -111,7 +111,7 @@
 						<li class="sidebar-item {{ request()->routeIs('cash-transactions.report.*') ? 'active' : '' }}">
 							<a href="{{ route('cash-transactions.report.index') }}" class="sidebar-link">
 								<i class="bi bi-file-earmark-spreadsheet-fill"></i>
-								<span>Laporan</span>
+								<span>Laporan Transaksi Kas</span>
 							</a>
 						</li>
 						<li class="sidebar-item {{ request()->routeIs('administrators.*') ? 'active' : '' }}">
