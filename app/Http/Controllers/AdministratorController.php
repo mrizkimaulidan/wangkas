@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 class AdministratorController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Handle the incoming request.
      */
-    public function index()
+    public function __invoke(Request $request)
     {
         return view('administrators.index');
     }

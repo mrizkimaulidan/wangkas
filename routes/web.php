@@ -31,9 +31,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
-    Route::resource('/school-classes', SchoolClassController::class);
-    Route::resource('/school-majors', SchoolMajorController::class);
-    Route::resource('/administrators', AdministratorController::class);
+    Route::get('/school-classes', SchoolClassController::class)->name('school-classes.index');
+    Route::get('/school-majors', SchoolMajorController::class)->name('school-majors.index');
+    Route::get('/administrators', AdministratorController::class)->name('administrators.index');
 
-    Route::resource('/cash-transactions/report', CashTransactionReportController::class);
+    Route::get('/cash-transactions/report', CashTransactionReportController::class)->name('cash-transactions.report.index');
 });
