@@ -22,7 +22,7 @@ class StudentSeeder extends Seeder
             'phone_number' => '+6285744483758',
             'gender' => 1,
             'school_year_start' => now()->year,
-            'school_year_end' => now()->year - 3
+            'school_year_end' => now()->year + 3
         ]);
     }
 }
