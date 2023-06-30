@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CashTransactionReportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SchoolClassController;
+use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/school-classes', SchoolClassController::class)->name('school-classes.index');
     Route::get('/school-majors', SchoolMajorController::class)->name('school-majors.index');
     Route::get('/administrators', AdministratorController::class)->name('administrators.index');
+    Route::get('/students', StudentController::class)->name('students.index');
 
     Route::get('/cash-transactions/report', CashTransactionReportController::class)->name('cash-transactions.report.index');
 });
