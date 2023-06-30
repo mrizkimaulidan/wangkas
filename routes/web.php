@@ -24,8 +24,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', [AuthenticationController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [AuthenticationController::class, 'login']);
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [AuthenticationController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [AuthenticationController::class, 'login']);
+});
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
