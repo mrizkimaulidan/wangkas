@@ -12,13 +12,15 @@
 			<form action="{{ route('login') }}" method="POST">
 				@csrf
 				<div class="form-group position-relative has-icon-left mb-4">
-					<input type="text" class="form-control form-control-xl" name="email" placeholder="Email" autofocus />
+					<input type="text" class="form-control form-control-xl" name="email" value="admin@mail.com"
+						placeholder="Email" autofocus />
 					<div class="form-control-icon">
 						<i class="bi bi-person"></i>
 					</div>
 				</div>
 				<div class="form-group position-relative has-icon-left mb-4">
-					<input type="password" class="form-control form-control-xl" name="password" placeholder="Password" />
+					<input type="password" class="form-control form-control-xl" name="password" value="secret"
+						placeholder="Password" />
 					<div class="form-control-icon">
 						<i class="bi bi-shield-lock"></i>
 					</div>
