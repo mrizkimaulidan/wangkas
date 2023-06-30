@@ -8,8 +8,8 @@
 				{ data: 'DT_RowIndex', name: 'DT_RowIndex' },
 				{ data: 'student_identification_number', name: 'student_identification_number' },
 				{ data: 'name', name: 'name' },
-				{ data: 'school_class_id', name: 'school_class_id' },
-				{ data: 'school_major_id', name: 'school_major_id' },
+				{ data: 'school_class.name', name: 'school_class_id' },
+				{ data: 'school_major', name: 'school_major' },
 				{ data: 'school_year', name: 'school_year' },
 				{ data: 'action', name: 'action' }
 			]

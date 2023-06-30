@@ -21,14 +21,14 @@ class StudentController extends Controller
             'name',
             'school_year_start',
             'school_year_end'
-        )->get();
+        )->with('schoolClass', 'schoolMajor')->get();
 
         return datatables()->of($students)
             ->addIndexColumn()
-            ->addColumn('school_major_id', 'students.datatables.school_major')
+            ->addColumn('school_major', 'students.datatables.school_major')
             ->addColumn('school_year', 'students.datatables.school_year')
             ->addColumn('action', 'students.datatables.action')
-            ->rawColumns(['school_major_id', 'school_year', 'action'])
+            ->rawColumns(['school_major', 'school_year', 'action'])
             ->toJson();
     }
 
