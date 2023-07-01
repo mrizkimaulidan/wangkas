@@ -120,10 +120,10 @@
 								<div class="form-group">
 									<label for="school_year_start">Tahun Ajaran Awal:</label>
 									<div class="input-group">
-										<input type="number" class="form-control" name="school_year_start"
+										<input type="number" class="form-control" id="school_year_start"
 											placeholder="Masukkan tahun ajaran awal..." value="2020">
 										<span class="input-group-text">-</span>
-										<input type="number" class="form-control " name="school_year_end"
+										<input type="number" class="form-control " id="school_year_end"
 											placeholder="Masukkan tahun ajaran akhir..." value="2023">
 									</div>
 								</div>

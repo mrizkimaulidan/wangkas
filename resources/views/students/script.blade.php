@@ -19,7 +19,15 @@
 			e.preventDefault();
 
 			const formData = {
-				name: $('#createModal form #name').val()
+				school_class_id: $('#createModal form #school_class_id').val(),
+				school_major_id: $('#createModal form #school_major_id').val(),
+				student_identification_number: $('#createModal form #student_identification_number').val(),
+				name: $('#createModal form #name').val(),
+				email: $('#createModal form #email').val(),
+				phone_number: $('#createModal form #phone_number').val(),
+				gender: $('#createModal form #gender').val(),
+				school_year_start: $('#createModal form #school_year_start').val(),
+				school_year_end: $('#createModal form #school_year_end').val(),
 			};
 
 			$.ajax({
@@ -35,7 +43,7 @@
 
 					Swal.fire({
 						icon: 'success',
-						title: 'Data kelas berhasil ditambahkan!',
+						title: 'Data pelajar berhasil ditambahkan!',
 						toast: true,
 						position: 'top-end',
 						showConfirmButton: false,

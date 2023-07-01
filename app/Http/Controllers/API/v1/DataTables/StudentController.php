@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\v1\DataTables;
 use App\Http\Controllers\Controller;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class StudentController extends Controller
 {
@@ -37,7 +38,13 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $student = Student::create($request->all());
+
+        return response()->json([
+            'code' => Response::HTTP_CREATED,
+            'message' => 'success',
+            'data' => $student
+        ], Response::HTTP_CREATED);
     }
 
     /**

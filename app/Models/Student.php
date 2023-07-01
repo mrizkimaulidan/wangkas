@@ -10,6 +10,12 @@ class Student extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'school_class_id', 'school_major_id', 'student_identification_number',
+        'name', 'email', 'phone_number',
+        'gender', 'school_year_start', 'school_year_end'
+    ];
+
     /**
      * Get school class relationship data.
      *
