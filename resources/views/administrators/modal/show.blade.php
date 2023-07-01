@@ -53,10 +53,7 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-							<i class="bx bx-x d-block d-sm-none"></i>
-							<span class="d-none d-sm-block">Tutup</span>
-						</button>
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
 					</div>
 				</form>
 			</div>
