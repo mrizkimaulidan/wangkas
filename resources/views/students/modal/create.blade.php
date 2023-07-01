@@ -13,7 +13,7 @@
 				<form class="form form-vertical">
 					<div class="form-body">
 						<div class="row">
-							<div class="col-4">
+							<div class="col-lg-4">
 								<div class="form-group has-icon-left">
 									<label for="student_identification_number">NIS/NISN/NIM:</label>
 									<div class="position-relative">
@@ -25,7 +25,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-4">
+							<div class="col-lg-4">
 								<div class="form-group has-icon-left">
 									<label for="name">Nama Lengkap:</label>
 									<div class="position-relative">
@@ -36,7 +36,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-4">
+							<div class="col-lg-4">
 								<div class="form-group has-icon-left">
 									<label for="gender">Jenis Kelamin:</label>
 									<div class="input-group mb-3">
@@ -54,7 +54,7 @@
 						</div>
 
 						<div class="row">
-							<div class="col-6">
+							<div class="col-lg-6">
 								<div class="form-group has-icon-left">
 									<label for="school_class_id">Kelas:</label>
 									<div class="input-group mb-3">
@@ -71,7 +71,7 @@
 								</div>
 							</div>
 
-							<div class="col-6">
+							<div class="col-lg-6">
 								<div class="form-group has-icon-left">
 									<label for="school_major_id">Jurusan:</label>
 									<div class="input-group mb-3">
@@ -90,7 +90,7 @@
 						</div>
 
 						<div class="row">
-							<div class="col-6">
+							<div class="col-lg-6">
 								<div class="form-group has-icon-left">
 									<label for="email">Alamat Email:</label>
 									<div class="position-relative">
@@ -101,7 +101,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-6">
+							<div class="col-lg-6">
 								<div class="form-group has-icon-left">
 									<label for="phone_number">Nomor Handphone:</label>
 									<div class="position-relative">
