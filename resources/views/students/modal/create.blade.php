@@ -37,39 +37,55 @@
 								</div>
 							</div>
 							<div class="col-4">
-								<fieldset class="form-group">
+								<div class="form-group has-icon-left">
 									<label for="gender">Jenis Kelamin:</label>
-									<select class="form-select" id="gender">
-										<option>Pilih Jenis Kelamin</option>
-										<option value="1">Laki-laki</option>
-										<option value="2">Perempuan</option>
-									</select>
-								</fieldset>
+									<div class="input-group mb-3">
+										<label class="input-group-text" for="gender">
+											<div><i class="bi bi-gender-male"></i></div>
+										</label>
+										<select class="form-select" id="gender">
+											<option>Pilih Jenis Kelamin</option>
+											<option value="1">Laki-laki</option>
+											<option value="2">Perempuan</option>
+										</select>
+									</div>
+								</div>
 							</div>
 						</div>
 
 						<div class="row">
 							<div class="col-6">
-								<fieldset class="form-group">
+								<div class="form-group has-icon-left">
 									<label for="school_class_id">Kelas:</label>
-									<select class="form-select" id="school_class_id">
-										<option>Pilih Kelas</option>
-										@foreach ($schoolClasses as $schoolClass)
-										<option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
-										@endforeach
-									</select>
-								</fieldset>
+									<div class="input-group mb-3">
+										<label class="input-group-text" for="school_class_id">
+											<div><i class="bi bi-bookmark-fill"></i></div>
+										</label>
+										<select class="form-select" id="school_class_id">
+											<option selected>Pilih Kelas</option>
+											@foreach ($schoolClasses as $schoolClass)
+											<option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
 							</div>
+
 							<div class="col-6">
-								<fieldset class="form-group">
+								<div class="form-group has-icon-left">
 									<label for="school_major_id">Jurusan:</label>
-									<select class="form-select" id="school_major_id">
-										<option>Pilih Jurusan</option>
-										@foreach ($schoolMajors as $schoolMajor)
-										<option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
-										@endforeach
-									</select>
-								</fieldset>
+									<div class="input-group mb-3">
+										<label class="input-group-text" for="school_major_id">
+											<div><i class="bi bi-briefcase-fill"></i></div>
+										</label>
+										<select class="form-select" id="school_major_id">
+											<option selected>Pilih Jurusan</option>
+											@foreach ($schoolMajors as $schoolMajor)
+											<option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
 							</div>
 						</div>
 
