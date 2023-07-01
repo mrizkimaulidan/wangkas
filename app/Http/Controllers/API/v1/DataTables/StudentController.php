@@ -50,9 +50,13 @@ class StudentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Student $student)
     {
-        //
+        return response()->json([
+            'code' => Response::HTTP_OK,
+            'message' => 'success',
+            'data' => $student
+        ], Response::HTTP_OK);
     }
 
     /**

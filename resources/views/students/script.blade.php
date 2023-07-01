@@ -94,7 +94,16 @@
 					'Content-Type': 'application/json'
 				},
 				success: res => {
-					$('#updateModal form #name').val(res.data.name);
+					$('#updateModal form #school_class_id').val(res.data.school_class_id)
+					$('#updateModal form #school_major_id').val(res.data.school_major_id)
+					$('#updateModal form #student_identification_number').val(res.data.student_identification_number)
+					$('#updateModal form #name').val(res.data.name)
+					$('#updateModal form #email').val(res.data.email)
+					$('#updateModal form #phone_number').val(res.data.phone_number)
+					$('#updateModal form #gender').val(res.data.gender)
+					$('#updateModal form #school_year_start').val(res.data.school_year_start)
+					$('#updateModal form #school_year_end').val(res.data.school_year_end)
+
 					$('#updateModal form').attr('action', updateURL);
 				},
 				error: err => {
