@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\v1\DataTables;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\API\v1\DataTables\StudentResource;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,7 +56,7 @@ class StudentController extends Controller
         return response()->json([
             'code' => Response::HTTP_OK,
             'message' => 'success',
-            'data' => $student
+            'data' => new StudentResource($student->load('schoolClass', 'schoolMajor'))
         ], Response::HTTP_OK);
     }
 

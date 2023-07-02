@@ -37,4 +37,15 @@ class Student extends Model
     {
         return $this->belongsTo(SchoolMajor::class);
     }
+
+    /**
+     * Get gender name.
+     *
+     * @return string
+     * @author Muhammad Rizki Maulidan <mrizkimaulidanx@gmail.com>
+     */
+    public function getGenderName(): string
+    {
+        return $this->gender === 1 ? 'Laki-laki' : 'Perempuan';
+    }
 }
