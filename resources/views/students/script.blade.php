@@ -117,7 +117,15 @@
 			e.preventDefault();
 
 			const formData = {
-				name: $('#updateModal form #name').val()
+				school_class_id: $('#updateModal form #school_class_id').val(),
+				school_major_id: $('#updateModal form #school_major_id').val(),
+				student_identification_number: $('#updateModal form #student_identification_number').val(),
+				name: $('#updateModal form #name').val(),
+				email: $('#updateModal form #email').val(),
+				phone_number: $('#updateModal form #phone_number').val(),
+				gender: $('#updateModal form #gender').val(),
+				school_year_start: $('#updateModal form #school_year_start').val(),
+				school_year_end: $('#updateModal form #school_year_end').val(),
 			};
 
 			const updateURL = $('#updateModal form').attr('action');
@@ -135,7 +143,7 @@
 
 					Swal.fire({
 						icon: 'success',
-						title: 'Data kelas berhasil diubah!',
+						title: 'Data pelajar berhasil diubah!',
 						toast: true,
 						position: 'top-end',
 						showConfirmButton: false,
