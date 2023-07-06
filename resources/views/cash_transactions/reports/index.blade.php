@@ -122,7 +122,8 @@
 							<div class="form-group has-icon-left">
 								<label for="start_date">Tanggal Mulai:</label>
 								<div class="position-relative">
-									<input type="date" class="form-control" id="start_date" placeholder="Masukkan tanggal mulai...">
+									<input type="date" class="form-control" name="start_date" id="start_date"
+										placeholder="Masukkan tanggal mulai...">
 									<div class="form-control-icon">
 										<i class="bi bi-calendar2-fill"></i>
 									</div>
@@ -133,7 +134,8 @@
 							<div class="form-group has-icon-left">
 								<label for="end_date">Tanggal Akhir:</label>
 								<div class="position-relative">
-									<input type="date" class="form-control" id="end_date" placeholder="Masukkan tanggal akhir...">
+									<input type="date" class="form-control" name="end_date" id="end_date"
+										placeholder="Masukkan tanggal akhir...">
 									<div class="form-control-icon">
 										<i class="bi bi-calendar2-fill"></i>
 									</div>
@@ -151,5 +153,51 @@
 		</div>
 	</div>
 
+	@empty(!$cashTransactions)
+	<div class="col-12">
+		<div class="card">
+			<div class="card-body">
+				<table class="table w-100 table-hover" id="table">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Pelajar</th>
+							<th>Tanggal Transaksi</th>
+							<th>Nominal Pembayaran</th>
+							<th>Dicatat Oleh</th>
+						</tr>
+					</thead>
+					<tbody>
+						@foreach ($cashTransactions['filteredResult'] as $cashTransaction)
+						<tr>
+							<td>{{ $loop->iteration }}</td>
+							<td>{{ $cashTransaction->student->name }}</td>
+							<td>{{ $cashTransaction->date_paid }}</td>
+							<td>{{ $cashTransaction->amount }}</td>
+							<td>{{ $cashTransaction->createdBy->name }}</td>
+						</tr>
+						@endforeach
+					</tbody>
+
+					<tfoot>
+						<tr>
+							<td colspan="4" align="right"><b>Total</b></td>
+							<td>{{ $cashTransactions['sum'] }}</td>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+	</div>
+	@endempty
 </div>
 @endsection
+
+
+@pushOnce('scripts')
+<script>
+	$(function () {
+		const table = $('#table').DataTable({});
+	});
+</script>
+@endPushOnce
