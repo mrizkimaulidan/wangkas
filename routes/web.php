@@ -40,6 +40,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/administrators', AdministratorController::class)->name('administrators.index');
     Route::get('/students', StudentController::class)->name('students.index');
 
-    Route::get('/cash-transactions', CashTransactionController::class);
+    Route::get('/cash-transactions', CashTransactionController::class)->name('cash-transactions.index');
     Route::get('/cash-transactions/report', CashTransactionReportController::class)->name('cash-transactions.report.index');
 });
