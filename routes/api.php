@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\v1\DataTables\AdministratorController;
+use App\Http\Controllers\API\v1\DataTables\CashTransactionController;
 use App\Http\Controllers\API\v1\DataTables\SchoolClassController;
 use App\Http\Controllers\API\v1\DataTables\SchoolMajorController;
 use App\Http\Controllers\API\v1\DataTables\StudentController;
@@ -27,6 +28,7 @@ Route::prefix('v1/datatable/')->name('api.v1.datatables.')->group(function () {
         '/school-classes' => SchoolClassController::class,
         '/school-majors' => SchoolMajorController::class,
         '/administrators' => AdministratorController::class,
-        '/students' => StudentController::class
+        '/students' => StudentController::class,
+        '/cash-transactions' => CashTransactionController::class
     ]);
 });
