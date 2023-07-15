@@ -94,7 +94,7 @@
 								<span>Jurusan</span>
 							</a>
 						</li>
-						<li class="sidebar-item has-sub {{ request()->routeIs('cash-transactions.*') ? 'active' : '' }}">
+						<li class="sidebar-item has-sub {{ request()->routeIs('cash-transactions.index') ? 'active' : '' }}">
 							<a href="#" class="sidebar-link">
 								<i class="bi bi-cash-stack"></i>
 								<span>Kas</span>
