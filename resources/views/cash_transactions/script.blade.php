@@ -6,10 +6,10 @@
 			ajax: "{{ route('api.v1.datatables.cash-transactions.index') }}",
 			columns: [
 				{ data: 'DT_RowIndex', name: 'DT_RowIndex' },
-				{ data: 'student_id', name: 'student_id' },
+				{ data: 'student.name', name: 'student_id' },
 				{ data: 'amount', name: 'amount' },
 				{ data: 'date_paid', name: 'date_paid' },
-				{ data: 'created_by', name: 'created_by' },
+				{ data: 'user.name', name: 'created_by' },
 				{ data: 'action', name: 'action' }
 			]
 		});
