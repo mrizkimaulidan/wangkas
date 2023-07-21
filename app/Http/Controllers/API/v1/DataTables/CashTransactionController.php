@@ -20,7 +20,7 @@ class CashTransactionController extends Controller
 
         return datatables()->of($cashTransactions)
             ->addIndexColumn()
-            ->addColumn('action', 'cash-transactions.datatables.action')
+            ->addColumn('action', 'cash_transactions.datatables.action')
             ->toJson();
     }
 
