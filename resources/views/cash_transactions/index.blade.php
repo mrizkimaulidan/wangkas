@@ -111,36 +111,40 @@
 			<div class="card-header">
 				<h4>Belum Membayar Minggu Ini </h4>
 			</div>
-			<div class="px-4">
-				<button type="button" class='btn btn-block btn-xl btn-light-danger font-bold' data-bs-toggle="modal"
-					data-bs-target="#lookMoreModal">Ada
-					<b>1</b> orang belum membayar pada minggu
-					ini! <i class="bi bi-exclamation-triangle"></i></button>
-			</div>
-
-			<span class="badge w-100 rounded-pill bg-warning mb-3"></span>
-			<div class="card-content pb-4">
+			@if($cashTransaction['studentsNotPaidThisWeekCount'] > 0) <div class="card-content pb-4">
+				<div class="px-4">
+					<button type="button" class='btn btn-block btn-xl btn-light-danger font-bold' data-bs-toggle="modal"
+						data-bs-target="#lookMoreModal">Ada
+						<b>{{ $cashTransaction['studentsNotPaidThisWeekCount'] }}</b> orang belum membayar pada minggu
+						ini! <i class="bi bi-exclamation-triangle"></i></button>
+				</div>
+				<span class="badge w-100 rounded-pill bg-warning mb-3"></span>
 				<div class="row">
+					@foreach ($cashTransaction['studentsNotPaidThisWeekWithLimit'] as $student)
 					<div class="col-6 col-lg-6 col-md-6">
 						<div class="recent-message d-flex px-4 py-3">
 							<div class="name ms-4">
-								<h5 class="mb-1">Abdul</h5>
+								<h5 class="mb-1">{{ $student->name }}</h5>
 								<h6 class="text-muted mb-0">
-									216152006</h6>
+									{{ $student->student_identification_number }}</h6>
 							</div>
 						</div>
 					</div>
+					@endforeach
 				</div>
+
 				<div class="px-4">
 					<button type="button" class='btn btn-block btn-xl btn-light-primary font-bold' data-bs-toggle="modal"
 						data-bs-target="#lookMoreModal">Lihat
 						Selengkapnya</button>
 				</div>
 			</div>
+			@else
 			<div class="px-4">
 				<p class='btn btn-block btn-xl btn-light-success font-bold'>Semua sudah membayar pada minggu ini! <i
 						class="bi bi-emoji-laughing"></i></p>
 			</div>
+			@endif
 		</div>
 	</div>
 
