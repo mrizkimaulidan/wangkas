@@ -43,7 +43,7 @@
 					<div class="col-md-8">
 						<h6 class="text-muted font-semibold">Total Bulan Ini</h6>
 						<h6 class="font-extrabold mb-0">
-							1</h6>
+							{{ $cashTransaction['total']['thisWeek'] }}</h6>
 					</div>
 				</div>
 			</div>
@@ -61,7 +61,7 @@
 					<div class="col-md-8">
 						<h6 class="text-muted font-semibold">Total Tahun Ini</h6>
 						<h6 class="font-extrabold mb-0">
-							1</h6>
+							{{ $cashTransaction['total']['thisYear'] }}</h6>
 					</div>
 				</div>
 			</div>
@@ -80,7 +80,7 @@
 					<div class="col-md-8">
 						<h6 class="text-muted font-semibold">Sudah Membayar Minggu Ini</h6>
 						<h6 class="font-extrabold mb-0">
-							1</h6>
+							{{ $cashTransaction['studentsPaidThisWeekCount'] }}</h6>
 					</div>
 				</div>
 			</div>
@@ -99,7 +99,7 @@
 					<div class="col-md-8">
 						<h6 class="text-muted font-semibold">Belum Membayar Minggu Ini</h6>
 						<h6 class="font-extrabold mb-0">
-							1</h6>
+							{{ $cashTransaction['studentsNotPaidThisWeekCount'] }}</h6>
 					</div>
 				</div>
 			</div>
@@ -108,8 +108,9 @@
 
 	<div class="col-12 col-lg-12 col-md-12">
 		<div class="card">
-			<div class="card-header">
-				<h4>Belum Membayar Minggu Ini </h4>
+			<div class="card-header text-center">
+				<h4>Belum Membayar Minggu Ini <span class="fw-bolder fst-italic">({{ $cashTransaction['dateRange']['start']
+						}} sampai {{ $cashTransaction['dateRange']['end'] }})</span></h4>
 			</div>
 			@if($cashTransaction['studentsNotPaidThisWeekCount'] > 0) <div class="card-content pb-4">
 				<div class="px-4">

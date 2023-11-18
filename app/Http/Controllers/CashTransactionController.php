@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CashTransaction;
 use App\Models\Student;
 use Illuminate\Http\Request;
-use Illuminate\Support\Carbon;
 
 class CashTransactionController extends Controller
 {
@@ -13,20 +13,44 @@ class CashTransactionController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $currentDate = now();
-        $studentsNotPaidThisWeek = Student::whereNotIn('id', function ($query) use ($currentDate) {
+        $studentsNotPaidThisWeek = Student::whereNotIn('id', function ($query) {
             $query->select('student_id')
                 ->from('cash_transactions')
                 ->whereBetween('date_paid', [
-                    $currentDate->startOfWeek()->toDateString(),
-                    $currentDate->endOfWeek()->toDateString()
+                    now()->startOfWeek()->toDateString(),
+                    now()->endOfWeek()->toDateString()
                 ]);
         })->orderBy('name')->get();
 
+        $studentsPaidThisWeek = Student::whereIn('id', function ($query) {
+            $query->select('student_id')
+                ->from('cash_transactions')
+                ->whereBetween('date_paid', [
+                    now()->startOfWeek()->toDateString(),
+                    now()->endOfWeek()->toDateString()
+                ]);
+        })->orderBy('name')->get();
+
+        $query = CashTransaction::query();
         $cashTransaction = [
             'studentsNotPaidThisWeek' => $studentsNotPaidThisWeek,
             'studentsNotPaidThisWeekWithLimit' => $studentsNotPaidThisWeek->take(6),
-            'studentsNotPaidThisWeekCount' => count($studentsNotPaidThisWeek)
+            'studentsNotPaidThisWeekCount' => count($studentsNotPaidThisWeek),
+            'studentsPaidThisWeekCount' => count($studentsPaidThisWeek),
+            'total' => [
+                'thisWeek' => $query->whereBetween('date_paid', [
+                    now()->startOfWeek()->toDateString(),
+                    now()->endOfWeek()->toDateString()
+                ])->sum('amount'),
+                'thisYear' => $query->whereBetween('date_paid', [
+                    now()->startOfYear()->toDateString(),
+                    now()->endOfYear()->toDateString()
+                ])->sum('amount')
+            ],
+            'dateRange' => [
+                'start' => now()->startOfWeek()->format('d-m-Y'),
+                'end' => now()->endOfWeek()->format('d-m-Y')
+            ]
         ];
 
         return view('cash_transactions.index', compact('cashTransaction'));
