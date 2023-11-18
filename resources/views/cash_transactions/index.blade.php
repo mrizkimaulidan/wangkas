@@ -114,7 +114,7 @@
 			@if($cashTransaction['studentsNotPaidThisWeekCount'] > 0) <div class="card-content pb-4">
 				<div class="px-4">
 					<button type="button" class='btn btn-block btn-xl btn-light-danger font-bold' data-bs-toggle="modal"
-						data-bs-target="#lookMoreModal">Ada
+						data-bs-target="#notPaidModal">Ada
 						<b>{{ $cashTransaction['studentsNotPaidThisWeekCount'] }}</b> orang belum membayar pada minggu
 						ini! <i class="bi bi-exclamation-triangle"></i></button>
 				</div>
@@ -135,7 +135,7 @@
 
 				<div class="px-4">
 					<button type="button" class='btn btn-block btn-xl btn-light-primary font-bold' data-bs-toggle="modal"
-						data-bs-target="#lookMoreModal">Lihat
+						data-bs-target="#notPaidModal">Lihat
 						Selengkapnya</button>
 				</div>
 			</div>
@@ -184,6 +184,10 @@
 	</div>
 </div>
 @endsection
+
+@pushOnce('modal')
+@include('cash_transactions.modal.not-paid')
+@endPushOnce
 
 @pushOnce('scripts')
 @include('cash_transactions.script')
