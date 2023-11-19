@@ -14,7 +14,6 @@ class CashTransaction extends Model
      * Get student relationship data.
      *
      * @return BelongsTo
-     * @author Muhammad Rizki Maulidan <mrizkimaulidanx@gmail.com>
      */
     public function student(): BelongsTo
     {
@@ -25,7 +24,6 @@ class CashTransaction extends Model
      * Get the user relationship who created the data.
      *
      * @return BelongsTo
-     * @author Muhammad Rizki Maulidan <mrizkimaulidanx@gmail.com>
      */
     public function createdBy(): BelongsTo
     {

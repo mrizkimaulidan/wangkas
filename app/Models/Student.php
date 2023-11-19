@@ -20,7 +20,6 @@ class Student extends Model
      * Get school class relationship data.
      *
      * @return BelongsTo
-     * @author Muhammad Rizki Maulidan <mrizkimaulidanx@gmail.com>
      */
     public function schoolClass(): BelongsTo
     {
@@ -31,7 +30,6 @@ class Student extends Model
      * Get school major relationship data.
      *
      * @return BelongsTo
-     * @author Muhammad Rizki Maulidan <mrizkimaulidanx@gmail.com>
      */
     public function schoolMajor(): BelongsTo
     {
@@ -42,7 +40,6 @@ class Student extends Model
      * Get gender name.
      *
      * @return string
-     * @author Muhammad Rizki Maulidan <mrizkimaulidanx@gmail.com>
      */
     public function getGenderName(): string
     {

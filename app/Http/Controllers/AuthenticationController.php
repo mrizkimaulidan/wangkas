@@ -12,7 +12,6 @@ class AuthenticationController extends Controller
      * Show the login form.
      *
      * @return View
-     * @author Muhammad Rizki Maulidan <mrizkimaulidanx@gmail.com>
      */
     public function showLoginForm(): View
     {
@@ -24,7 +23,6 @@ class AuthenticationController extends Controller
      *
      * @param Request $request
      * @return void
-     * @author Muhammad Rizki Maulidan <mrizkimaulidanx@gmail.com>
      */
     public function login(Request $request)
     {
@@ -42,7 +40,6 @@ class AuthenticationController extends Controller
      *
      * @param Request $request
      * @return RedirectResponse
-     * @author Muhammad Rizki Maulidan <mrizkimaulidanx@gmail.com>
      */
     public function logout(Request $request): RedirectResponse
     {
