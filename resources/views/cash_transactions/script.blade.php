@@ -9,7 +9,7 @@
 				{ data: 'student.name', name: 'student_id' },
 				{ data: 'amount', name: 'amount' },
 				{ data: 'date_paid', name: 'date_paid' },
-				{ data: 'user.name', name: 'created_by' },
+				{ data: 'created_by.name', name: 'created_by' },
 				{ data: 'action', name: 'action' }
 			]
 		});

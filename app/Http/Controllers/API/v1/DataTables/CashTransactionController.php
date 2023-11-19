@@ -14,7 +14,7 @@ class CashTransactionController extends Controller
     public function index()
     {
         $cashTransactions = CashTransaction::select('id', 'student_id', 'amount', 'date_paid', 'created_by')
-            ->with('student:id,name', 'user:id,name')
+            ->with('student:id,name', 'createdBy:id,name')
             ->whereYear('date_paid', now()->year)
             ->whereMonth('date_paid', now()->month)
             ->get();
