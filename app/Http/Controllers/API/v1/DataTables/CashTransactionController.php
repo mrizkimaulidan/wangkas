@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\v1\DataTables;
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class CashTransactionController extends Controller
 {
@@ -30,7 +31,14 @@ class CashTransactionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // TODO: the created_by should dynamic ID from authenticated user!
+        $cashTransaction = CashTransaction::create($request->merge(['created_by' => 1])->all());
+
+        return response()->json([
+            'code' => Response::HTTP_CREATED,
+            'message' => 'success',
+            'data' => $cashTransaction,
+        ], Response::HTTP_CREATED);
     }
 
     /**

@@ -13,6 +13,9 @@ class CashTransactionController extends Controller
      */
     public function __invoke(Request $request)
     {
+        $students = Student::select('id', 'name', 'student_identification_number')
+            ->orderBy('student_identification_number')->get();
+
         $studentsNotPaidThisWeek = Student::whereNotIn('id', function ($query) {
             $query->select('student_id')
                 ->from('cash_transactions')
@@ -53,6 +56,6 @@ class CashTransactionController extends Controller
             ],
         ];
 
-        return view('cash_transactions.index', compact('cashTransaction'));
+        return view('cash_transactions.index', compact('cashTransaction', 'students'));
     }
 }

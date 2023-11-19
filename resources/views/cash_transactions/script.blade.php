@@ -14,6 +14,48 @@
 			]
 		});
 
+		$('#createModal form').submit(function (e) {
+			e.preventDefault();
+
+			const formData = {
+				student_id: $('#createModal form #student_id').val(),
+				amount: $('#createModal form #amount').val(),
+				date_paid: $('#createModal form #date_paid').val(),
+				transaction_note: $('#createModal form #transaction_note').val(),
+			};
+
+			$.ajax({
+				url: "{{ route('api.v1.datatables.cash-transactions.store') }}",
+				method: 'POST',
+				header: {
+					'Content-Type': 'application/json'
+				},
+				data: formData,
+				success: res => {
+					table.ajax.reload();
+					$('#createModal').modal('hide');
+
+					Swal.fire({
+						icon: 'success',
+						title: 'Data transaksi kas berhasil ditambahkan!',
+						toast: true,
+						position: 'top-end',
+						showConfirmButton: false,
+						timer: 3000,
+						timerProgressBar: true,
+						didOpen: (toast) => {
+							toast.addEventListener('mouseenter', Swal.stopTimer)
+							toast.addEventListener('mouseleave', Swal.resumeTimer)
+						}
+					});
+				},
+				error: err => {
+					alert('error occured, check console');
+					console.log(err);
+				}
+			});
+		});
+
 		$('.modal').on('hidden.bs.modal', function () {
 			$(this).find('form :input').val('');
 		});
