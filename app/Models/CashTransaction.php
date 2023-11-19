@@ -27,7 +27,7 @@ class CashTransaction extends Model
      * @return BelongsTo
      * @author Muhammad Rizki Maulidan <mrizkimaulidanx@gmail.com>
      */
-    public function user(): BelongsTo
+    public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
