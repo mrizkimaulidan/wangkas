@@ -18,7 +18,7 @@ class CashTransactionController extends Controller
                 ->from('cash_transactions')
                 ->whereBetween('date_paid', [
                     now()->startOfWeek()->toDateString(),
-                    now()->endOfWeek()->toDateString()
+                    now()->endOfWeek()->toDateString(),
                 ]);
         })->orderBy('name')->get();
 
@@ -27,7 +27,7 @@ class CashTransactionController extends Controller
                 ->from('cash_transactions')
                 ->whereBetween('date_paid', [
                     now()->startOfWeek()->toDateString(),
-                    now()->endOfWeek()->toDateString()
+                    now()->endOfWeek()->toDateString(),
                 ]);
         })->orderBy('name')->get();
 
@@ -40,17 +40,17 @@ class CashTransactionController extends Controller
             'total' => [
                 'thisWeek' => $query->whereBetween('date_paid', [
                     now()->startOfWeek()->toDateString(),
-                    now()->endOfWeek()->toDateString()
+                    now()->endOfWeek()->toDateString(),
                 ])->sum('amount'),
                 'thisYear' => $query->whereBetween('date_paid', [
                     now()->startOfYear()->toDateString(),
-                    now()->endOfYear()->toDateString()
-                ])->sum('amount')
+                    now()->endOfYear()->toDateString(),
+                ])->sum('amount'),
             ],
             'dateRange' => [
                 'start' => now()->startOfWeek()->format('d-m-Y'),
-                'end' => now()->endOfWeek()->format('d-m-Y')
-            ]
+                'end' => now()->endOfWeek()->format('d-m-Y'),
+            ],
         ];
 
         return view('cash_transactions.index', compact('cashTransaction'));

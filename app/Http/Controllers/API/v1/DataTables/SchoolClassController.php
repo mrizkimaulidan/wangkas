@@ -32,7 +32,7 @@ class SchoolClassController extends Controller
         return response()->json([
             'code' => Response::HTTP_CREATED,
             'message' => 'success',
-            'data' => $schoolClass
+            'data' => $schoolClass,
         ], Response::HTTP_CREATED);
     }
 
@@ -44,7 +44,7 @@ class SchoolClassController extends Controller
         return response()->json([
             'code' => Response::HTTP_OK,
             'message' => 'success',
-            'data' => $schoolClass
+            'data' => $schoolClass,
         ], Response::HTTP_OK);
     }
 
@@ -58,7 +58,7 @@ class SchoolClassController extends Controller
         return response()->json([
             'code' => Response::HTTP_OK,
             'message' => 'success',
-            'data' => $schoolClass
+            'data' => $schoolClass,
         ], Response::HTTP_OK);
     }
 

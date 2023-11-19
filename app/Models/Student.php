@@ -13,13 +13,11 @@ class Student extends Model
     protected $fillable = [
         'school_class_id', 'school_major_id', 'student_identification_number',
         'name', 'email', 'phone_number',
-        'gender', 'school_year_start', 'school_year_end'
+        'gender', 'school_year_start', 'school_year_end',
     ];
 
     /**
      * Get school class relationship data.
-     *
-     * @return BelongsTo
      */
     public function schoolClass(): BelongsTo
     {
@@ -28,8 +26,6 @@ class Student extends Model
 
     /**
      * Get school major relationship data.
-     *
-     * @return BelongsTo
      */
     public function schoolMajor(): BelongsTo
     {
@@ -38,8 +34,6 @@ class Student extends Model
 
     /**
      * Get gender name.
-     *
-     * @return string
      */
     public function getGenderName(): string
     {

@@ -29,6 +29,6 @@ Route::prefix('v1/datatable/')->name('api.v1.datatables.')->group(function () {
         '/school-majors' => SchoolMajorController::class,
         '/administrators' => AdministratorController::class,
         '/students' => StudentController::class,
-        '/cash-transactions' => CashTransactionController::class
+        '/cash-transactions' => CashTransactionController::class,
     ]);
 });

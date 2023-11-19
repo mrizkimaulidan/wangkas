@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
             SchoolClassSeeder::class,
             SchoolMajorSeeder::class,
             StudentSeeder::class,
-            CashTransactionSeeder::class
+            CashTransactionSeeder::class,
         ]);
     }
 }

@@ -44,7 +44,7 @@ class StudentController extends Controller
         return response()->json([
             'code' => Response::HTTP_CREATED,
             'message' => 'success',
-            'data' => $student
+            'data' => $student,
         ], Response::HTTP_CREATED);
     }
 
@@ -56,7 +56,7 @@ class StudentController extends Controller
         return response()->json([
             'code' => Response::HTTP_OK,
             'message' => 'success',
-            'data' => new StudentResource($student->load('schoolClass', 'schoolMajor'))
+            'data' => new StudentResource($student->load('schoolClass', 'schoolMajor')),
         ], Response::HTTP_OK);
     }
 
@@ -70,7 +70,7 @@ class StudentController extends Controller
         return response()->json([
             'code' => Response::HTTP_OK,
             'message' => 'success',
-            'data' => $student
+            'data' => $student,
         ], Response::HTTP_OK);
     }
 

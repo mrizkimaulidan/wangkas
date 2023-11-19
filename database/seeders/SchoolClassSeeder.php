@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\SchoolClass;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class SchoolClassSeeder extends Seeder
@@ -18,7 +17,7 @@ class SchoolClassSeeder extends Seeder
         foreach ($schoolClasses as $schoolClass) {
             for ($i = 1; $i <= 3; $i++) {
                 SchoolClass::create([
-                    'name' => "$schoolClass $i"
+                    'name' => "$schoolClass $i",
                 ]);
             }
         }

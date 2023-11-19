@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\AdministratorController;
-use App\Http\Controllers\SchoolMajorController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CashTransactionController;
 use App\Http\Controllers\CashTransactionReportController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SchoolClassController;
+use App\Http\Controllers\SchoolMajorController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 

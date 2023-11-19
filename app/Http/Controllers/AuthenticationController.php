@@ -10,8 +10,6 @@ class AuthenticationController extends Controller
 {
     /**
      * Show the login form.
-     *
-     * @return View
      */
     public function showLoginForm(): View
     {
@@ -21,7 +19,6 @@ class AuthenticationController extends Controller
     /**
      * Authenticate user from login page with credentials.
      *
-     * @param Request $request
      * @return void
      */
     public function login(Request $request)
@@ -37,9 +34,6 @@ class AuthenticationController extends Controller
 
     /**
      * Logout the user.
-     *
-     * @param Request $request
-     * @return RedirectResponse
      */
     public function logout(Request $request): RedirectResponse
     {

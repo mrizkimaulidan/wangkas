@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API\v1\DataTables;
 
 use App\Http\Controllers\Controller;
-use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,7 +32,7 @@ class SchoolMajorController extends Controller
         return response()->json([
             'code' => Response::HTTP_CREATED,
             'message' => 'success',
-            'data' => $schoolMajor
+            'data' => $schoolMajor,
         ], Response::HTTP_CREATED);
     }
 
@@ -45,7 +44,7 @@ class SchoolMajorController extends Controller
         return response()->json([
             'code' => Response::HTTP_OK,
             'message' => 'success',
-            'data' => $schoolMajor
+            'data' => $schoolMajor,
         ], Response::HTTP_OK);
     }
 
@@ -59,7 +58,7 @@ class SchoolMajorController extends Controller
         return response()->json([
             'code' => Response::HTTP_OK,
             'message' => 'success',
-            'data' => $schoolMajor
+            'data' => $schoolMajor,
         ], Response::HTTP_OK);
     }
 

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API\v1\DataTables;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\API\v1\DataTables\AdministratorResource;
-use App\Http\Resources\API\v1\DataTables\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,7 +36,7 @@ class AdministratorController extends Controller
         return response()->json([
             'code' => Response::HTTP_CREATED,
             'message' => 'success',
-            'data' => $administrator
+            'data' => $administrator,
         ], Response::HTTP_CREATED);
     }
 
@@ -49,7 +48,7 @@ class AdministratorController extends Controller
         return response()->json([
             'code' => Response::HTTP_OK,
             'message' => 'success',
-            'data' => new AdministratorResource($administrator)
+            'data' => new AdministratorResource($administrator),
         ], Response::HTTP_OK);
     }
 
@@ -63,7 +62,7 @@ class AdministratorController extends Controller
         return response()->json([
             'code' => Response::HTTP_OK,
             'message' => 'success',
-            'data' => $administrator
+            'data' => $administrator,
         ], Response::HTTP_OK);
     }
 
