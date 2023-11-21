@@ -44,7 +44,7 @@
 								<h6 class="text-muted font-semibold">
 									Total Hari Ini
 								</h6>
-								<h6 class="font-extrabold mb-0">0</h6>
+								<h6 class="font-extrabold mb-0">{{ $cashTransactions['cashTransactionTodayCount'] }}</h6>
 							</div>
 						</div>
 					</div>
@@ -63,7 +63,7 @@
 								<h6 class="text-muted font-semibold">
 									Total Minggu Ini
 								</h6>
-								<h6 class="font-extrabold mb-0">0</h6>
+								<h6 class="font-extrabold mb-0">{{ $cashTransactions['cashTransactionCurrentWeekCount'] }}</h6>
 							</div>
 						</div>
 					</div>
@@ -82,7 +82,7 @@
 								<h6 class="text-muted font-semibold">
 									Total Bulan Ini
 								</h6>
-								<h6 class="font-extrabold mb-0">0</h6>
+								<h6 class="font-extrabold mb-0">{{ $cashTransactions['cashTransactionCurrentMonthCount'] }}</h6>
 							</div>
 						</div>
 					</div>
@@ -101,7 +101,7 @@
 								<h6 class="text-muted font-semibold">
 									Total Tahun Ini
 								</h6>
-								<h6 class="font-extrabold mb-0">0</h6>
+								<h6 class="font-extrabold mb-0">{{ $cashTransactions['cashTransactionCurrentYearCount'] }}</h6>
 							</div>
 						</div>
 					</div>
@@ -153,7 +153,7 @@
 		</div>
 	</div>
 
-	@empty(!$cashTransactions)
+	@isset($cashTransactions['filteredResult'])
 	<div class="col-12">
 		<div class="card">
 			<div class="card-body">
@@ -189,7 +189,7 @@
 			</div>
 		</div>
 	</div>
-	@endempty
+	@endisset
 </div>
 @endsection
 
