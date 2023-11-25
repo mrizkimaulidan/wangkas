@@ -189,6 +189,7 @@
 @pushOnce('modal')
 @include('cash_transactions.modal.create')
 @include('cash_transactions.modal.show')
+@include('cash_transactions.modal.edit')
 @include('cash_transactions.modal.not-paid')
 @endPushOnce
 

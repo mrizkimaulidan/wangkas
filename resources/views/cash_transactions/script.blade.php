@@ -80,6 +80,75 @@
 			});
 		});
 
+		$('#table').on('click', '.update-modal', function () {
+			const id = $(this).data('id');
+			let url = "{{ route('api.v1.datatables.cash-transactions.show', ':paramID') }}".replace(':paramID', id);
+			let updateURL = "{{ route('api.v1.datatables.cash-transactions.update', ':paramID') }}".replace(':paramID', id);
+
+			$.ajax({
+				url: url,
+				method: 'GET',
+				header: {
+					'Content-Type': 'application/json'
+				},
+				success: res => {
+					$('#updateModal form #student_id').val(res.data.student.id);
+					$('#updateModal form #amount').val(res.data.amount);
+					$('#updateModal form #date_paid').val(res.data.date_paid);
+					$('#updateModal form #transaction_note').val(res.data.transaction_note);
+					$('#updateModal form').attr('action', updateURL);
+				},
+				error: err => {
+					alert('error occured, check console');
+					console.log(err);
+				}
+			});
+		});
+
+		$('#updateModal form').submit(function (e) {
+			e.preventDefault();
+
+			const formData = {
+				student_id: $('#updateModal form #student_id').val(),
+				amount: $('#updateModal form #amount').val(),
+				date_paid: $('#updateModal form #date_paid').val(),
+				transaction_note: $('#updateModal form #transaction_note').val(),
+			};
+
+			const updateURL = $('#updateModal form').attr('action');
+
+			$.ajax({
+				url: updateURL,
+				method: 'PUT',
+				header: {
+					'Content-Type': 'application/json'
+				},
+				data: formData,
+				success: res => {
+					table.ajax.reload();
+					$('#updateModal').modal('hide');
+
+					Swal.fire({
+						icon: 'success',
+						title: 'Data kas berhasil diubah!',
+						toast: true,
+						position: 'top-end',
+						showConfirmButton: false,
+						timer: 3000,
+						timerProgressBar: true,
+						didOpen: (toast) => {
+							toast.addEventListener('mouseenter', Swal.stopTimer)
+							toast.addEventListener('mouseleave', Swal.resumeTimer)
+						}
+					});
+				},
+				error: err => {
+					alert('error occured, check console');
+					console.log(err);
+				}
+			});
+		});
+
 		$('#table').on('click', '.delete', function (e) {
 			e.preventDefault()
 

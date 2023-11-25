@@ -56,9 +56,15 @@ class CashTransactionController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, CashTransaction $cashTransaction)
     {
-        //
+        $cashTransaction->update($request->all());
+
+        return response()->json([
+            'code' => Response::HTTP_OK,
+            'message' => 'success',
+            'data' => $cashTransaction,
+        ], Response::HTTP_OK);
     }
 
     /**
