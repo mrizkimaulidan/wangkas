@@ -56,6 +56,30 @@
 			});
 		});
 
+		$('#table').on('click', '.show-modal', function () {
+			const id = $(this).data('id');
+			let url = "{{ route('api.v1.datatables.cash-transactions.show', ':paramID') }}".replace(':paramID', id);
+
+			$.ajax({
+				url: url,
+				method: 'GET',
+				header: {
+					'Content-Type': 'application/json'
+				},
+				success: res => {
+					$('#showModal form #student_id').val(res.data.student.name);
+					$('#showModal form #created_by').val(res.data.created_by.name);
+					$('#showModal form #amount').val(res.data.amount);
+					$('#showModal form #date_paid').val(res.data.date_paid);
+					$('#showModal form #transaction_note').val(res.data.transaction_note);
+				},
+				error: err => {
+					alert('error occured, check console');
+					console.log(err);
+				}
+			});
+		});
+
 		$('#table').on('click', '.delete', function (e) {
 			e.preventDefault()
 

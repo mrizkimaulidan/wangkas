@@ -44,9 +44,13 @@ class CashTransactionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(CashTransaction $cashTransaction)
     {
-        //
+        return response()->json([
+            'code' => Response::HTTP_OK,
+            'message' => 'success',
+            'data' => $cashTransaction->load('student:id,name', 'createdBy:id,name'),
+        ], Response::HTTP_OK);
     }
 
     /**
