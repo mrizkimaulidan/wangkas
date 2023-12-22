@@ -16,39 +16,37 @@ class CashTransactionController extends Controller
         $students = Student::select('id', 'name', 'student_identification_number')
             ->orderBy('student_identification_number')->get();
 
-        $studentsNotPaidThisWeek = Student::whereNotIn('id', function ($query) {
-            $query->select('student_id')
-                ->from('cash_transactions')
-                ->whereBetween('date_paid', [
-                    now()->startOfWeek()->toDateString(),
-                    now()->endOfWeek()->toDateString(),
-                ]);
-        })->orderBy('name')->get();
+        $studentsPaidThisWeekIds = CashTransaction::whereBetween('date_paid', [
+            now()->startOfWeek()->toDateString(),
+            now()->endOfWeek()->toDateString()
+        ])->pluck('student_id');
 
-        $studentsPaidThisWeek = Student::whereIn('id', function ($query) {
-            $query->select('student_id')
-                ->from('cash_transactions')
-                ->whereBetween('date_paid', [
-                    now()->startOfWeek()->toDateString(),
-                    now()->endOfWeek()->toDateString(),
-                ]);
-        })->orderBy('name')->get();
+        $studentsPaidThisWeek = $students->filter(function ($student) use ($studentsPaidThisWeekIds) {
+            return $studentsPaidThisWeekIds->contains($student->id);
+        });
 
-        $query = CashTransaction::query();
+        $studentsNotPaidThisWeek = $students->reject(function ($student) use ($studentsPaidThisWeekIds) {
+            return $studentsPaidThisWeekIds->contains($student->id);
+        });
+
+        $totalThisWeek = CashTransaction::whereBetween('date_paid', [
+            now()->startOfWeek()->toDateString(),
+            now()->endOfWeek()->toDateString(),
+        ])->sum('amount');
+
+        $totalThisYear = CashTransaction::whereBetween('date_paid', [
+            now()->startOfYear()->toDateString(),
+            now()->endOfYear()->toDateString(),
+        ])->sum('amount');
+
         $cashTransaction = [
             'studentsNotPaidThisWeek' => $studentsNotPaidThisWeek,
             'studentsNotPaidThisWeekWithLimit' => $studentsNotPaidThisWeek->take(6),
-            'studentsNotPaidThisWeekCount' => count($studentsNotPaidThisWeek),
-            'studentsPaidThisWeekCount' => count($studentsPaidThisWeek),
+            'studentsNotPaidThisWeekCount' => $studentsNotPaidThisWeek->count(),
+            'studentsPaidThisWeekCount' => $studentsPaidThisWeek->count(),
             'total' => [
-                'thisWeek' => $query->whereBetween('date_paid', [
-                    now()->startOfWeek()->toDateString(),
-                    now()->endOfWeek()->toDateString(),
-                ])->sum('amount'),
-                'thisYear' => $query->whereBetween('date_paid', [
-                    now()->startOfYear()->toDateString(),
-                    now()->endOfYear()->toDateString(),
-                ])->sum('amount'),
+                'thisWeek' => $totalThisWeek,
+                'thisYear' => $totalThisYear,
             ],
             'dateRange' => [
                 'start' => now()->startOfWeek()->format('d-m-Y'),
