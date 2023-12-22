@@ -28,11 +28,11 @@ class CashTransactionFilterController extends Controller
 
             $studentsPaid = $students->filter(function ($student) use ($filteredResult) {
                 return $filteredResult->pluck('student_id')->contains($student->id);
-            });
+            })->sortBy('name');
 
             $studentsNotPaid = $students->reject(function ($student) use ($filteredResult) {
                 return $filteredResult->pluck('student_id')->contains($student->id);
-            });
+            })->sortBy('name');
 
             $cashTransactions = [
                 'filteredResult' => $filteredResult,

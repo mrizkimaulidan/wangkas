@@ -23,11 +23,11 @@ class CashTransactionController extends Controller
 
         $studentsPaidThisWeek = $students->filter(function ($student) use ($studentsPaidThisWeekIds) {
             return $studentsPaidThisWeekIds->contains($student->id);
-        });
+        })->sortBy('name');
 
         $studentsNotPaidThisWeek = $students->reject(function ($student) use ($studentsPaidThisWeekIds) {
             return $studentsPaidThisWeekIds->contains($student->id);
-        });
+        })->sortBy('name');
 
         $totalThisWeek = CashTransaction::whereBetween('date_paid', [
             now()->startOfWeek()->toDateString(),
