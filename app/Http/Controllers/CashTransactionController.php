@@ -18,7 +18,7 @@ class CashTransactionController extends Controller
 
         $studentsPaidThisWeekIds = CashTransaction::whereBetween('date_paid', [
             now()->startOfWeek()->toDateString(),
-            now()->endOfWeek()->toDateString()
+            now()->endOfWeek()->toDateString(),
         ])->pluck('student_id');
 
         $studentsPaidThisWeek = $students->filter(function ($student) use ($studentsPaidThisWeekIds) {
