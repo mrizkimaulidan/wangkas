@@ -7,8 +7,8 @@
 			columns: [
 				{ data: 'DT_RowIndex', name: 'DT_RowIndex' },
 				{ data: 'student.name', name: 'student_id' },
-				{ data: 'amount', name: 'amount' },
-				{ data: 'date_paid', name: 'date_paid' },
+				{ data: 'amount_formatted', name: 'amount' },
+				{ data: 'date_paid_formatted', name: 'date_paid' },
 				{ data: 'created_by.name', name: 'created_by' },
 				{ data: 'action', name: 'action' }
 			]
@@ -67,10 +67,11 @@
 					'Content-Type': 'application/json'
 				},
 				success: res => {
+					console.log(res)
 					$('#showModal form #student_id').val(res.data.student.name);
 					$('#showModal form #created_by').val(res.data.created_by.name);
-					$('#showModal form #amount').val(res.data.amount);
-					$('#showModal form #date_paid').val(res.data.date_paid);
+					$('#showModal form #amount').val(res.data.amount_formatted);
+					$('#showModal form #date_paid').val(res.data.date_paid_formatted);
 					$('#showModal form #transaction_note').val(res.data.transaction_note);
 				},
 				error: err => {

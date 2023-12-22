@@ -45,8 +45,8 @@ class CashTransactionController extends Controller
             'studentsNotPaidThisWeekCount' => $studentsNotPaidThisWeek->count(),
             'studentsPaidThisWeekCount' => $studentsPaidThisWeek->count(),
             'total' => [
-                'thisWeek' => $totalThisWeek,
-                'thisYear' => $totalThisYear,
+                'thisWeek' => CashTransaction::localizationAmountFormat($totalThisWeek),
+                'thisYear' => CashTransaction::localizationAmountFormat($totalThisYear),
             ],
             'dateRange' => [
                 'start' => now()->startOfWeek()->format('d-m-Y'),

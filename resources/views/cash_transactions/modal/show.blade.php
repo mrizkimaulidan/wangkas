@@ -33,7 +33,7 @@
 						<div class="form-group has-icon-left">
 							<label for="amount">Tagihan:</label>
 							<div class="position-relative">
-								<input type="number" class="form-control" id="amount" disabled />
+								<input type="text" class="form-control" id="amount" disabled />
 								<div class="form-control-icon">
 									<div class="bi bi-cash"></div>
 								</div>

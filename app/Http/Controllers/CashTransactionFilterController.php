@@ -40,7 +40,7 @@ class CashTransactionFilterController extends Controller
                 'studentsNotPaid' => $studentsNotPaid,
                 'studentsPaidCount' => $studentsPaid->count(),
                 'studentsNotPaidCount' => $studentsNotPaid->count(),
-                'sum' => $filteredResult->sum('amount'),
+                'sum' => CashTransaction::localizationAmountFormat($filteredResult->sum('amount')),
                 'dateRange' => [
                     'start' => $startDate->format('d-m-Y'),
                     'end' => $endDate->format('d-m-Y'),

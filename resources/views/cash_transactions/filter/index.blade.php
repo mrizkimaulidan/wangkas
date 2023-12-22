@@ -153,8 +153,8 @@
 						<tr>
 							<td>{{ $loop->iteration }}</td>
 							<td>{{ $cashTransaction->student->name }}</td>
-							<td>{{ $cashTransaction->date_paid }}</td>
-							<td>{{ $cashTransaction->amount }}</td>
+							<td>{{ $cashTransaction->date_paid_formatted }}</td>
+							<td>{{ $cashTransaction->amount_formatted }}</td>
 							<td>{{ $cashTransaction->createdBy->name }}</td>
 						</tr>
 						@endforeach
