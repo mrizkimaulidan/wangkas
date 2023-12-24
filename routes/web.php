@@ -22,11 +22,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Route::middleware('guest')->group(function () {
+    Route::get('/', fn () => redirect()->route('dashboard'));
+
     Route::get('/login', [AuthenticationController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AuthenticationController::class, 'login']);
 });
