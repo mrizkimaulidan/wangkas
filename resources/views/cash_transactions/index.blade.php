@@ -149,36 +149,38 @@
 		</div>
 	</div>
 
-	<div class="card">
-		<div class="card-body">
-			<div class="col card">
-				<div class="d-flex justify-content-end pb-3">
-					<div class="btn-group gap gap-2">
-						<a href="#" class="btn btn-secondary">
-							<span class="badge">0</span> Histori Data Kas
-						</a>
-						<button type="button" class="btn btn-primary icon icon-left" data-bs-toggle="modal"
-							data-bs-target="#createModal">
-							<i class="bi bi-plus-circle"></i> Tambah Data Kas
-						</button>
+	<div class="col-12">
+		<div class="card">
+			<div class="card-body">
+				<div class="col card">
+					<div class="d-flex justify-content-end pb-3">
+						<div class="btn-group gap gap-2">
+							<a href="#" class="btn btn-secondary">
+								<span class="badge">0</span> Histori Data Kas
+							</a>
+							<button type="button" class="btn btn-primary icon icon-left" data-bs-toggle="modal"
+								data-bs-target="#createModal">
+								<i class="bi bi-plus-circle"></i> Tambah Data Kas
+							</button>
+						</div>
 					</div>
-				</div>
 
-				<div class="table-responsive">
-					<table class="table w-100 table-hover" id="table">
-						<thead>
-							<tr>
-								<th scope="col">#</th>
-								<th scope="col">Nama Pelajar</th>
-								<th scope="col">Total Bayar</th>
-								<th scope="col">Tanggal</th>
-								<th scope="col">Dicatat Oleh</th>
-								<th scope="col">Aksi</th>
-							</tr>
-						</thead>
-						<tbody>
-						</tbody>
-					</table>
+					<div class="table-responsive">
+						<table class="table w-100 table-hover" id="table">
+							<thead>
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Nama Pelajar</th>
+									<th scope="col">Total Bayar</th>
+									<th scope="col">Tanggal</th>
+									<th scope="col">Dicatat Oleh</th>
+									<th scope="col">Aksi</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
