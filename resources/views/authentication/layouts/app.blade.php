@@ -20,6 +20,8 @@
 	<div id="auth">
 		@yield('content')
 	</div>
+
+	<script src="{{ asset('compiled/js/app.js') }}"></script>
 </body>
 
 </html>
