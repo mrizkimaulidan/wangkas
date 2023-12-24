@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
+use App\Models\Student;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -16,6 +17,9 @@ class StudentController extends Controller
         $schoolClasses = SchoolClass::select('id', 'name')->orderBy('name')->get();
         $schoolMajors = SchoolMajor::select('id', 'name', 'abbreviation')->orderBy('name')->get();
 
-        return view('students.index', compact('schoolClasses', 'schoolMajors'));
+        $maleCount = Student::select('gender')->where('gender', 1)->count();
+        $femaleCount = Student::select('gender')->where('gender', 2)->count();
+
+        return view('students.index', compact('schoolClasses', 'schoolMajors', 'maleCount', 'femaleCount'));
     }
 }
