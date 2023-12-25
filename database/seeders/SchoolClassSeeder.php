@@ -12,14 +12,6 @@ class SchoolClassSeeder extends Seeder
      */
     public function run(): void
     {
-        $schoolClasses = ['DKV', 'TJKT', 'PPLG'];
-
-        foreach ($schoolClasses as $schoolClass) {
-            for ($i = 1; $i <= 3; $i++) {
-                SchoolClass::create([
-                    'name' => "$schoolClass $i",
-                ]);
-            }
-        }
+        SchoolClass::factory()->count(10)->create();
     }
 }
