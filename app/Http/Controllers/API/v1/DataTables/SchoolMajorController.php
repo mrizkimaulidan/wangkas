@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\v1\DataTables;
 use App\Http\Controllers\Controller;
 use App\Models\SchoolMajor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class SchoolMajorController extends Controller
@@ -27,7 +28,31 @@ class SchoolMajorController extends Controller
      */
     public function store(Request $request)
     {
-        $schoolMajor = SchoolMajor::create($request->all());
+        $rules = [
+            'name' => 'required|string|min:3|max:255',
+            'abbreviation' => 'required|string|min:1|max:255|unique:school_majors,abbreviation',
+        ];
+
+        $messages = [
+            'name.required' => 'Kolom nama harus diisi',
+            'name.min' => 'Panjang nama minimal :min karakter!',
+            'name.max' => 'Panjang nama maksimal :max karakter!',
+
+            'abbreviation.required' => 'Kolom singkatan harus diisi',
+            'abbreviation.min' => 'Panjang singkatan minimal :min karakter!',
+            'abbreviation.max' => 'Panjang singkatan maksimal :max karakter!',
+            'abbreviation.unique' => 'Singkatan sudah digunakan!',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return response()->json([
+                'code' => Response::HTTP_BAD_REQUEST,
+                'message' => $validator->errors()->first(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $schoolMajor = SchoolMajor::create($validator->validated());
 
         return response()->json([
             'code' => Response::HTTP_CREATED,
@@ -53,7 +78,31 @@ class SchoolMajorController extends Controller
      */
     public function update(Request $request, SchoolMajor $schoolMajor)
     {
-        $schoolMajor->update($request->all());
+        $rules = [
+            'name' => 'required|string|min:3|max:255',
+            'abbreviation' => 'required|string|min:1|max:255|unique:school_majors,abbreviation,'.$schoolMajor->id,
+        ];
+
+        $messages = [
+            'name.required' => 'Kolom nama harus diisi',
+            'name.min' => 'Panjang nama minimal :min karakter!',
+            'name.max' => 'Panjang nama maksimal :max karakter!',
+
+            'abbreviation.required' => 'Kolom singkatan harus diisi',
+            'abbreviation.min' => 'Panjang singkatan minimal :min karakter!',
+            'abbreviation.max' => 'Panjang singkatan maksimal :max karakter!',
+            'abbreviation.unique' => 'Singkatan sudah digunakan!',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return response()->json([
+                'code' => Response::HTTP_BAD_REQUEST,
+                'message' => $validator->errors()->first(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $schoolMajor->update($validator->validated());
 
         return response()->json([
             'code' => Response::HTTP_OK,

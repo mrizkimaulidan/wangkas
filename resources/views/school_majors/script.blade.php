@@ -46,8 +46,11 @@
 					});
 				},
 				error: err => {
-					alert('error occured, check console');
-					console.log(err);
+					Swal.fire({
+						icon: "warning",
+						title: "Perhatian!",
+						text: err.responseJSON.message,
+					});
 				}
 			});
 		});
@@ -132,8 +135,11 @@
 					});
 				},
 				error: err => {
-					alert('error occured, check console');
-					console.log(err);
+					Swal.fire({
+						icon: "warning",
+						title: "Perhatian!",
+						text: err.responseJSON.message,
+					});
 				}
 			});
 		});
