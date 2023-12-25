@@ -44,7 +44,7 @@
 											<div><i class="bi bi-gender-male"></i></div>
 										</label>
 										<select class="form-select" id="gender">
-											<option>Pilih Jenis Kelamin</option>
+											<option value="">Pilih Jenis Kelamin</option>
 											<option value="1">Laki-laki</option>
 											<option value="2">Perempuan</option>
 										</select>
@@ -62,7 +62,7 @@
 											<div><i class="bi bi-bookmark-fill"></i></div>
 										</label>
 										<select class="form-select" id="school_class_id">
-											<option selected>Pilih Kelas</option>
+											<option value="">Pilih Kelas</option>
 											@foreach ($schoolClasses as $schoolClass)
 											<option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
 											@endforeach
@@ -79,7 +79,7 @@
 											<div><i class="bi bi-briefcase-fill"></i></div>
 										</label>
 										<select class="form-select" id="school_major_id">
-											<option selected>Pilih Jurusan</option>
+											<option value="">Pilih Jurusan</option>
 											@foreach ($schoolMajors as $schoolMajor)
 											<option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
 											@endforeach

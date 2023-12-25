@@ -21,7 +21,7 @@ class StudentFactory extends Factory
         $schoolYearStart = now()->year;
         $schoolClassID = SchoolClass::inRandomOrder()->first()->id;
         $schoolMajorID = SchoolMajor::inRandomOrder()->first()->id;
-        $identificationNumber = substr($schoolYearStart, -2) . 61 . $schoolMajorID  . fake()->unique()
+        $identificationNumber = substr($schoolYearStart, -2). 61 .$schoolMajorID.fake()->unique()
             ->numberBetween(1000, 9999);
 
         return [
@@ -33,7 +33,7 @@ class StudentFactory extends Factory
             'phone_number' => fake()->unique()->phoneNumber,
             'gender' => fake()->randomElement([1, 2]),
             'school_year_start' => $schoolYearStart,
-            'school_year_end' => $schoolYearStart + 3
+            'school_year_end' => $schoolYearStart + 3,
         ];
     }
 }

@@ -25,7 +25,7 @@ class CashTransactionFactory extends Factory
             'amount' => round(fake()->numberBetween(50000, 100000), -3),
             'date_paid' => $datePaid,
             'transaction_note' => fake()->randomElement([null, fake()->sentence]),
-            'created_by' => User::inRandomOrder()->first()->id
+            'created_by' => User::inRandomOrder()->first()->id,
         ];
     }
 }
