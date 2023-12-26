@@ -19,7 +19,7 @@
 									<div><i class="bi bi-person-badge-fill"></i></div>
 								</label>
 								<select class="form-select" id="student_id">
-									<option selected>Pilih Pelajar</option>
+									<option value="">Pilih Pelajar</option>
 									@foreach ($students as $student)
 									<option value="{{ $student->id }}">{{ $student->student_identification_number }} - {{
 										$student->name }}</option>
