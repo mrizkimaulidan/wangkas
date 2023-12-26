@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\API\v1\DataTables\AdministratorResource;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdministratorController extends Controller
@@ -31,7 +32,40 @@ class AdministratorController extends Controller
      */
     public function store(Request $request)
     {
-        $administrator = User::create($request->all());
+        $rules = [
+            'name' => 'required|string|min:3|max:255',
+            'email' => 'required|email|min:3|max:255|unique:users,email',
+            'password' => 'required|string|confirmed|min:3|max:255',
+        ];
+
+        $messages = [
+            'name.required' => 'Kolom nama harus diisi!',
+            'name.string' => 'Kolom nama harus berupa teks!',
+            'name.min' => 'Panjang nama minimal :min karakter!',
+            'name.max' => 'Panjang nama maksimal :max karakter!',
+
+            'email.required' => 'Kolom email harus diisi!',
+            'email.email' => 'Format email tidak valid!',
+            'email.min' => 'Panjang email minimal :min karakter!',
+            'email.max' => 'Panjang email maksimal :max karakter!',
+            'email.unique' => 'Email sudah digunakan!',
+
+            'password.required' => 'Kolom password harus diisi!',
+            'password.string' => 'Kolom password harus berupa teks!',
+            'password.confirmed' => 'Konfirmasi password tidak cocok!',
+            'password.min' => 'Panjang password minimal :min karakter!',
+            'password.max' => 'Panjang password maksimal :max karakter!',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            return response()->json([
+                'code' => Response::HTTP_BAD_REQUEST,
+                'message' => $validator->errors()->first(),
+            ], Response::HTTP_BAD_REQUEST);
+        }
+
+        $administrator = User::create($validator->validated());
 
         return response()->json([
             'code' => Response::HTTP_CREATED,
