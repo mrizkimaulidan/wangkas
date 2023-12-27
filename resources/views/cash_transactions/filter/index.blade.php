@@ -101,8 +101,8 @@
 							<div class="form-group has-icon-left">
 								<label for="start_date">Tanggal Mulai:</label>
 								<div class="position-relative">
-									<input type="date" class="form-control" name="start_date" id="start_date"
-										placeholder="Masukkan tanggal mulai...">
+									<input type="date" class="form-control" value="{{ request('start_date') }}" name="start_date"
+										id="start_date" placeholder="Masukkan tanggal mulai...">
 									<div class="form-control-icon">
 										<i class="bi bi-calendar2-fill"></i>
 									</div>
@@ -113,8 +113,8 @@
 							<div class="form-group has-icon-left">
 								<label for="end_date">Tanggal Akhir:</label>
 								<div class="position-relative">
-									<input type="date" class="form-control" name="end_date" id="end_date"
-										placeholder="Masukkan tanggal akhir...">
+									<input type="date" class="form-control" value="{{ request('end_date') }}" name="end_date"
+										id="end_date" placeholder="Masukkan tanggal akhir...">
 									<div class="form-control-icon">
 										<i class="bi bi-calendar2-fill"></i>
 									</div>
