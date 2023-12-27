@@ -82,7 +82,7 @@
 			const studentChartPieGender = {
 				series: [data.data.male, data.data.female],
 				labels: ["Laki-laki", "Perempuan"],
-				colors: ["#435ebe", "#55c6e8"],
+				colors: ["#57CAEB", "#FF7976"],
 				chart: {
 					type: "donut",
 					width: "100%",
