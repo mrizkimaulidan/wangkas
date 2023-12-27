@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -36,6 +37,30 @@ class ChartController extends Controller
             'code' => Response::HTTP_OK,
             'message' => 'ok',
             'data' => $statistics,
+        ], Response::HTTP_OK);
+    }
+
+    public function students(Request $request)
+    {
+        if ($request->by === 'gender') {
+            $genderCount = [
+                'male' => 0,
+                'female' => 0,
+            ];
+
+            $genderCount['male'] = Student::select('gender')->where('gender', 1)->count();
+            $genderCount['female'] = Student::select('gender')->where('gender', 2)->count();
+
+            return response()->json([
+                'code' => Response::HTTP_OK,
+                'message' => 'ok',
+                'data' => $genderCount,
+            ], Response::HTTP_OK);
+        }
+
+        return response()->json([
+            'code' => Response::HTTP_OK,
+            'message' => 'ok',
         ], Response::HTTP_OK);
     }
 }
