@@ -12,6 +12,6 @@ class SchoolMajorSeeder extends Seeder
      */
     public function run(): void
     {
-        SchoolMajor::factory()->count(5)->create();
+        SchoolMajor::factory()->count(3)->create();
     }
 }
