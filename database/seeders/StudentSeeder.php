@@ -9,11 +9,9 @@ class StudentSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
-    public function run()
+    public function run(): void
     {
-        Student::factory(20)->create();
+        Student::factory()->count(1000)->create();
     }
 }

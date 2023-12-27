@@ -1,91 +1,117 @@
-@extends('layouts.main', ['title' => 'Pelajar', 'page_heading' => 'Data Pelajar'])
+@extends('layouts.app')
 
-@section('content')
-<section class="row">
-	<div class="col-6">
-		<div class="card">
-			<div class="card-body px-3 py-4-5">
-				<div class="row">
-					<div class="col-4">
-						<div class="stats-icon green">
-							<i class="iconly-boldProfile"></i>
-						</div>
-					</div>
-					<div class="col-8">
-						<h6 class="text-muted font-semibold">Laki-laki</h6>
-						<h6 class="font-extrabold mb-0">
-							{{ $maleStudentCount }}
-						</h6>
-					</div>
-				</div>
+@section('title', 'Data Pelajar')
+
+@section('page-heading')
+<div class="page-heading">
+	<div class="page-title">
+		<div class="row">
+			<div class="col-12 col-md-6 order-md-1 order-last">
+				<h3>Data Pelajar</h3>
+				<p class="text-subtitle text-muted">Halaman untuk manajemen data pelajar seperti melihat, mengubah dan
+					menghapus.
+				</p>
+			</div>
+			<div class="col-12 col-md-6 order-md-2 order-first">
+				<nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item">
+							<a href="{{ route('dashboard') }}">Dashboard</a>
+						</li>
+						<li class="breadcrumb-item active" aria-current="page">
+							Data Pelajar
+						</li>
+					</ol>
+				</nav>
 			</div>
 		</div>
 	</div>
+</div>
+@endsection
 
-	<div class="col-6">
+@section('content')
+<div class="row">
+	<div class="col-6 col-lg-6 col-md-6">
 		<div class="card">
-			<div class="card-body px-3 py-4-5">
+			<div class="card-body px-3 py-4-4">
 				<div class="row">
-					<div class="col-4">
+					<div class="col-md-4">
 						<div class="stats-icon blue">
 							<i class="iconly-boldProfile"></i>
 						</div>
 					</div>
-					<div class="col-8">
+					<div class="col-md-8">
+						<h6 class="text-muted font-semibold">Laki-laki</h6>
+						<h6 class="font-extrabold mb-0">{{ $maleCount }}</h6>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-6 col-lg-6 col-md-6">
+		<div class="card">
+			<div class="card-body px-3 py-4-4">
+				<div class="row">
+					<div class="col-md-4">
+						<div class="stats-icon red">
+							<i class="iconly-boldProfile"></i>
+						</div>
+					</div>
+					<div class="col-md-8">
 						<h6 class="text-muted font-semibold">Perempuan</h6>
-						<h6 class="font-extrabold mb-0">
-							{{ $femaleStudentCount }}
-						</h6>
+						<h6 class="font-extrabold mb-0">{{ $femaleCount }}</h6>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	@include('utilities.alert-flash-message')
-	<div class="col card px-3 py-3">
-		<div class="d-flex justify-content-end pb-3">
-			<div class="btn-group d-gap gap-2">
-				<a href="{{ route('students.export') }}" class="btn btn-success">
-					<i class="bi bi-file-earmark-excel-fill"></i>
-					Export Excel
-				</a>
-				<a href="{{ route('students.index.history') }}" class="btn btn-secondary">
-					<span class="badge">{{ $studentTrashedCount }}</span> Histori Data Pelajar
-				</a>
-				<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStudentModal">
-					<i class="bi bi-plus-circle"></i> Tambah Data
-				</button>
+	<div class="col-12">
+		<div class="card">
+			<div class="card-body">
+				<div class="col card">
+					<div class="d-flex justify-content-end pb-3">
+						<div class="btn-group gap gap-2">
+							<a href="#" class="btn btn-secondary">
+								<span class="badge">0</span> Histori Data Pelajar
+							</a>
+							<button type="button" class="btn btn-primary icon icon-left" data-bs-toggle="modal"
+								data-bs-target="#createModal">
+								<i class="bi bi-plus-circle"></i> Tambah Data Pelajar
+							</button>
+						</div>
+					</div>
+
+					<div class="table-responsive">
+						<table class="table w-100 table-hover" id="table">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>NIS/NISN/NIM</th>
+									<th>Nama Lengkap</th>
+									<th>Kelas</th>
+									<th>Jurusan</th>
+									<th>TA</th>
+									<th>Aksi</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
 		</div>
-
-		<div class="table-responsive">
-			<table class="table table-sm w-100" id="datatable">
-				<thead>
-					<tr>
-						<th scope=" col">#</th>
-						<th scope="col">NIS/NISN/NIM</th>
-						<th scope="col">Nama Lengkap</th>
-						<th scope="col">Kelas</th>
-						<th scope="col">Jurusan</th>
-						<th scope="col">TA</th>
-						<th scope="col">Aksi</th>
-					</tr>
-				</thead>
-				<tbody>
-				</tbody>
-			</table>
-		</div>
 	</div>
-</section>
+</div>
 @endsection
 
-@push('modal')
+@pushOnce('modal')
 @include('students.modal.create')
 @include('students.modal.show')
 @include('students.modal.edit')
-@endpush
+@endPushOnce
 
-@push('js')
+@pushOnce('scripts')
 @include('students.script')
-@endpush
+@endPushOnce

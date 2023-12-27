@@ -1,6 +1,6 @@
 # WANGKAS
 
-Aplikasi pendataan uang kas dibuat dengan Framework Laravel 9. Dengan sistem pembayaran kas sekali selama seminggu. Aplikasi ini cocok untuk digunakan untuk di sekolah atau masing masing kelas. <br>
+Aplikasi pendataan uang kas dibuat dengan Framework Laravel 10. Dengan sistem pembayaran kas sekali selama seminggu. Aplikasi ini cocok untuk digunakan untuk di sekolah atau masing masing kelas. <br>
 
 Beberapa CRUD menggunakan modal dan AJAX untuk pengambilan data agar mengurangi penggunaan pindah halaman. Dan seluruh menu menggunakan DataTable Server Side Processing.
 
@@ -29,33 +29,33 @@ Jika Anda menggunakan XAMPP, untuk PHP dan MySQL sudah menjadi 1 (bundle) di dal
 ### Preview Gambar
 
 _Login_
-![Login](https://i.ibb.co/Ws6H4Kr/login.png)
+![Login](https://i.ibb.co/Tm5Mmgk/login.png)
 
 _Dashboard_
-![Dashboard](https://i.ibb.co/k3dCNyZ/dashboard.png)
+![Dashboard](https://i.ibb.co/RYrRx6k/dashboard.png)
 
 _Daftar Pelajar_
-![Daftar Pelajar](https://i.ibb.co/TPdYWxh/pelajar.png)
+![Daftar Pelajar](https://i.ibb.co/r49hxYB/students.png)
 
 _Daftar Kelas_
-![Daftar Kelas](https://i.ibb.co/9ZD9Nm4/kelas.png)
+![Daftar Kelas](https://i.ibb.co/6Rqvt4n/schoolclasses.png)
 
 _Daftar Jurusan_
-![Daftar Jurusan](https://i.ibb.co/LkFzhsS/jurusan.png)
+![Daftar Jurusan](https://i.ibb.co/D1wn5Tm/schoolmajors.png)
 
 _Daftar Kas_
-![Daftar Kas](https://i.ibb.co/kBJwv30/kas-minggu-ini.png)
+![Daftar Kas](https://i.ibb.co/jMK1R7j/cashtransactionthisyear.png)
 
-![Filter Kas](https://i.ibb.co/F88Gkyx/filter-kas.png)
+![Filter Kas](https://i.ibb.co/VQBbdbf/cashtransactionfilter.png)
 
 _Laporan_
-![Laporan](https://i.ibb.co/FmdXMBC/laporan.png)
+![Laporan](https://i.ibb.co/yQZkFwS/cashtransactionreport.png)
 
 _Daftar Administrator_
-![Daftar Administrator](https://i.ibb.co/pyk0dSk/administrator.png)
+![Daftar Administrator](https://i.ibb.co/XsZWk2c/administrators.png)
 
 _Logout_
-![Logout](https://i.ibb.co/0Jd6GDM/logout.png)
+![Logout](https://i.ibb.co/qyRk9c1/logout.png)
 
 ### Langkah-langkah instalasi
 
@@ -87,12 +87,6 @@ composer install
 php artisan migrate --seed
 ```
 
-- Generate JWT Secret Token
-
-```bash
-php artisan jwt:secret
-```
-
 -   Ketik perintah dibawah ini untuk membuat cache baru dari beberapa konfigurasi yang telah diubah
 
 ```bash
@@ -104,9 +98,6 @@ php artisan optimize
 ```bash
 php artisan serve
 ```
-
--   _(Opsional)_ Secara default debugbar akan aktif, untuk menonaktifkannnya cari variabel `DEBUGBAR_ENABLED` pada file .env dan ubah valuenya menjadi `false`
-
 -   Akses ke halaman
 
 ```
@@ -144,5 +135,3 @@ Aplikasi ini boleh untuk dibagi dan diubah. Mohon tidak untuk diperjualbelikan!
 ### Ucapan terima kasih
 
 -   [Mazer Dashboard Theme](https://github.com/zuramai/mazer)
--   Stackoverflow
--   Google

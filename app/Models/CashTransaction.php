@@ -2,50 +2,55 @@
 
 namespace App\Models;
 
-use App\Models\Student;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CashTransaction extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
-    protected $fillable = ['student_id', 'bill', 'amount', 'is_paid', 'date', 'note'];
+    protected $fillable = ['student_id', 'amount', 'date_paid', 'transaction_note', 'created_by'];
 
-    protected $casts = [
-        'is_paid' => 'integer',
-    ];
+    protected $appends = ['amount_formatted', 'date_paid_formatted'];
 
     /**
-     * Get students relation data.
-     *
-     * @return BelongsTo
+     * Get student relationship data.
      */
-    public function students(): BelongsTo
+    public function student(): BelongsTo
     {
-        return $this->belongsTo(Student::class, 'student_id');
+        return $this->belongsTo(Student::class);
     }
 
     /**
-     * Get users relation data.
-     *
-     * @return BelongsTo
+     * Get the user relationship who created the data.
      */
-    public function users(): BelongsTo
+    public function createdBy(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'created_by', 'id');
     }
 
     /**
-     * Set date attribute when storing data.
-     *
-     * @param string $value
-     * @return void
+     * Format a numeric amount as a localized currency string.
      */
-    public function setDateAttribute(string $value): void
+    public static function localizationAmountFormat(float $num): string
     {
-        $this->attributes['date'] = date('Y-m-d', strtotime($value));
+        return 'Rp'.number_format($num, 0, ',', '.');
+    }
+
+    /**
+     * Get the formatted date_paid attribute in 'd-m-Y' format.
+     */
+    public function getDatePaidFormattedAttribute(): string
+    {
+        return now()->parse($this->date_paid)->format('d-m-Y');
+    }
+
+    /**
+     * Get the formatted amount attribute using localizationAmountFormat.
+     */
+    public function getAmountFormattedAttribute(): string
+    {
+        return $this->localizationAmountFormat($this->amount);
     }
 }

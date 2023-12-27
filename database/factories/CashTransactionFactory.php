@@ -2,33 +2,30 @@
 
 namespace Database\Factories;
 
-use App\Models\CashTransaction;
-use Carbon\Carbon;
+use App\Models\Student;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
+/**
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\CashTransaction>
+ */
 class CashTransactionFactory extends Factory
 {
     /**
-     * The name of the factory's corresponding model.
-     *
-     * @var string
-     */
-    protected $model = CashTransaction::class;
-
-    /**
      * Define the model's default state.
      *
-     * @return array
+     * @return array<string, mixed>
      */
-    public function definition()
+    public function definition(): array
     {
+        $datePaid = now()->createFromDate(rand(2010, now()->year), rand(1, 12), rand(1, 31))->format('Y-m-d');
+
         return [
-            'user_id' => 1,
-            'student_id' => mt_rand(1, 15),
-            'bill' => 10000,
-            'amount' => 10000,
-            'date' => Carbon::createFromDate(date('Y'), mt_rand(1, 12), mt_rand(1, 31)),
-            'note' => mt_rand(0, 1) ? $this->faker->text(20) : ''
+            'student_id' => Student::inRandomOrder()->first()->id,
+            'amount' => round(fake()->numberBetween(50000, 100000), -3),
+            'date_paid' => $datePaid,
+            'transaction_note' => fake()->randomElement([null, fake()->sentence]),
+            'created_by' => User::inRandomOrder()->first()->id,
         ];
     }
 }

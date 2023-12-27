@@ -1,99 +1,67 @@
-<div class="modal fade" id="addCashTransactionModal" data-bs-backdrop="static" data-bs-keyboard="false"
-	aria-hidden="true">
-	<div class="modal-dialog modal-dialog-scrollable">
+<div class="modal fade text-left" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Tambah Data Kas</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<h5 class="modal-title">
+					Tambah Data Pelajar
+				</h5>
+				<button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+					<i data-feather="x"></i>
+				</button>
 			</div>
 			<div class="modal-body">
-				<form action="{{ route('cash-transactions.store') }}" method="POST" id="addCashTransactionForm">
-					@csrf
-					<div class="row">
-						<div class="col-md-12">
-							<div class="mb-3">
-								<label for="name" class="form-label">Nama Pelajar</label>
-								<select class="form-select select2 @error('student_id') is-invalid @enderror" name="student_id[]"
-									multiple>
+				<form class="form form-vertical">
+					<div class="form-body">
+						<div class="form-group has-icon-left">
+							<label for="student_id">Pelajar:</label>
+							<div class="input-group mb-3">
+								<label class="input-group-text" for="student_id">
+									<div><i class="bi bi-person-badge-fill"></i></div>
+								</label>
+								<select class="form-select" id="student_id">
+									<option value="">Pilih Pelajar</option>
 									@foreach ($students as $student)
-									<option value="{{ $student->id }}" {{ collect(old('student_id'))->
-										contains($student->id) ? 'selected' : '' }}>
-										{{ $student->student_identification_number }} - {{ $student->name }}
-									</option>
+									<option value="{{ $student->id }}">{{ $student->student_identification_number }} - {{
+										$student->name }}</option>
 									@endforeach
 								</select>
-
-								@error('student_id')
-								<div class="d-block invalid-feedback">
-									{{ $message }}
-								</div>
-								@enderror
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-md-6">
-							<div class="mb-3">
-								<label for="bill" class="form-label">Tagihan</label>
-								<input type="number" class="form-control @error('bill') is-invalid @enderror" name="bill"
-									value="{{ old('bill') }}" id="bill" placeholder="Masukkan tagihan..">
-
-								@error('bill')
-								<div class="d-block invalid-feedback">
-									{{ $message }}
-								</div>
-								@enderror
 							</div>
 						</div>
 
-						<div class="col-md-6">
-							<div class="mb-3">
-								<label for="amount" class="form-label">Total Bayar</label>
-								<input type="number" class="form-control @error('amount') is-invalid @enderror" name="amount"
-									id="amount" value="{{ old('amount') }}" placeholder="Masukkan total bayar..">
-
-								@error('amount')
-								<div class="d-block invalid-feedback">
-									{{ $message }}
+						<div class="form-group has-icon-left">
+							<label for="amount">Tagihan:</label>
+							<div class="position-relative">
+								<input type="number" class="form-control" id="amount" placeholder="Masukan tagihan..." />
+								<div class="form-control-icon">
+									<div class="bi bi-cash"></div>
 								</div>
-								@enderror
 							</div>
 						</div>
-					</div>
 
-					<div class="row">
-						<div class="col-md-12">
-							<div class="mb-3">
-								<label for="date" class="form-label">Tanggal</label>
-								<input type="date" class="form-control @error('date') is-invalid @enderror" name="date" id="date"
-									placeholder="Pilih tanggal..">
-
-								@error('date')
-								<div class="d-block invalid-feedback">
-									{{ $message }}
+						<div class="form-group has-icon-left">
+							<label for="date_paid">Tanggal:</label>
+							<div class="position-relative">
+								<input type="date" class="form-control" id="date_paid" placeholder="Pilih tanggal..." />
+								<div class="form-control-icon">
+									<div class="bi bi-calendar-fill"></div>
 								</div>
-								@enderror
 							</div>
 						</div>
-					</div>
 
-					<div class="row">
-						<div class="mb-3">
-							<label for="note" class="form-label">Catatan</label>
-							<textarea class="form-control @error('note') is-invalid @enderror" name="note" id="note" rows="3"
-								placeholder="Masukkan catatan (opsional)..">{{ old('note') }}</textarea>
-
-							@error('note')
-							<div class="d-block invalid-feedback">
-								{{ $message }}
+						<div class="form-group has-icon-left">
+							<label for="transaction_note">Catatan:</label>
+							<div class="position-relative">
+								<textarea class="form-control" id="transaction_note" placeholder="Masukan catatan (opsional)..."
+									rows="3"></textarea>
+								<div class="form-control-icon">
+									<div class="bi bi-card-text"></div>
+								</div>
 							</div>
-							@enderror
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-						<button type="submit" class="btn btn-primary">Simpan</button>
+						<button type="submit" class="btn btn-success">Tambah</button>
 					</div>
 				</form>
 			</div>

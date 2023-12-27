@@ -1,79 +1,91 @@
 <script>
 	$(function () {
-		let loadingAlert = $('.modal-body #loading-alert');
-
-		$('#datatable').DataTable({
+		const table = $('#table').DataTable({
 			processing: true,
 			serverSide: true,
-			ajax: "{{ route('administrators.index') }}",
+			ajax: "{{ route('api.v1.datatables.administrators.index') }}",
 			columns: [
 				{ data: 'DT_RowIndex', name: 'DT_RowIndex' },
 				{ data: 'name', name: 'name' },
 				{ data: 'email', name: 'email' },
 				{ data: 'created_at', name: 'created_at' },
-				{ data: 'action', name: 'action' },
+				{ data: 'action', name: 'action' }
 			]
 		});
 
-		$('#datatable').on('click', '.administrator-detail', function () {
-			loadingAlert.show();
+		$('#createModal form').submit(function (e) {
+			e.preventDefault();
 
-			let id = $(this).data('id');
-			let url = "{{ route('api.administrator.show', ':param') }}";
-			url = url.replace(':param', id);
-
-			$('#showAdministratorModal input').val('Sedang mengambil data..');
+			const formData = {
+				name: $('#createModal form #name').val(),
+				email: $('#createModal form #email').val(),
+				password: $('#createModal form #password').val(),
+				password_confirmation: $('#createModal form #password_confirmation').val(),
+			};
 
 			$.ajax({
-				url: url,
-				headers: {
-					'Authorization': 'Bearer ' + localStorage.getItem('token'),
-					'Accept': 'application/json',
+				url: "{{ route('api.v1.datatables.administrators.store') }}",
+				method: 'POST',
+				header: {
 					'Content-Type': 'application/json'
 				},
-				success: function (response) {
-					loadingAlert.slideUp();
+				data: formData,
+				success: res => {
+					table.ajax.reload();
+					$('#createModal').modal('hide');
 
-					$('#showAdministratorModal #name').val(response.data.name);
-					$('#showAdministratorModal #email').val(response.data.email);
+					Swal.fire({
+						icon: 'success',
+						title: 'Data administrator berhasil ditambahkan!',
+						toast: true,
+						position: 'top-end',
+						showConfirmButton: false,
+						timer: 3000,
+						timerProgressBar: true,
+						didOpen: (toast) => {
+							toast.addEventListener('mouseenter', Swal.stopTimer)
+							toast.addEventListener('mouseleave', Swal.resumeTimer)
+						}
+					});
+				},
+				error: err => {
+					Swal.fire({
+						icon: "warning",
+						title: "Perhatian!",
+						text: err.responseJSON.message,
+					});
 				}
 			});
 		});
 
-		$('#datatable').on('click', '.administrator-edit', function () {
-			loadingAlert.show();
-
-			let id = $(this).data('id');
-			let url = "{{ route('api.administrator.edit', ':param') }}";
-			url = url.replace(':param', id);
-
-			let formActionURL = "{{ route('administrators.update', ':param') }}";
-			formActionURL = formActionURL.replace(':param', id);
-
-			let editSchoolClassModalEveryInput = $('#editAdministratorModal :input').not('button[type=button], input[name=_token], input[name=_method]')
-				.each(function () {
-					$(this).not('input[id=password], input[id=password_confirmation]').val('Sedang mengambil data..');
-					$(this).prop('disabled', true);
-				});
+		$('#table').on('click', '.show-modal', function () {
+			const id = $(this).data('id');
+			let url = "{{ route('api.v1.datatables.administrators.show', ':paramID') }}".replace(':paramID', id);
 
 			$.ajax({
 				url: url,
-				headers: {
-					'Authorization': 'Bearer ' + localStorage.getItem('token'),
-					'Accept': 'application/json',
+				method: 'GET',
+				header: {
 					'Content-Type': 'application/json'
 				},
-				success: function (response) {
-					loadingAlert.slideUp();
-
-					$('#editAdministratorModal #administrator-edit-form').attr('action', formActionURL);
-
-					editSchoolClassModalEveryInput.prop('disabled', false);
-
-					$('#editAdministratorModal #name').val(response.data.name);
-					$('#editAdministratorModal #email').val(response.data.email);
+				success: res => {
+					$('#showModal form #name').val(res.data.name);
+					$('#showModal form #email').val(res.data.email);
+					$('#showModal form #created_at').val(res.data.created_at);
+				},
+				error: err => {
+					alert('error occured, check console');
+					console.log(err);
 				}
 			});
+		});
+
+		$('.modal').on('hidden.bs.modal', function () {
+			$(this).find('form :input').val('');
+		});
+
+		$('.modal').on('shown.bs.modal', function () {
+			$(this).find('input:first').focus();
 		});
 	});
 </script>

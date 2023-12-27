@@ -1,151 +1,138 @@
-<div class="modal fade" id="addStudentModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-	<div class="modal-dialog modal-lg">
+<div class="modal fade text-left" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Tambah Data Pelajar</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<h5 class="modal-title">
+					Tambah Data Pelajar
+				</h5>
+				<button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+					<i data-feather="x"></i>
+				</button>
 			</div>
 			<div class="modal-body">
-				<form action="{{ route('students.store') }}" method="POST">
-					@csrf
-					<div class="row">
-						<div class="col-sm-12 col-md-12 col-lg-4">
-							<div class="mb-3">
-								<label for="name" class="form-label">NIS/NISN/NIM</label>
-								<input type="number" class="form-control @error('student_identification_number') is-invalid @enderror"
-									name="student_identification_number" id="student_identification_number"
-									value="{{ old('student_identification_number') }}" placeholder="Masukkan nis/nisn..">
-
-								@error('student_identification_number')
-								<div class="d-block invalid-feedback">
-									{{ $message }}
+				<form class="form form-vertical">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-lg-4">
+								<div class="form-group has-icon-left">
+									<label for="student_identification_number">NIS/NISN/NIM:</label>
+									<div class="position-relative">
+										<input type="number" class="form-control" id="student_identification_number"
+											placeholder="Masukkan nis/nisn/nim..." />
+										<div class="form-control-icon">
+											<div class="bi bi-person-badge-fill"></div>
+										</div>
+									</div>
 								</div>
-								@enderror
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group has-icon-left">
+									<label for="name">Nama Lengkap:</label>
+									<div class="position-relative">
+										<input type="text" class="form-control" id="name" placeholder="Masukkan nama lengkap..." />
+										<div class="form-control-icon">
+											<i class="bi bi-person-fill"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4">
+								<div class="form-group has-icon-left">
+									<label for="gender">Jenis Kelamin:</label>
+									<div class="input-group mb-3">
+										<label class="input-group-text" for="gender">
+											<div><i class="bi bi-gender-male"></i></div>
+										</label>
+										<select class="form-select" id="gender">
+											<option value="">Pilih Jenis Kelamin</option>
+											<option value="1">Laki-laki</option>
+											<option value="2">Perempuan</option>
+										</select>
+									</div>
+								</div>
 							</div>
 						</div>
 
-						<div class="col-sm-12 col-md-12 col-lg-4">
-							<div class="mb-3">
-								<label for="name" class="form-label">Nama Lengkap</label>
-								<input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"
-									value="{{ old('name') }}" placeholder="Masukkan nama lengkap..">
-
-								@error('name')
-								<div class="d-block invalid-feedback">
-									{{ $message }}
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group has-icon-left">
+									<label for="school_class_id">Kelas:</label>
+									<div class="input-group mb-3">
+										<label class="input-group-text" for="school_class_id">
+											<div><i class="bi bi-bookmark-fill"></i></div>
+										</label>
+										<select class="form-select" id="school_class_id">
+											<option value="">Pilih Kelas</option>
+											@foreach ($schoolClasses as $schoolClass)
+											<option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
+											@endforeach
+										</select>
+									</div>
 								</div>
-								@enderror
+							</div>
+
+							<div class="col-lg-6">
+								<div class="form-group has-icon-left">
+									<label for="school_major_id">Jurusan:</label>
+									<div class="input-group mb-3">
+										<label class="input-group-text" for="school_major_id">
+											<div><i class="bi bi-briefcase-fill"></i></div>
+										</label>
+										<select class="form-select" id="school_major_id">
+											<option value="">Pilih Jurusan</option>
+											@foreach ($schoolMajors as $schoolMajor)
+											<option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
+											@endforeach
+										</select>
+									</div>
+								</div>
 							</div>
 						</div>
 
-						<div class="col-sm-12 col-md-12 col-lg-4">
-							<label for="gender" class="form-label">Jenis Kelamin</label>
-							<select class="form-select @error('gender') is-invalid @enderror" name="gender" id="gender">
-								<option selected>Pilih Jenis Kelamin</option>
-								<option value="1" {{ old('gender')==='1' ? 'selected' : '' }}>Laki-laki</option>
-								<option value="2" {{ old('gender')==='2' ? 'selected' : '' }}>Perempuan</option>
-							</select>
-
-							@error('gender')
-							<div class="d-block invalid-feedback">
-								{{ $message }}
-							</div>
-							@enderror
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-sm-6 col-md-6">
-							<div class="mb-3">
-								<label for="school_class_id" class="form-label">Kelas</label>
-								<select class="form-select select2" name="school_class_id" id="school_class_id">
-									<option value="" selected>Pilih Kelas</option>
-									@foreach($schoolClasses as $schoolClass)
-									<option value="{{ $schoolClass->id }}" {{ old('school_class_id')==="$schoolClass->id" ? 'selected'
-										: '' }}>
-										{{ $schoolClass->name }}
-									</option>
-									@endforeach
-								</select>
-
-								@error('school_class_id')
-								<div class="d-block invalid-feedback">
-									{{ $message }}
+						<div class="row">
+							<div class="col-lg-6">
+								<div class="form-group has-icon-left">
+									<label for="email">Alamat Email:</label>
+									<div class="position-relative">
+										<input type="email" class="form-control" id="email" placeholder="Masukkan alamat email..." />
+										<div class="form-control-icon">
+											<i class="bi bi-envelope-fill"></i>
+										</div>
+									</div>
 								</div>
-								@enderror
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group has-icon-left">
+									<label for="phone_number">Nomor Handphone:</label>
+									<div class="position-relative">
+										<input type="number" class="form-control" id="phone_number"
+											placeholder="Masukkan nomor handphone..." />
+										<div class="form-control-icon">
+											<i class="bi bi-telephone-fill"></i>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 
-						<div class="col-sm-6 col-md-6">
-							<div class="mb-3">
-								<label for="school_major_id" class="form-label">Jurusan</label>
-								<select class="form-select select2" name="school_major_id" id="school_major_id">
-									<option value="" selected>Pilih Jurusan</option>
-									@foreach ($schoolMajors as $schoolMajor)
-									<option value="{{ $schoolMajor->id }}" {{ old('school_major_id')==="$schoolMajor->id" ? 'selected'
-										: '' }}>
-										{{ $schoolMajor->abbreviated_word }} -
-										{{ $schoolMajor->name }}
-									</option>
-									@endforeach
-								</select>
-
-								@error('school_major_id')
-								<div class="d-block invalid-feedback">
-									{{ $message }}
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group">
+									<label for="school_year_start">Tahun Ajaran Awal:</label>
+									<div class="input-group">
+										<input type="number" class="form-control" id="school_year_start"
+											placeholder="Masukkan tahun ajaran awal..." value="2020">
+										<span class="input-group-text">-</span>
+										<input type="number" class="form-control " id="school_year_end"
+											placeholder="Masukkan tahun ajaran akhir..." value="2023">
+									</div>
 								</div>
-								@enderror
-							</div>
-						</div>
-					</div>
-
-					<div class="row">
-						<div class="col-sm-6 col-md-6">
-							<div class="mb-3">
-								<label for="email" class="form-label">Alamat Email</label>
-								<input type="email" class="form-control @error('email') is-invalid @enderror" name="email" id="email"
-									value="{{ old('email') }}" placeholder="Masukkan alamat email..">
-
-								@error('email')
-								<div class="d-block invalid-feedback">
-									{{ $message }}
-								</div>
-								@enderror
-							</div>
-						</div>
-
-						<div class="col-sm-6 col-md-6">
-							<div class="mb-3">
-								<label for="phone_number" class="form-label">Nomor Handphone</label>
-								<input type="number" class="form-control @error('phone_number') is-invalid @enderror"
-									name="phone_number" id="phone_number" value="{{ old('phone_number') }}"
-									placeholder="Masukkan nomor handphone..">
-
-								@error('phone_number')
-								<div class="d-block invalid-feedback">
-									{{ $message }}
-								</div>
-								@enderror
 							</div>
 						</div>
 					</div>
-
-					<div class="row">
-						<div class="col-sm-12 col-md-12">
-							<label for="school_year_start">Tahun Ajaran</label>
-							<div class="input-group mb-3">
-								<input type="number" class="form-control @error('school_year_start') is-invalid @enderror"
-									name="school_year_start" placeholder="Masukkan awal tahun ajaran.." value="{{ date('Y') - 3 }}">
-								<span class="input-group-text">-</span>
-								<input type="number" class="form-control @error('school_year_end') is-invalid @enderror"
-									name="school_year_end" placeholder="Masukkan akhir tahun ajaran.." value="{{ date('Y') }}">
-							</div>
-						</div>
-					</div>
-
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-						<button type="submit" class="btn btn-primary">Simpan</button>
+						<button type="submit" class="btn btn-success">Tambah</button>
 					</div>
 				</form>
 			</div>

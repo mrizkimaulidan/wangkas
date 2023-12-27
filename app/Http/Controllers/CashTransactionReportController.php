@@ -2,46 +2,52 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\CashTransactionReportRepository;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\View\View;
+use App\Models\CashTransaction;
+use Illuminate\Http\Request;
 
 class CashTransactionReportController extends Controller
 {
-    public function __construct(
-        private  CashTransactionReportRepository $cashTransactionReportRepository
-    ) {
-    }
-
     /**
      * Handle the incoming request.
-     *
-     * @return \Illuminate\View\View|\Illuminate\Http\RedirectResponse
      */
-    public function __invoke(): View|RedirectResponse
+    public function __invoke(Request $request)
     {
-        $filteredResult = [];
-        $startDate = request()->get('start_date');
-        $endDate = request()->get('end_date');
+        $cashTransactions = [];
+        $cashTransactionsCurrentYear = CashTransaction::whereYear('date_paid', now()->year)->get();
 
-        if (request()->has('start_date') && request()->has('end_date')) {
-            if ($startDate === null && $endDate === null) {
-                return redirect()->back()->with('warning', 'Tanggal awal atau tanggal akhir tidak boleh kosong!');
-            }
+        $cashTransactionCurrentMonthCount = $cashTransactionsCurrentYear
+            ->filter(function ($transaction) {
+                $datePaid = now()->createFromFormat('Y-m-d', $transaction->date_paid);
 
-            $filteredResult = $this->cashTransactionReportRepository->filterByDateStartAndEnd($startDate, $endDate);
-        }
+                return (int) $datePaid->format('m') === now()->month;
+            })->sum('amount');
 
-        $sum = [
-            'thisDay' => indonesianCurrency($this->cashTransactionReportRepository->sum('amount', 'thisDay')),
-            'thisWeek' => indonesianCurrency($this->cashTransactionReportRepository->sum('amount', 'thisWeek')),
-            'thisMonth' => indonesianCurrency($this->cashTransactionReportRepository->sum('amount', 'thisMonth')),
-            'thisYear' => indonesianCurrency($this->cashTransactionReportRepository->sum('amount', 'thisYear')),
+        $cashTransactionCurrentWeekCount = $cashTransactionsCurrentYear
+            ->filter(function ($transaction) {
+                return now()->createFromFormat('Y-m-d', $transaction->date_paid)
+                    ->between(now()->startOfWeek()->toDateString(), now()->endOfWeek()->toDateString());
+            })->sum('amount');
+
+        $cashTransactionTodayCount = $cashTransactionsCurrentYear
+            ->filter(function ($transaction) {
+                return now()->createFromFormat('Y-m-d', $transaction->date_paid)->isToday();
+            })->sum('amount');
+
+        $cashTransactions = [
+            'cashTransactionCurrentYearCount' => CashTransaction::localizationAmountFormat($cashTransactionsCurrentYear->sum('amount')),
+            'cashTransactionCurrentMonthCount' => CashTransaction::localizationAmountFormat($cashTransactionCurrentMonthCount),
+            'cashTransactionCurrentWeekCount' => CashTransaction::localizationAmountFormat($cashTransactionCurrentWeekCount),
+            'cashTransactionTodayCount' => CashTransaction::localizationAmountFormat($cashTransactionTodayCount),
         ];
 
-        return view('reports.index', [
-            'sum' => $sum,
-            'filteredResult' => $filteredResult
-        ]);
+        if ($request->has('start_date') && $request->has('end_date')) {
+            $cashTransactions['filteredResult'] = CashTransaction::with('student:id,name', 'createdBy:id,name')
+                ->select('id', 'student_id', 'amount', 'date_paid', 'created_by')
+                ->whereBetween('date_paid', [$request->start_date, $request->end_date])
+                ->get();
+            $cashTransactions['sum'] = CashTransaction::localizationAmountFormat($cashTransactions['filteredResult']->sum('amount'));
+        }
+
+        return view('cash_transactions.reports.index', compact('cashTransactions'));
     }
 }

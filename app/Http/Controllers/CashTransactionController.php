@@ -2,113 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Student;
 use App\Models\CashTransaction;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\RedirectResponse;
-use App\Repositories\CashTransactionRepository;
-use App\Http\Requests\CashTransactionStoreRequest;
-use App\Http\Requests\CashTransactionUpdateRequest;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Http\JsonResponse;
-use Illuminate\View\View;
+use App\Models\Student;
+use Illuminate\Http\Request;
 
 class CashTransactionController extends Controller
 {
-    private $cashTransactionRepository, $startOfWeek, $endOfWeek;
-
-    public function __construct(CashTransactionRepository $cashTransactionRepository)
-    {
-        $this->cashTransactionRepository = $cashTransactionRepository;
-        $this->startOfWeek = now()->startOfWeek()->format('Y-m-d');
-        $this->endOfWeek = now()->endOfWeek()->format('Y-m-d');
-    }
-
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\View\View|\Illuminate\Http\JsonResponse
+     * Handle the incoming request.
      */
-    public function index(): View|JsonResponse
+    public function __invoke(Request $request)
     {
-        $cashTransactions = CashTransaction::with('students:id,name')
-            ->select('id', 'student_id', 'bill', 'amount', 'date')
-            ->whereBetween('date', [$this->startOfWeek, $this->endOfWeek])
-            ->latest()
-            ->get();
+        $students = Student::select('id', 'name', 'student_identification_number')
+            ->orderBy('student_identification_number')->get();
 
-        $students = Student::select('id', 'student_identification_number', 'name')
-            ->whereDoesntHave(
-                'cash_transactions',
-                fn (Builder $query) => $query->select(['date'])
-                    ->whereBetween('date', [$this->startOfWeek, $this->endOfWeek])
-            )->get();
+        $studentsPaidThisWeekIds = CashTransaction::whereBetween('date_paid', [
+            now()->startOfWeek()->toDateString(),
+            now()->endOfWeek()->toDateString(),
+        ])->pluck('student_id');
 
-        if (request()->ajax()) {
-            return datatables()->of($cashTransactions)
-                ->addIndexColumn()
-                ->addColumn('bill', fn ($model) => indonesianCurrency($model->bill))
-                ->addColumn('amount', fn ($model) => indonesianCurrency($model->amount))
-                ->addColumn('date', fn ($model) => date('d-m-Y', strtotime($model->date)))
-                ->addColumn('action', 'cash_transactions.datatable.action')
-                ->rawColumns(['action'])
-                ->toJson();
-        }
+        $studentsPaidThisWeek = $students->filter(function ($student) use ($studentsPaidThisWeekIds) {
+            return $studentsPaidThisWeekIds->contains($student->id);
+        })->sortBy('name');
 
-        $cashTransactionTrashedCount = CashTransaction::onlyTrashed()->count();
+        $studentsNotPaidThisWeek = $students->reject(function ($student) use ($studentsPaidThisWeekIds) {
+            return $studentsPaidThisWeekIds->contains($student->id);
+        })->sortBy('name');
 
-        return view('cash_transactions.index', [
-            'students' => $students,
-            'data' => $this->cashTransactionRepository->results(),
-            'cashTransactionTrashedCount' => $cashTransactionTrashedCount
-        ]);
-    }
+        $totalThisWeek = CashTransaction::whereBetween('date_paid', [
+            now()->startOfWeek()->toDateString(),
+            now()->endOfWeek()->toDateString(),
+        ])->sum('amount');
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\CashTransactionStoreRequest  $request
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function store(CashTransactionStoreRequest $request): RedirectResponse
-    {
-        foreach ($request->student_id as $student_id) {
-            Auth::user()->cash_transactions()->create([
-                'student_id' => $student_id,
-                'bill' => $request->bill,
-                'amount' => $request->amount,
-                'date' => $request->date,
-                'note' => $request->note
-            ]);
-        }
+        $totalThisYear = CashTransaction::whereBetween('date_paid', [
+            now()->startOfYear()->toDateString(),
+            now()->endOfYear()->toDateString(),
+        ])->sum('amount');
 
-        return redirect()->route('cash-transactions.index')->with('success', 'Data berhasil ditambahkan!');
-    }
+        $cashTransaction = [
+            'studentsNotPaidThisWeek' => $studentsNotPaidThisWeek,
+            'studentsNotPaidThisWeekWithLimit' => $studentsNotPaidThisWeek->take(6),
+            'studentsNotPaidThisWeekCount' => $studentsNotPaidThisWeek->count(),
+            'studentsPaidThisWeekCount' => $studentsPaidThisWeek->count(),
+            'total' => [
+                'thisWeek' => CashTransaction::localizationAmountFormat($totalThisWeek),
+                'thisYear' => CashTransaction::localizationAmountFormat($totalThisYear),
+            ],
+            'dateRange' => [
+                'start' => now()->startOfWeek()->format('d-m-Y'),
+                'end' => now()->endOfWeek()->format('d-m-Y'),
+            ],
+        ];
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\CashTransactionUpdateRequest  $request
-     * @param  \App\Models\CashTransaction  $cashTransaction
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function update(CashTransactionUpdateRequest $request, CashTransaction $cashTransaction): RedirectResponse
-    {
-        $cashTransaction->update($request->validated());
-
-        return redirect()->route('cash-transactions.index')->with('success', 'Data berhasil diubah!');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\CashTransaction  $cashTransaction
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function destroy(CashTransaction $cashTransaction): RedirectResponse
-    {
-        $cashTransaction->delete();
-
-        return redirect()->route('cash-transactions.index')->with('success', 'Data berhasil dihapus!');
+        return view('cash_transactions.index', compact('cashTransaction', 'students'));
     }
 }

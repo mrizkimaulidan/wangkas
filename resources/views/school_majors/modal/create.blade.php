@@ -1,43 +1,35 @@
-<div class="modal fade" id="addSchoolMajorModal" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
-	<div class="modal-dialog">
+<div class="modal fade text-left" id="createModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Tambah Data Jurusan</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				<h5 class="modal-title">
+					Tambah Data Jurusan
+				</h5>
+				<button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+					<i data-feather="x"></i>
+				</button>
 			</div>
 			<div class="modal-body">
-				<form action="{{ route('school-majors.store') }}" method="post">
-					@csrf
-					<div class="row">
-						<div class="col-md-12">
-							<div class="mb-3">
-								<label for="name" class="form-label">Nama Jurusan</label>
-								<input type="text" class="form-control @error('name') is-invalid @enderror" name="name" id="name"
-									value="{{ old('name') }}" placeholder="Masukkan nama jurusan..">
-
-								@error('name')
-								<div class="d-block invalid-feedback">
-									{{ $message }}
+				<form class="form form-vertical">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group">
+									<label for="name">Nama:</label>
+									<input type="text" class="form-control" id="name" placeholder="Masukkan nama..." />
 								</div>
-								@enderror
 							</div>
-							<div class="mb-3">
-								<label for="abbreviated_word" class="form-label">Singkatan Jurusan</label>
-								<input type="text" class="form-control @error('abbreviated_word') is-invalid @enderror"
-									name="abbreviated_word" id="abbreviated_word" value="{{ old('abbreviated_word') }}"
-									placeholder="Masukkan singkatan jurusan..">
-
-								@error('abbreviated_word')
-								<div class="d-block invalid-feedback">
-									{{ $message }}
+							<div class="col-12">
+								<div class="form-group">
+									<label for="abbreviation">Singkatan:</label>
+									<input type="text" class="form-control" id="abbreviation" placeholder="Masukkan singkatan..." />
 								</div>
-								@enderror
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
-						<button type="submit" class="btn btn-primary">Simpan</button>
+						<button type="submit" class="btn btn-success">Tambah</button>
 					</div>
 				</form>
 			</div>

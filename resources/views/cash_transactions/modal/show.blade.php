@@ -1,66 +1,68 @@
-<div class="modal fade" id="showCashTransactionModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Detail Kas</h5>
-                <button type="button" class="btn-close  " data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                @include('utilities.loading-alert')
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Admin Pencatat</label>
-                            <input type="text" class="form-control" id="user_id" disabled>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="mb-3">
-                            <label for="name" class="form-label">Nama Pelajar</label>
-                            <input type="text" class="form-control" id="student_id" disabled>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="bill" class="form-label">Tagihan</label>
-                            <input type="text" class="form-control" id="bill" disabled>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="mb-3">
-                            <label for="amount" class="form-label">Total Bayar</label>
-                            <input type="text" class="form-control" id="amount" disabled>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="mb-3">
-                            <label for="date" class="form-label">Tanggal</label>
-                            <input type="text" class="form-control" id="date" disabled>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="mb-3">
-                        <label for="note" class="form-label">Catatan</label>
-                        <textarea class="form-control" id="note" rows="3" disabled></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary  " data-bs-dismiss="modal">Tutup</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<div class="modal fade text-left" id="showModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">
+					Tambah Data Pelajar
+				</h5>
+				<button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+					<i data-feather="x"></i>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form class="form form-vertical">
+					<div class="form-body">
+						<div class="form-group has-icon-left">
+							<label for="student_id">Pelajar:</label>
+							<div class="position-relative">
+								<input type="text" class="form-control" id="student_id" disabled />
+								<div class="form-control-icon">
+									<div class="bi bi-person-fill"></div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group has-icon-left">
+							<label for="created_by">Dicatat oleh:</label>
+							<div class="position-relative">
+								<input type="text" class="form-control" id="created_by" disabled />
+								<div class="form-control-icon">
+									<div class="bi bi-person-badge-fill"></div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group has-icon-left">
+							<label for="amount">Tagihan:</label>
+							<div class="position-relative">
+								<input type="text" class="form-control" id="amount" disabled />
+								<div class="form-control-icon">
+									<div class="bi bi-cash"></div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group has-icon-left">
+							<label for="date_paid">Tanggal:</label>
+							<div class="position-relative">
+								<input type="date" class="form-control" id="date_paid" disabled />
+								<div class="form-control-icon">
+									<div class="bi bi-calendar-fill"></div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group has-icon-left">
+							<label for="transaction_note">Catatan:</label>
+							<div class="position-relative">
+								<textarea class="form-control" id="transaction_note" disabled rows="3"></textarea>
+								<div class="form-control-icon">
+									<div class="bi bi-card-text"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

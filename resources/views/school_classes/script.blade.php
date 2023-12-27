@@ -1,73 +1,193 @@
 <script>
 	$(function () {
-		let loadingAlert = $('.modal-body #loading-alert');
-
-		$('#datatable').DataTable({
+		const table = $('#table').DataTable({
 			processing: true,
 			serverSide: true,
-			ajax: "{{ route('school-classes.index') }}",
+			ajax: "{{ route('api.v1.datatables.school-classes.index') }}",
 			columns: [
 				{ data: 'DT_RowIndex', name: 'DT_RowIndex' },
 				{ data: 'name', name: 'name' },
-				{ data: 'action', name: 'action' },
+				{ data: 'action', name: 'action' }
 			]
 		});
 
-		$('#datatable').on('click', '.school-class-detail', function () {
-			loadingAlert.show();
+		$('#createModal form').submit(function (e) {
+			e.preventDefault();
 
-			let id = $(this).data('id');
-			let url = "{{ route('api.school-class.show', ':param') }}";
-			url = url.replace(':param', id);
-
-			$('#showSchoolClassModal :input').val("Sedang mengambil data..");
+			const formData = {
+				name: $('#createModal form #name').val()
+			};
 
 			$.ajax({
-				url: url,
-				headers: {
-					'Authorization': 'Bearer ' + localStorage.getItem('token'),
-					'Accept': 'application/json',
+				url: "{{ route('api.v1.datatables.school-classes.store') }}",
+				method: 'POST',
+				header: {
 					'Content-Type': 'application/json'
 				},
-				success: function (response) {
-					loadingAlert.slideUp();
+				data: formData,
+				success: res => {
+					table.ajax.reload();
+					$('#createModal').modal('hide');
 
-					$('#showSchoolClassModal #name').val(response.data.name);
+					Swal.fire({
+						icon: 'success',
+						title: 'Data kelas berhasil ditambahkan!',
+						toast: true,
+						position: 'top-end',
+						showConfirmButton: false,
+						timer: 3000,
+						timerProgressBar: true,
+						didOpen: (toast) => {
+							toast.addEventListener('mouseenter', Swal.stopTimer)
+							toast.addEventListener('mouseleave', Swal.resumeTimer)
+						}
+					});
+				},
+				error: err => {
+					Swal.fire({
+						icon: "warning",
+						title: "Perhatian!",
+						text: err.responseJSON.message,
+					});
 				}
 			});
 		});
 
-		$('#datatable').on('click', '.school-class-edit', function () {
-			loadingAlert.show();
-
-			let id = $(this).data('id');
-			let url = "{{ route('api.school-class.edit', ':param') }}";
-			url = url.replace(':param', id);
-
-			let formActionURL = "{{ route('school-classes.update', ':param') }}";
-			formActionURL = formActionURL.replace(':param', id)
-
-			let editSchoolClassModalEveryInput = $('#editSchoolClassModal :input').not('button[type=button], input[name=_token], input[name=_method]')
-				.each(function () {
-					$(this).not('select').val('Sedang mengambil data..');
-					$(this).prop('disabled', true);
-				});
+		$('#table').on('click', '.show-modal', function () {
+			const id = $(this).data('id');
+			let url = "{{ route('api.v1.datatables.school-classes.show', ':paramID') }}".replace(':paramID', id);
 
 			$.ajax({
 				url: url,
-				headers: {
-					'Authorization': 'Bearer ' + localStorage.getItem('token'),
-					'Accept': 'application/json',
+				method: 'GET',
+				header: {
+					'Content-Type': 'application/json'
 				},
-				success: function (response) {
-					loadingAlert.slideUp();
-
-					editSchoolClassModalEveryInput.prop('disabled', false);
-
-					$('#editSchoolClassModal #edit-school-class-form').attr('action', formActionURL);
-					$('#editSchoolClassModal #name').val(response.data.name);
+				success: res => {
+					$('#showModal form #name').val(res.data.name);
+				},
+				error: err => {
+					alert('error occured, check console');
+					console.log(err);
 				}
 			});
+		});
+
+		$('#table').on('click', '.update-modal', function () {
+			const id = $(this).data('id');
+			let url = "{{ route('api.v1.datatables.school-classes.show', ':paramID') }}".replace(':paramID', id);
+			let updateURL = "{{ route('api.v1.datatables.school-classes.update', ':paramID') }}".replace(':paramID', id);
+
+			$.ajax({
+				url: url,
+				method: 'GET',
+				header: {
+					'Content-Type': 'application/json'
+				},
+				success: res => {
+					$('#updateModal form #name').val(res.data.name);
+					$('#updateModal form').attr('action', updateURL);
+				},
+				error: err => {
+					alert('error occured, check console');
+					console.log(err);
+				}
+			});
+		});
+
+		$('#updateModal form').submit(function (e) {
+			e.preventDefault();
+
+			const formData = {
+				name: $('#updateModal form #name').val()
+			};
+
+			const updateURL = $('#updateModal form').attr('action');
+
+			$.ajax({
+				url: updateURL,
+				method: 'PUT',
+				header: {
+					'Content-Type': 'application/json'
+				},
+				data: formData,
+				success: res => {
+					table.ajax.reload();
+					$('#updateModal').modal('hide');
+
+					Swal.fire({
+						icon: 'success',
+						title: 'Data kelas berhasil diubah!',
+						toast: true,
+						position: 'top-end',
+						showConfirmButton: false,
+						timer: 3000,
+						timerProgressBar: true,
+						didOpen: (toast) => {
+							toast.addEventListener('mouseenter', Swal.stopTimer)
+							toast.addEventListener('mouseleave', Swal.resumeTimer)
+						}
+					});
+				},
+				error: err => {
+					Swal.fire({
+						icon: "warning",
+						title: "Perhatian!",
+						text: err.responseJSON.message,
+					});
+				}
+			});
+		});
+
+		$('#table').on('click', '.delete', function (e) {
+			e.preventDefault()
+
+			Swal.fire({
+				title: 'Hapus?',
+				text: "Data tersebut akan dihapus!",
+				icon: 'warning',
+				showCancelButton: true,
+				reverseButtons: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				cancelButtonText: 'Tidak',
+				confirmButtonText: 'Ya!'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					const id = $(this).data('id');
+					const url = "{{ route('api.v1.datatables.school-classes.destroy', ':paramID') }}".replace(':paramID', id);
+
+					$.ajax({
+						url: url,
+						method: 'DELETE',
+						success: res => {
+							Swal.fire({
+								icon: 'success',
+								title: 'Data berhasil dihapus!',
+								toast: true,
+								position: 'top-end',
+								showConfirmButton: false,
+								timer: 3000,
+								timerProgressBar: true,
+								didOpen: (toast) => {
+									toast.addEventListener('mouseenter', Swal.stopTimer)
+									toast.addEventListener('mouseleave', Swal.resumeTimer)
+								}
+							})
+
+							table.ajax.reload();
+						}
+					});
+				}
+			})
+		});
+
+		$('.modal').on('hidden.bs.modal', function () {
+			$(this).find('form :input').val('');
+		});
+
+		$('.modal').on('shown.bs.modal', function () {
+			$(this).find('input:first').focus();
 		});
 	});
 </script>

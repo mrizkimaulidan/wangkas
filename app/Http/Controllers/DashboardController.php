@@ -5,34 +5,28 @@ namespace App\Http\Controllers;
 use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
-use App\Repositories\CashTransactionRepository;
-use Illuminate\View\View;
+use App\Models\User;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function __construct(
-        private CashTransactionRepository $cashTransactionRepository,
-    ) {
-    }
-
     /**
      * Handle the incoming request.
-     *
-     * @return \Illuminate\View\View
      */
-    public function __invoke(): View
+    public function __invoke(Request $request)
     {
-        $amountThisMonth = indonesianCurrency($this->cashTransactionRepository->sumAmountBy('month', month: date('m')));
+        $counts = [
+            'students' => 0,
+            'schoolClasses' => 0,
+            'schoolMajors' => 0,
+            'administrators' => 0,
+        ];
 
-        $latestCashTransactions = $this->cashTransactionRepository
-            ->cashTransactionLatest(['id', 'student_id', 'user_id', 'bill', 'amount', 'date'], 5);
+        $counts['students'] = Student::count();
+        $counts['schoolClasses'] = SchoolClass::count();
+        $counts['schoolMajors'] = SchoolMajor::count();
+        $counts['administrators'] = User::count();
 
-        return view('dashboard.index', [
-            'studentCount' => Student::count(),
-            'schoolClassCount' => SchoolClass::count(),
-            'schoolMajorCount' => SchoolMajor::count(),
-            'amountThisMonth' => $amountThisMonth,
-            'latestCashTransactions' => $latestCashTransactions
-        ]);
+        return view('dashboard', compact('counts'));
     }
 }

@@ -1,32 +1,61 @@
-<div class="modal fade" id="showAdministratorModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
-	aria-hidden="true">
-	<div class="modal-dialog">
+<div class="modal fade text-left" id="showModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-scrollable" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Detail Administrator</h5>
-				<button type="button" class="btn-close  " data-bs-dismiss="modal" aria-label="Close"></button>
+				<h5 class="modal-title">
+					Lihat Data Administrator
+				</h5>
+				<button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+					<i data-feather="x"></i>
+				</button>
 			</div>
 			<div class="modal-body">
-				@include('utilities.loading-alert')
-				<div class="row">
-					<div class="col-md-12">
-						<div class="mb-3">
-							<label for="name" class="form-label">Nama Lengkap</label>
-							<input type="text" class="form-control" id="name" disabled>
+				<form class="form form-vertical">
+					<div class="form-body">
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group has-icon-left">
+									<label for="name">Nama:</label>
+									<div class="position-relative">
+										<input type="text" class="form-control" id="name" disabled />
+										<div class="form-control-icon">
+											<i class="bi bi-person-fill"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group has-icon-left">
+									<label for="email">Email:</label>
+									<div class="position-relative">
+										<input type="text" class="form-control" id="email" disabled />
+										<div class="form-control-icon">
+											<i class="bi bi-envelope-fill"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="form-group has-icon-left">
+									<label for="created_at">Tanggal Ditambahkan:</label>
+									<div class="position-relative">
+										<input type="text" class="form-control" id="created_at" disabled />
+										<div class="form-control-icon">
+											<i class="bi bi-calendar2-date-fill"></i>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<div class="mb-3">
-							<label for="email" class="form-label">Email</label>
-							<input type="email" class="form-control" id="email" disabled>
-						</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary  " data-bs-dismiss="modal">Tutup</button>
-				</div>
+				</form>
 			</div>
 		</div>
 	</div>
