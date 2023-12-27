@@ -103,10 +103,15 @@
 			<div class="col-12">
 				<div class="card">
 					<div class="card-header">
-						<h4>Profile Visit</h4>
+						<h4 id="card-chart-cash-transactions-title">Transaksi Tahun Ini</h4>
+						<div class="mb-3">
+							<label for="year" class="form-label">Isi Tahun:</label>
+							<input type="number" id="year" placeholder="Masukan tahun.." value="{{ date('Y') }}" class="form-control">
+							<div class="form-text">Tekan tombol `Enter` untuk menampilkan grafik berdasarkan tahun yang dipilih.</div>
+						</div>
 					</div>
 					<div class="card-body">
-						<div id="chart-profile-visit"></div>
+						<div id="chart-cash-transactions-by-year"></div>
 					</div>
 				</div>
 			</div>
@@ -291,4 +296,5 @@
 @pushOnce('scripts')
 <script src="{{ asset('extensions/apexcharts/apexcharts.min.js') }}"></script>
 <script src="{{ asset('static/js/pages/dashboard.js') }}"></script>
+@include('script')
 @endPushOnce

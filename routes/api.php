@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\v1\ChartController;
 use App\Http\Controllers\API\v1\DataTables\AdministratorController;
 use App\Http\Controllers\API\v1\DataTables\CashTransactionController;
 use App\Http\Controllers\API\v1\DataTables\SchoolClassController;
@@ -23,12 +24,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::prefix('v1/datatable/')->name('api.v1.datatables.')->group(function () {
-    Route::apiResources([
-        '/school-classes' => SchoolClassController::class,
-        '/school-majors' => SchoolMajorController::class,
-        '/administrators' => AdministratorController::class,
-        '/students' => StudentController::class,
-        '/cash-transactions' => CashTransactionController::class,
-    ]);
+Route::prefix('v1/')->name('api.v1.')->group(function () {
+    Route::get('/cash-transactions/chart', [ChartController::class, 'cashTransactions'])
+        ->name('cash-transactions.statistics');
+
+    Route::prefix('datatable/')->name('datatables.')->group(function () {
+        Route::apiResources([
+            '/school-classes' => SchoolClassController::class,
+            '/school-majors' => SchoolMajorController::class,
+            '/administrators' => AdministratorController::class,
+            '/students' => StudentController::class,
+            '/cash-transactions' => CashTransactionController::class,
+        ]);
+    });
 });
