@@ -30,6 +30,7 @@
 @section('content')
 <div class="row">
 	<div class="col-12">
+		@include('utilities.alert')
 		<div class="row">
 			<div class="col-6 col-lg-6 col-md-6">
 				<div class="card">

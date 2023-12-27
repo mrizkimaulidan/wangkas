@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CashTransactionReportRequest;
 use App\Models\CashTransaction;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,7 @@ class CashTransactionReportController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function __invoke(CashTransactionReportRequest $request)
     {
         $cashTransactions = [];
         $cashTransactionsCurrentYear = CashTransaction::whereYear('date_paid', now()->year)->get();

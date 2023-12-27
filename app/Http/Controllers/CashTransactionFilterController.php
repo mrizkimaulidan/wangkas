@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CashTransactionFilterRequest;
 use App\Models\CashTransaction;
 use App\Models\Student;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ class CashTransactionFilterController extends Controller
     /**
      * Handle the incoming request.
      */
-    public function __invoke(Request $request)
+    public function __invoke(CashTransactionFilterRequest $request)
     {
         $cashTransactions = [];
 
