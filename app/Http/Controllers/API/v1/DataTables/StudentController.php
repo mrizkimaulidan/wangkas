@@ -206,6 +206,13 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+        if ($student->cashTransactions()->exists()) {
+            return response()->json([
+                'code' => Response::HTTP_CONFLICT,
+                'message' => 'Data pelajar tersebut terkait dengan transaksi kas, tidak dapat dihapus!',
+            ], Response::HTTP_CONFLICT);
+        }
+
         $student->delete();
 
         return response()->json([

@@ -105,6 +105,13 @@ class SchoolClassController extends Controller
      */
     public function destroy(SchoolClass $schoolClass)
     {
+        if ($schoolClass->students()->exists()) {
+            return response()->json([
+                'code' => Response::HTTP_CONFLICT,
+                'message' => 'Data kelas tersebut terkait dengan pelajar, tidak dapat dihapus!',
+            ], Response::HTTP_CONFLICT);
+        }
+
         $schoolClass->delete();
 
         return response()->json([

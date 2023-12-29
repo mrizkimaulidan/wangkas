@@ -1,198 +1,221 @@
 <script>
 	$(function () {
-		const table = $('#table').DataTable({
+		const table = $("#table").DataTable({
 			processing: true,
 			serverSide: true,
 			ajax: "{{ route('api.v1.datatables.school-majors.index') }}",
 			columns: [
-				{ data: 'DT_RowIndex', name: 'DT_RowIndex' },
-				{ data: 'name', name: 'name' },
-				{ data: 'abbreviation', name: 'abbreviation' },
-				{ data: 'action', name: 'action' }
-			]
+				{ data: "DT_RowIndex", name: "DT_RowIndex" },
+				{ data: "name", name: "name" },
+				{ data: "abbreviation", name: "abbreviation" },
+				{ data: "action", name: "action" },
+			],
 		});
 
-		$('#createModal form').submit(function (e) {
+		$("#createModal form").submit(function (e) {
 			e.preventDefault();
 
 			const formData = {
-				name: $('#createModal form #name').val(),
-				abbreviation: $('#createModal form #abbreviation').val(),
+				name: $("#createModal form #name").val(),
+				abbreviation: $("#createModal form #abbreviation").val(),
 			};
 
 			$.ajax({
 				url: "{{ route('api.v1.datatables.school-majors.store') }}",
-				method: 'POST',
+				method: "POST",
 				header: {
-					'Content-Type': 'application/json'
+					"Content-Type": "application/json",
 				},
 				data: formData,
-				success: res => {
+				success: (res) => {
 					table.ajax.reload();
-					$('#createModal').modal('hide');
+					$("#createModal").modal("hide");
 
 					Swal.fire({
-						icon: 'success',
-						title: 'Data jurusan berhasil ditambahkan!',
+						icon: "success",
+						title: "Data jurusan berhasil ditambahkan!",
 						toast: true,
-						position: 'top-end',
+						position: "top-end",
 						showConfirmButton: false,
 						timer: 3000,
 						timerProgressBar: true,
 						didOpen: (toast) => {
-							toast.addEventListener('mouseenter', Swal.stopTimer)
-							toast.addEventListener('mouseleave', Swal.resumeTimer)
-						}
+							toast.addEventListener("mouseenter", Swal.stopTimer);
+							toast.addEventListener("mouseleave", Swal.resumeTimer);
+						},
 					});
 				},
-				error: err => {
+				error: (err) => {
 					Swal.fire({
 						icon: "warning",
 						title: "Perhatian!",
 						text: err.responseJSON.message,
 					});
-				}
+				},
 			});
 		});
 
-		$('#table').on('click', '.show-modal', function () {
-			const id = $(this).data('id');
-			let url = "{{ route('api.v1.datatables.school-majors.show', ':paramID') }}".replace(':paramID', id);
+		$("#table").on("click", ".show-modal", function () {
+			const id = $(this).data("id");
+			let url =
+				"{{ route('api.v1.datatables.school-majors.show', ':paramID') }}".replace(
+					":paramID",
+					id
+				);
 
 			$.ajax({
 				url: url,
-				method: 'GET',
+				method: "GET",
 				header: {
-					'Content-Type': 'application/json'
+					"Content-Type": "application/json",
 				},
-				success: res => {
-					$('#showModal form #name').val(res.data.name);
-					$('#showModal form #abbreviation').val(res.data.abbreviation);
+				success: (res) => {
+					$("#showModal form #name").val(res.data.name);
+					$("#showModal form #abbreviation").val(res.data.abbreviation);
 				},
-				error: err => {
-					alert('error occured, check console');
+				error: (err) => {
+					alert("error occured, check console");
 					console.log(err);
-				}
+				},
 			});
 		});
 
-		$('#table').on('click', '.update-modal', function () {
-			const id = $(this).data('id');
-			let url = "{{ route('api.v1.datatables.school-majors.show', ':paramID') }}".replace(':paramID', id);
-			let updateURL = "{{ route('api.v1.datatables.school-majors.update', ':paramID') }}".replace(':paramID', id);
+		$("#table").on("click", ".update-modal", function () {
+			const id = $(this).data("id");
+			let url =
+				"{{ route('api.v1.datatables.school-majors.show', ':paramID') }}".replace(
+					":paramID",
+					id
+				);
+			let updateURL =
+				"{{ route('api.v1.datatables.school-majors.update', ':paramID') }}".replace(
+					":paramID",
+					id
+				);
 
 			$.ajax({
 				url: url,
-				method: 'GET',
+				method: "GET",
 				header: {
-					'Content-Type': 'application/json'
+					"Content-Type": "application/json",
 				},
-				success: res => {
-					$('#updateModal form #name').val(res.data.name);
-					$('#updateModal form #abbreviation').val(res.data.abbreviation);
-					$('#updateModal form').attr('action', updateURL);
+				success: (res) => {
+					$("#updateModal form #name").val(res.data.name);
+					$("#updateModal form #abbreviation").val(res.data.abbreviation);
+					$("#updateModal form").attr("action", updateURL);
 				},
-				error: err => {
-					alert('error occured, check console');
+				error: (err) => {
+					alert("error occured, check console");
 					console.log(err);
-				}
+				},
 			});
 		});
 
-		$('#updateModal form').submit(function (e) {
+		$("#updateModal form").submit(function (e) {
 			e.preventDefault();
 
 			const formData = {
-				name: $('#updateModal form #name').val(),
-				abbreviation: $('#updateModal form #abbreviation').val()
+				name: $("#updateModal form #name").val(),
+				abbreviation: $("#updateModal form #abbreviation").val(),
 			};
 
-			const updateURL = $('#updateModal form').attr('action');
+			const updateURL = $("#updateModal form").attr("action");
 
 			$.ajax({
 				url: updateURL,
-				method: 'PUT',
+				method: "PUT",
 				header: {
-					'Content-Type': 'application/json'
+					"Content-Type": "application/json",
 				},
 				data: formData,
-				success: res => {
+				success: (res) => {
 					table.ajax.reload();
-					$('#updateModal').modal('hide');
+					$("#updateModal").modal("hide");
 
 					Swal.fire({
-						icon: 'success',
-						title: 'Data kelas berhasil diubah!',
+						icon: "success",
+						title: "Data kelas berhasil diubah!",
 						toast: true,
-						position: 'top-end',
+						position: "top-end",
 						showConfirmButton: false,
 						timer: 3000,
 						timerProgressBar: true,
 						didOpen: (toast) => {
-							toast.addEventListener('mouseenter', Swal.stopTimer)
-							toast.addEventListener('mouseleave', Swal.resumeTimer)
-						}
+							toast.addEventListener("mouseenter", Swal.stopTimer);
+							toast.addEventListener("mouseleave", Swal.resumeTimer);
+						},
 					});
 				},
-				error: err => {
+				error: (err) => {
 					Swal.fire({
 						icon: "warning",
 						title: "Perhatian!",
 						text: err.responseJSON.message,
 					});
-				}
+				},
 			});
 		});
 
-		$('#table').on('click', '.delete', function (e) {
-			e.preventDefault()
+		$("#table").on("click", ".delete", function (e) {
+			e.preventDefault();
 
 			Swal.fire({
-				title: 'Hapus?',
+				title: "Hapus?",
 				text: "Data tersebut akan dihapus!",
-				icon: 'warning',
+				icon: "warning",
 				showCancelButton: true,
 				reverseButtons: true,
-				confirmButtonColor: '#3085d6',
-				cancelButtonColor: '#d33',
-				cancelButtonText: 'Tidak',
-				confirmButtonText: 'Ya!'
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				cancelButtonText: "Tidak",
+				confirmButtonText: "Ya!",
 			}).then((result) => {
 				if (result.isConfirmed) {
-					const id = $(this).data('id');
-					const url = "{{ route('api.v1.datatables.school-majors.destroy', ':paramID') }}".replace(':paramID', id);
+					const id = $(this).data("id");
+					const url =
+						"{{ route('api.v1.datatables.school-majors.destroy', ':paramID') }}".replace(
+							":paramID",
+							id
+						);
 
 					$.ajax({
 						url: url,
-						method: 'DELETE',
-						success: res => {
+						method: "DELETE",
+						success: (res) => {
 							Swal.fire({
-								icon: 'success',
-								title: 'Data berhasil dihapus!',
+								icon: "success",
+								title: "Data berhasil dihapus!",
 								toast: true,
-								position: 'top-end',
+								position: "top-end",
 								showConfirmButton: false,
 								timer: 3000,
 								timerProgressBar: true,
 								didOpen: (toast) => {
-									toast.addEventListener('mouseenter', Swal.stopTimer)
-									toast.addEventListener('mouseleave', Swal.resumeTimer)
-								}
-							})
+									toast.addEventListener("mouseenter", Swal.stopTimer);
+									toast.addEventListener("mouseleave", Swal.resumeTimer);
+								},
+							});
 
 							table.ajax.reload();
-						}
+						},
+						error: (err) => {
+							Swal.fire({
+								icon: "warning",
+								title: "Perhatian!",
+								text: err.responseJSON.message,
+							});
+						},
 					});
 				}
-			})
+			});
 		});
 
-		$('.modal').on('hidden.bs.modal', function () {
-			$(this).find('form :input').val('');
+		$(".modal").on("hidden.bs.modal", function () {
+			$(this).find("form :input").val("");
 		});
 
-		$('.modal').on('shown.bs.modal', function () {
-			$(this).find('input:first').focus();
+		$(".modal").on("shown.bs.modal", function () {
+			$(this).find("input:first").focus();
 		});
 	});
 </script>

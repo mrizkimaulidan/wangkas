@@ -116,6 +116,13 @@ class SchoolMajorController extends Controller
      */
     public function destroy(SchoolMajor $schoolMajor)
     {
+        if ($schoolMajor->students()->exists()) {
+            return response()->json([
+                'code' => Response::HTTP_CONFLICT,
+                'message' => 'Data jurusan tersebut terkait dengan pelajar, tidak dapat dihapus!',
+            ], Response::HTTP_CONFLICT);
+        }
+
         $schoolMajor->delete();
 
         return response()->json([
