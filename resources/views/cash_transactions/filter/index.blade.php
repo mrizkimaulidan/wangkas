@@ -139,35 +139,36 @@
 				<h6 class="pb-3">Daftar hasil filter data dari rentang tanggal {{ $cashTransactions['dateRange']['start'] }} -
 					{{
 					$cashTransactions['dateRange']['end'] }}</h6>
-				<table class="table w-100 table-hover" id="table">
-					<thead>
-						<tr>
-							<th>#</th>
-							<th>Pelajar</th>
-							<th>Tanggal Transaksi</th>
-							<th>Nominal Pembayaran</th>
-							<th>Dicatat Oleh</th>
-						</tr>
-					</thead>
-					<tbody>
-						@foreach ($cashTransactions['filteredResult'] as $cashTransaction)
-						<tr>
-							<td>{{ $loop->iteration }}</td>
-							<td>{{ $cashTransaction->student->name }}</td>
-							<td>{{ $cashTransaction->date_paid_formatted }}</td>
-							<td>{{ $cashTransaction->amount_formatted }}</td>
-							<td>{{ $cashTransaction->createdBy->name }}</td>
-						</tr>
-						@endforeach
-					</tbody>
-
-					<tfoot>
-						<tr>
-							<td colspan="4" align="right"><b>Total</b></td>
-							<td>{{ $cashTransactions['sum'] }}</td>
-						</tr>
-					</tfoot>
-				</table>
+				<div class="table-responsive">
+					<table class="table w-100 table-hover" id="table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Pelajar</th>
+								<th>Tanggal Transaksi</th>
+								<th>Nominal Pembayaran</th>
+								<th>Dicatat Oleh</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach ($cashTransactions['filteredResult'] as $cashTransaction)
+							<tr>
+								<td>{{ $loop->iteration }}</td>
+								<td>{{ $cashTransaction->student->name }}</td>
+								<td>{{ $cashTransaction->date_paid_formatted }}</td>
+								<td>{{ $cashTransaction->amount_formatted }}</td>
+								<td>{{ $cashTransaction->createdBy->name }}</td>
+							</tr>
+							@endforeach
+						</tbody>
+						<tfoot>
+							<tr>
+								<td colspan="4" align="right"><b>Total</b></td>
+								<td>{{ $cashTransactions['sum'] }}</td>
+							</tr>
+						</tfoot>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
