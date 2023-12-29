@@ -120,11 +120,11 @@
 			$.ajax({
 				url: studentsURL,
 				data: {
-					by: 'gender'
+					by: "gender",
 				},
 				success: function (res) {
 					initStudentChart(res);
-				}
+				},
 			});
 		}
 
@@ -147,7 +147,7 @@
 		// Initialize the charts when the page loads
 		initCharts();
 
-		$("#year").keypress(function (e) {
+		$("#year").keyup(function (e) {
 			if (e.keyCode === 13) {
 				updateChartByYear();
 			}
