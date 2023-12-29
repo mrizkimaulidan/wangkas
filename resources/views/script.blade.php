@@ -136,7 +136,7 @@
 				},
 				success: function (res) {
 					$("#card-chart-cash-transactions-title").text(
-						`Peminjaman Tahun ${$("#year").val()}`
+						`Transaksi Tahun ${$("#year").val()}`
 					);
 
 					updateCashTransactionsChartSeries(res);
