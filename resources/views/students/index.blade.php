@@ -42,7 +42,7 @@
 					</div>
 					<div class="col-md-8">
 						<h6 class="text-muted font-semibold">Laki-laki</h6>
-						<h6 class="font-extrabold mb-0">{{ $maleCount }}</h6>
+						<h6 class="font-extrabold mb-0">{{ $genderCounts['male'] }}</h6>
 					</div>
 				</div>
 			</div>
@@ -59,7 +59,7 @@
 					</div>
 					<div class="col-md-8">
 						<h6 class="text-muted font-semibold">Perempuan</h6>
-						<h6 class="font-extrabold mb-0">{{ $femaleCount }}</h6>
+						<h6 class="font-extrabold mb-0">{{ $genderCounts['female'] }}</h6>
 					</div>
 				</div>
 			</div>

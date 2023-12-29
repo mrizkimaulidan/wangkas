@@ -4,11 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
-use App\Models\Student;
+use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
+    public function __construct(
+        private StudentRepository $studentRepository
+    ) {
+    }
+
     /**
      * Handle the incoming request.
      */
@@ -17,9 +22,8 @@ class StudentController extends Controller
         $schoolClasses = SchoolClass::select('id', 'name')->orderBy('name')->get();
         $schoolMajors = SchoolMajor::select('id', 'name', 'abbreviation')->orderBy('name')->get();
 
-        $maleCount = Student::select('gender')->where('gender', 1)->count();
-        $femaleCount = Student::select('gender')->where('gender', 2)->count();
+        $genderCounts = $this->studentRepository->countStudentGender();
 
-        return view('students.index', compact('schoolClasses', 'schoolMajors', 'maleCount', 'femaleCount'));
+        return view('students.index', compact('schoolClasses', 'schoolMajors', 'genderCounts'));
     }
 }

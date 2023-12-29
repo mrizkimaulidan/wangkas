@@ -4,12 +4,17 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
-use App\Models\Student;
+use App\Repositories\StudentRepository;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class ChartController extends Controller
 {
+    public function __construct(
+        private StudentRepository $studentRepository
+    ) {
+    }
+
     private $months = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
 
     public function cashTransactions(Request $request)
@@ -43,18 +48,12 @@ class ChartController extends Controller
     public function students(Request $request)
     {
         if ($request->by === 'gender') {
-            $genderCount = [
-                'male' => 0,
-                'female' => 0,
-            ];
-
-            $genderCount['male'] = Student::select('gender')->where('gender', 1)->count();
-            $genderCount['female'] = Student::select('gender')->where('gender', 2)->count();
+            $genderCounts = $this->studentRepository->countStudentGender();
 
             return response()->json([
                 'code' => Response::HTTP_OK,
                 'message' => 'ok',
-                'data' => $genderCount,
+                'data' => $genderCounts,
             ], Response::HTTP_OK);
         }
 
