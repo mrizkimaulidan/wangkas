@@ -13,10 +13,13 @@ class StudentRepository
 
     public function countStudentGender()
     {
-        $counts = [
-            'male' => $this->model->select('gender')->where('gender', 1)->count(),
-            'female' => $this->model->select('gender')->where('gender', 2)->count(),
-        ];
+        $students = $this->model->select('gender')->get();
+
+        $counts = $students->countBy(function ($student) {
+            return $student->gender == 1 ? 'male' : 'female';
+        })->all();
+
+        $counts += ['male' => 0, 'female' => 0];
 
         return $counts;
     }
