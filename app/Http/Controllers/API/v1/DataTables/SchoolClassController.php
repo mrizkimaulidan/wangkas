@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1\DataTables;
 
 use App\Http\Controllers\Controller;
 use App\Models\SchoolClass;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,8 +13,10 @@ class SchoolClassController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $schoolClasses = SchoolClass::select('id', 'name')->get();
 
@@ -25,8 +28,11 @@ class SchoolClassController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $rules = [
             'name' => 'required|string|min:3|max:255',
@@ -57,8 +63,11 @@ class SchoolClassController extends Controller
 
     /**
      * Display the specified resource.
+     *
+     * @param \App\Models\SchoolClass $schoolClass
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(SchoolClass $schoolClass)
+    public function show(SchoolClass $schoolClass): JsonResponse
     {
         return response()->json([
             'code' => Response::HTTP_OK,
@@ -69,11 +78,15 @@ class SchoolClassController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\SchoolClass $schoolClass
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, SchoolClass $schoolClass)
+    public function update(Request $request, SchoolClass $schoolClass): JsonResponse
     {
         $rules = [
-            'name' => 'required|string|min:3|max:255|unique:school_classes,name,'.$schoolClass->id,
+            'name' => 'required|string|min:3|max:255|unique:school_classes,name,' . $schoolClass->id,
         ];
 
         $messages = [
@@ -102,8 +115,11 @@ class SchoolClassController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param \App\Models\SchoolClass $schoolClass
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(SchoolClass $schoolClass)
+    public function destroy(SchoolClass $schoolClass): JsonResponse
     {
         if ($schoolClass->students()->exists()) {
             return response()->json([

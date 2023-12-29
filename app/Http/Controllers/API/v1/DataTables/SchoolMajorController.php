@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1\DataTables;
 
 use App\Http\Controllers\Controller;
 use App\Models\SchoolMajor;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,8 +13,10 @@ class SchoolMajorController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $schoolMajors = SchoolMajor::select('id', 'name', 'abbreviation')->get();
 
@@ -25,8 +28,11 @@ class SchoolMajorController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $rules = [
             'name' => 'required|string|min:3|max:255',
@@ -63,8 +69,11 @@ class SchoolMajorController extends Controller
 
     /**
      * Display the specified resource.
+     *
+     * @param \App\Models\SchoolMajor $schoolMajor
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(SchoolMajor $schoolMajor)
+    public function show(SchoolMajor $schoolMajor): JsonResponse
     {
         return response()->json([
             'code' => Response::HTTP_OK,
@@ -75,12 +84,16 @@ class SchoolMajorController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request
+     * @param \App\Models\SchoolMajor $schoolMajor
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, SchoolMajor $schoolMajor)
+    public function update(Request $request, SchoolMajor $schoolMajor): JsonResponse
     {
         $rules = [
             'name' => 'required|string|min:3|max:255',
-            'abbreviation' => 'required|string|min:1|max:255|unique:school_majors,abbreviation,'.$schoolMajor->id,
+            'abbreviation' => 'required|string|min:1|max:255|unique:school_majors,abbreviation,' . $schoolMajor->id,
         ];
 
         $messages = [
@@ -113,8 +126,11 @@ class SchoolMajorController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param \App\Models\SchoolMajor $schoolMajor
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(SchoolMajor $schoolMajor)
+    public function destroy(SchoolMajor $schoolMajor): JsonResponse
     {
         if ($schoolMajor->students()->exists()) {
             return response()->json([

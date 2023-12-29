@@ -14,6 +14,8 @@ class SchoolClass extends Model
 
     /**
      * Get students relationship data.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function students(): HasMany
     {

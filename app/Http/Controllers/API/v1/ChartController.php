@@ -5,6 +5,8 @@ namespace App\Http\Controllers\API\v1;
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
 use App\Repositories\StudentRepository;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
@@ -15,13 +17,19 @@ class ChartController extends Controller
     ) {
     }
 
-    private $months = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
+    private array $months = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
 
-    public function cashTransactions(Request $request)
+    /**
+     * Undocumented function
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return Illuminate\Http\JsonResponse
+     */
+    public function cashTransactions(Request $request): JsonResponse
     {
         $query = CashTransaction::query();
 
-        $query->when($request->has('year'), function ($q) use ($request) {
+        $query->when($request->has('year'), function (Builder $q) use ($request) {
             return $q->whereYear('date_paid', $request->year);
         });
 
@@ -45,7 +53,13 @@ class ChartController extends Controller
         ], Response::HTTP_OK);
     }
 
-    public function students(Request $request)
+    /**
+     * Undocumented function
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function students(Request $request): JsonResponse
     {
         if ($request->by === 'gender') {
             $genderCounts = $this->studentRepository->countStudentGender();

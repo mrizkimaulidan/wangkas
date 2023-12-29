@@ -19,6 +19,8 @@ class Student extends Model
 
     /**
      * Get school class relationship data.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function schoolClass(): BelongsTo
     {
@@ -27,6 +29,8 @@ class Student extends Model
 
     /**
      * Get school major relationship data.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function schoolMajor(): BelongsTo
     {
@@ -35,6 +39,8 @@ class Student extends Model
 
     /**
      * Get cash transactions relationship data.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function cashTransactions(): HasMany
     {
@@ -43,6 +49,8 @@ class Student extends Model
 
     /**
      * Get gender name.
+     *
+     * @return string
      */
     public function getGenderName(): string
     {

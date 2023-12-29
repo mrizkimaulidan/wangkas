@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Repositories\StudentRepository;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 
 class StudentController extends Controller
 {
@@ -16,8 +16,10 @@ class StudentController extends Controller
 
     /**
      * Handle the incoming request.
+     *
+     * @return \Illuminate\Contracts\View\View
      */
-    public function __invoke(Request $request)
+    public function __invoke(): View
     {
         $schoolClasses = SchoolClass::select('id', 'name')->orderBy('name')->get();
         $schoolMajors = SchoolMajor::select('id', 'name', 'abbreviation')->orderBy('name')->get();

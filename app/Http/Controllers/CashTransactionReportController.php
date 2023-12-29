@@ -4,35 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CashTransactionReportRequest;
 use App\Models\CashTransaction;
-use Illuminate\Http\Request;
 
 class CashTransactionReportController extends Controller
 {
     /**
      * Handle the incoming request.
+     *
+     * @param \App\Http\Requests\CashTransactionReportRequest
      */
     public function __invoke(CashTransactionReportRequest $request)
     {
         $cashTransactions = [];
         $cashTransactionsCurrentYear = CashTransaction::whereYear('date_paid', now()->year)->get();
 
-        $cashTransactionCurrentMonthCount = $cashTransactionsCurrentYear
-            ->filter(function ($transaction) {
-                $datePaid = now()->createFromFormat('Y-m-d', $transaction->date_paid);
+        $cashTransactionCurrentMonthCount = $cashTransactionsCurrentYear->filter(function (CashTransaction $transaction) {
+            $datePaid = now()->createFromFormat('Y-m-d', $transaction->date_paid);
 
-                return (int) $datePaid->format('m') === now()->month;
-            })->sum('amount');
+            return (int) $datePaid->format('m') === now()->month;
+        })->sum('amount');
 
-        $cashTransactionCurrentWeekCount = $cashTransactionsCurrentYear
-            ->filter(function ($transaction) {
-                return now()->createFromFormat('Y-m-d', $transaction->date_paid)
-                    ->between(now()->startOfWeek()->toDateString(), now()->endOfWeek()->toDateString());
-            })->sum('amount');
+        $cashTransactionCurrentWeekCount = $cashTransactionsCurrentYear->filter(function (CashTransaction $transaction) {
+            return now()->createFromFormat('Y-m-d', $transaction->date_paid)
+                ->between(now()->startOfWeek()->toDateString(), now()->endOfWeek()->toDateString());
+        })->sum('amount');
 
-        $cashTransactionTodayCount = $cashTransactionsCurrentYear
-            ->filter(function ($transaction) {
-                return now()->createFromFormat('Y-m-d', $transaction->date_paid)->isToday();
-            })->sum('amount');
+        $cashTransactionTodayCount = $cashTransactionsCurrentYear->filter(function (CashTransaction $transaction) {
+            return now()->createFromFormat('Y-m-d', $transaction->date_paid)->isToday();
+        })->sum('amount');
 
         $cashTransactions = [
             'cashTransactionCurrentYearCount' => CashTransaction::localizationAmountFormat($cashTransactionsCurrentYear->sum('amount')),

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API\v1\DataTables;
 
 use App\Http\Controllers\Controller;
 use App\Models\CashTransaction;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
@@ -12,8 +13,10 @@ class CashTransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $cashTransactions = CashTransaction::select('id', 'student_id', 'amount', 'date_paid', 'created_by')
             ->with('student:id,name', 'createdBy:id,name')
@@ -29,8 +32,11 @@ class CashTransactionController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $rules = [
             'student_id' => 'required|numeric|exists:students,id',
@@ -80,8 +86,11 @@ class CashTransactionController extends Controller
 
     /**
      * Display the specified resource.
+     *
+     * @param \App\Models\CashTransaction $cashTransaction
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(CashTransaction $cashTransaction)
+    public function show(CashTransaction $cashTransaction): JsonResponse
     {
         return response()->json([
             'code' => Response::HTTP_OK,
@@ -92,8 +101,12 @@ class CashTransactionController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\CashTransaction $cashTransaction
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, CashTransaction $cashTransaction)
+    public function update(Request $request, CashTransaction $cashTransaction): JsonResponse
     {
         $rules = [
             'student_id' => 'required|numeric|exists:students,id',
@@ -143,8 +156,11 @@ class CashTransactionController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param \App\Models\CashTransaction $cashTransaction
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(CashTransaction $cashTransaction)
+    public function destroy(CashTransaction $cashTransaction): JsonResponse
     {
         $cashTransaction->delete();
 

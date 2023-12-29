@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CashTransactionFilterRequest;
 use App\Models\CashTransaction;
 use App\Models\Student;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 
 class CashTransactionFilterController extends Controller
 {
     /**
      * Handle the incoming request.
+     *
+     * @param \App\Http\Requests\CashTransactionFilterRequest
+     * @return \Illuminate\Contracts\View\View
      */
-    public function __invoke(CashTransactionFilterRequest $request)
+    public function __invoke(CashTransactionFilterRequest $request): View
     {
         $cashTransactions = [];
 
@@ -27,11 +30,11 @@ class CashTransactionFilterController extends Controller
             $students = Student::select('id', 'name', 'student_identification_number')
                 ->orderBy('student_identification_number')->get();
 
-            $studentsPaid = $students->filter(function ($student) use ($filteredResult) {
+            $studentsPaid = $students->filter(function (Student $student) use ($filteredResult) {
                 return $filteredResult->pluck('student_id')->contains($student->id);
             })->sortBy('name');
 
-            $studentsNotPaid = $students->reject(function ($student) use ($filteredResult) {
+            $studentsNotPaid = $students->reject(function (Student $student) use ($filteredResult) {
                 return $filteredResult->pluck('student_id')->contains($student->id);
             })->sortBy('name');
 

@@ -4,14 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\CashTransaction;
 use App\Models\Student;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 
 class CashTransactionController extends Controller
 {
     /**
      * Handle the incoming request.
+     *
+     * @return \Illuminate\Contracts\View\View
      */
-    public function __invoke(Request $request)
+    public function __invoke(): View
     {
         $students = Student::select('id', 'name', 'student_identification_number')
             ->orderBy('student_identification_number')->get();
@@ -21,11 +23,11 @@ class CashTransactionController extends Controller
             now()->endOfWeek()->toDateString(),
         ])->pluck('student_id');
 
-        $studentsPaidThisWeek = $students->filter(function ($student) use ($studentsPaidThisWeekIds) {
+        $studentsPaidThisWeek = $students->filter(function (Student $student) use ($studentsPaidThisWeekIds) {
             return $studentsPaidThisWeekIds->contains($student->id);
         })->sortBy('name');
 
-        $studentsNotPaidThisWeek = $students->reject(function ($student) use ($studentsPaidThisWeekIds) {
+        $studentsNotPaidThisWeek = $students->reject(function (Student $student) use ($studentsPaidThisWeekIds) {
             return $studentsPaidThisWeekIds->contains($student->id);
         })->sortBy('name');
 

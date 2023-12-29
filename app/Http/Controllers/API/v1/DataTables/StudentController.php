@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\v1\DataTables;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\API\v1\DataTables\StudentResource;
 use App\Models\Student;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,7 +15,7 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $students = Student::select(
             'id',
@@ -37,8 +38,10 @@ class StudentController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $rules = [
             'school_class_id' => 'required|numeric|exists:school_classes,id',
@@ -114,8 +117,11 @@ class StudentController extends Controller
 
     /**
      * Display the specified resource.
+     *
+     * @param \App\Models\Student $student
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(Student $student)
+    public function show(Student $student): JsonResponse
     {
         return response()->json([
             'code' => Response::HTTP_OK,
@@ -126,16 +132,20 @@ class StudentController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Student $student
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Student $student)
+    public function update(Request $request, Student $student): JsonResponse
     {
         $rules = [
             'school_class_id' => 'required|numeric|exists:school_classes,id',
             'school_major_id' => 'required|numeric|exists:school_majors,id',
-            'student_identification_number' => 'required|numeric|unique:students,student_identification_number,'.$student->id,
+            'student_identification_number' => 'required|numeric|unique:students,student_identification_number,' . $student->id,
             'name' => 'required|string|min:3|max:255',
-            'email' => 'required|email|min:3|max:255|unique:students,email,'.$student->id,
-            'phone_number' => 'required|numeric|digits_between:3,255|unique:students,phone_number,'.$student->id,
+            'email' => 'required|email|min:3|max:255|unique:students,email,' . $student->id,
+            'phone_number' => 'required|numeric|digits_between:3,255|unique:students,phone_number,' . $student->id,
             'gender' => 'required|numeric|in:1,2',
             'school_year_start' => 'required|numeric|digits_between:3,255',
             'school_year_end' => 'required|numeric|digits_between:3,255',
@@ -203,8 +213,11 @@ class StudentController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param \App\Models\Student $student
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Student $student)
+    public function destroy(Student $student): JsonResponse
     {
         if ($student->cashTransactions()->exists()) {
             return response()->json([

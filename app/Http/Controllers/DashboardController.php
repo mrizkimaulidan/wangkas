@@ -6,14 +6,16 @@ use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\View;
 
 class DashboardController extends Controller
 {
     /**
      * Handle the incoming request.
+     *
+     * @return \Illuminate\Contracts\View\View
      */
-    public function __invoke(Request $request)
+    public function __invoke(): View
     {
         $counts = [
             'students' => 0,

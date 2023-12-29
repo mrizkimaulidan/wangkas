@@ -16,6 +16,8 @@ class CashTransaction extends Model
 
     /**
      * Get student relationship data.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function student(): BelongsTo
     {
@@ -24,6 +26,8 @@ class CashTransaction extends Model
 
     /**
      * Get the user relationship who created the data.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function createdBy(): BelongsTo
     {
@@ -32,14 +36,19 @@ class CashTransaction extends Model
 
     /**
      * Format a numeric amount as a localized currency string.
+     *
+     * @param float $num
+     * @return string
      */
     public static function localizationAmountFormat(float $num): string
     {
-        return 'Rp'.number_format($num, 0, ',', '.');
+        return 'Rp' . number_format($num, 0, ',', '.');
     }
 
     /**
      * Get the formatted date_paid attribute in 'd-m-Y' format.
+     *
+     * @return string
      */
     public function getDatePaidFormattedAttribute(): string
     {
@@ -48,6 +57,8 @@ class CashTransaction extends Model
 
     /**
      * Get the formatted amount attribute using localizationAmountFormat.
+     *
+     * @return string
      */
     public function getAmountFormattedAttribute(): string
     {

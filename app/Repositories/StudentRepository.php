@@ -11,7 +11,12 @@ class StudentRepository
     ) {
     }
 
-    public function countStudentGender()
+    /**
+     * Count student occurences by gender.
+     *
+     * @return array
+     */
+    public function countStudentGender(): array
     {
         $students = $this->model->select('gender')->get();
 

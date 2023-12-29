@@ -10,6 +10,8 @@ class AuthenticationController extends Controller
 {
     /**
      * Show the login form.
+     *
+     * @return \Illuminate\Contracts\View\View
      */
     public function showLoginForm(): View
     {
@@ -19,9 +21,9 @@ class AuthenticationController extends Controller
     /**
      * Authenticate user from login page with credentials.
      *
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function login(Request $request)
+    public function login(Request $request): RedirectResponse
     {
         if (auth()->attempt($request->only('email', 'password'))) {
             $request->session()->regenerate();
@@ -34,6 +36,8 @@ class AuthenticationController extends Controller
 
     /**
      * Logout the user.
+     *
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function logout(Request $request): RedirectResponse
     {

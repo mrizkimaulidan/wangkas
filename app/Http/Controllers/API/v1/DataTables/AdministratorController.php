@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API\v1\DataTables;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\API\v1\DataTables\AdministratorResource;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,8 +14,10 @@ class AdministratorController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $administrators = User::select('id', 'name', 'email', 'created_at')->get();
 
@@ -29,8 +32,11 @@ class AdministratorController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
         $rules = [
             'name' => 'required|string|min:3|max:255',
@@ -76,8 +82,11 @@ class AdministratorController extends Controller
 
     /**
      * Display the specified resource.
+     *
+     * @param \App\Models\User $administrator
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(User $administrator)
+    public function show(User $administrator): JsonResponse
     {
         return response()->json([
             'code' => Response::HTTP_OK,
@@ -88,8 +97,12 @@ class AdministratorController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param Illuminate\Http\Request $request
+     * @param \App\Models\User $administrator
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, User $administrator)
+    public function update(Request $request, User $administrator): JsonResponse
     {
         $administrator->update($request->all());
 
@@ -102,8 +115,11 @@ class AdministratorController extends Controller
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param \App\Models\User $administrator
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(User $administrator)
+    public function destroy(User $administrator): JsonResponse
     {
         $administrator->delete();
 
