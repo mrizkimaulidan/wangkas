@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\API\v1\ChartController;
+use App\Http\Controllers\API\v1\CashTransactionStatisticController;
 use App\Http\Controllers\API\v1\DataTables\AdministratorController;
 use App\Http\Controllers\API\v1\DataTables\CashTransactionController;
 use App\Http\Controllers\API\v1\DataTables\SchoolClassController;
 use App\Http\Controllers\API\v1\DataTables\SchoolMajorController;
 use App\Http\Controllers\API\v1\DataTables\StudentController;
+use App\Http\Controllers\API\v1\StudentStatisticController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,9 +26,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1/')->name('api.v1.')->group(function () {
-    Route::get('/cash-transactions/statistics', [ChartController::class, 'cashTransactions'])
+    Route::get('/cash-transactions/statistics', CashTransactionStatisticController::class)
         ->name('cash-transactions.statistics');
-    Route::get('/students/statistics', [ChartController::class, 'students'])->name('students.statistics');
+    Route::get('/students/statistics', StudentStatisticController::class)->name('students.statistics');
 
     Route::prefix('datatable/')->name('datatables.')->group(function () {
         Route::apiResources([
