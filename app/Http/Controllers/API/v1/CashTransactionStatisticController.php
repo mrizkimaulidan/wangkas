@@ -12,6 +12,8 @@ use Illuminate\Support\Collection as SupportCollection;
 
 class CashTransactionStatisticController extends Controller
 {
+    private $months = ['jan', 'feb', 'mar', 'apr', 'may', 'june', 'july', 'aug', 'sep', 'oct', 'nov', 'dec'];
+
     /**
      * Handle the incoming request.
      *
@@ -31,18 +33,24 @@ class CashTransactionStatisticController extends Controller
         }
 
         if ($request->year === 'all') {
+            $collection = $this->applyFilterAllMonths($query, $request->year);
+
+            $statistics = $this->fillMissingMonthsCounts($collection);
             return response()->json([
                 'code' => Response::HTTP_OK,
                 'message' => 'ok',
-                'data' => $this->applyFilterAllMonths($query)
-            ]);
+                'data' => $statistics
+            ], Response::HTTP_OK);
         }
 
         if (is_numeric($request->year)) {
+            $collection = $this->applyFilterSpecificYear($query, $request->year);
+
+            $statistics = $this->fillMissingMonthsCounts($collection);
             return response()->json([
                 'code' => Response::HTTP_OK,
                 'message' => 'ok',
-                'data' => $this->applyFilterSpecificYear($query, $request->year)
+                'data' => $statistics
             ], Response::HTTP_OK);
         }
 
@@ -74,9 +82,8 @@ class CashTransactionStatisticController extends Controller
      */
     private function applyFilterAllMonths(Builder $query): SupportCollection
     {
-        return $query->selectRaw('LEFT(LOWER(MONTHNAME(date_paid)), 3) AS month, COUNT(*) AS count')
+        return $query->selectRaw('MONTH(date_paid) AS month, COUNT(*) AS count')
             ->groupBy('month')
-            ->orderByRaw('MONTH(date_paid)')
             ->get()
             ->pluck('count', 'month');
     }
@@ -90,11 +97,30 @@ class CashTransactionStatisticController extends Controller
      */
     private function applyFilterSpecificYear(Builder $query, $year): SupportCollection
     {
-        return $query->selectRaw('LEFT(LOWER(MONTHNAME(date_paid)), 3) AS month, COUNT(*) AS count')
+        return $query->selectRaw('MONTH(date_paid) AS month, COUNT(*) AS count')
             ->whereYear('date_paid', $year)
             ->groupBy('month')
-            ->orderByRaw('MONTH(date_paid)')
             ->get()
             ->pluck('count', 'month');
+    }
+
+    /**
+     * Fill in missing counts for each month in the provided collection.
+     *
+     * @param \Illuminate\Support\Collection $collection
+     * @return array
+     */
+    private function fillMissingMonthsCounts(SupportCollection $collection): array
+    {
+        $statistics = [];
+
+        for ($i = 1; $i <= 12; $i++) {
+            // if key exists so there is a borrowing count on that month
+            // if key does not exists there is no borrowing on that month so the count
+            // should be 0
+            $statistics[$this->months[$i - 1]] = isset($collection[$i]) ? $collection[$i] : 0;
+        }
+
+        return $statistics;
     }
 }
