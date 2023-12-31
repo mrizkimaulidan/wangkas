@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1/')->name('api.v1.')->group(function () {
-    Route::get('/cash-transactions/chart', [ChartController::class, 'cashTransactions'])
+    Route::get('/cash-transactions/statistics', [ChartController::class, 'cashTransactions'])
         ->name('cash-transactions.statistics');
     Route::get('/students/statistics', [ChartController::class, 'students'])->name('students.statistics');
 
