@@ -72,7 +72,6 @@
 @pushOnce('modal')
 @include('administrators.modal.create')
 @include('administrators.modal.show')
-@include('administrators.modal.edit')
 @endPushOnce
 
 @pushOnce('scripts')
