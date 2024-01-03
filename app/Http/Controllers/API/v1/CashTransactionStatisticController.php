@@ -3,16 +3,20 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
-use App\Models\CashTransaction;
-use Illuminate\Contracts\Database\Eloquent\Builder;
+use App\Repositories\CashTransactionRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Collection as SupportCollection;
+use Illuminate\Support\Collection;
 
 class CashTransactionStatisticController extends Controller
 {
     private $months = ['jan', 'feb', 'mar', 'apr', 'may', 'june', 'july', 'aug', 'sep', 'oct', 'nov', 'dec'];
+
+    public function __construct(
+        private CashTransactionRepository $cashTransactionRepository
+    ) {
+    }
 
     /**
      * Handle the incoming request.
@@ -22,20 +26,18 @@ class CashTransactionStatisticController extends Controller
      */
     public function __invoke(Request $request): JsonResponse
     {
-        $query = CashTransaction::query();
-
         if ($request->year === 'per_year') {
             return response()->json([
                 'code' => Response::HTTP_OK,
                 'message' => 'ok',
-                'data' => $this->applyFilterPerYear($query)
+                'data' => $this->cashTransactionRepository->applyFilterPerYear()
             ]);
         }
 
         if ($request->year === 'all') {
-            $collection = $this->applyFilterAllMonths($query, $request->year);
-
+            $collection = $this->cashTransactionRepository->applyFilterAllMonths($request->year);
             $statistics = $this->fillMissingMonthsCounts($collection);
+
             return response()->json([
                 'code' => Response::HTTP_OK,
                 'message' => 'ok',
@@ -44,9 +46,9 @@ class CashTransactionStatisticController extends Controller
         }
 
         if (is_numeric($request->year)) {
-            $collection = $this->applyFilterSpecificYear($query, $request->year);
-
+            $collection = $this->cashTransactionRepository->applyFilterSpecificYear($request->year);
             $statistics = $this->fillMissingMonthsCounts($collection);
+
             return response()->json([
                 'code' => Response::HTTP_OK,
                 'message' => 'ok',
@@ -61,56 +63,12 @@ class CashTransactionStatisticController extends Controller
     }
 
     /**
-     * Apply filter to retrieve cash transaction data grouped by year.
-     *
-     * @param \Illuminate\Database\Query\Builder $query
-     * @return \Illuminate\Support\Collection
-     */
-    private function applyFilterPerYear(Builder $query): SupportCollection
-    {
-        return $query->selectRaw('YEAR(date_paid) AS year, COUNT(*) AS count')
-            ->groupBy('year')
-            ->get()
-            ->pluck('count', 'year');
-    }
-
-    /**
-     * Apply filter to retrieve cash transaction data grouped by month and ordered by month.
-     *
-     * @param \Illuminate\Database\Query\Builder $query
-     * @return \Illuminate\Support\Collection
-     */
-    private function applyFilterAllMonths(Builder $query): SupportCollection
-    {
-        return $query->selectRaw('MONTH(date_paid) AS month, COUNT(*) AS count')
-            ->groupBy('month')
-            ->get()
-            ->pluck('count', 'month');
-    }
-
-    /**
-     * Apply filter to retrieve cash transaction data for a specific year grouped by month and ordered by month.
-     *
-     * @param \Illuminate\Database\Query\Builder $query
-     * @param int $year
-     * @return \Illuminate\Support\Collection
-     */
-    private function applyFilterSpecificYear(Builder $query, $year): SupportCollection
-    {
-        return $query->selectRaw('MONTH(date_paid) AS month, COUNT(*) AS count')
-            ->whereYear('date_paid', $year)
-            ->groupBy('month')
-            ->get()
-            ->pluck('count', 'month');
-    }
-
-    /**
      * Fill in missing counts for each month in the provided collection.
      *
      * @param \Illuminate\Support\Collection $collection
      * @return array
      */
-    private function fillMissingMonthsCounts(SupportCollection $collection): array
+    private function fillMissingMonthsCounts(Collection $collection): array
     {
         $statistics = [];
 
