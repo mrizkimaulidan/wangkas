@@ -68,7 +68,7 @@
 					},
 				],
 				chart: {
-					height: 250,
+					height: 300,
 					type: "line",
 					zoom: {
 						enabled: false,
