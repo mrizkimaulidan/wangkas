@@ -55,6 +55,47 @@
 			chart.render();
 		}
 
+		function initCashTransactionsChartPerYear(data) {
+			const years = Object.keys(data.data);
+			const yearValues = Object.values(data.data);
+
+			const cashTransactionChartPerYear = {
+				series: [
+					{
+						name: "Total Transaksi",
+						data: yearValues,
+					},
+				],
+				chart: {
+					height: 350,
+					type: "line",
+					zoom: {
+						enabled: false,
+					},
+				},
+				dataLabels: {
+					enabled: false,
+				},
+				stroke: {
+					curve: "straight",
+				},
+				grid: {
+					row: {
+						colors: ["#f3f3f3", "transparent"],
+						opacity: 0.5,
+					},
+				},
+				xaxis: {
+					categories: years,
+				},
+			};
+
+			new ApexCharts(
+				document.querySelector("#chart-cash-transactions-per-year"),
+				cashTransactionChartPerYear
+			).render();
+		}
+
 		function updateCashTransactionsChartSeries(data) {
 			if (chart) {
 				chart.updateSeries([
@@ -124,6 +165,16 @@
 				},
 				success: function (res) {
 					initStudentChart(res);
+				},
+			});
+
+			$.ajax({
+				url: "{{ route('api.v1.cash-transactions.statistics') }}",
+				data: {
+					year: "per_year",
+				},
+				success: function (res) {
+					initCashTransactionsChartPerYear(res);
 				},
 			});
 		}
