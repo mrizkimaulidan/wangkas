@@ -99,34 +99,6 @@
 				</div>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-12">
-				<div class="card">
-					<div class="card-header">
-						<h4 id="card-chart-cash-transactions-title">Transaksi Tahun Ini</h4>
-						<div class="mb-3">
-							<label for="year" class="form-label">Isi Tahun:</label>
-							<input type="number" id="year" placeholder="Masukan tahun.." value="{{ date('Y') }}" class="form-control">
-							<div class="form-text">Tekan tombol `Enter` untuk menampilkan grafik berdasarkan tahun yang dipilih.</div>
-						</div>
-					</div>
-					<div class="card-body">
-						<div id="chart-cash-transactions-by-year"></div>
-					</div>
-				</div>
-			</div>
-
-			<div class="col-12">
-				<div class="card">
-					<div class="card-header">
-						<h4>Transaksi Per Tahun</h4>
-					</div>
-					<div class="card-body">
-						<div id="chart-cash-transactions-per-year"></div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 	<div class="col-12 col-lg-3">
 		<div class="card">
@@ -142,12 +114,33 @@
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-9">
 		<div class="card">
 			<div class="card-header">
-				<h4>Jenis Kelamin Pelajar</h4>
+				<h4 id="card-chart-cash-transactions-title">Transaksi Tahun Ini</h4>
+				<div class="mb-3">
+					<label for="year" class="form-label">Isi Tahun:</label>
+					<input type="number" id="year" placeholder="Masukan tahun.." value="{{ date('Y') }}" class="form-control">
+					<div class="form-text">Tekan tombol `Enter` untuk menampilkan grafik berdasarkan tahun yang dipilih.</div>
+				</div>
 			</div>
 			<div class="card-body">
-				<div id="chart-students-gender"></div>
+				<div id="chart-cash-transactions-by-year"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-9">
+		<div class="card">
+			<div class="card-header">
+				<h4>Transaksi Per Tahun</h4>
+			</div>
+			<div class="card-body">
+				<div id="chart-cash-transactions-per-year"></div>
 			</div>
 		</div>
 	</div>

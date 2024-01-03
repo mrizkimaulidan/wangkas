@@ -1,6 +1,7 @@
 <script>
 	$(function () {
-		const cashTransactionStatisticURL = "{{ route('api.v1.cash-transactions.statistics') }}";
+		const cashTransactionStatisticURL =
+			"{{ route('api.v1.cash-transactions.statistics') }}";
 		const studentStatisticURL = "{{ route('api.v1.students.statistics') }}";
 		let chart = null;
 
@@ -8,7 +9,7 @@
 			const cashTransactionsChartByYear = {
 				chart: {
 					type: "bar",
-					height: 300,
+					height: 250,
 				},
 				series: [
 					{
@@ -67,7 +68,7 @@
 					},
 				],
 				chart: {
-					height: 350,
+					height: 250,
 					type: "line",
 					zoom: {
 						enabled: false,
@@ -96,7 +97,7 @@
 			).render();
 		}
 
-		function updateCashTransactionsChartByYear(data) {
+		function updateCashTransactionsChartSeriesByYear(data) {
 			if (chart) {
 				chart.updateSeries([
 					{
@@ -119,34 +120,6 @@
 			}
 		}
 
-		function initStudentGenderChart(data) {
-			const studentChartPieGender = {
-				series: [data.data.male, data.data.female],
-				labels: ["Laki-laki", "Perempuan"],
-				colors: ["#57CAEB", "#FF7976"],
-				chart: {
-					type: "donut",
-					width: "100%",
-					height: "350px",
-				},
-				legend: {
-					position: "bottom",
-				},
-				plotOptions: {
-					pie: {
-						donut: {
-							size: "30%",
-						},
-					},
-				},
-			};
-
-			new ApexCharts(
-				document.querySelector("#chart-students-gender"),
-				studentChartPieGender
-			).render();
-		}
-
 		function initCharts() {
 			$.ajax({
 				url: cashTransactionStatisticURL,
@@ -155,16 +128,6 @@
 				},
 				success: function (res) {
 					initCashTransactionsChartByYear(res);
-				},
-			});
-
-			$.ajax({
-				url: studentStatisticURL,
-				data: {
-					by: "gender",
-				},
-				success: function (res) {
-					initStudentGenderChart(res);
 				},
 			});
 
@@ -181,7 +144,7 @@
 
 		function updateCashTransactionsChartByYear() {
 			$.ajax({
-				url: url,
+				url: cashTransactionStatisticURL,
 				data: {
 					year: $("#year").val(),
 				},
@@ -190,7 +153,7 @@
 						`Transaksi Tahun ${$("#year").val()}`
 					);
 
-					updateCashTransactionsChartByYear(res);
+					updateCashTransactionsChartSeriesByYear(res);
 				},
 			});
 		}
