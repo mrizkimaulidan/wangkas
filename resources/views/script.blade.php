@@ -1,10 +1,10 @@
 <script>
 	$(function () {
-		const url = "{{ route('api.v1.cash-transactions.statistics') }}";
-		const studentsURL = "{{ route('api.v1.students.statistics') }}";
+		const cashTransactionStatisticURL = "{{ route('api.v1.cash-transactions.statistics') }}";
+		const studentStatisticURL = "{{ route('api.v1.students.statistics') }}";
 		let chart = null;
 
-		function initCashTransactionsChart(data) {
+		function initCashTransactionsChartByYear(data) {
 			const cashTransactionsChartByYear = {
 				chart: {
 					type: "bar",
@@ -96,7 +96,7 @@
 			).render();
 		}
 
-		function updateCashTransactionsChartSeries(data) {
+		function updateCashTransactionsChartByYear(data) {
 			if (chart) {
 				chart.updateSeries([
 					{
@@ -119,7 +119,7 @@
 			}
 		}
 
-		function initStudentChart(data) {
+		function initStudentGenderChart(data) {
 			const studentChartPieGender = {
 				series: [data.data.male, data.data.female],
 				labels: ["Laki-laki", "Perempuan"],
@@ -149,27 +149,27 @@
 
 		function initCharts() {
 			$.ajax({
-				url: url,
+				url: cashTransactionStatisticURL,
 				data: {
 					year: new Date().getFullYear(),
 				},
 				success: function (res) {
-					initCashTransactionsChart(res);
+					initCashTransactionsChartByYear(res);
 				},
 			});
 
 			$.ajax({
-				url: studentsURL,
+				url: studentStatisticURL,
 				data: {
 					by: "gender",
 				},
 				success: function (res) {
-					initStudentChart(res);
+					initStudentGenderChart(res);
 				},
 			});
 
 			$.ajax({
-				url: "{{ route('api.v1.cash-transactions.statistics') }}",
+				url: cashTransactionStatisticURL,
 				data: {
 					year: "per_year",
 				},
@@ -179,7 +179,7 @@
 			});
 		}
 
-		function updateChartByYear() {
+		function updateCashTransactionsChartByYear() {
 			$.ajax({
 				url: url,
 				data: {
@@ -190,7 +190,7 @@
 						`Transaksi Tahun ${$("#year").val()}`
 					);
 
-					updateCashTransactionsChartSeries(res);
+					updateCashTransactionsChartByYear(res);
 				},
 			});
 		}
@@ -200,7 +200,7 @@
 
 		$("#year").keyup(function (e) {
 			if (e.keyCode === 13) {
-				updateChartByYear();
+				updateCashTransactionsChartByYear();
 			}
 		});
 	});
