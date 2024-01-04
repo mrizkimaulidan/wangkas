@@ -39,8 +39,10 @@
 
 		function initSchoolMajorChartStudentsCount(data) {
 			const options = {
-				series: data.data.map(schoolMajor => schoolMajor.students_count),
-				labels: data.data.map(schoolMajor => `${schoolMajor.name} (${schoolMajor.abbreviation})`),
+				series: data.data.map((schoolMajor) => schoolMajor.students_count),
+				labels: data.data.map(
+					(schoolMajor) => `${schoolMajor.name} (${schoolMajor.abbreviation})`
+				),
 				chart: {
 					type: "donut",
 					width: "100%",
@@ -106,6 +108,7 @@
 		}
 
 		function initCashTransactionsChartByYear(data) {
+			console.log(data);
 			const cashTransactionsChartByYear = {
 				chart: {
 					type: "bar",
@@ -119,14 +122,14 @@
 							data.data.feb,
 							data.data.mar,
 							data.data.apr,
-							data.data.may,
+							data.data.mei,
 							data.data.jun,
 							data.data.jul,
-							data.data.aug,
+							data.data.agu,
 							data.data.sep,
-							data.data.oct,
+							data.data.okt,
 							data.data.nov,
-							data.data.dec,
+							data.data.des,
 						],
 					},
 				],
@@ -206,14 +209,14 @@
 							data.data.feb,
 							data.data.mar,
 							data.data.apr,
-							data.data.may,
+							data.data.mei,
 							data.data.jun,
 							data.data.jul,
-							data.data.aug,
+							data.data.agu,
 							data.data.sep,
-							data.data.oct,
+							data.data.okt,
 							data.data.nov,
-							data.data.dec,
+							data.data.des,
 						],
 					},
 				]);

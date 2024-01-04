@@ -11,7 +11,7 @@ use Illuminate\Support\Collection;
 
 class CashTransactionStatisticController extends Controller
 {
-    private $months = ['jan', 'feb', 'mar', 'apr', 'may', 'june', 'july', 'aug', 'sep', 'oct', 'nov', 'dec'];
+    private $months = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
 
     public function __construct(
         private CashTransactionRepository $cashTransactionRepository
