@@ -113,6 +113,9 @@
 					<div class="card-body">
 						<div id="chart-cash-transactions-by-year"></div>
 					</div>
+					<div class="card-body">
+						<div id="chart-cash-transactions-amount-by-year"></div>
+					</div>
 				</div>
 			</div>
 

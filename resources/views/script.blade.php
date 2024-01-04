@@ -7,6 +7,57 @@
 			"{{ route('api.v1.school-majors.statistics') }}";
 		let chart = null;
 
+		function initCashTransactionsChartAmountByYear(data) {
+			const options = {
+				series: [
+					{
+						name: "Jumlah Pembayaran",
+						data: Object.values(data.data),
+					},
+				],
+				chart: {
+					height: 250,
+					type: "line",
+					zoom: {
+						enabled: false,
+					},
+				},
+				dataLabels: {
+					enabled: false,
+				},
+				stroke: {
+					curve: "straight",
+				},
+				grid: {
+					row: {
+						colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+						opacity: 0.5,
+					},
+				},
+				xaxis: {
+					categories: [
+						"Jan",
+						"Feb",
+						"Mar",
+						"Apr",
+						"Mei",
+						"Jun",
+						"Jul",
+						"Agu",
+						"Sep",
+						"Okt",
+						"Nov",
+						"Des",
+					],
+				},
+			};
+
+			new ApexCharts(
+				document.querySelector("#chart-cash-transactions-amount-by-year"),
+				options
+			).render();
+		}
+
 		function initStudentChartGender(data) {
 			const options = {
 				series: Object.values(data.data),
@@ -108,7 +159,6 @@
 		}
 
 		function initCashTransactionsChartByYear(data) {
-			console.log(data);
 			const cashTransactionsChartByYear = {
 				chart: {
 					type: "bar",
@@ -231,6 +281,16 @@
 				},
 				success: function (res) {
 					initCashTransactionsChartByYear(res);
+				},
+			});
+
+			$.ajax({
+				url: cashTransactionStatisticURL,
+				data: {
+					amount: new Date().getFullYear(),
+				},
+				success: function (res) {
+					initCashTransactionsChartAmountByYear(res);
 				},
 			});
 

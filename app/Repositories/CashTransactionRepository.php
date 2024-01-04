@@ -66,4 +66,19 @@ class CashTransactionRepository
             ->get()
             ->pluck('amount', 'year');
     }
+
+    /**
+     * Get the total amount paid each month for a specific year.
+     *
+     * @param int $year
+     * @return \Illuminate\Support\Collection
+     */
+    public function getTotalAmountSpecificYear(int $year): SupportCollection
+    {
+        return $this->model->selectRaw('MONTH(date_paid) AS month, SUM(amount) AS amount')
+            ->whereYear('date_paid', $year)
+            ->groupBy('month')
+            ->get()
+            ->pluck('amount', 'month');
+    }
 }
