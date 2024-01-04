@@ -121,7 +121,7 @@
 	<div class="col-9">
 		<div class="card">
 			<div class="card-header">
-				<h4 id="card-chart-cash-transactions-title">Transaksi Tahun Ini</h4>
+				<h4 id="card-chart-cash-transactions-title">Total Transaksi Tahun Ini</h4>
 				<div class="mb-3">
 					<label for="year" class="form-label">Isi Tahun:</label>
 					<input type="number" id="year" placeholder="Masukan tahun.." value="{{ date('Y') }}" class="form-control">
@@ -137,10 +137,23 @@
 	<div class="col-9">
 		<div class="card">
 			<div class="card-header">
-				<h4>Transaksi Per Tahun</h4>
+				<h4>Total Transaksi Per Tahun</h4>
 			</div>
 			<div class="card-body">
 				<div id="chart-cash-transactions-per-year"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-9">
+		<div class="card">
+			<div class="card-header">
+				<h4>Total Jumlah Pembayaran Transaksi Per Tahun</h4>
+			</div>
+			<div class="card-body">
+				<div id="chart-cash-transactions-amount-per-year"></div>
 			</div>
 		</div>
 	</div>

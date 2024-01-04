@@ -45,6 +45,16 @@ class CashTransactionStatisticController extends Controller
             ], Response::HTTP_OK);
         }
 
+        if ($request->amount === 'per_year') {
+            $collection = $this->cashTransactionRepository->getTotalAmountByYear();
+
+            return response()->json([
+                'code' => Response::HTTP_OK,
+                'message' => 'ok',
+                'data' => $collection
+            ], Response::HTTP_OK);
+        }
+
         if (is_numeric($request->year)) {
             $collection = $this->cashTransactionRepository->applyFilterSpecificYear($request->year);
             $statistics = $this->fillMissingMonthsCounts($collection);

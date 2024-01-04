@@ -5,6 +5,44 @@
 		const studentStatisticURL = "{{ route('api.v1.students.statistics') }}";
 		let chart = null;
 
+		function initCashTransactionsChartAmountPerYear(data) {
+			const years = Object.keys(data.data);
+			const yearValues = Object.values(data.data);
+
+			const cashTransactionAmountPerYear = {
+				series: [
+					{
+						name: "Jumlah Pembayaran",
+						data: yearValues,
+					},
+				],
+				chart: {
+					height: 350,
+					type: "line",
+					zoom: {
+						enabled: false,
+					},
+				},
+				dataLabels: {
+					enabled: false,
+				},
+				stroke: {
+					curve: "straight",
+				},
+				grid: {
+					row: {
+						colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
+						opacity: 0.5,
+					},
+				},
+				xaxis: {
+					categories: years,
+				},
+			};
+
+			new ApexCharts(document.querySelector("#chart-cash-transactions-amount-per-year"), cashTransactionAmountPerYear).render();
+		}
+
 		function initCashTransactionsChartByYear(data) {
 			const cashTransactionsChartByYear = {
 				chart: {
@@ -138,6 +176,16 @@
 				},
 				success: function (res) {
 					initCashTransactionsChartPerYear(res);
+				},
+			});
+
+			$.ajax({
+				url: cashTransactionStatisticURL,
+				data: {
+					amount: "per_year",
+				},
+				success: function (res) {
+					initCashTransactionsChartAmountPerYear(res);
 				},
 			});
 		}

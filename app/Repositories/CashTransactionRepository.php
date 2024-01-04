@@ -52,4 +52,18 @@ class CashTransactionRepository
             ->get()
             ->pluck('count', 'month');
     }
+
+    /**
+     * Retrieve the total sum of amounts paid for each year.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getTotalAmountByYear(): SupportCollection
+    {
+        return $this->model->selectRaw('YEAR(date_paid) AS year, SUM(amount) AS amount')
+            ->groupBy('year')
+            ->orderBy('year')
+            ->get()
+            ->pluck('amount', 'year');
+    }
 }
