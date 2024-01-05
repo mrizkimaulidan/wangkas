@@ -121,23 +121,17 @@
 
 			<div class="col-12">
 				<div class="card">
-					<div class="card-header">
-						<h4>Total Transaksi Per Tahun</h4>
-					</div>
-					<div class="card-body">
-						<div id="chart-cash-transactions-per-year"></div>
-					</div>
+					<x-apexcharts.line-chart chartTitle="Total Transaksi Per Tahun" seriesTitle="Total Transaksi"
+						chartID="chart-cash-transactions-per-year" url="{{ route('api.v1.cash-transactions.statistics') }}"
+						:formData="['year' => 'all']" />
 				</div>
 			</div>
 
 			<div class="col-12">
 				<div class="card">
-					<div class="card-header">
-						<h4>Total Jumlah Pembayaran Transaksi Per Tahun</h4>
-					</div>
-					<div class="card-body">
-						<div id="chart-cash-transactions-amount-per-year"></div>
-					</div>
+					<x-apexcharts.line-chart chartTitle="Total Jumlah Pembayaran Transaksi Per Tahun"
+						seriesTitle="Total Pembayaran" chartID="chart-cash-transactions-amount-per-year"
+						url="{{ route('api.v1.cash-transactions.statistics') }}" :formData="['amount' => 'per_year']" />
 				</div>
 			</div>
 		</div>
