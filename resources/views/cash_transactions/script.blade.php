@@ -1,5 +1,11 @@
 <script>
 	$(function () {
+		$("#createModal #student_id").select2({
+			placeholder: "Pilih..",
+			theme: "bootstrap-5",
+			allowClear: true,
+		});
+
 		const table = $("#table").DataTable({
 			processing: true,
 			serverSide: true,
