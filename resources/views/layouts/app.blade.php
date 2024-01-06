@@ -18,6 +18,9 @@
 	<link rel="stylesheet" href="{{ asset('extensions/datatables.net-bs5/css/dataTables.bootstrap5.css') }}" />
 	<link rel="stylesheet" href="{{ asset('extensions/sweetalert2/sweetalert2.min.css') }}" />
 	<link rel="stylesheet" href="{{ asset('extensions/flatpickr/flatpickr.min.css') }}" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
 </head>
 
 <body>
@@ -177,6 +180,7 @@
 
 	<script src="{{ asset('compiled/js/app.js') }}"></script>
 	<script src="{{ asset('extensions/sweetalert2/sweetalert2.min.js') }}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 	<script>
 		$(function () {

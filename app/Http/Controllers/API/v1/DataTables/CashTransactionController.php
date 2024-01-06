@@ -39,7 +39,7 @@ class CashTransactionController extends Controller
     public function store(Request $request): JsonResponse
     {
         $rules = [
-            'student_id' => 'required|numeric|exists:students,id',
+            'student_id' => 'required|exists:students,id',
             'amount' => 'required|numeric',
             'date_paid' => 'required|date',
             'transaction_note' => 'nullable|string|min:3|max:255',
@@ -48,7 +48,6 @@ class CashTransactionController extends Controller
 
         $messages = [
             'student_id.required' => 'Kolom pelajar harus diisi!',
-            'student_id.numeric' => 'Kolom pelajar harus berupa angka!',
             'student_id.exists' => 'Pelajar yang dipilih tidak ditemukan!',
 
             'amount.required' => 'Kolom tagihan harus diisi!',
@@ -75,7 +74,15 @@ class CashTransactionController extends Controller
             ], Response::HTTP_BAD_REQUEST);
         }
 
-        $cashTransaction = CashTransaction::create($validator->validated());
+        $validatedInput = collect($validator->validated());
+        $studentIDs = collect($validatedInput['student_id']);
+        $transformedTransactions = $studentIDs->map(function ($studentID) use ($validatedInput) {
+            // recreate student_id from list of array
+            // to single value
+            return $validatedInput->except('student_id')->merge(['student_id' => $studentID])->toArray();
+        })->toArray();
+
+        $cashTransaction = CashTransaction::insert($transformedTransactions);
 
         return response()->json([
             'code' => Response::HTTP_CREATED,
