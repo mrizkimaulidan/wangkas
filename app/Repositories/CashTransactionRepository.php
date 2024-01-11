@@ -19,7 +19,7 @@ class CashTransactionRepository
      */
     public function applyFilterPerYear(): SupportCollection
     {
-        return $this->model->selectRaw('YEAR(date_paid) AS year, COUNT(*) AS count')
+        return $this->model->selectRaw('EXTRACT(YEAR FROM date_paid) AS year, COUNT(*) AS count')
             ->groupBy('year')
             ->get()
             ->pluck('count', 'year');
@@ -32,7 +32,7 @@ class CashTransactionRepository
      */
     public function applyFilterAllMonths(): SupportCollection
     {
-        return $this->model->selectRaw('MONTH(date_paid) AS month, COUNT(*) AS count')
+        return $this->model->selectRaw('EXTRACT(MONTH FROM date_paid) AS month, COUNT(*) AS count')
             ->groupBy('month')
             ->get()
             ->pluck('count', 'month');
@@ -46,7 +46,7 @@ class CashTransactionRepository
      */
     public function applyFilterSpecificYear($year): SupportCollection
     {
-        return $this->model->selectRaw('MONTH(date_paid) AS month, COUNT(*) AS count')
+        return $this->model->selectRaw('EXTRACT(MONTH FROM date_paid) AS month, COUNT(*) AS count')
             ->whereYear('date_paid', $year)
             ->groupBy('month')
             ->get()
@@ -60,7 +60,7 @@ class CashTransactionRepository
      */
     public function getTotalAmountByYear(): SupportCollection
     {
-        return $this->model->selectRaw('YEAR(date_paid) AS year, SUM(amount) AS amount')
+        return $this->model->selectRaw('EXTRACT(YEAR FROM date_paid) AS year, SUM(amount) AS amount')
             ->groupBy('year')
             ->orderBy('year')
             ->get()
@@ -75,7 +75,7 @@ class CashTransactionRepository
      */
     public function getTotalAmountSpecificYear(int $year): SupportCollection
     {
-        return $this->model->selectRaw('MONTH(date_paid) AS month, SUM(amount) AS amount')
+        return $this->model->selectRaw('EXTRACT(MONTH FROM date_paid) AS month, SUM(amount) AS amount')
             ->whereYear('date_paid', $year)
             ->groupBy('month')
             ->get()
