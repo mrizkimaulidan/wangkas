@@ -36,12 +36,11 @@ class CashTransactionStatisticController extends Controller
 
         if ($request->year === 'all') {
             $collection = $this->cashTransactionRepository->applyFilterAllMonths($request->year);
-            $statistics = $this->fillMissingMonthsCounts($collection);
 
             return response()->json([
                 'code' => Response::HTTP_OK,
                 'message' => 'ok',
-                'data' => $statistics
+                'data' => $collection
             ], Response::HTTP_OK);
         }
 

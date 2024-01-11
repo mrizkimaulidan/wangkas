@@ -32,10 +32,10 @@ class CashTransactionRepository
      */
     public function applyFilterAllMonths(): SupportCollection
     {
-        return $this->model->selectRaw('EXTRACT(MONTH FROM date_paid) AS month, COUNT(*) AS count')
-            ->groupBy('month')
+        return $this->model->selectRaw('EXTRACT(YEAR FROM date_paid) AS year, COUNT(*) AS count')
+            ->groupBy('year')
             ->get()
-            ->pluck('count', 'month');
+            ->pluck('count', 'year');
     }
 
     /**
