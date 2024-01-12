@@ -23,19 +23,15 @@ class StudentStatisticController extends Controller
      */
     public function __invoke(Request $request): JsonResponse
     {
-        if ($request->by === 'gender') {
-            $genderCounts = $this->studentRepository->countStudentGender();
+        $response = [
+            'code' => Response::HTTP_OK,
+            'message' => 'ok'
+        ];
 
-            return response()->json([
-                'code' => Response::HTTP_OK,
-                'message' => 'ok',
-                'data' => $genderCounts,
-            ], Response::HTTP_OK);
+        if ($request->by === 'gender') {
+            $response['data'] = $this->studentRepository->countStudentGender();
         }
 
-        return response()->json([
-            'code' => Response::HTTP_OK,
-            'message' => 'ok',
-        ], Response::HTTP_OK);
+        return response()->json($response, Response::HTTP_OK);
     }
 }

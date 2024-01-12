@@ -26,60 +26,34 @@ class CashTransactionStatisticController extends Controller
      */
     public function __invoke(Request $request): JsonResponse
     {
+        $response = [
+            'code' => Response::HTTP_OK,
+            'message' => 'ok',
+        ];
+
         if ($request->year === 'per_year') {
-            return response()->json([
-                'code' => Response::HTTP_OK,
-                'message' => 'ok',
-                'data' => $this->cashTransactionRepository->applyFilterPerYear()
-            ]);
+            $response['data'] = $this->cashTransactionRepository->applyFilterPerYear();
         }
 
         if ($request->year === 'all') {
-            $collection = $this->cashTransactionRepository->applyFilterAllMonths($request->year);
-
-            return response()->json([
-                'code' => Response::HTTP_OK,
-                'message' => 'ok',
-                'data' => $collection
-            ], Response::HTTP_OK);
+            $response['data'] = $this->cashTransactionRepository->applyFilterAllMonths($request->year);
         }
 
         if ($request->amount === 'per_year') {
-            $collection = $this->cashTransactionRepository->getTotalAmountByYear();
-
-            return response()->json([
-                'code' => Response::HTTP_OK,
-                'message' => 'ok',
-                'data' => $collection
-            ], Response::HTTP_OK);
+            $response['data'] = $this->cashTransactionRepository->getTotalAmountByYear();
         }
 
         if (is_numeric($request->amount)) {
             $collection = $this->cashTransactionRepository->getTotalAmountSpecificYear($request->amount);
-            $statistics = $this->fillMissingMonthsCounts(($collection));
-
-            return response()->json([
-                'code' => Response::HTTP_OK,
-                'message' => 'ok',
-                'data' => $statistics
-            ], Response::HTTP_OK);
+            $response['data'] = $this->fillMissingMonthsCounts($collection);
         }
 
         if (is_numeric($request->year)) {
             $collection = $this->cashTransactionRepository->applyFilterSpecificYear($request->year);
-            $statistics = $this->fillMissingMonthsCounts($collection);
-
-            return response()->json([
-                'code' => Response::HTTP_OK,
-                'message' => 'ok',
-                'data' => $statistics
-            ], Response::HTTP_OK);
+            $response['data'] = $this->fillMissingMonthsCounts($collection);
         }
 
-        return response()->json([
-            'code' => Response::HTTP_OK,
-            'message' => 'ok',
-        ], Response::HTTP_OK);
+        return response()->json($response, Response::HTTP_OK);
     }
 
     /**

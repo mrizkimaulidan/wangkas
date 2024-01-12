@@ -14,20 +14,15 @@ class SchoolMajorStatisticController extends Controller
      */
     public function __invoke(Request $request)
     {
-        if ($request->filter === 'students_count') {
-            $result = SchoolMajor::select('name', 'abbreviation')
-                ->withCount('students')->get();
+        $response = [
+            'code' => Response::HTTP_OK,
+            'message' => 'ok'
+        ];
 
-            return response()->json([
-                'code' => Response::HTTP_OK,
-                'message' => 'ok',
-                'data' => $result
-            ], Response::HTTP_OK);
+        if ($request->filter === 'students_count') {
+            $response['data'] = SchoolMajor::select('name', 'abbreviation')->withCount('students')->get();
         }
 
-        return response()->json([
-            'code' => Response::HTTP_OK,
-            'message' => 'ok',
-        ], Response::HTTP_OK);
+        return response()->json($response, Response::HTTP_OK);
     }
 }
