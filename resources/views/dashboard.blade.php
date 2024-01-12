@@ -123,7 +123,7 @@
 				<div class="card">
 					<x-apexcharts.line-chart chartTitle="Total Transaksi Per Tahun" seriesTitle="Total Transaksi"
 						chartID="chart-cash-transactions-per-year" url="{{ route('api.v1.cash-transactions.statistics') }}"
-						:formData="['year' => 'all']" />
+						:formData="['type' => 'counts', 'by' => 'per_year']" />
 				</div>
 			</div>
 
@@ -131,7 +131,8 @@
 				<div class="card">
 					<x-apexcharts.line-chart chartTitle="Total Jumlah Pembayaran Transaksi Per Tahun"
 						seriesTitle="Total Pembayaran" chartID="chart-cash-transactions-amount-per-year"
-						url="{{ route('api.v1.cash-transactions.statistics') }}" :formData="['amount' => 'per_year']" />
+						url="{{ route('api.v1.cash-transactions.statistics') }}"
+						:formData="['type' => 'amounts', 'by' => 'per_year']" />
 				</div>
 			</div>
 		</div>

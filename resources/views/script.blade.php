@@ -236,7 +236,8 @@
 			$.ajax({
 				url: cashTransactionStatisticURL,
 				data: {
-					year: new Date().getFullYear(),
+					type: "counts",
+					by: new Date().getFullYear(),
 				},
 				success: function (res) {
 					initCashTransactionsChartByYear(res);
@@ -246,7 +247,8 @@
 			$.ajax({
 				url: cashTransactionStatisticURL,
 				data: {
-					amount: new Date().getFullYear(),
+					type: "amounts",
+					by: new Date().getFullYear(),
 				},
 				success: function (res) {
 					initCashTransactionsChartAmountByYear(res);
@@ -278,7 +280,8 @@
 			$.ajax({
 				url: cashTransactionStatisticURL,
 				data: {
-					year: $("#year").val(),
+					type: "counts",
+					by: $("#year").val(),
 				},
 				success: function (res) {
 					$("#card-chart-cash-transactions-title").text(

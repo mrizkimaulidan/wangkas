@@ -13,11 +13,11 @@ class CashTransactionRepository
     }
 
     /**
-     * Apply filter to retrieve cash transaction data grouped by year.
+     * Retrieve cash transaction counts grouped by year.
      *
      * @return \Illuminate\Support\Collection
      */
-    public function applyFilterPerYear(): SupportCollection
+    public function getCountsPerYear(): SupportCollection
     {
         return $this->model->selectRaw('EXTRACT(YEAR FROM date_paid) AS year, COUNT(*) AS count')
             ->groupBy('year')
@@ -26,25 +26,12 @@ class CashTransactionRepository
     }
 
     /**
-     * Apply filter to retrieve cash transaction data grouped by month and ordered by month.
-     *
-     * @return \Illuminate\Support\Collection
-     */
-    public function applyFilterAllMonths(): SupportCollection
-    {
-        return $this->model->selectRaw('EXTRACT(YEAR FROM date_paid) AS year, COUNT(*) AS count')
-            ->groupBy('year')
-            ->get()
-            ->pluck('count', 'year');
-    }
-
-    /**
-     * Apply filter to retrieve cash transaction data for a specific year grouped by month and ordered by month.
+     * Retrieve cash transaction counts for a specific year grouped by month.
      *
      * @param int $year
      * @return \Illuminate\Support\Collection
      */
-    public function applyFilterSpecificYear($year): SupportCollection
+    public function getCountsSpecificYear(int $year): SupportCollection
     {
         return $this->model->selectRaw('EXTRACT(MONTH FROM date_paid) AS month, COUNT(*) AS count')
             ->whereYear('date_paid', $year)
@@ -58,7 +45,7 @@ class CashTransactionRepository
      *
      * @return \Illuminate\Support\Collection
      */
-    public function getTotalAmountByYear(): SupportCollection
+    public function getTotalAmountsPerYear(): SupportCollection
     {
         return $this->model->selectRaw('EXTRACT(YEAR FROM date_paid) AS year, SUM(amount) AS amount')
             ->groupBy('year')
@@ -73,7 +60,7 @@ class CashTransactionRepository
      * @param int $year
      * @return \Illuminate\Support\Collection
      */
-    public function getTotalAmountSpecificYear(int $year): SupportCollection
+    public function getTotalAmountsSpecificYear(int $year): SupportCollection
     {
         return $this->model->selectRaw('EXTRACT(MONTH FROM date_paid) AS month, SUM(amount) AS amount')
             ->whereYear('date_paid', $year)

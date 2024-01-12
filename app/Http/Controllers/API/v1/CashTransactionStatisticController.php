@@ -31,25 +31,21 @@ class CashTransactionStatisticController extends Controller
             'message' => 'ok',
         ];
 
-        if ($request->year === 'per_year') {
-            $response['data'] = $this->cashTransactionRepository->applyFilterPerYear();
+        if ($request->type === 'counts' && $request->by === 'per_year') {
+            $response['data'] = $this->cashTransactionRepository->getCountsPerYear();
         }
 
-        if ($request->year === 'all') {
-            $response['data'] = $this->cashTransactionRepository->applyFilterAllMonths($request->year);
-        }
-
-        if ($request->amount === 'per_year') {
-            $response['data'] = $this->cashTransactionRepository->getTotalAmountByYear();
-        }
-
-        if (is_numeric($request->amount)) {
-            $collection = $this->cashTransactionRepository->getTotalAmountSpecificYear($request->amount);
+        if ($request->type === 'counts' && is_numeric($request->by)) {
+            $collection = $this->cashTransactionRepository->getCountsSpecificYear($request->by);
             $response['data'] = $this->fillMissingMonthsCounts($collection);
         }
 
-        if (is_numeric($request->year)) {
-            $collection = $this->cashTransactionRepository->applyFilterSpecificYear($request->year);
+        if ($request->type === 'amounts' && $request->by === 'per_year') {
+            $response['data'] = $this->cashTransactionRepository->getTotalAmountsPerYear();
+        }
+
+        if ($request->type === 'amounts' && is_numeric($request->by)) {
+            $collection = $this->cashTransactionRepository->getTotalAmountsSpecificYear($request->by);
             $response['data'] = $this->fillMissingMonthsCounts($collection);
         }
 
