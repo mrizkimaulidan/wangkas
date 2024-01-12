@@ -11,7 +11,7 @@
 					name: "student_identification_number",
 				},
 				{ data: "name", name: "name" },
-				{ data: "school_class.name", name: "school_class_id" },
+				{ data: "school_class", name: "school_class" },
 				{ data: "school_major", name: "school_major" },
 				{ data: "school_year", name: "school_year" },
 				{ data: "action", name: "action" },

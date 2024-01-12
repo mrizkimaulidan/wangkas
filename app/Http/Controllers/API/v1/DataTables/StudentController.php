@@ -29,10 +29,11 @@ class StudentController extends Controller
 
         return datatables()->of($students)
             ->addIndexColumn()
+            ->addColumn('school_class', 'students.datatables.school_class')
             ->addColumn('school_major', 'students.datatables.school_major')
             ->addColumn('school_year', 'students.datatables.school_year')
             ->addColumn('action', 'students.datatables.action')
-            ->rawColumns(['school_major', 'school_year', 'action'])
+            ->rawColumns(['school_class', 'school_major', 'school_year', 'action'])
             ->toJson();
     }
 
