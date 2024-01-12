@@ -17,10 +17,9 @@
 								<div class="form-group has-icon-left">
 									<label for="student_identification_number">NIS/NISN/NIM:</label>
 									<div class="position-relative">
-										<input type="number" class="form-control" id="student_identification_number"
-											disabled />
+										<input type="number" class="form-control" id="student_identification_number" disabled />
 										<div class="form-control-icon">
-											<div class="bi bi-person-badge-fill"></div>
+											<div class="bi bi-person-bounding-box"></div>
 										</div>
 									</div>
 								</div>

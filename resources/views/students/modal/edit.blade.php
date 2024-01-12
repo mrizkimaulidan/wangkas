@@ -20,7 +20,7 @@
 										<input type="number" class="form-control" id="student_identification_number"
 											placeholder="Masukkan nis/nisn/nim..." />
 										<div class="form-control-icon">
-											<div class="bi bi-person-badge-fill"></div>
+											<div class="bi bi-person-bounding-box"></div>
 										</div>
 									</div>
 								</div>
