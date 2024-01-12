@@ -101,10 +101,17 @@ class CashTransactionController extends Controller
      */
     public function show(CashTransaction $cashTransaction): JsonResponse
     {
+        $cashTransaction->load(
+            'student:id,school_class_id,school_major_id,student_identification_number,name,phone_number',
+            'student.schoolClass:id,name',
+            'student.schoolMajor:id,name',
+            'createdBy:id,name'
+        );
+
         return response()->json([
             'code' => Response::HTTP_OK,
             'message' => 'success',
-            'data' => $cashTransaction->load('student:id,name', 'createdBy:id,name'),
+            'data' => $cashTransaction,
         ], Response::HTTP_OK);
     }
 

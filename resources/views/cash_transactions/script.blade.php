@@ -80,8 +80,11 @@
 					"Content-Type": "application/json",
 				},
 				success: (res) => {
-					console.log(res);
+					$("#showModal form #student_identification_number").val(res.data.student.student_identification_number);
 					$("#showModal form #student_id").val(res.data.student.name);
+					$("#showModal form #school_class_id").val(res.data.student.school_class.name);
+					$("#showModal form #school_major_id").val(res.data.student.school_major.name);
+					$("#showModal form #phone_number").val(res.data.student.phone_number);
 					$("#showModal form #created_by").val(res.data.created_by.name);
 					$("#showModal form #amount").val(res.data.amount_formatted);
 					$("#showModal form #date_paid").val(res.data.date_paid_formatted);
