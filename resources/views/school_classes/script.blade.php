@@ -204,13 +204,5 @@
 				}
 			});
 		});
-
-		$(".modal").on("hidden.bs.modal", function () {
-			$(this).find("form :input").val("");
-		});
-
-		$(".modal").on("shown.bs.modal", function () {
-			$(this).find("input:first").focus();
-		});
 	});
 </script>
