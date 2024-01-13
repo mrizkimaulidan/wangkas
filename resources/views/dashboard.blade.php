@@ -305,7 +305,7 @@
 		<div class="card">
 			<x-apexcharts.pie-chart chartTitle="Pelajar Berdasarkan Jenis Kelamin" chartID="chart-pie-student-gender"
 				:series="$charts['pieChart']['studentGender']['series']"
-				:labels="$charts['pieChart']['studentGender']['labels']" />
+				:labels="$charts['pieChart']['studentGender']['labels']" :colors="['#57CAEB', '#FF7976']" />
 		</div>
 		<div class="card">
 			<x-apexcharts.pie-chart chartTitle="Pelajar Berdasarkan Jurusan" chartID="chart-pie-student-school-major"

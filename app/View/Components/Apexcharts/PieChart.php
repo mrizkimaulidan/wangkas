@@ -15,14 +15,17 @@ class PieChart extends Component
      * @param string $chartID The unique identifier for the chart.
      * @param $series The data series for the chart.
      * @param $labels The labels for the chart data.
+     * @param ?array $colors (Optional) The colors for the chart data.
      */
     public function __construct(
         public string $chartTitle,
         public string $chartID,
         public $series,
-        public $labels
+        public $labels,
+        public ?array $colors = null
     ) {
     }
+
 
     /**
      * Get the view / contents that represent the component.

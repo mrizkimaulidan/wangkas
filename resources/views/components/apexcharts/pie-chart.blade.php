@@ -12,10 +12,9 @@
 	$(function () {
 		const chartID = "#{{ $chartID }}";
 
-		const options = {
+		let options = {
 			series: @json($series),
 			labels: @json($labels),
-			colors: ["#57CAEB", "#FF7976"],
 			chart: {
 				type: "donut",
 				width: "100%",
@@ -32,6 +31,10 @@
 				},
 			},
 		};
+
+		@isset($colors)
+			options.colors = @json($colors);
+		@endisset
 
 		new ApexCharts(document.querySelector(chartID), options).render();
 	});
