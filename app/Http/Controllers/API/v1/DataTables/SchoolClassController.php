@@ -18,10 +18,11 @@ class SchoolClassController extends Controller
      */
     public function index(): JsonResponse
     {
-        $schoolClasses = SchoolClass::select('id', 'name')->get();
+        $schoolClasses = SchoolClass::select('id', 'name');
 
         return datatables()->of($schoolClasses)
             ->addIndexColumn()
+            ->orderColumn('DT_RowIndex', false)
             ->addColumn('action', 'school_classes.datatables.action')
             ->toJson();
     }

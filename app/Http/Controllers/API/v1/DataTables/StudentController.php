@@ -25,10 +25,11 @@ class StudentController extends Controller
             'name',
             'school_year_start',
             'school_year_end'
-        )->with('schoolClass', 'schoolMajor')->get();
+        )->with('schoolClass:id,name', 'schoolMajor:id,name');
 
         return datatables()->of($students)
             ->addIndexColumn()
+            ->orderColumn('DT_RowIndex', false)
             ->addColumn('school_class', 'students.datatables.school_class')
             ->addColumn('school_major', 'students.datatables.school_major')
             ->addColumn('school_year', 'students.datatables.school_year')

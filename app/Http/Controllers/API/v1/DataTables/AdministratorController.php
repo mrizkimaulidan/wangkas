@@ -19,10 +19,11 @@ class AdministratorController extends Controller
      */
     public function index(): JsonResponse
     {
-        $administrators = User::select('id', 'name', 'email', 'created_at')->get();
+        $administrators = User::select('id', 'name', 'email', 'created_at');
 
         return datatables()->of($administrators)
             ->addIndexColumn()
+            ->orderColumn('DT_RowIndex', false)
             ->editColumn('created_at', function ($administrator) {
                 return $administrator->created_at->format('d-m-Y H:i');
             })

@@ -18,10 +18,11 @@ class SchoolMajorController extends Controller
      */
     public function index(): JsonResponse
     {
-        $schoolMajors = SchoolMajor::select('id', 'name', 'abbreviation')->get();
+        $schoolMajors = SchoolMajor::select('id', 'name', 'abbreviation');
 
         return datatables()->of($schoolMajors)
             ->addIndexColumn()
+            ->orderColumn('DT_RowIndex', false)
             ->addColumn('action', 'school_majors.datatables.action')
             ->toJson();
     }
