@@ -22,7 +22,9 @@ class CashTransactionController extends Controller
             ->with('student:id,name', 'createdBy:id,name')
             ->whereYear('date_paid', now()->year)
             ->whereMonth('date_paid', now()->month)
-            ->get();
+            ->get()
+            ->append('amount_formatted')
+            ->append('date_paid_formatted');
 
         return datatables()->of($cashTransactions)
             ->addIndexColumn()

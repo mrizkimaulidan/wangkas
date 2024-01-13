@@ -312,6 +312,12 @@
 				:series="$charts['pieChart']['studentMajor']['series']"
 				:labels="$charts['pieChart']['studentMajor']['labels']" />
 		</div>
+		<div class="card">
+			<x-apexcharts.pie-chart chartTitle="Total Transaksi Berdasarkan Jenis Kelamin"
+				chartID="chart-pie-cash-transaction-by-gender"
+				:series="$charts['pieChart']['cashTransactionCountByGender']['series']"
+				:labels="$charts['pieChart']['cashTransactionCountByGender']['labels']" />
+		</div>
 	</div>
 </section>
 @endsection

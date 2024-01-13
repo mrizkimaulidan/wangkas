@@ -12,8 +12,6 @@ class CashTransaction extends Model
 
     protected $fillable = ['student_id', 'amount', 'date_paid', 'transaction_note', 'created_by'];
 
-    protected $appends = ['amount_formatted', 'date_paid_formatted'];
-
     /**
      * Get student relationship data.
      *

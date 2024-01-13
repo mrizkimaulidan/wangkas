@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\CashTransaction;
 use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
@@ -27,6 +28,8 @@ class ChartGenerator
         $studentWithMajors = SchoolMajor::select('name', 'abbreviation')->withCount('students')->get();
         $cashTransactionAmountPerYear = $this->cashTransactionRepository->getTotalAmountsPerYear();
         $cashTransactionCountPerYear = $this->cashTransactionRepository->getCountsPerYear();
+        $cashTransactionCountByGender = $this->cashTransactionRepository->getCountByGender();
+        $studentGenders = $this->studentRepository->countStudentGender();
 
         return [
             'counter' => [
@@ -38,8 +41,8 @@ class ChartGenerator
             'pieChart' => [
                 'studentGender' => [
                     'series' => [
-                        $this->studentRepository->countStudentGender()['male'],
-                        $this->studentRepository->countStudentGender()['female']
+                        $studentGenders['male'],
+                        $studentGenders['female']
                     ],
                     'labels' => ['Laki-laki', 'Perempuan']
                 ],
@@ -48,6 +51,10 @@ class ChartGenerator
                     'labels' => $studentWithMajors->map(function ($studentMajor) {
                         return "$studentMajor->name ($studentMajor->abbreviation)";
                     })
+                ],
+                'cashTransactionCountByGender' => [
+                    'series' => $cashTransactionCountByGender->pluck('total_paid'),
+                    'labels' => ['Laki-laki', 'Perempuan']
                 ]
             ],
             'lineChart' => [

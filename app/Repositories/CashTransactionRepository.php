@@ -13,6 +13,19 @@ class CashTransactionRepository
     }
 
     /**
+     * Get the count of cash transactions grouped by gender.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function getCountByGender(): SupportCollection
+    {
+        return $this->model->leftJoin('students', 'cash_transactions.student_id', '=', 'students.id')
+            ->selectRaw('students.gender AS gender, COUNT(*) AS total_paid')
+            ->groupBy('gender')
+            ->get();
+    }
+
+    /**
      * Retrieve cash transaction counts grouped by year.
      *
      * @return \Illuminate\Support\Collection
