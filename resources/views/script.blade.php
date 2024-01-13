@@ -2,8 +2,6 @@
 	$(function () {
 		const cashTransactionStatisticURL =
 			"{{ route('api.v1.cash-transactions.statistics') }}";
-		const schoolMajorStatisticURL =
-			"{{ route('api.v1.school-majors.statistics') }}";
 		let chart = null;
 
 		function initCashTransactionsChartAmountByYear(data) {
