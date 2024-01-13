@@ -34,7 +34,7 @@
 									{{ $student->schoolMajor->name }} ({{ $student->schoolMajor->abbreviation }})
 								</span>
 								<span class="badge rounded-pill text-bg-{{ $student->gender === 1 ? 'info' : 'warning' }}">
-									<i class="bi bi-person"></i>
+									<i class="bi bi-{{ $student->gender === 1 ? 'gender-male' : 'gender-female' }}"></i>
 								</span>
 							</div>
 						</div>
