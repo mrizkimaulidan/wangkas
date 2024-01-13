@@ -108,7 +108,8 @@ class CashTransactionController extends Controller
             'student.schoolClass:id,name',
             'student.schoolMajor:id,name',
             'createdBy:id,name'
-        );
+        )->append('amount_formatted')
+            ->append('date_paid_formatted');;
 
         return response()->json([
             'code' => Response::HTTP_OK,
