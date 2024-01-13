@@ -15,7 +15,16 @@ class CashTransactionController extends Controller
      */
     public function __invoke(): View
     {
-        $students = Student::select('id', 'name', 'student_identification_number')
+        $students = Student::select(
+            'id',
+            'school_class_id',
+            'school_major_id',
+            'name',
+            'student_identification_number',
+            'phone_number',
+            'gender'
+        )
+            ->with('schoolClass:id,name', 'schoolMajor:id,name,abbreviation')
             ->orderBy('student_identification_number')->get();
 
         $studentsPaidThisWeekIds = CashTransaction::whereBetween('date_paid', [

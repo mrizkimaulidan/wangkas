@@ -11,13 +11,31 @@
 					@isset($cashTransactions['studentsNotPaid'])
 					@foreach ($cashTransactions['studentsNotPaid'] as $student)
 					<div class="col-6">
-						<div class="recent-message d-flex px-4 py-3">
-							<div class="name ms-4">
-								<h5 class="mb-1">
-									{{ $loop->iteration }}. {{ $student->name }}</h5>
-								<h6 class="text-muted mb-0">
+						<div class="card border rounded">
+							<div class="card-body">
+								<h5 class="card-title fw-bold">
+									{{ $loop->iteration }}. {{ $student->name }}
+								</h5>
+								<p class="card-text text-muted">
 									{{ $student->student_identification_number }}
-								</h6>
+								</p>
+								<p class="card-text text-muted">
+									<span class="badge rounded-pill text-bg-secondary">
+										<i class="bi bi-telephone-fill"></i>
+										{{ $student->phone_number }}
+									</span>
+								</p>
+								<span class="badge rounded-pill text-bg-primary">
+									<i class="bi bi-bookmark"></i>
+									{{ $student->schoolClass->name }}
+								</span>
+								<span class="badge rounded-pill text-bg-success">
+									<i class="bi bi-briefcase"></i>
+									{{ $student->schoolMajor->name }} ({{ $student->schoolMajor->abbreviation }})
+								</span>
+								<span class="badge rounded-pill text-bg-{{ $student->gender === 1 ? 'info' : 'warning' }}">
+									<i class="bi bi-person"></i>
+								</span>
 							</div>
 						</div>
 					</div>
