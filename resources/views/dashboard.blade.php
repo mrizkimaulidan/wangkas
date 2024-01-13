@@ -309,8 +309,8 @@
 		</div>
 		<div class="card">
 			<x-apexcharts.pie-chart chartTitle="Pelajar Berdasarkan Jurusan" chartID="chart-pie-student-school-major"
-				:series="$charts['pieChart']['studentMajor']['series']" :labels="$charts['pieChart']['studentMajor']['labels']"
-				seriesTitle="hehe" />
+				:series="$charts['pieChart']['studentMajor']['series']"
+				:labels="$charts['pieChart']['studentMajor']['labels']" />
 		</div>
 	</div>
 </section>
