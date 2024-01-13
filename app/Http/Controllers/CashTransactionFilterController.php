@@ -23,7 +23,12 @@ class CashTransactionFilterController extends Controller
             $startDate = now()->parse($request->start_date);
             $endDate = now()->parse($request->end_date);
 
-            $filteredResult = CashTransaction::with(['student:id,name', 'createdBy:id,name'])
+            $filteredResult = CashTransaction::select(
+                'id',
+                'student_id',
+                'amount',
+                'created_by'
+            )->with('student:id,name', 'createdBy:id,name')
                 ->whereBetween('date_paid', [$startDate, $endDate])
                 ->get();
 
@@ -39,13 +44,8 @@ class CashTransactionFilterController extends Controller
                 ->with('schoolClass:id,name', 'schoolMajor:id,name,abbreviation')
                 ->orderBy('student_identification_number')->get();
 
-            $studentsPaid = $students->filter(function (Student $student) use ($filteredResult) {
-                return $filteredResult->pluck('student_id')->contains($student->id);
-            })->sortBy('name');
-
-            $studentsNotPaid = $students->reject(function (Student $student) use ($filteredResult) {
-                return $filteredResult->pluck('student_id')->contains($student->id);
-            })->sortBy('name');
+            $studentsPaid = $students->whereIn('id', $filteredResult->pluck('student_id'))->sortBy('name');
+            $studentsNotPaid = $students->whereNotIn('id', $filteredResult->pluck('student_id'))->sortBy('name');
 
             $cashTransactions = [
                 'filteredResult' => $filteredResult,
