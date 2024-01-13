@@ -41,7 +41,7 @@
 								<h6 class="text-muted font-semibold">
 									Pelajar
 								</h6>
-								<h6 class="font-extrabold mb-0">{{ $counts['students'] }}</h6>
+								<h6 class="font-extrabold mb-0">{{ $charts['counter']['student'] }}</h6>
 							</div>
 						</div>
 					</div>
@@ -58,7 +58,7 @@
 							</div>
 							<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
 								<h6 class="text-muted font-semibold">Kelas</h6>
-								<h6 class="font-extrabold mb-0">{{ $counts['schoolClasses'] }}</h6>
+								<h6 class="font-extrabold mb-0">{{ $charts['counter']['schoolClass'] }}</h6>
 							</div>
 						</div>
 					</div>
@@ -75,7 +75,7 @@
 							</div>
 							<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
 								<h6 class="text-muted font-semibold">Jurusan</h6>
-								<h6 class="font-extrabold mb-0">{{ $counts['schoolMajors'] }}</h6>
+								<h6 class="font-extrabold mb-0">{{ $charts['counter']['schoolMajor'] }}</h6>
 							</div>
 						</div>
 					</div>
@@ -92,7 +92,7 @@
 							</div>
 							<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
 								<h6 class="text-muted font-semibold">Administrator</h6>
-								<h6 class="font-extrabold mb-0">{{ $counts['administrators'] }}</h6>
+								<h6 class="font-extrabold mb-0">{{ $charts['counter']['administrator'] }}</h6>
 							</div>
 						</div>
 					</div>
@@ -122,8 +122,9 @@
 			<div class="col-12">
 				<div class="card">
 					<x-apexcharts.line-chart chartTitle="Total Transaksi Per Tahun" seriesTitle="Total Transaksi"
-						chartID="chart-cash-transactions-per-year" url="{{ route('api.v1.cash-transactions.statistics') }}"
-						:formData="['type' => 'counts', 'by' => 'per_year']" />
+						chartID="chart-cash-transactions-count-per-year"
+						:series="$charts['lineChart']['cashTransactionCountPerYear']['series']"
+						:categories="$charts['lineChart']['cashTransactionCountPerYear']['categories']" />
 				</div>
 			</div>
 
@@ -131,8 +132,8 @@
 				<div class="card">
 					<x-apexcharts.line-chart chartTitle="Total Jumlah Pembayaran Transaksi Per Tahun"
 						seriesTitle="Total Pembayaran" chartID="chart-cash-transactions-amount-per-year"
-						url="{{ route('api.v1.cash-transactions.statistics') }}"
-						:formData="['type' => 'amounts', 'by' => 'per_year']" />
+						:series="$charts['lineChart']['cashTransactionAmountPerYear']['series']"
+						:categories="$charts['lineChart']['cashTransactionAmountPerYear']['categories']" />
 				</div>
 			</div>
 		</div>
@@ -302,20 +303,14 @@
 			</div>
 		</div>
 		<div class="card">
-			<div class="card-header text-center">
-				<h4>Pelajar Berdasarkan Jenis Kelamin</h4>
-			</div>
-			<div class="card-body">
-				<div id="chart-students-gender"></div>
-			</div>
+			<x-apexcharts.pie-chart chartTitle="Pelajar Berdasarkan Jenis Kelamin" chartID="chart-pie-student-gender"
+				:series="$charts['pieChart']['studentGender']['series']"
+				:labels="$charts['pieChart']['studentGender']['labels']" />
 		</div>
 		<div class="card">
-			<div class="card-header text-center">
-				<h4>Pelajar Berdasarkan Jurusan</h4>
-			</div>
-			<div class="card-body">
-				<div id="chart-school-major-students-count"></div>
-			</div>
+			<x-apexcharts.pie-chart chartTitle="Pelajar Berdasarkan Jurusan" chartID="chart-pie-student-school-major"
+				:series="$charts['pieChart']['studentMajor']['series']" :labels="$charts['pieChart']['studentMajor']['labels']"
+				seriesTitle="hehe" />
 		</div>
 	</div>
 </section>

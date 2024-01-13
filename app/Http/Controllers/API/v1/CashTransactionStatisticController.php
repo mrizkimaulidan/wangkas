@@ -31,17 +31,9 @@ class CashTransactionStatisticController extends Controller
             'message' => 'ok',
         ];
 
-        if ($request->type === 'counts' && $request->by === 'per_year') {
-            $response['data'] = $this->cashTransactionRepository->getCountsPerYear();
-        }
-
         if ($request->type === 'counts' && is_numeric($request->by)) {
             $collection = $this->cashTransactionRepository->getCountsSpecificYear($request->by);
             $response['data'] = $this->fillMissingMonthsCounts($collection);
-        }
-
-        if ($request->type === 'amounts' && $request->by === 'per_year') {
-            $response['data'] = $this->cashTransactionRepository->getTotalAmountsPerYear();
         }
 
         if ($request->type === 'amounts' && is_numeric($request->by)) {

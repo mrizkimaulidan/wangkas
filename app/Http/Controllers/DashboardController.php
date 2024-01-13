@@ -6,10 +6,16 @@ use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Models\User;
+use App\Services\ChartGenerator;
 use Illuminate\Contracts\View\View;
 
 class DashboardController extends Controller
 {
+    public function __construct(
+        private ChartGenerator $chartGenerator
+    ) {
+    }
+
     /**
      * Handle the incoming request.
      *
@@ -17,18 +23,8 @@ class DashboardController extends Controller
      */
     public function __invoke(): View
     {
-        $counts = [
-            'students' => 0,
-            'schoolClasses' => 0,
-            'schoolMajors' => 0,
-            'administrators' => 0,
-        ];
+        $charts = $this->chartGenerator->generateCharts();
 
-        $counts['students'] = Student::count();
-        $counts['schoolClasses'] = SchoolClass::count();
-        $counts['schoolMajors'] = SchoolMajor::count();
-        $counts['administrators'] = User::count();
-
-        return view('dashboard', compact('counts'));
+        return view('dashboard', compact('charts'));
     }
 }

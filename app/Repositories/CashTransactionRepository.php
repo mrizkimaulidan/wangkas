@@ -21,8 +21,7 @@ class CashTransactionRepository
     {
         return $this->model->selectRaw('EXTRACT(YEAR FROM date_paid) AS year, COUNT(*) AS count')
             ->groupBy('year')
-            ->get()
-            ->pluck('count', 'year');
+            ->get();
     }
 
     /**
@@ -50,8 +49,7 @@ class CashTransactionRepository
         return $this->model->selectRaw('EXTRACT(YEAR FROM date_paid) AS year, SUM(amount) AS amount')
             ->groupBy('year')
             ->orderBy('year')
-            ->get()
-            ->pluck('amount', 'year');
+            ->get();
     }
 
     /**

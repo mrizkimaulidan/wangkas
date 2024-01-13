@@ -2,7 +2,6 @@
 	$(function () {
 		const cashTransactionStatisticURL =
 			"{{ route('api.v1.cash-transactions.statistics') }}";
-		const studentStatisticURL = "{{ route('api.v1.students.statistics') }}";
 		const schoolMajorStatisticURL =
 			"{{ route('api.v1.school-majors.statistics') }}";
 		let chart = null;
@@ -58,65 +57,6 @@
 			).render();
 		}
 
-		function initStudentChartGender(data) {
-			const options = {
-				series: Object.values(data.data),
-				labels: Object.keys(data.data).map((genderName) => {
-					return genderName === "male" ? "Laki-laki" : "Perempuan";
-				}),
-				colors: ["#57CAEB", "#FF7976"],
-				chart: {
-					type: "donut",
-					width: "100%",
-					height: "350px",
-				},
-				legend: {
-					position: "bottom",
-				},
-				plotOptions: {
-					pie: {
-						donut: {
-							size: "30%",
-						},
-					},
-				},
-			};
-
-			new ApexCharts(
-				document.querySelector("#chart-students-gender"),
-				options
-			).render();
-		}
-
-		function initSchoolMajorChartStudentsCount(data) {
-			const options = {
-				series: data.data.map((schoolMajor) => schoolMajor.students_count),
-				labels: data.data.map(
-					(schoolMajor) => `${schoolMajor.name} (${schoolMajor.abbreviation})`
-				),
-				chart: {
-					type: "donut",
-					width: "100%",
-					height: "350px",
-				},
-				legend: {
-					position: "bottom",
-				},
-				plotOptions: {
-					pie: {
-						donut: {
-							size: "30%",
-						},
-					},
-				},
-			};
-
-			new ApexCharts(
-				document.querySelector("#chart-school-major-students-count"),
-				options
-			).render();
-		}
-
 		function initCashTransactionsChartByYear(data) {
 			const cashTransactionsChartByYear = {
 				chart: {
@@ -168,47 +108,6 @@
 			chart.render();
 		}
 
-		function initCashTransactionsChartPerYear(data) {
-			const years = Object.keys(data.data);
-			const yearValues = Object.values(data.data);
-
-			const cashTransactionChartPerYear = {
-				series: [
-					{
-						name: "Total Transaksi",
-						data: yearValues,
-					},
-				],
-				chart: {
-					height: 300,
-					type: "line",
-					zoom: {
-						enabled: false,
-					},
-				},
-				dataLabels: {
-					enabled: false,
-				},
-				stroke: {
-					curve: "straight",
-				},
-				grid: {
-					row: {
-						colors: ["#f3f3f3", "transparent"],
-						opacity: 0.5,
-					},
-				},
-				xaxis: {
-					categories: years,
-				},
-			};
-
-			new ApexCharts(
-				document.querySelector("#chart-cash-transactions-per-year"),
-				cashTransactionChartPerYear
-			).render();
-		}
-
 		function updateCashTransactionsChartSeriesByYear(data) {
 			if (chart) {
 				chart.updateSeries([
@@ -252,26 +151,6 @@
 				},
 				success: function (res) {
 					initCashTransactionsChartAmountByYear(res);
-				},
-			});
-
-			$.ajax({
-				url: studentStatisticURL,
-				data: {
-					by: "gender",
-				},
-				success: function (res) {
-					initStudentChartGender(res);
-				},
-			});
-
-			$.ajax({
-				url: schoolMajorStatisticURL,
-				data: {
-					filter: "students_count",
-				},
-				success: function (res) {
-					initSchoolMajorChartStudentsCount(res);
 				},
 			});
 		}
