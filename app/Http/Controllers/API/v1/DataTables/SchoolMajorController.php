@@ -23,6 +23,7 @@ class SchoolMajorController extends Controller
         return datatables()->of($schoolMajors)
             ->addIndexColumn()
             ->orderColumn('DT_RowIndex', false)
+            ->blacklist(['DT_RowIndex'])
             ->addColumn('action', 'school_majors.datatables.action')
             ->toJson();
     }

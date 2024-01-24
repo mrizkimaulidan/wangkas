@@ -24,6 +24,7 @@ class AdministratorController extends Controller
         return datatables()->of($administrators)
             ->addIndexColumn()
             ->orderColumn('DT_RowIndex', false)
+            ->blacklist(['DT_RowIndex'])
             ->editColumn('created_at', function ($administrator) {
                 return $administrator->created_at->format('d-m-Y H:i');
             })

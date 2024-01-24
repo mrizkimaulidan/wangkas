@@ -28,6 +28,7 @@ class CashTransactionController extends Controller
 
         return datatables()->of($cashTransactions)
             ->addIndexColumn()
+            ->blacklist(['DT_RowIndex'])
             ->addColumn('amount', 'cash_transactions.datatables.amount')
             ->addColumn('action', 'cash_transactions.datatables.action')
             ->rawColumns(['amount', 'action'])

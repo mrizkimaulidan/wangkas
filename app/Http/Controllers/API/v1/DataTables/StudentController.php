@@ -29,6 +29,7 @@ class StudentController extends Controller
 
         return datatables()->of($students)
             ->addIndexColumn()
+            ->blacklist(['DT_RowIndex'])
             ->orderColumn('DT_RowIndex', false)
             ->addColumn('school_class', 'students.datatables.school_class')
             ->addColumn('school_major', 'students.datatables.school_major')
