@@ -155,9 +155,6 @@
 				<div class="col card">
 					<div class="d-flex justify-content-end pb-3">
 						<div class="btn-group gap gap-2">
-							<a href="#" class="btn btn-secondary">
-								<span class="badge">0</span> Histori Data Kas
-							</a>
 							<button type="button" class="btn btn-primary icon icon-left" data-bs-toggle="modal"
 								data-bs-target="#createModal">
 								<i class="bi bi-plus-circle"></i> Tambah Data Kas
