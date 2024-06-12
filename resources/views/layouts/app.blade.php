@@ -125,6 +125,12 @@
 								<span>Administrator</span>
 							</a>
 						</li>
+						<li class="sidebar-item {{ request()->routeIs('profile-settings.*') ? 'active' : '' }}">
+							<a href="{{ route('profile-settings.index') }}" class="sidebar-link">
+								<i class="bi bi-person-fill-gear"></i>
+								<span>Pengaturan Profil</span>
+							</a>
+						</li>
 						<li class="sidebar-item">
 							<form action="{{ route('logout') }}" method="POST" id="logout">
 								@csrf

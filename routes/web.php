@@ -6,6 +6,7 @@ use App\Http\Controllers\CashTransactionController;
 use App\Http\Controllers\CashTransactionFilterController;
 use App\Http\Controllers\CashTransactionReportController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileSettingController;
 use App\Http\Controllers\SchoolClassController;
 use App\Http\Controllers\SchoolMajorController;
 use App\Http\Controllers\StudentController;
@@ -42,4 +43,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/cash-transactions', CashTransactionController::class)->name('cash-transactions.index');
     Route::get('/cash-transactions/report', CashTransactionReportController::class)->name('cash-transactions.report.index');
     Route::get('/cash-transactions/filter', CashTransactionFilterController::class)->name('cash-transactions.filter.index');
+
+    Route::get('/settings', [ProfileSettingController::class, 'index'])->name('profile-settings.index');
+    Route::put('/settings', [ProfileSettingController::class, 'update'])->name('profile-settings.update');
 });
