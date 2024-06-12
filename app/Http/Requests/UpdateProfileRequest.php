@@ -25,7 +25,7 @@ class UpdateProfileRequest extends FormRequest
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|min:3|max:255',
             'current_password' => 'nullable|current_password',
-            'password' => 'nullable|confirmed',
+            'password' => 'nullable|min:3|max:255|confirmed',
         ];
     }
 
@@ -43,6 +43,8 @@ class UpdateProfileRequest extends FormRequest
             'email.min' => 'Kolom email minimal harus 3 karakter!',
             'email.max' => 'Kolom email maksimal adalah 255 karakter!',
             'password.confirmed' => 'Konfirmasi kata sandi tidak cocok!',
+            'password.min' => 'Kolom password minimal harus 3 karakter!',
+            'password.max' => 'Kolom password maksimal adalah 255 karakter!',
             'current_password.current_password' => 'Kata sandi saat ini tidak benar!'
         ];
     }
