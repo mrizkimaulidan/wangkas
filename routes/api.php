@@ -1,11 +1,11 @@
 <?php
 
 use App\Http\Controllers\API\v1\CashTransactionStatisticController;
-use App\Http\Controllers\API\v1\DataTables\AdministratorController;
-use App\Http\Controllers\API\v1\DataTables\CashTransactionController;
-use App\Http\Controllers\API\v1\DataTables\SchoolClassController;
-use App\Http\Controllers\API\v1\DataTables\SchoolMajorController;
-use App\Http\Controllers\API\v1\DataTables\StudentController;
+use App\Http\Controllers\API\v1\AdministratorController;
+use App\Http\Controllers\API\v1\CashTransactionController;
+use App\Http\Controllers\API\v1\SchoolClassController;
+use App\Http\Controllers\API\v1\SchoolMajorController;
+use App\Http\Controllers\API\v1\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 

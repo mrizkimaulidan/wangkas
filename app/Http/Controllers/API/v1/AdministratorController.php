@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\API\v1\DataTables;
+namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\API\v1\DataTables\AdministratorResource;
+use App\Http\Resources\API\v1\AdministratorResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
