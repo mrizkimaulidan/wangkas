@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAdministratorRequest;
+use App\Http\Requests\UpdateAdministratorRequest;
 use App\Http\Resources\API\v1\AdministratorResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -38,42 +40,9 @@ class AdministratorController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreAdministratorRequest $request): JsonResponse
     {
-        $rules = [
-            'name' => 'required|string|min:3|max:255',
-            'email' => 'required|email|min:3|max:255|unique:users,email',
-            'password' => 'required|string|confirmed|min:3|max:255',
-        ];
-
-        $messages = [
-            'name.required' => 'Kolom nama harus diisi!',
-            'name.string' => 'Kolom nama harus berupa teks!',
-            'name.min' => 'Panjang nama minimal :min karakter!',
-            'name.max' => 'Panjang nama maksimal :max karakter!',
-
-            'email.required' => 'Kolom email harus diisi!',
-            'email.email' => 'Format email tidak valid!',
-            'email.min' => 'Panjang email minimal :min karakter!',
-            'email.max' => 'Panjang email maksimal :max karakter!',
-            'email.unique' => 'Email sudah digunakan!',
-
-            'password.required' => 'Kolom password harus diisi!',
-            'password.string' => 'Kolom password harus berupa teks!',
-            'password.confirmed' => 'Konfirmasi password tidak cocok!',
-            'password.min' => 'Panjang password minimal :min karakter!',
-            'password.max' => 'Panjang password maksimal :max karakter!',
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return response()->json([
-                'code' => Response::HTTP_BAD_REQUEST,
-                'message' => $validator->errors()->first(),
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
-        $administrator = User::create($validator->validated());
+        $administrator = User::create($request->validated());
 
         return response()->json([
             'code' => Response::HTTP_CREATED,
@@ -94,40 +63,6 @@ class AdministratorController extends Controller
             'code' => Response::HTTP_OK,
             'message' => 'success',
             'data' => new AdministratorResource($administrator),
-        ], Response::HTTP_OK);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param Illuminate\Http\Request $request
-     * @param \App\Models\User $administrator
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function update(Request $request, User $administrator): JsonResponse
-    {
-        $administrator->update($request->all());
-
-        return response()->json([
-            'code' => Response::HTTP_OK,
-            'message' => 'success',
-            'data' => $administrator,
-        ], Response::HTTP_OK);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\User $administrator
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function destroy(User $administrator): JsonResponse
-    {
-        $administrator->delete();
-
-        return response()->json([
-            'code' => Response::HTTP_OK,
-            'message' => 'success',
         ], Response::HTTP_OK);
     }
 }
