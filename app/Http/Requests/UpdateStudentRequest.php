@@ -39,7 +39,7 @@ class UpdateStudentRequest extends FormRequest
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             'school_class_id.required' => 'Kolom kelas harus diisi!',

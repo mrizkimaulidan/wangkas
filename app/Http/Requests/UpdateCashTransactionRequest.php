@@ -35,7 +35,7 @@ class UpdateCashTransactionRequest extends FormRequest
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             'student_id.required' => 'Kolom pelajar harus diisi!',

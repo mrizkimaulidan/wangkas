@@ -32,7 +32,7 @@ class StoreSchoolMajorRequest extends FormRequest
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             'name.required' => 'Kolom nama harus diisi',
