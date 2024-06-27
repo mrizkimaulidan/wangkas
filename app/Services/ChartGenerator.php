@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\CashTransaction;
 use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;

@@ -28,6 +28,7 @@
 				amount: $("#createModal form #amount").val(),
 				date_paid: $("#createModal form #date_paid").val(),
 				transaction_note: $("#createModal form #transaction_note").val(),
+				created_by: $("#createModal form #created_by").val()
 			};
 
 			$.ajax({
@@ -140,6 +141,7 @@
 				amount: $("#updateModal form #amount").val(),
 				date_paid: $("#updateModal form #date_paid").val(),
 				transaction_note: $("#updateModal form #transaction_note").val(),
+				created_by: $("#updateModal form #created_by").val()
 			};
 
 			const updateURL = $("#updateModal form").attr("action");

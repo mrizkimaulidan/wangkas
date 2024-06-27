@@ -4,12 +4,9 @@ namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdministratorRequest;
-use App\Http\Requests\UpdateAdministratorRequest;
 use App\Http\Resources\API\v1\AdministratorResource;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdministratorController extends Controller
@@ -37,7 +34,7 @@ class AdministratorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\StoreAdministratorRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(StoreAdministratorRequest $request): JsonResponse

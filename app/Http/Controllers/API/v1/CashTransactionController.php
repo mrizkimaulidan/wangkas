@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreCashTransactionRequest;
+use App\Http\Requests\UpdateCashTransactionRequest;
 use App\Models\CashTransaction;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class CashTransactionController extends Controller
@@ -38,48 +38,12 @@ class CashTransactionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\StoreCashTransactionRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreCashTransactionRequest $request): JsonResponse
     {
-        $rules = [
-            'student_id' => 'required|exists:students,id',
-            'amount' => 'required|numeric',
-            'date_paid' => 'required|date',
-            'transaction_note' => 'nullable|string|min:3|max:255',
-            'created_by' => 'required|numeric|exists:users,id',
-        ];
-
-        $messages = [
-            'student_id.required' => 'Kolom pelajar harus diisi!',
-            'student_id.exists' => 'Pelajar yang dipilih tidak ditemukan!',
-
-            'amount.required' => 'Kolom tagihan harus diisi!',
-            'amount.numeric' => 'Kolom tagihan harus berupa angka!',
-
-            'date_paid.required' => 'Kolom tanggal pembayaran harus diisi!',
-            'date_paid.date' => 'Format tanggal pembayaran tidak valid!',
-
-            'transaction_note.string' => 'Kolom catatan transaksi harus berupa teks!',
-            'transaction_note.min' => 'Panjang catatan transaksi minimal :min karakter!',
-            'transaction_note.max' => 'Panjang catatan transaksi maksimal :max karakter!',
-
-            'created_by.required' => 'Pencatat transaksi harus diisi!',
-            'created_by.numeric' => 'Pencatat transaksi harus berupa angka!',
-            'created_by.unique' => 'Pencatat transaksi tidak ditemukan!.',
-        ];
-
-        // TODO: the created_by should dynamic ID from authenticated user!
-        $validator = Validator::make($request->merge(['created_by' => 1])->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return response()->json([
-                'code' => Response::HTTP_BAD_REQUEST,
-                'message' => $validator->errors()->first(),
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
-        $validatedInput = collect($validator->validated());
+        $validatedInput = collect($request->validated());
         $studentIDs = collect($validatedInput['student_id']);
         $transformedTransactions = $studentIDs->map(function ($studentID) use ($validatedInput) {
             // recreate student_id from list of array
@@ -122,50 +86,13 @@ class CashTransactionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\UpdateCashTransactionRequest $request
      * @param \App\Models\CashTransaction $cashTransaction
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, CashTransaction $cashTransaction): JsonResponse
+    public function update(UpdateCashTransactionRequest $request, CashTransaction $cashTransaction): JsonResponse
     {
-        $rules = [
-            'student_id' => 'required|numeric|exists:students,id',
-            'amount' => 'required|numeric',
-            'date_paid' => 'required|date',
-            'transaction_note' => 'nullable|string|min:3|max:255',
-            'created_by' => 'required|numeric|exists:users,id',
-        ];
-
-        $messages = [
-            'student_id.required' => 'Kolom pelajar harus diisi!',
-            'student_id.numeric' => 'Kolom pelajar harus berupa angka!',
-            'student_id.exists' => 'Pelajar yang dipilih tidak ditemukan!',
-
-            'amount.required' => 'Kolom tagihan harus diisi!',
-            'amount.numeric' => 'Kolom tagihan harus berupa angka!',
-
-            'date_paid.required' => 'Kolom tanggal pembayaran harus diisi!',
-            'date_paid.date' => 'Format tanggal pembayaran tidak valid!',
-
-            'transaction_note.string' => 'Kolom catatan transaksi harus berupa teks!',
-            'transaction_note.min' => 'Panjang catatan transaksi minimal :min karakter!',
-            'transaction_note.max' => 'Panjang catatan transaksi maksimal :max karakter!',
-
-            'created_by.required' => 'Pencatat transaksi harus diisi!',
-            'created_by.numeric' => 'Pencatat transaksi harus berupa angka!',
-            'created_by.unique' => 'Pencatat transaksi tidak ditemukan!.',
-        ];
-
-        // TODO: the created_by should dynamic ID from authenticated user!
-        $validator = Validator::make($request->merge(['created_by' => 1])->all(), $rules, $messages);
-        if ($validator->fails()) {
-            return response()->json([
-                'code' => Response::HTTP_BAD_REQUEST,
-                'message' => $validator->errors()->first(),
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
-        $cashTransaction->update($validator->validated());
+        $cashTransaction->update($request->validated());
 
         return response()->json([
             'code' => Response::HTTP_OK,

@@ -59,6 +59,7 @@
 							</div>
 						</div>
 					</div>
+					<input type="hidden" id="created_by" value="{{ auth()->id() }}">
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
 						<button type="submit" class="btn btn-success">Ubah</button>

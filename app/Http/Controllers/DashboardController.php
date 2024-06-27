@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
-use App\Models\Student;
-use App\Models\User;
 use App\Services\ChartGenerator;
 use Illuminate\Contracts\View\View;
 

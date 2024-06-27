@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\API\v1;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreStudentRequest;
+use App\Http\Requests\UpdateStudentRequest;
 use App\Http\Resources\API\v1\StudentResource;
 use App\Models\Student;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
 class StudentController extends Controller
@@ -42,74 +42,11 @@ class StudentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\StoreStudentRequest $request
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreStudentRequest $request): JsonResponse
     {
-        $rules = [
-            'school_class_id' => 'required|numeric|exists:school_classes,id',
-            'school_major_id' => 'required|numeric|exists:school_majors,id',
-            'student_identification_number' => 'required|numeric|unique:students,student_identification_number',
-            'name' => 'required|string|min:3|max:255',
-            'email' => 'required|email|min:3|max:255|unique:students,email',
-            'phone_number' => 'required|numeric|digits_between:3,255|unique:students,phone_number',
-            'gender' => 'required|numeric|in:1,2',
-            'school_year_start' => 'required|numeric|digits_between:3,255',
-            'school_year_end' => 'required|numeric|digits_between:3,255',
-        ];
-
-        $messages = [
-            'school_class_id.required' => 'Kolom kelas harus diisi!',
-            'school_class_id.numeric' => 'Kolom kelas harus berupa angka!',
-            'school_class_id.exists' => 'Kelas yang dipilih tidak ditemukan!',
-
-            'school_major_id.required' => 'Kolom jurusan harus diisi!',
-            'school_major_id.numeric' => 'Kolom jurusan harus berupa angka!',
-            'school_major_id.exists' => 'Jurusan yang dipilih tidak ditemukan!',
-
-            'student_identification_number.required' => 'Kolom nomor identitas pelajar harus diisi!',
-            'student_identification_number.numeric' => 'Kolom nomor identitas pelajar harus berupa angka!',
-            'student_identification_number.unique' => 'Nomor identitas pelajar sudah digunakan!',
-
-            'name.required' => 'Kolom nama harus diisi!',
-            'name.string' => 'Kolom nama harus berupa teks!',
-            'name.min' => 'Panjang nama minimal :min karakter!',
-            'name.max' => 'Panjang nama maksimal :max karakter!',
-
-            'email.required' => 'Kolom email harus diisi!',
-            'email.email' => 'Format email tidak valid!',
-            'email.min' => 'Panjang email minimal :min karakter!',
-            'email.max' => 'Panjang email maksimal :max karakter!',
-            'email.unique' => 'Email sudah digunakan!',
-
-            'phone_number.required' => 'Kolom nomor telepon harus diisi!',
-            'phone_number.numeric' => 'Kolom nomor telepon harus berupa angka!',
-            'phone_number.digits_between' => 'Panjang nomor telepon harus antara :min dan :max digit!',
-            'phone_number.unique' => 'Nomor telepon sudah digunakan!',
-
-            'gender.required' => 'Kolom jenis kelamin harus diisi!',
-            'gender.numeric' => 'Kolom jenis kelamin harus berupa angka!',
-            'gender.in' => 'Jenis kelamin yang dipilih tidak valid!',
-
-            'school_year_start.required' => 'Kolom tahun masuk harus diisi!',
-            'school_year_start.numeric' => 'Kolom tahun masuk harus berupa angka!',
-            'school_year_start.digits_between' => 'Panjang tahun masuk harus antara :min dan :max digit!',
-
-            'school_year_end.required' => 'Kolom tahun lulus harus diisi!',
-            'school_year_end.numeric' => 'Kolom tahun lulus harus berupa angka!',
-            'school_year_end.digits_between' => 'Panjang tahun lulus harus antara :min dan :max digit!',
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $messages);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'code' => Response::HTTP_BAD_REQUEST,
-                'message' => $validator->errors()->first(),
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
-        $student = Student::create($validator->validated());
+        $student = Student::create($request->validated());
 
         return response()->json([
             'code' => Response::HTTP_CREATED,
@@ -136,76 +73,13 @@ class StudentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \App\Http\Requests\UpdateStudentRequest $request
      * @param \App\Models\Student $student
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Student $student): JsonResponse
+    public function update(UpdateStudentRequest $request, Student $student): JsonResponse
     {
-        $rules = [
-            'school_class_id' => 'required|numeric|exists:school_classes,id',
-            'school_major_id' => 'required|numeric|exists:school_majors,id',
-            'student_identification_number' => 'required|numeric|unique:students,student_identification_number,' . $student->id,
-            'name' => 'required|string|min:3|max:255',
-            'email' => 'required|email|min:3|max:255|unique:students,email,' . $student->id,
-            'phone_number' => 'required|numeric|digits_between:3,255|unique:students,phone_number,' . $student->id,
-            'gender' => 'required|numeric|in:1,2',
-            'school_year_start' => 'required|numeric|digits_between:3,255',
-            'school_year_end' => 'required|numeric|digits_between:3,255',
-        ];
-
-        $messages = [
-            'school_class_id.required' => 'Kolom kelas harus diisi!',
-            'school_class_id.numeric' => 'Kolom kelas harus berupa angka!',
-            'school_class_id.exists' => 'Kelas yang dipilih tidak ditemukan!',
-
-            'school_major_id.required' => 'Kolom jurusan harus diisi!',
-            'school_major_id.numeric' => 'Kolom jurusan harus berupa angka!',
-            'school_major_id.exists' => 'Jurusan yang dipilih tidak ditemukan!',
-
-            'student_identification_number.required' => 'Kolom nomor identitas pelajar harus diisi!',
-            'student_identification_number.numeric' => 'Kolom nomor identitas pelajar harus berupa angka!',
-            'student_identification_number.unique' => 'Nomor identitas pelajar sudah digunakan!',
-
-            'name.required' => 'Kolom nama harus diisi!',
-            'name.string' => 'Kolom nama harus berupa teks!',
-            'name.min' => 'Panjang nama minimal :min karakter!',
-            'name.max' => 'Panjang nama maksimal :max karakter!',
-
-            'email.required' => 'Kolom email harus diisi!',
-            'email.email' => 'Format email tidak valid!',
-            'email.min' => 'Panjang email minimal :min karakter!',
-            'email.max' => 'Panjang email maksimal :max karakter!',
-            'email.unique' => 'Email sudah digunakan!',
-
-            'phone_number.required' => 'Kolom nomor telepon harus diisi!',
-            'phone_number.numeric' => 'Kolom nomor telepon harus berupa angka!',
-            'phone_number.digits_between' => 'Panjang nomor telepon harus antara :min dan :max digit!',
-            'phone_number.unique' => 'Nomor telepon sudah digunakan!',
-
-            'gender.required' => 'Kolom jenis kelamin harus diisi!',
-            'gender.numeric' => 'Kolom jenis kelamin harus berupa angka!',
-            'gender.in' => 'Jenis kelamin yang dipilih tidak valid!',
-
-            'school_year_start.required' => 'Kolom tahun masuk harus diisi!',
-            'school_year_start.numeric' => 'Kolom tahun masuk harus berupa angka!',
-            'school_year_start.digits_between' => 'Panjang tahun masuk harus antara :min dan :max digit!',
-
-            'school_year_end.required' => 'Kolom tahun lulus harus diisi!',
-            'school_year_end.numeric' => 'Kolom tahun lulus harus berupa angka!',
-            'school_year_end.digits_between' => 'Panjang tahun lulus harus antara :min dan :max digit!',
-        ];
-
-        $validator = Validator::make($request->all(), $rules, $messages);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'code' => Response::HTTP_BAD_REQUEST,
-                'message' => $validator->errors()->first(),
-            ], Response::HTTP_BAD_REQUEST);
-        }
-
-        $student->update($validator->validated());
+        $student->update($request->validated());
 
         return response()->json([
             'code' => Response::HTTP_OK,
