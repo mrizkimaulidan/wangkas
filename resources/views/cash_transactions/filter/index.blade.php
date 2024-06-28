@@ -38,6 +38,7 @@
 <div class="row">
 	<div class="col-12">
 		@include('utilities.alert')
+		@isset($cashTransactions['filteredResult'])
 		<div class="row">
 			<div class="col-12 col-lg-6 col-md-6">
 				<div class="card">
@@ -87,6 +88,7 @@
 				</div>
 			</div>
 		</div>
+		@endisset
 	</div>
 
 	<div class="col-12">
