@@ -10,7 +10,7 @@
 				<div class="row">
 					@isset($cashTransactions['studentsPaid'])
 					@foreach ($cashTransactions['studentsPaid'] as $student)
-					<div class="col-6">
+					<div class="col-12 col-lg-6 col-md-6">
 						<div class="card border rounded">
 							<div class="card-body">
 								<h5 class="card-title fw-bold">

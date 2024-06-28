@@ -120,10 +120,10 @@
 						ini! <i class="bi bi-exclamation-triangle"></i></button>
 				</div>
 				<span class="badge w-100 rounded-pill bg-warning mb-3"></span>
-				<div class="row">
+				<div class="row text-center">
 					@foreach ($cashTransaction['studentsNotPaidThisWeekWithLimit'] as $student)
-					<div class="col-6 col-lg-6 col-md-6">
-						<div class="recent-message d-flex px-4 py-3">
+					<div class="col-12 col-lg-6 col-md-6">
+						<div class="recent-message px-4 py-3">
 							<div class="name ms-4">
 								<h5 class="mb-1">{{ $student->name }}</h5>
 								<h6 class="text-muted mb-0">

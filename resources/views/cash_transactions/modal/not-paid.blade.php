@@ -8,7 +8,7 @@
 			<div class="modal-body">
 				<div class="row">
 					@foreach ($cashTransaction['studentsNotPaidThisWeek'] as $student)
-					<div class="col-6">
+					<div class="col-12 col-lg-6 col-md-6">
 						<div class="card border rounded">
 							<div class="card-body">
 								<h5 class="card-title fw-bold">
