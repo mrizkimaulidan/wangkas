@@ -199,9 +199,7 @@
 @pushOnce('scripts')
 <script>
 	$(function () {
-		const table = $('#table').DataTable({
-			responsive: true
-		});
+		const table = $('#table').DataTable({});
 	});
 </script>
 @endPushOnce
