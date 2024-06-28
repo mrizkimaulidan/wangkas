@@ -16,6 +16,7 @@
 	<link rel="stylesheet" href="{{ asset('compiled/css/iconly.css') }}" />
 	<link rel="stylesheet" href="{{ asset('extensions/bootstrap-icons/font/bootstrap-icons.css') }}" />
 	<link rel="stylesheet" href="{{ asset('extensions/datatables.net-bs5/css/dataTables.bootstrap5.css') }}" />
+	<link rel="stylesheet" href="{{ asset('extensions/datatables.net/responsive.bootstrap5.css') }}">
 	<link rel="stylesheet" href="{{ asset('extensions/sweetalert2/sweetalert2.min.css') }}" />
 	<link rel="stylesheet" href="{{ asset('extensions/flatpickr/flatpickr.min.css') }}" />
 	<link rel="stylesheet" href="{{ asset('extensions/select2/select2.min.css') }}" />
@@ -183,6 +184,8 @@
 	<script src="{{ asset('extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
 	<script src="{{ asset('extensions/datatables.net/jquery.dataTables.min.js') }}"></script>
 	<script src="{{ asset('extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
+	<script src="{{ asset('extensions/datatables.net/dataTables.responsive.js') }}"></script>
+	<script src="{{ asset('extensions/datatables.net-bs5/js/responsive.bootstrap5.js') }}"></script>
 	<script src="{{ asset('extensions/flatpickr/flatpickr.min.js') }}"></script>
 
 	<script src="{{ asset('compiled/js/app.js') }}"></script>

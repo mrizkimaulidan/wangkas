@@ -3,6 +3,7 @@
 		const table = $("#table").DataTable({
 			processing: true,
 			serverSide: true,
+			responsive: true,
 			ajax: "{{ route('api.v1.administrators.index') }}",
 			columns: [
 				{ data: "DT_RowIndex", name: "DT_RowIndex" },
