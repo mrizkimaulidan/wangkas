@@ -25,7 +25,10 @@ class StudentController extends Controller
         $schoolMajors = SchoolMajor::select('id', 'name', 'abbreviation')->orderBy('name')->get();
 
         $genderCounts = $this->studentRepository->countStudentGender();
+        $studentWithMajors = SchoolMajor::select('name', 'abbreviation')
+            ->withCount('students')
+            ->get();
 
-        return view('students.index', compact('schoolClasses', 'schoolMajors', 'genderCounts'));
+        return view('students.index', compact('schoolClasses', 'schoolMajors', 'genderCounts', 'studentWithMajors'));
     }
 }
