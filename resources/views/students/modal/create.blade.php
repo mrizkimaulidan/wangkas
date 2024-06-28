@@ -121,10 +121,10 @@
 									<label for="school_year_start">Tahun Ajaran Awal:</label>
 									<div class="input-group">
 										<input type="number" class="form-control" id="school_year_start"
-											placeholder="Masukkan tahun ajaran awal..." value="2020">
+											placeholder="Masukkan tahun ajaran awal..." value="{{ date('Y') - 3 }}">
 										<span class="input-group-text">-</span>
 										<input type="number" class="form-control " id="school_year_end"
-											placeholder="Masukkan tahun ajaran akhir..." value="2023">
+											placeholder="Masukkan tahun ajaran akhir..." value="{{ date('Y') }}">
 									</div>
 								</div>
 							</div>
