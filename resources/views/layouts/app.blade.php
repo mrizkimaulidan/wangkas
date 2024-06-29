@@ -69,68 +69,70 @@
 					<ul class="menu">
 						<li class="sidebar-title">Menu</li>
 
-						<li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-							<a href="{{ route('dashboard') }}" class="sidebar-link">
-								<i class="bi bi-grid-fill"></i>
-								<span>Dashboard</span>
-							</a>
-						</li>
+						<x-sidebar.nav-item :active="request()->routeIs('dashboard')">
+							<x-sidebar.nav-link href="{{ route('dashboard') }}" icon="bi bi-grid-fill">Dashboard</x-sidebar.nav-link>
+						</x-sidebar.nav-item>
 
 						<li class="sidebar-title"><i class="bi bi-menu-button-wide"></i></li>
 
-						<li class="sidebar-item {{ request()->routeIs('students.*') ? 'active' : '' }}">
-							<a href="{{ route('students.index') }}" class="sidebar-link">
-								<i class="bi bi-people-fill"></i>
-								<span>Pelajar</span>
-							</a>
-						</li>
-						<li class="sidebar-item {{ request()->routeIs('school-classes.*') ? 'active' : '' }}">
-							<a href="{{ route('school-classes.index') }}" class="sidebar-link">
-								<i class="bi bi-bookmark-fill"></i>
-								<span>Kelas</span>
-							</a>
-						</li>
-						<li class="sidebar-item {{ request()->routeIs('school-majors.*') ? 'active' : '' }}">
-							<a href="{{ route('school-majors.index') }}" class="sidebar-link">
-								<i class="bi bi-briefcase-fill"></i>
-								<span>Jurusan</span>
-							</a>
-						</li>
-						<li
-							class="sidebar-item has-sub {{ request()->routeIs('cash-transactions.index') ? 'active' : '' }} {{ request()->routeIs('cash-transactions.filter.index') ? 'active' : '' }}">
-							<a href="#" class="sidebar-link">
-								<i class="bi bi-cash-stack"></i>
-								<span>Kas</span>
-							</a>
+						<x-sidebar.nav-item :active="request()->routeIs('students.*')">
+							<x-sidebar.nav-link href="{{ route('students.index') }}" icon="bi bi-people-fill">
+								Pelajar
+							</x-sidebar.nav-link>
+						</x-sidebar.nav-item>
+
+						<x-sidebar.nav-item :active="request()->routeIs('school-classes.*')">
+							<x-sidebar.nav-link href="{{ route('school-classes.index') }}" icon="bi bi-bookmark-fill">
+								Kelas
+							</x-sidebar.nav-link>
+						</x-sidebar.nav-item>
+
+						<x-sidebar.nav-item :active="request()->routeIs('school-majors.*')">
+							<x-sidebar.nav-link href="{{ route('school-majors.index') }}" icon="bi bi-briefcase-fill">
+								Jurusan
+							</x-sidebar.nav-link>
+						</x-sidebar.nav-item>
+
+						<x-sidebar.nav-item class="has-sub"
+							:active="request()->routeIs('cash-transactions.index') || request()->routeIs('cash-transactions.filter.index')">
+							<x-sidebar.nav-link href="#" icon="bi bi-cash-stack">
+								Kas
+							</x-sidebar.nav-link>
 
 							<ul class="submenu">
-								<li class="submenu-item {{ request()->routeIs('cash-transactions.index') ? 'active' : '' }}">
-									<a href="{{ route('cash-transactions.index') }}" class="submenu-link">Kas Minggu Ini</a>
-								</li>
+								<x-sidebar.nav-submenu-item :active="request()->routeIs('cash-transactions.index')">
+									<x-sidebar.nav-submenu-link href="{{ route('cash-transactions.index') }}">
+										Kas Minggu Ini
+									</x-sidebar.nav-submenu-link>
+								</x-sidebar.nav-submenu-item>
 
-								<li class="submenu-item {{ request()->routeIs('cash-transactions.filter.index') ? 'active' : '' }}">
-									<a href="{{ route('cash-transactions.filter.index') }}" class="submenu-link">Filter Kas</a>
-								</li>
+								<x-sidebar.nav-submenu-item :active="request()->routeIs('cash-transactions.filter.index')">
+									<x-sidebar.nav-submenu-link href="{{ route('cash-transactions.filter.index') }}">
+										Filter Kas
+									</x-sidebar.nav-submenu-link>
+								</x-sidebar.nav-submenu-item>
 							</ul>
-						</li>
-						<li class="sidebar-item {{ request()->routeIs('cash-transactions.report.*') ? 'active' : '' }}">
-							<a href="{{ route('cash-transactions.report.index') }}" class="sidebar-link">
-								<i class="bi bi-file-earmark-spreadsheet-fill"></i>
-								<span>Laporan Transaksi Kas</span>
-							</a>
-						</li>
-						<li class="sidebar-item {{ request()->routeIs('administrators.*') ? 'active' : '' }}">
-							<a href="{{ route('administrators.index') }}" class="sidebar-link">
-								<i class="bi bi-person-badge-fill"></i>
-								<span>Administrator</span>
-							</a>
-						</li>
-						<li class="sidebar-item {{ request()->routeIs('profile-settings.*') ? 'active' : '' }}">
-							<a href="{{ route('profile-settings.index') }}" class="sidebar-link">
-								<i class="bi bi-person-fill-gear"></i>
-								<span>Pengaturan Profil</span>
-							</a>
-						</li>
+						</x-sidebar.nav-item>
+
+						<x-sidebar.nav-item :active="request()->routeIs('cash-transactions.report.*')">
+							<x-sidebar.nav-link href="{{ route('cash-transactions.report.index') }}"
+								icon="bi bi-file-earmark-spreadsheet-fill">
+								Laporan Transaksi Kas
+							</x-sidebar.nav-link>
+						</x-sidebar.nav-item>
+
+						<x-sidebar.nav-item :active="request()->routeIs('administrators.*')">
+							<x-sidebar.nav-link href="{{ route('administrators.index') }}" icon="bi bi-person-badge-fill">
+								Administrator
+							</x-sidebar.nav-link>
+						</x-sidebar.nav-item>
+
+						<x-sidebar.nav-item :active="request()->routeIs('profile-settings.*')">
+							<x-sidebar.nav-link href="{{ route('profile-settings.index') }}" icon="bi bi-person-fill-gear">
+								Pengaturan Profil
+							</x-sidebar.nav-link>
+						</x-sidebar.nav-item>
+
 						<li class="sidebar-item">
 							<form action="{{ route('logout') }}" method="POST" id="logout">
 								@csrf
