@@ -3,7 +3,7 @@
 		const table = $("#table").DataTable({
 			processing: true,
 			serverSide: true,
-			ajax: "{{ route('api.v1.datatables.school-majors.index') }}",
+			ajax: "{{ route('api.v1.school-majors.index') }}",
 			columns: [
 				{ data: "DT_RowIndex", name: "DT_RowIndex" },
 				{ data: "name", name: "name" },
@@ -21,7 +21,7 @@
 			};
 
 			$.ajax({
-				url: "{{ route('api.v1.datatables.school-majors.store') }}",
+				url: "{{ route('api.v1.school-majors.store') }}",
 				method: "POST",
 				header: {
 					"Content-Type": "application/json",
@@ -58,7 +58,7 @@
 		$("#table").on("click", ".show-modal", function () {
 			const id = $(this).data("id");
 			let url =
-				"{{ route('api.v1.datatables.school-majors.show', ':paramID') }}".replace(
+				"{{ route('api.v1.school-majors.show', ':paramID') }}".replace(
 					":paramID",
 					id
 				);
@@ -83,12 +83,12 @@
 		$("#table").on("click", ".update-modal", function () {
 			const id = $(this).data("id");
 			let url =
-				"{{ route('api.v1.datatables.school-majors.show', ':paramID') }}".replace(
+				"{{ route('api.v1.school-majors.show', ':paramID') }}".replace(
 					":paramID",
 					id
 				);
 			let updateURL =
-				"{{ route('api.v1.datatables.school-majors.update', ':paramID') }}".replace(
+				"{{ route('api.v1.school-majors.update', ':paramID') }}".replace(
 					":paramID",
 					id
 				);
@@ -173,7 +173,7 @@
 				if (result.isConfirmed) {
 					const id = $(this).data("id");
 					const url =
-						"{{ route('api.v1.datatables.school-majors.destroy', ':paramID') }}".replace(
+						"{{ route('api.v1.school-majors.destroy', ':paramID') }}".replace(
 							":paramID",
 							id
 						);

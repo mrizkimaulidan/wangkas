@@ -3,7 +3,7 @@
 		const table = $("#table").DataTable({
 			processing: true,
 			serverSide: true,
-			ajax: "{{ route('api.v1.datatables.administrators.index') }}",
+			ajax: "{{ route('api.v1.administrators.index') }}",
 			columns: [
 				{ data: "DT_RowIndex", name: "DT_RowIndex" },
 				{ data: "name", name: "name" },
@@ -26,7 +26,7 @@
 			};
 
 			$.ajax({
-				url: "{{ route('api.v1.datatables.administrators.store') }}",
+				url: "{{ route('api.v1.administrators.store') }}",
 				method: "POST",
 				header: {
 					"Content-Type": "application/json",
@@ -63,7 +63,7 @@
 		$("#table").on("click", ".show-modal", function () {
 			const id = $(this).data("id");
 			let url =
-				"{{ route('api.v1.datatables.administrators.show', ':paramID') }}".replace(
+				"{{ route('api.v1.administrators.show', ':paramID') }}".replace(
 					":paramID",
 					id
 				);

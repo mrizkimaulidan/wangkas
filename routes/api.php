@@ -28,13 +28,11 @@ Route::prefix('v1/')->name('api.v1.')->group(function () {
     Route::get('/cash-transactions/statistics', CashTransactionStatisticController::class)
         ->name('cash-transactions.statistics');
 
-    Route::prefix('datatable/')->name('datatables.')->group(function () {
-        Route::apiResources([
-            '/school-classes' => SchoolClassController::class,
-            '/school-majors' => SchoolMajorController::class,
-            '/administrators' => AdministratorController::class,
-            '/students' => StudentController::class,
-            '/cash-transactions' => CashTransactionController::class,
-        ]);
-    });
+    Route::apiResources([
+        '/school-classes' => SchoolClassController::class,
+        '/school-majors' => SchoolMajorController::class,
+        '/administrators' => AdministratorController::class,
+        '/students' => StudentController::class,
+        '/cash-transactions' => CashTransactionController::class,
+    ]);
 });
