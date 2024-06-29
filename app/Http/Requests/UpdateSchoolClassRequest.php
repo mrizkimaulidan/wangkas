@@ -22,7 +22,7 @@ class UpdateSchoolClassRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3|max:255|unique:school_classes,name,' . $this->id,
+            'name' => 'required|string|min:3|max:255|unique:school_classes,name,' . $this->school_class->id,
         ];
     }
 

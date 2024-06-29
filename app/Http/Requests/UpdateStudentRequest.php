@@ -24,10 +24,10 @@ class UpdateStudentRequest extends FormRequest
         return [
             'school_class_id' => 'required|numeric|exists:school_classes,id',
             'school_major_id' => 'required|numeric|exists:school_majors,id',
-            'student_identification_number' => 'required|numeric|unique:students,student_identification_number,' . $this->id,
+            'student_identification_number' => 'required|numeric|unique:students,student_identification_number,' . $this->student->id,
             'name' => 'required|string|min:3|max:255',
-            'email' => 'required|email|min:3|max:255|unique:students,email,' . $this->id,
-            'phone_number' => 'required|numeric|digits_between:3,255|unique:students,phone_number,' . $this->id,
+            'email' => 'required|email|min:3|max:255|unique:students,email,' . $this->student->id,
+            'phone_number' => 'required|numeric|digits_between:3,255|unique:students,phone_number,' . $this->student->id,
             'gender' => 'required|numeric|in:1,2',
             'school_year_start' => 'required|numeric|digits_between:3,255',
             'school_year_end' => 'required|numeric|digits_between:3,255',

@@ -23,7 +23,7 @@ class UpdateSchoolMajorRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:3|max:255',
-            'abbreviation' => 'required|string|min:1|max:255|unique:school_majors,abbreviation,' . $this->id,
+            'abbreviation' => 'required|string|min:1|max:255|unique:school_majors,abbreviation,' . $this->school_major->id,
         ];
     }
 
