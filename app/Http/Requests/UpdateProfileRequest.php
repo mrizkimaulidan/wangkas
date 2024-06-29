@@ -23,7 +23,7 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:255',
-            'email' => 'required|email|min:3|max:255',
+            'email' => 'required|email|min:3|max:255|unique:users,email,' . auth()->id(),
             'current_password' => 'nullable|current_password',
             'password' => 'nullable|min:3|max:255|confirmed',
         ];
@@ -44,6 +44,7 @@ class UpdateProfileRequest extends FormRequest
             'email.email' => 'Format email tidak valid!',
             'email.min' => 'Kolom email minimal harus 3 karakter!',
             'email.max' => 'Kolom email maksimal adalah 255 karakter!',
+            'email.unique' => 'Email sudah digunakan!',
             'password.confirmed' => 'Konfirmasi kata sandi tidak cocok!',
             'password.min' => 'Kolom password minimal harus 3 karakter!',
             'password.max' => 'Kolom password maksimal adalah 255 karakter!',
