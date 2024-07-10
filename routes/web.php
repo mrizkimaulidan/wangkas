@@ -35,10 +35,17 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', DashboardController::class)->name('dashboard');
 
-    Route::get('/school-classes', SchoolClassController::class)->name('school-classes.index');
-    Route::get('/school-majors', SchoolMajorController::class)->name('school-majors.index');
-    Route::get('/administrators', AdministratorController::class)->name('administrators.index');
-    Route::get('/students', StudentController::class)->name('students.index');
+    Route::get('/school-classes', [SchoolClassController::class, 'index'])->name('school-classes.index');
+    Route::get('/school-classes/export', [SchoolClassController::class, 'export'])->name('school-classes.export');
+
+    Route::get('/school-majors', [SchoolMajorController::class, 'index'])->name('school-majors.index');
+    Route::get('/school-majors/export', [SchoolMajorController::class, 'export'])->name('school-majors.export');
+
+    Route::get('/administrators', [AdministratorController::class, 'index'])->name('administrators.index');
+    Route::get('/administrators/export', [AdministratorController::class, 'export'])->name('administrators.export');
+
+    Route::get('/students', [StudentController::class, 'index'])->name('students.index');
+    Route::get('/students/export', [StudentController::class, 'export'])->name('students.export');
 
     Route::get('/cash-transactions', CashTransactionController::class)->name('cash-transactions.index');
     Route::get('/cash-transactions/report', CashTransactionReportController::class)->name('cash-transactions.report.index');

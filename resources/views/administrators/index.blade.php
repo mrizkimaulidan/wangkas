@@ -37,6 +37,12 @@
 				<div class="col card">
 					<div class="d-flex justify-content-end pb-3">
 						<div class="btn-group gap gap-2">
+							<form action="{{ route('administrators.export') }}">
+								<button type="submit" class="btn btn-success icon icon-left">
+									<i class="bi bi-filetype-xlsx"></i>
+								</button>
+							</form>
+
 							<button type="button" class="btn btn-primary icon icon-left" data-bs-toggle="modal"
 								data-bs-target="#createModal">
 								<i class="bi bi-plus-circle"></i> Tambah Data Administrator
