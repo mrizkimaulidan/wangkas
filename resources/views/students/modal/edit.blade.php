@@ -118,7 +118,7 @@
 						<div class="row">
 							<div class="col-12">
 								<div class="form-group">
-									<label for="school_year_start">Tahun Ajaran Awal:</label>
+									<label for="school_year_start">Tahun Ajaran Awal dan Akhir:</label>
 									<div class="input-group">
 										<input type="number" class="form-control" id="school_year_start"
 											placeholder="Masukkan tahun ajaran awal..." value="2020">
