@@ -20,8 +20,7 @@ class CashTransactionController extends Controller
     {
         $cashTransactions = CashTransaction::select('id', 'student_id', 'amount', 'date_paid', 'created_by')
             ->with('student:id,name', 'createdBy:id,name')
-            ->whereYear('date_paid', now()->year)
-            ->whereMonth('date_paid', now()->month)
+            ->whereBetween('date_paid', [now()->startOfWeek()->format('Y-m-d'), now()->endOfWeek()->format('Y-m-d')])
             ->get()
             ->append('amount_formatted')
             ->append('date_paid_formatted');
