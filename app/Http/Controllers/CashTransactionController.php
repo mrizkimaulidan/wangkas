@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CashTransactionsExport;
 use App\Models\CashTransaction;
 use App\Models\Student;
 use Illuminate\Contracts\View\View;
@@ -9,11 +10,11 @@ use Illuminate\Contracts\View\View;
 class CashTransactionController extends Controller
 {
     /**
-     * Handle the incoming request.
+     * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\View\View
      */
-    public function __invoke(): View
+    public function index(): View
     {
         $students = Student::select(
             'id',
@@ -66,5 +67,21 @@ class CashTransactionController extends Controller
         ];
 
         return view('cash_transactions.index', compact('cashTransaction', 'students'));
+    }
+
+    /**
+     * Export the resource to excel file.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
+    public function export()
+    {
+        $startDate = now()->startOfWeek();
+        $endDate = now()->endOfWeek();
+
+        $formattedDateForFileName = $startDate->format('d-m-Y') . '-' . $endDate->format('d-m-Y');
+        $fileName = "kas($formattedDateForFileName).xlsx";
+
+        return (new CashTransactionsExport($startDate->format('Y-m-d'), $endDate->format('Y-m-d')))->download($fileName);
     }
 }

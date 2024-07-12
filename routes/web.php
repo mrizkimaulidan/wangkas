@@ -47,7 +47,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/students', [StudentController::class, 'index'])->name('students.index');
     Route::get('/students/export', [StudentController::class, 'export'])->name('students.export');
 
-    Route::get('/cash-transactions', CashTransactionController::class)->name('cash-transactions.index');
+    Route::get('/cash-transactions', [CashTransactionController::class, 'index'])->name('cash-transactions.index');
+    Route::get('/cash-transactions/export', [CashTransactionController::class, 'export'])->name('cash-transactions.export');
     Route::get('/cash-transactions/report', CashTransactionReportController::class)->name('cash-transactions.report.index');
     Route::get('/cash-transactions/filter', CashTransactionFilterController::class)->name('cash-transactions.filter.index');
 
