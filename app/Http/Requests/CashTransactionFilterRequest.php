@@ -22,8 +22,8 @@ class CashTransactionFilterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'start_date' => 'date',
-            'end_date' => 'date|after_or_equal:start_date',
+            'start_date' => 'required_with:end_date|date',
+            'end_date' => 'required_with:start_date|after_or_equal:start_date',
         ];
     }
 
@@ -35,7 +35,10 @@ class CashTransactionFilterRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'start_date.required_with' => 'Tanggal mulai harus diisi jika tanggal akhir ada!',
             'start_date.date' => 'Format tanggal mulai tidak valid!',
+
+            'end_date.required_with' => 'Tanggal akhir harus diisi jika tanggal mulai ada!',
             'end_date.date' => 'Format tanggal akhir tidak valid!',
             'end_date.after_or_equal' => 'Tanggal akhir harus setelah atau sama dengan tanggal mulai!',
         ];
