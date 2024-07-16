@@ -23,7 +23,7 @@ class CashTransactionFilterRequest extends FormRequest
     {
         return [
             'start_date' => 'required_with:end_date|date',
-            'end_date' => 'required_with:start_date|after_or_equal:start_date',
+            'end_date' => 'required_with:start_date|date|after_or_equal:start_date',
         ];
     }
 
