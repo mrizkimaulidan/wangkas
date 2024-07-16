@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\CashTransactionsExport;
 use App\Models\CashTransaction;
 use App\Models\Student;
+use App\Services\CashTransactionService;
 use Illuminate\Contracts\View\View;
 
 class CashTransactionController extends Controller
 {
+    public function __construct(
+        private CashTransactionService $cashTransactionService
+    ) {
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -79,9 +84,6 @@ class CashTransactionController extends Controller
         $startDate = now()->startOfWeek();
         $endDate = now()->endOfWeek();
 
-        $formattedDateForFileName = $startDate->format('d-m-Y') . '-' . $endDate->format('d-m-Y');
-        $fileName = "kas($formattedDateForFileName).xlsx";
-
-        return (new CashTransactionsExport($startDate->format('Y-m-d'), $endDate->format('Y-m-d')))->download($fileName);
+        return $this->cashTransactionService->export($startDate, $endDate);
     }
 }
