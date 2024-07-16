@@ -27,6 +27,7 @@ class CashTransactionFilterController extends Controller
                 'id',
                 'student_id',
                 'amount',
+                'date_paid',
                 'created_by'
             )->with('student:id,name', 'createdBy:id,name')
                 ->whereBetween('date_paid', [$startDate, $endDate])
