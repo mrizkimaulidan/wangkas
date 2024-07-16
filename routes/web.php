@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdministratorController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CashTransactionController;
+use App\Http\Controllers\CashTransactionExportController;
 use App\Http\Controllers\CashTransactionFilterController;
 use App\Http\Controllers\CashTransactionReportController;
 use App\Http\Controllers\DashboardController;
@@ -48,7 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/students/export', [StudentController::class, 'export'])->name('students.export');
 
     Route::get('/cash-transactions', [CashTransactionController::class, 'index'])->name('cash-transactions.index');
-    Route::get('/cash-transactions/export', [CashTransactionController::class, 'export'])->name('cash-transactions.export');
+    Route::get('/cash-transactions/export', CashTransactionExportController::class)->name('cash-transactions.export');
     Route::get('/cash-transactions/report', CashTransactionReportController::class)->name('cash-transactions.report.index');
     Route::get('/cash-transactions/filter', CashTransactionFilterController::class)->name('cash-transactions.filter.index');
 

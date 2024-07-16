@@ -31,6 +31,7 @@
 
 @section('content')
 <div class="row">
+	@include('utilities.alert')
 	<div class="col-6 col-lg-6 col-md-6">
 		<div class="card">
 			<div class="card-body px-3 py-4-4">
@@ -155,11 +156,10 @@
 				<div class="col card">
 					<div class="d-flex justify-content-end pb-3">
 						<div class="btn-group gap gap-2">
-							<form action="{{ route('cash-transactions.export') }}">
-								<button type="submit" class="btn btn-success icon icon-left">
-									<i class="bi bi-filetype-xlsx"></i>
-								</button>
-							</form>
+							<a href="{{ route('cash-transactions.export', [
+								'start_date' => $cashTransaction['dateRange']['start'],
+								'end_date' => $cashTransaction['dateRange']['end'],
+							]) }}" class="btn btn-success icon icon-left"><i class="bi bi-filetype-xlsx"></i></a>
 
 							<button type="button" class="btn btn-primary icon icon-left" data-bs-toggle="modal"
 								data-bs-target="#createModal">

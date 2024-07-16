@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CashTransactionReportRequest;
+use App\Http\Requests\CashTransactionFilterRequest;
 use App\Models\CashTransaction;
 
 class CashTransactionReportController extends Controller
@@ -12,7 +12,7 @@ class CashTransactionReportController extends Controller
      *
      * @param \App\Http\Requests\CashTransactionReportRequest
      */
-    public function __invoke(CashTransactionReportRequest $request)
+    public function __invoke(CashTransactionFilterRequest $request)
     {
         $cashTransactions = [];
         $cashTransactionsCurrentYear = CashTransaction::whereYear('date_paid', now()->year)->get();
@@ -44,6 +44,11 @@ class CashTransactionReportController extends Controller
                 ->select('id', 'student_id', 'amount', 'date_paid', 'created_by')
                 ->whereBetween('date_paid', [$request->start_date, $request->end_date])
                 ->get();
+
+            $cashTransactions['dateRange'] = [
+                'start' => $request->start_date,
+                'end' => $request->end_date
+            ];
             $cashTransactions['sum'] = CashTransaction::localizationAmountFormat($cashTransactions['filteredResult']->sum('amount'));
         }
 

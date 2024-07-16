@@ -138,6 +138,15 @@
 	<div class="col-12">
 		<div class="card">
 			<div class="card-body">
+				<div class="d-flex justify-content-end pb-3">
+					<div class="btn-group gap gap-2">
+						<a href="{{ route('cash-transactions.export', [
+							'start_date' => $cashTransactions['dateRange']['start'],
+							'end_date' => $cashTransactions['dateRange']['end'],
+						]) }}" class="btn btn-success icon icon-left"><i class="bi bi-filetype-xlsx"></i></a>
+					</div>
+				</div>
+
 				<h6 class="pb-3">Daftar hasil filter data dari rentang tanggal {{ $cashTransactions['dateRange']['start'] }} -
 					{{
 					$cashTransactions['dateRange']['end'] }}</h6>
