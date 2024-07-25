@@ -8,8 +8,8 @@
 			</div>
 			<div class="modal-body">
 				<div class="row">
-					@isset($cashTransactions['studentsNotPaid'])
-					@foreach ($cashTransactions['studentsNotPaid'] as $student)
+					@isset($filteredResults['studentsWhoDidNotPay'])
+					@foreach ($filteredResults['studentsWhoDidNotPay'] as $student)
 					<div class="col-12 col-lg-6 col-md-6">
 						<div class="card border rounded">
 							<div class="card-body">

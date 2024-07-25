@@ -9,13 +9,12 @@
 			<div class="col-12 col-md-6 order-md-1 order-last">
 				<h3>Filter Transaksi Kas</h3>
 				<p class="text-subtitle text-muted">Halaman filter transaksi kas.</p>
-
-				@isset($cashTransactions['dateRange'])
-				<p class="text-subtitle text-muted">Menampilkan filter pada rentang tanggal
+				@isset($filteredResults['filteredResult'])
+				<pDate class="text-subtitle text-muted">Menampilkan filter pada rentang tanggal
 					<span class="fw-bold">{{
-						$cashTransactions['dateRange']['start'] }} - {{ $cashTransactions['dateRange']['end'] }}</span>
-				</p>
-				@endisset
+						$filteredResults['startDate'] }} - {{ $filteredResults['endDate'] }}</span>
+					</p>
+					@endisset
 			</div>
 			<div class="col-12 col-md-6 order-md-2 order-first">
 				<nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -38,7 +37,89 @@
 <div class="row">
 	<div class="col-12">
 		@include('utilities.alert')
-		@isset($cashTransactions['filteredResult'])
+		<div class="row">
+			<div class="col-6 col-lg-6 col-md-6">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+								<div class="stats-icon purple">
+									<i class="iconly-boldChart"></i>
+								</div>
+							</div>
+							<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+								<h6 class="text-muted font-semibold">
+									Total Hari Ini
+								</h6>
+								<h6 class="font-extrabold mb-0">{{ $cashTransactionStatistics['todayTotal'] }}</h6>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-6 col-lg-6 col-md-6">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+								<div class="stats-icon purple">
+									<i class="iconly-boldChart"></i>
+								</div>
+							</div>
+							<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+								<h6 class="text-muted font-semibold">
+									Total Minggu Ini
+								</h6>
+								<h6 class="font-extrabold mb-0">{{ $cashTransactionStatistics['currentWeekTotal'] }}</h6>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-6 col-lg-6 col-md-6">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+								<div class="stats-icon purple">
+									<i class="iconly-boldChart"></i>
+								</div>
+							</div>
+							<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+								<h6 class="text-muted font-semibold">
+									Total Bulan Ini
+								</h6>
+								<h6 class="font-extrabold mb-0">{{ $cashTransactionStatistics['currentMonthTotal'] }}
+								</h6>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-6 col-lg-6 col-md-6">
+				<div class="card">
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+								<div class="stats-icon purple">
+									<i class="iconly-boldChart"></i>
+								</div>
+							</div>
+							<div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+								<h6 class="text-muted font-semibold">
+									Total Tahun Ini
+								</h6>
+								<h6 class="font-extrabold mb-0">{{ $cashTransactionStatistics['currentYearTotal'] }}</h6>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="col-12">
+		@isset($filteredResults['transactions'])
 		<div class="row">
 			<div class="col-12 col-lg-6 col-md-6">
 				<div class="card">
@@ -52,7 +133,7 @@
 							<div class="col-md-8">
 								<h6 class="text-muted font-semibold">Sudah Membayar Pada Rentang Tanggal Tersebut</h6>
 								<h6 class="font-extrabold mb-0">
-									{{ $cashTransactions['studentsPaidCount'] ?? 0 }}</h6>
+									{{ $filteredResults['studentsWhoPaidCount'] ?? 0 }}</h6>
 							</div>
 						</div>
 						<div class="pt-4">
@@ -76,7 +157,7 @@
 							<div class="col-md-8">
 								<h6 class="text-muted font-semibold">Belum Membayar Pada Rentang Tanggal Tersebut</h6>
 								<h6 class="font-extrabold mb-0">
-									{{ $cashTransactions['studentsNotPaidCount'] ?? 0 }}</h6>
+									{{ $filteredResults['studentsWhoDidNotPayCount'] ?? 0 }}</h6>
 							</div>
 						</div>
 						<div class="pt-4">
@@ -134,22 +215,22 @@
 		</div>
 	</div>
 
-	@isset($cashTransactions['filteredResult'])
+	@isset($filteredResults['transactions'])
 	<div class="col-12">
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex justify-content-end pb-3">
 					<div class="btn-group gap gap-2">
 						<a href="{{ route('cash-transactions.export', [
-							'start_date' => $cashTransactions['dateRange']['start'],
-							'end_date' => $cashTransactions['dateRange']['end'],
+							'start_date' => $filteredResults['startDate'],
+							'end_date' => $filteredResults['endDate'],
 						]) }}" class="btn btn-success icon icon-left"><i class="bi bi-filetype-xlsx"></i></a>
 					</div>
 				</div>
 
-				<h6 class="pb-3">Daftar hasil filter data dari rentang tanggal {{ $cashTransactions['dateRange']['start'] }} -
+				<h6 class="pb-3">Daftar hasil filter data dari rentang tanggal {{ $filteredResults['startDate'] }} -
 					{{
-					$cashTransactions['dateRange']['end'] }}</h6>
+					$filteredResults['endDate'] }}</h6>
 				<div class="table-responsive">
 					<table class="table w-100 table-hover" id="table">
 						<thead>
@@ -162,7 +243,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							@foreach ($cashTransactions['filteredResult'] as $cashTransaction)
+							@foreach ($filteredResults['transactions'] as $cashTransaction)
 							<tr>
 								<td>{{ $loop->iteration }}</td>
 								<td>{{ $cashTransaction->student->name }}</td>
@@ -175,7 +256,7 @@
 						<tfoot>
 							<tr>
 								<td colspan="4" align="right"><b>Total</b></td>
-								<td>{{ $cashTransactions['sum'] }}</td>
+								<td>{{ $filteredResults['totalAmount'] }}</td>
 							</tr>
 						</tfoot>
 					</table>
@@ -187,7 +268,7 @@
 </div>
 @endsection
 
-@pushIf($cashTransactions,'modal')
+@pushIf($filteredResults, 'modal')
 @include('cash_transactions.filter.modal.paid')
 @include('cash_transactions.filter.modal.not-paid')
 @endPushIf
