@@ -115,13 +115,6 @@
 							</ul>
 						</x-sidebar.nav-item>
 
-						<x-sidebar.nav-item :active="request()->routeIs('cash-transactions.report.*')">
-							<x-sidebar.nav-link href="{{ route('cash-transactions.report.index') }}"
-								icon="bi bi-file-earmark-spreadsheet-fill">
-								Laporan Transaksi Kas
-							</x-sidebar.nav-link>
-						</x-sidebar.nav-item>
-
 						<x-sidebar.nav-item :active="request()->routeIs('administrators.*')">
 							<x-sidebar.nav-link href="{{ route('administrators.index') }}" icon="bi bi-person-badge-fill">
 								Administrator

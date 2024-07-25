@@ -50,7 +50,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/cash-transactions', [CashTransactionController::class, 'index'])->name('cash-transactions.index');
     Route::get('/cash-transactions/export', CashTransactionExportController::class)->name('cash-transactions.export');
-    Route::get('/cash-transactions/report', CashTransactionReportController::class)->name('cash-transactions.report.index');
     Route::get('/cash-transactions/filter', CashTransactionFilterController::class)->name('cash-transactions.filter.index');
 
     Route::get('/settings', [ProfileSettingController::class, 'index'])->name('profile-settings.index');
