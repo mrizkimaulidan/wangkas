@@ -13,6 +13,46 @@ class CashTransactionRepository
     }
 
     /**
+     * Calculate the total sums of cash transactions for all the time.
+     *
+     * This method calculates the total amounts of cash transactions for the year
+     * month, week, and today. It aggregates the amounts accordingly.
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function calculateTransactionSums(): SupportCollection
+    {
+        $sums = collect();
+        $now = now();
+
+        $cashTransactions = CashTransaction::select('date_paid', 'amount')->get();
+
+        $yearSum = $cashTransactions->filter(function (CashTransaction $transaction) use ($now): bool {
+            return $now->isSameYear($transaction->date_paid);
+        })->sum('amount');
+
+        $monthSum = $cashTransactions->filter(function (CashTransaction $transaction) use ($now): bool {
+            return $now->isSameMonth($transaction->date_paid);
+        })->sum('amount');
+
+        $weekSum = $cashTransactions->filter(function (CashTransaction $transaction) use ($now): bool {
+            return $now->parse($transaction->date_paid)
+                ->between($now->startOfWeek()->toDateString(), $now->endOfWeek()->toDateString());
+        })->sum('amount');
+
+        $todaySum = $cashTransactions->filter(function (CashTransaction $transaction) use ($now): bool {
+            return $now->parse($transaction->date_paid)->isToday();
+        })->sum('amount');
+
+        $sums->put('year', $yearSum);
+        $sums->put('month', $monthSum);
+        $sums->put('week', $weekSum);
+        $sums->put('today', $todaySum);
+
+        return $sums;
+    }
+
+    /**
      * Get the count of cash transactions grouped by gender.
      *
      * @return \Illuminate\Support\Collection

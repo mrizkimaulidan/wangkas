@@ -5,14 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CashTransactionFilterRequest;
 use App\Models\CashTransaction;
 use App\Models\Student;
-use App\Services\CashTransactionService;
+use App\Repositories\CashTransactionRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 
 class CashTransactionFilterController extends Controller
 {
     public function __construct(
-        private CashTransactionService $cashTransactionService,
+        private CashTransactionRepository $cashTransactionRepository,
         private Collection $cashTransactionStatistics,
         private Collection $filteredResults
     ) {
@@ -26,20 +26,12 @@ class CashTransactionFilterController extends Controller
      */
     public function __invoke(CashTransactionFilterRequest $request): View
     {
-        $transactionsForCurrentYear = CashTransaction::select(
-            'date_paid',
-            'amount'
-        )
-            ->whereYear('date_paid', now()->year)->get();
-
-        $transactionSummaries = $this->cashTransactionService->calculateTransactionSums($transactionsForCurrentYear);
+        $transactionSummaries = $this->cashTransactionRepository->calculateTransactionSums();
 
         // transform amounts to local currency format
         $transactionSummaries->transform(fn (int $amount) => CashTransaction::localizationAmountFormat($amount));
 
-        $this->cashTransactionStatistics->put('currentYearTotal', CashTransaction::localizationAmountFormat(
-            $transactionsForCurrentYear->sum('amount')
-        ));
+        $this->cashTransactionStatistics->put('currentYearTotal', $transactionSummaries['year']);
         $this->cashTransactionStatistics->put('currentMonthTotal', $transactionSummaries['month']);
         $this->cashTransactionStatistics->put('currentWeekTotal', $transactionSummaries['week']);
         $this->cashTransactionStatistics->put('todayTotal', $transactionSummaries['today']);
