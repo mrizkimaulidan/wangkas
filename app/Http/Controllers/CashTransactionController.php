@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use App\Models\CashTransaction;
 use App\Models\Student;
+use App\Repositories\CashTransactionRepository;
 use App\Services\CashTransactionService;
 use Illuminate\Contracts\View\View;
 
 class CashTransactionController extends Controller
 {
     public function __construct(
-        private CashTransactionService $cashTransactionService
+        private CashTransactionService $cashTransactionService,
+        private CashTransactionRepository $cashTransactionRepository
     ) {
     }
 
@@ -46,15 +48,7 @@ class CashTransactionController extends Controller
             return $studentsPaidThisWeekIds->contains($student->id);
         })->sortBy('name');
 
-        $totalThisWeek = CashTransaction::whereBetween('date_paid', [
-            now()->startOfWeek()->toDateString(),
-            now()->endOfWeek()->toDateString(),
-        ])->sum('amount');
-
-        $totalThisYear = CashTransaction::whereBetween('date_paid', [
-            now()->startOfYear()->toDateString(),
-            now()->endOfYear()->toDateString(),
-        ])->sum('amount');
+        $transactionSummaries = $this->cashTransactionRepository->calculateTransactionSums();
 
         $cashTransaction = [
             'studentsNotPaidThisWeek' => $studentsNotPaidThisWeek,
@@ -62,8 +56,8 @@ class CashTransactionController extends Controller
             'studentsNotPaidThisWeekCount' => $studentsNotPaidThisWeek->count(),
             'studentsPaidThisWeekCount' => $studentsPaidThisWeek->count(),
             'total' => [
-                'thisWeek' => CashTransaction::localizationAmountFormat($totalThisWeek),
-                'thisYear' => CashTransaction::localizationAmountFormat($totalThisYear),
+                'thisMonth' => CashTransaction::localizationAmountFormat($transactionSummaries['month']),
+                'thisYear' => CashTransaction::localizationAmountFormat($transactionSummaries['year']),
             ],
             'dateRange' => [
                 'start' => now()->startOfWeek()->format('d-m-Y'),
