@@ -25,7 +25,7 @@ class CashTransactionRepository
         $sums = collect();
         $now = now();
 
-        $cashTransactions = CashTransaction::select('date_paid', 'amount')->get();
+        $cashTransactions = CashTransaction::select('date_paid', 'amount')->whereYear('date_paid', $now->year)->get();
 
         $yearSum = $cashTransactions->filter(function (CashTransaction $transaction) use ($now): bool {
             return $now->isSameYear($transaction->date_paid);
