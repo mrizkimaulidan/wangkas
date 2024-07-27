@@ -169,6 +169,11 @@
 				</div>
 			</div>
 		</div>
+
+		<x-cash-transaction-paid-status-modal modalID="paidModal" modalTitle="Daftar Pelajar Yang Sudah Membayar"
+			:students="$filteredResults['studentsWhoPaid']" />
+		<x-cash-transaction-paid-status-modal modalID="notPaidModal" modalTitle="Daftar Pelajar Yang Belum Membayar"
+			:students="$filteredResults['studentsWhoDidNotPay']" />
 		@endisset
 	</div>
 
@@ -267,11 +272,6 @@
 	@endisset
 </div>
 @endsection
-
-@pushIf($filteredResults, 'modal')
-@include('cash_transactions.filter.modal.paid')
-@include('cash_transactions.filter.modal.not-paid')
-@endPushIf
 
 @pushOnce('scripts')
 <script>
