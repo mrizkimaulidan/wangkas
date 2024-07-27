@@ -108,7 +108,17 @@ APP_NAME=
 $ php artisan migrate:fresh --seed
 ```
 
-6. Jalankan local server
+6. Generate IDE Helper (opsional jika ingin melakukan development)
+
+```bash
+$ php artisan ide-helper:generate
+```
+
+```bash
+$ php artisan ide-helper:models
+```
+
+7. Jalankan local server
 
 ```bash
 $ php artisan serve
