@@ -198,7 +198,7 @@
 			});
 
 			$(".modal").on("hidden.bs.modal", function () {
-				$(this).find("form :input").val("");
+				$(this).find("form :input:not([type=hidden])").val("");
 			});
 
 			$(".modal").on("shown.bs.modal", function () {
