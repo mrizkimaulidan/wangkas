@@ -42,12 +42,18 @@ class CashTransactionController extends Controller
      */
     public function store(StoreCashTransactionRequest $request): JsonResponse
     {
+        $now = now();
+
         $validatedInput = collect($request->validated());
         $studentIDs = collect($validatedInput['student_id']);
-        $transformedTransactions = $studentIDs->map(function ($studentID) use ($validatedInput) {
+        $transformedTransactions = $studentIDs->map(function ($studentID) use ($validatedInput, $now) {
             // recreate student_id from list of array
             // to single value
-            return $validatedInput->except('student_id')->merge(['student_id' => $studentID])->toArray();
+            return $validatedInput->except('student_id')->merge([
+                'student_id' => $studentID,
+                'created_at' => $now->toDateTimeString(),
+                'updated_at' => $now->toDateTimeString()
+            ])->toArray();
         })->toArray();
 
         $cashTransaction = CashTransaction::insert($transformedTransactions);
