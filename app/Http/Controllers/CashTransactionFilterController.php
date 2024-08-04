@@ -26,7 +26,7 @@ class CashTransactionFilterController extends Controller
      */
     public function __invoke(CashTransactionFilterRequest $request): View
     {
-        $transactionSummaries = $this->cashTransactionRepository->calculateTransactionSums();
+        $transactionSummaries = $this->cashTransactionRepository->calculateTransactionSums(2024);
 
         // transform amounts to local currency format
         $transactionSummaries->transform(fn (int $amount) => CashTransaction::localizationAmountFormat($amount));

@@ -48,7 +48,7 @@ class CashTransactionController extends Controller
             return $studentsPaidThisWeekIds->contains($student->id);
         })->sortBy('name');
 
-        $transactionSummaries = $this->cashTransactionRepository->calculateTransactionSums();
+        $transactionSummaries = $this->cashTransactionRepository->calculateTransactionSums(2024);
 
         $cashTransaction = [
             'studentsNotPaidThisWeek' => $studentsNotPaidThisWeek,

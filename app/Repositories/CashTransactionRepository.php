@@ -18,14 +18,16 @@ class CashTransactionRepository
      * This method calculates the total amounts of cash transactions for the year
      * month, week, and today. It aggregates the amounts accordingly.
      *
+     * @param int $year the year of cash transactions
+     *
      * @return \Illuminate\Support\Collection
      */
-    public function calculateTransactionSums(): SupportCollection
+    public function calculateTransactionSums(int $year): SupportCollection
     {
         $sums = collect();
         $now = now();
 
-        $cashTransactions = $this->model->select('date_paid', 'amount')->whereYear('date_paid', $now->year)->get();
+        $cashTransactions = $this->model->select('date_paid', 'amount')->whereYear('date_paid', $year)->get();
 
         $yearSum = $cashTransactions->filter(function (CashTransaction $transaction) use ($now): bool {
             return $now->isSameYear($transaction->date_paid);
