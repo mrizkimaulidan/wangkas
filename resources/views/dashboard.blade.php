@@ -111,10 +111,10 @@
 						</div>
 					</div>
 					<div class="card-body">
-						<div id="chart-cash-transactions-by-year"></div>
+						<div id="cash-transaction-chart-bar-by-year"></div>
 					</div>
 					<div class="card-body">
-						<div id="chart-cash-transactions-amount-by-year"></div>
+						<div id="cash-transaction-chart-line-by-year"></div>
 					</div>
 				</div>
 			</div>
