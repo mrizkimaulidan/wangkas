@@ -187,6 +187,8 @@
 		}
 
 		$("#year").keyup(function (e) {
+			if(!$('#year').val().trim()) return;
+
 			if (e.keyCode === 13) {
 				updateBarChart();
 				updateLineChart();
