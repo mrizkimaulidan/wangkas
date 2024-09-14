@@ -1,1 +1,0 @@
-<a {{ $attributes }} class="submenu-link">{{ $slot }}</a>
