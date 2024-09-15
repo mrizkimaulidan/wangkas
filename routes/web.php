@@ -9,6 +9,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', Dashboard::class);
-Route::get('/kelas', SchoolClassTable::class);
-Route::get('/jurusan', SchoolMajorTable::class);
+Route::get('/dashboard', Dashboard::class)->name('dashboard');
+Route::get('/kelas', SchoolClassTable::class)->name('school-classes.index');
+Route::get('/jurusan', SchoolMajorTable::class)->name('school-majors.index');
