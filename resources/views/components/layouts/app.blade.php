@@ -313,6 +313,13 @@
               </a>
             </li>
 
+            <li class="sidebar-item">
+              <a href="/jurusan" wire:navigate class="sidebar-link">
+                <i class="bi bi-grid-1x2-fill"></i>
+                <span>Jurusan</span>
+              </a>
+            </li>
+
             <li class="sidebar-item has-sub">
               <a href="#" class="sidebar-link">
                 <i class="bi bi-file-earmark-spreadsheet-fill"></i>
