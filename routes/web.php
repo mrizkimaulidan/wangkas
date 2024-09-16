@@ -1,5 +1,6 @@
 <?php
 
+use App\Livewire\Administrators\AdministratorTable;
 use App\Livewire\Dashboard;
 use App\Livewire\SchoolClasses\SchoolClassTable;
 use App\Livewire\SchoolMajors\SchoolMajorTable;
@@ -12,3 +13,4 @@ Route::get('/', function () {
 Route::get('/dashboard', Dashboard::class)->name('dashboard');
 Route::get('/kelas', SchoolClassTable::class)->name('school-classes.index');
 Route::get('/jurusan', SchoolMajorTable::class)->name('school-majors.index');
+Route::get('/pengguna', AdministratorTable::class)->name('administrators.index');

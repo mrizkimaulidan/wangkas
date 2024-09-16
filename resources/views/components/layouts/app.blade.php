@@ -115,8 +115,8 @@
               </ul>
             </li>
 
-            <li class="sidebar-item">
-              <a href="#" wire:navigate class="sidebar-link">
+            <li class="sidebar-item {{ request()->routeIs('administrators.index') ? 'active' : '' }}">
+              <a href="/pengguna" wire:navigate class="sidebar-link">
                 <i class="bi bi-person-badge-fill"></i>
                 <span>Administrator</span>
               </a>
