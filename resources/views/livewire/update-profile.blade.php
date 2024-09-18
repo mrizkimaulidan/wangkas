@@ -29,7 +29,7 @@
             </div>
             <div class="mb-3">
               <label for="current_password" class="form-label">Kata Sandi Saat Ini:</label>
-              <input wire:model.blur="form.current_password" type="text"
+              <input wire:model.blur="form.current_password" type="password"
                 class="form-control @error('form.current_password') is-invalid @enderror" id="current_password"
                 placeholder="Masukan kata sandi saat ini..">
               <div>
@@ -39,21 +39,21 @@
               </div>
             </div>
             <div class="mb-3">
-              <label for="new_password" class="form-label">Kata Sandi Baru:</label>
-              <input wire:model.blur="form.new_password" type="text"
-                class="form-control @error('form.new_password') is-invalid @enderror" id="new_password"
+              <label for="password" class="form-label">Kata Sandi Baru:</label>
+              <input wire:model.blur="form.password" type="password"
+                class="form-control @error('form.password') is-invalid @enderror" id="password"
                 placeholder="Masukan kata sandi baru..">
               <div>
-                @error('form.new_password')
+                @error('form.password')
                 <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
                 @enderror
               </div>
             </div>
             <div class="mb-3">
               <label for="password_confirmation" class="form-label">Konfirmasi Kata Sandi Baru:</label>
-              <input wire:model.blur="form.password_confirmation" type="text"
+              <input wire:model.blur="form.password_confirmation" type="password"
                 class="form-control @error('form.password_confirmation') is-invalid @enderror"
-                id="password_confirmation" placeholder="Masukan konfirmasi kata sandi..">
+                id="password_confirmation" placeholder="Masukan konfirmasi kata sandi baru..">
               <div>
                 @error('form.password_confirmation')
                 <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
