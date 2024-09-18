@@ -3,7 +3,7 @@
     <div class="card">
 
       <div class="card-body">
-        <h5 class="card-title">Daftar Kelas</h5>
+        <h5 class="card-title">Daftar Administrator</h5>
 
         <div class="d-flex flex-wrap flex-row-reverse mb-3 gap-2">
           <div class="col-auto">
