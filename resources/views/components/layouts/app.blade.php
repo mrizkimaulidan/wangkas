@@ -122,8 +122,8 @@
               </a>
             </li>
 
-            <li class="sidebar-item">
-              <a href="#" wire:navigate class="sidebar-link">
+            <li class="sidebar-item {{ request()->routeIs('profiles.index') ? 'active' : '' }}">
+              <a href="/profil" wire:navigate class="sidebar-link">
                 <i class="bi bi-person-fill-gear"></i>
                 <span>Pengaturan Profil</span>
               </a>
