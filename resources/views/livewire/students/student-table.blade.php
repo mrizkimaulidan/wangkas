@@ -113,4 +113,6 @@
       </div>
     </div>
   </div>
+
+  <livewire:students.create-student />
 </div>
