@@ -115,4 +115,5 @@
   </div>
 
   <livewire:students.create-student />
+  <livewire:students.delete-student />
 </div>
