@@ -82,8 +82,8 @@
                 <th scope="row">{{ $startIndex + $index }}</th>
                 <td>{{ $student->identification_number }}</td>
                 <td>{{ $student->name }}</td>
-                <td>{{ $student->school_class_id }}</td>
-                <td>{{ $student->school_major_id }}</td>
+                <td>{{ $student->schoolClass->name }}</td>
+                <td>{{ $student->schoolMajor->name }}</td>
                 <td>{{ $student->school_year_start }} - {{ $student->school_year_end }}</td>
                 <td>
                   <div class="btn-group grid gap-1" role="group">
