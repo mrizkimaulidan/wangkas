@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    /**
+     * Handle an authentication attempt.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function showLoginForm(): View
     {
         return view('authentication.login');
@@ -17,8 +22,8 @@ class LoginController extends Controller
     /**
      * Handle an authentication attempt.
      *
-     * @param Request $request
-     * @return RedirectResponse
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function authenticate(Request $request): RedirectResponse
     {
