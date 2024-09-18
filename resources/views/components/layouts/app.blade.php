@@ -77,8 +77,8 @@
 
             <li class="sidebar-title"><i class="bi bi-menu-button-wide-fill"></i></li>
 
-            <li class="sidebar-item">
-              <a href="#" wire:navigate class="sidebar-link">
+            <li class="sidebar-item {{ request()->routeIs('students.index') ? 'active' : '' }}">
+              <a href="/pelajar" wire:navigate class="sidebar-link">
                 <i class="bi bi-people-fill"></i>
                 <span>Pelajar</span>
               </a>
