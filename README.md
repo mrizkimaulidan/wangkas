@@ -1,34 +1,36 @@
 # Peminba
 
+**Perhatian**: Proyek ini akan dibuat ulang menggunakan Livewire untuk mengikuti perkembangan teknologi yang lebih modern. Saat ini sedang dilakukan development pada branch `livewire`.
+
 Aplikasi pendataan uang kas dibuat dengan Framework Laravel 10. Dengan sistem pembayaran kas sekali selama seminggu. Aplikasi ini cocok untuk digunakan untuk di sekolah atau masing masing kelas.
 
 Beberapa CRUD menggunakan modal dan AJAX untuk pengambilan data agar mengurangi penggunaan pindah halaman. Dan seluruh menu menggunakan DataTable Server Side Processing.
 
 ### Demo
 
-- Demo Aplikasi (https://demo.wangkas.mrizkimaulidan.my.id/login)
+-   Demo Aplikasi (https://demo.wangkas.mrizkimaulidan.my.id/login)
 
 ### Prasyarat
 
 Berikut beberapa hal yang perlu diinstal terlebih dahulu:
 
-- Composer (https://getcomposer.org/)
-- PHP ^8.1
-- MySQL 15.x
-- NodeJS ^20.x (https://nodejs.org/)
-- XAMPP (https://www.apachefriends.org/)
+-   Composer (https://getcomposer.org/)
+-   PHP ^8.1
+-   MySQL 15.x
+-   NodeJS ^20.x (https://nodejs.org/)
+-   XAMPP (https://www.apachefriends.org/)
 
 Jika Anda menggunakan XAMPP, PHP, dan MySQL sudah menjadi satu paket di dalam aplikasi XAMPP.
 
 ### Fitur
 
-- CRUD Pelajar
-- CRUD Kelas
-- CRUD Jurusan
-- Transaksi pembayaran kas
-- Laporan transaksi kas
-- CRUD Administrator
-- Pengaturan Profil
+-   CRUD Pelajar
+-   CRUD Kelas
+-   CRUD Jurusan
+-   Transaksi pembayaran kas
+-   Laporan transaksi kas
+-   CRUD Administrator
+-   Pengaturan Profil
 
 ### Preview Gambar
 
@@ -96,7 +98,7 @@ DB_USERNAME=
 DB_PASSWORD=
 ```
 
-4. Ubah value  `APP_NAME=` pada file `.env` menjadi nama aplikasi yang Anda inginkan.
+4. Ubah value `APP_NAME=` pada file `.env` menjadi nama aplikasi yang Anda inginkan.
 
 ```bash
 APP_NAME=
@@ -139,9 +141,9 @@ Pass    : secret
 
 ### Dibuat dengan
 
-- Laravel (https://laravel.com/)
-- Mazer Admin Dashboard (https://github.com/zuramai/mazer)
-- Bootstrap 5 (https://getbootstrap.com/)
+-   Laravel (https://laravel.com/)
+-   Mazer Admin Dashboard (https://github.com/zuramai/mazer)
+-   Bootstrap 5 (https://getbootstrap.com/)
 
 ### Kontribusi
 
