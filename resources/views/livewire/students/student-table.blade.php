@@ -115,5 +115,6 @@
   </div>
 
   <livewire:students.create-student />
+  <livewire:students.edit-student />
   <livewire:students.delete-student />
 </div>
