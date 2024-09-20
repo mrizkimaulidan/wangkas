@@ -275,7 +275,7 @@
               </tr>
               @empty
               <tr wire:loading.remove class="text-center">
-                <th colspan="3" class="fw-bold">Tidak ada data yang ditemukan!</th>
+                <th colspan="6" class="fw-bold">Tidak ada data yang ditemukan!</th>
               </tr>
               @endforelse
             </tbody>
