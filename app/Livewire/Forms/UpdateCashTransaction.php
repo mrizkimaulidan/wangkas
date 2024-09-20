@@ -13,8 +13,11 @@ class UpdateCashTransaction extends Form
 
     #[Validate]
     public string $student_id = '';
+
     public string $amount = '';
+
     public string $date_paid = '';
+
     public ?string $transaction_note = '';
 
     public function update()

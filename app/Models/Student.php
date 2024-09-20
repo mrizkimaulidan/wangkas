@@ -19,13 +19,11 @@ class Student extends Model
         'phone_number',
         'gender',
         'school_year_start',
-        'school_year_end'
+        'school_year_end',
     ];
 
     /**
      * Get the school class relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function schoolClass(): BelongsTo
     {
@@ -34,8 +32,6 @@ class Student extends Model
 
     /**
      * Get the school major relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function schoolMajor(): BelongsTo
     {
@@ -44,8 +40,6 @@ class Student extends Model
 
     /**
      * Get the cash transactions relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function cashTransactions(): HasMany
     {

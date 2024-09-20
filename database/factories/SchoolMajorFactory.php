@@ -18,7 +18,7 @@ class SchoolMajorFactory extends Factory
     {
         return [
             'name' => fake()->word,
-            'abbreviation' => fake()->word(3)
+            'abbreviation' => fake()->word(3),
         ];
     }
 }

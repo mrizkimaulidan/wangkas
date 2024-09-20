@@ -21,9 +21,9 @@ class StudentFactory extends Factory
         $currentYear = now()->year;
 
         // Generate 9-digit identification number
-        $identificationNumber = substr($currentYear, 2) .
-            fake()->numberBetween(100, 199) .
-            fake()->numberBetween(200, 399) .
+        $identificationNumber = substr($currentYear, 2).
+            fake()->numberBetween(100, 199).
+            fake()->numberBetween(200, 399).
             fake()->numberBetween(1, 9);
 
         return [

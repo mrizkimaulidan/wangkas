@@ -20,7 +20,7 @@ class EditStudent extends Component
 
         return view('livewire.students.edit-student', [
             'schoolClasses' => $schoolClasses,
-            'schoolMajors' => $schoolMajors
+            'schoolMajors' => $schoolMajors,
         ]);
     }
 

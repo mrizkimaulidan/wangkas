@@ -8,7 +8,9 @@ use Livewire\Component;
 
 class ShowAdministrator extends Component
 {
-    public string $name, $email;
+    public string $name;
+
+    public string $email;
 
     public function render()
     {

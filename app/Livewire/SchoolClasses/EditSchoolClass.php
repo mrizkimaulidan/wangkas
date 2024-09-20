@@ -4,7 +4,6 @@ namespace App\Livewire\SchoolClasses;
 
 use App\Livewire\Forms\UpdateSchoolClassForm;
 use App\Models\SchoolClass;
-use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\On;
 use Livewire\Component;
 

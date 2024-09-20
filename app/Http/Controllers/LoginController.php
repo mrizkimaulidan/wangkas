@@ -11,8 +11,6 @@ class LoginController extends Controller
 {
     /**
      * Handle an authentication attempt.
-     *
-     * @return \Illuminate\Contracts\View\View
      */
     public function showLoginForm(): View
     {
@@ -21,9 +19,6 @@ class LoginController extends Controller
 
     /**
      * Handle an authentication attempt.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
      */
     public function authenticate(Request $request): RedirectResponse
     {

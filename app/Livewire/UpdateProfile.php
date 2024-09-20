@@ -3,7 +3,6 @@
 namespace App\Livewire;
 
 use App\Livewire\Forms\UpdateProfileForm;
-use App\Models\User;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 

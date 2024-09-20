@@ -2,9 +2,9 @@
 
 namespace App\Livewire\Students;
 
-use Livewire\Component;
 use App\Models\Student;
 use Livewire\Attributes\On;
+use Livewire\Component;
 
 class DeleteStudent extends Component
 {

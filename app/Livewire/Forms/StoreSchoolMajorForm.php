@@ -10,6 +10,7 @@ class StoreSchoolMajorForm extends Form
 {
     #[Validate]
     public string $name = '';
+
     public string $abbreviation = '';
 
     public function store()

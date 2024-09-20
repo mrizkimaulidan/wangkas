@@ -17,7 +17,7 @@ class EditCashTransaction extends Component
         $students = Student::all();
 
         return view('livewire.cash-transactions.edit-cash-transaction', [
-            'students' => $students
+            'students' => $students,
         ]);
     }
 

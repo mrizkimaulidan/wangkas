@@ -15,7 +15,7 @@ class CreateCashTransaction extends Component
         $students = Student::all();
 
         return view('livewire.cash-transactions.create-cash-transaction', [
-            'students' => $students
+            'students' => $students,
         ]);
     }
 

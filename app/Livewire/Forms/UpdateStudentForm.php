@@ -12,12 +12,19 @@ class UpdateStudentForm extends Form
 
     #[Validate]
     public string $identification_number = '';
+
     public string $name = '';
+
     public string $phone_number = '';
+
     public string $gender = '';
+
     public string $school_class_id = '';
+
     public string $school_major_id = '';
+
     public string $school_year_start = '';
+
     public string $school_year_end = '';
 
     public function update()

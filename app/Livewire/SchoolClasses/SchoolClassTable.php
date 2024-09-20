@@ -15,8 +15,11 @@ class SchoolClassTable extends Component
     use WithPagination;
 
     public string $query = '';
+
     public int $limit = 5;
+
     public string $orderByColumn = 'name';
+
     public string $orderBy = 'asc';
 
     #[On('school-class-created')]
@@ -27,6 +30,7 @@ class SchoolClassTable extends Component
         $schoolClasses = SchoolClass::query()
             ->when($this->query, function (Builder $query) {
                 $this->resetPage();
+
                 return $query->where('name', 'like', "%{$this->query}%");
             })
             ->orderBy($this->orderByColumn, $this->orderBy)

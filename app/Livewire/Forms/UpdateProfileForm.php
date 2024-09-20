@@ -10,9 +10,13 @@ class UpdateProfileForm extends Form
 {
     #[Validate]
     public string $name = '';
+
     public string $email = '';
+
     public string $current_password = '';
+
     public string $password = '';
+
     public string $password_confirmation = '';
 
     public function update()
@@ -54,7 +58,7 @@ class UpdateProfileForm extends Form
             'current_password.required' => 'Kolom kata sandi saat ini tidak boleh kosong!',
             'current_password.min' => 'Kolom kata sandi saat ini minimal :min karakter!',
             'current_password.max' => 'Kolom kata sandi saat ini maksimal :max karakter!',
-            'current_password.current_password' => 'Kata sandi saat ini tidak benar!'
+            'current_password.current_password' => 'Kata sandi saat ini tidak benar!',
         ];
     }
 }

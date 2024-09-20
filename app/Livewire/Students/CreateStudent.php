@@ -18,7 +18,7 @@ class CreateStudent extends Component
 
         return view('livewire.students.create-student', [
             'schoolClasses' => $schoolClasses,
-            'schoolMajors' => $schoolMajors
+            'schoolMajors' => $schoolMajors,
         ]);
     }
 

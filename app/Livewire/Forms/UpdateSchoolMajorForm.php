@@ -12,6 +12,7 @@ class UpdateSchoolMajorForm extends Form
 
     #[Validate]
     public string $name = '';
+
     public string $abbreviation = '';
 
     public function update()

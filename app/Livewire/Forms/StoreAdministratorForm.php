@@ -10,8 +10,11 @@ class StoreAdministratorForm extends Form
 {
     #[Validate]
     public string $name = '';
+
     public string $email = '';
+
     public string $password = '';
+
     public string $password_confirmation = '';
 
     public function store()
