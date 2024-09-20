@@ -288,4 +288,5 @@
   </div>
 
   <livewire:cash-transactions.create-cash-transaction />
+  <livewire:cash-transactions.delete-cash-transaction />
 </div>
