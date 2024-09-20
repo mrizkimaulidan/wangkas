@@ -4,7 +4,7 @@ namespace App\Livewire\CashTransactions;
 
 use App\Livewire\Forms\UpdateCashTransaction;
 use App\Models\CashTransaction;
-use App\Models\Student;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -12,12 +12,12 @@ class EditCashTransaction extends Component
 {
     public UpdateCashTransaction $form;
 
+    public Collection $students;
+
     public function render()
     {
-        $students = Student::all();
-
         return view('livewire.cash-transactions.edit-cash-transaction', [
-            'students' => $students,
+            'students' => $this->students,
         ]);
     }
 

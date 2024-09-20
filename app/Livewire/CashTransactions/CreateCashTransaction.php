@@ -3,19 +3,19 @@
 namespace App\Livewire\CashTransactions;
 
 use App\Livewire\Forms\StoreCashTransaction;
-use App\Models\Student;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
 class CreateCashTransaction extends Component
 {
     public StoreCashTransaction $form;
 
+    public Collection $students;
+
     public function render()
     {
-        $students = Student::all();
-
         return view('livewire.cash-transactions.create-cash-transaction', [
-            'students' => $students,
+            'students' => $this->students,
         ]);
     }
 

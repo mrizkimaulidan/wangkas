@@ -35,7 +35,10 @@ class CashTransactionCurrentWeekTable extends Component
     #[On('cash-transaction-deleted')]
     public function render()
     {
+        $students = Student::all();
+
         $cashTransactions = CashTransaction::query()
+            ->with('student', 'createdBy')
             ->whereBetween('date_paid', [now()->startOfWeek(), now()->endOfWeek()])
             ->when($this->query, function (Builder $query) {
                 $this->resetPage();
@@ -49,6 +52,7 @@ class CashTransactionCurrentWeekTable extends Component
 
         return view('livewire.cash-transactions.cash-transaction-current-week-table', [
             'cashTransactions' => $cashTransactions,
+            'students' => $students,
         ]);
     }
 
