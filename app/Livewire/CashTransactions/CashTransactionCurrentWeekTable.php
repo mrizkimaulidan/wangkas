@@ -32,10 +32,8 @@ class CashTransactionCurrentWeekTable extends Component
     #[On('cash-transaction-deleted')]
     public function render()
     {
-        $now = now();
         $cashTransactions = CashTransaction::query()
-            ->whereYear('date_paid', $now->year)
-            ->whereMonth('date_paid', $now->month)
+            ->whereBetween('date_paid', [now()->startOfWeek(), now()->endOfWeek()])
             ->when($this->query, function (Builder $query) {
                 $this->resetPage();
                 return $query->where('id', 'like', "%{$this->query}%");
