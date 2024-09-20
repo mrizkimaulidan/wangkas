@@ -287,7 +287,5 @@
     </div>
   </div>
 
-  <livewire:school-classes.create-school-class />
-  <livewire:school-classes.edit-school-class />
-  <livewire:school-classes.delete-school-class />
+  <livewire:cash-transactions.create-cash-transaction />
 </div>
