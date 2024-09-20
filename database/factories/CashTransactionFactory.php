@@ -18,18 +18,12 @@ class CashTransactionFactory extends Factory
      */
     public function definition(): array
     {
-        $studentID = Student::inRandomOrder()->first()->id;
-        $userID = User::inRandomOrder()->first()->id;
-        $now = now();
-
-        $fakeElement = fn($element1, $element2) => fake()->randomElement([$element1, $element2]);
-
         return [
-            'student_id' => $studentID,
+            'student_id' => Student::inRandomOrder()->value('id'),
             'amount' => round(fake()->numberBetween(100000, 250000), -3),
-            'date_paid' => $now->createFromDate($now->year - fake()->numberBetween(1, 3), $fakeElement(1, 12), $fakeElement(1, 31)),
-            'transaction_note' => $fakeElement(null, fake()->word),
-            'created_by' => $userID
+            'date_paid' => fake()->dateTimeBetween('-3 years'),
+            'transaction_note' => fake()->optional()->word,
+            'created_by' => User::inRandomOrder()->value('id'),
         ];
     }
 }

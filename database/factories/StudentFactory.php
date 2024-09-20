@@ -19,20 +19,20 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         $currentYear = now()->year;
-        $fakeNumber = fn(int $int1, $int2) => fake()->numberBetween($int1, $int2);
-        $schoolClassID = SchoolClass::inRandomOrder()->first()->id;
-        $schoolMajorID = SchoolMajor::inRandomOrder()->first()->id;
 
-        // will generate 9 digit number
-        $identificationNumber = substr($currentYear, 2) . $fakeNumber(100, 200) . $fakeNumber(200, 400) . $fakeNumber(1, 9);
+        // Generate 9-digit identification number
+        $identificationNumber = substr($currentYear, 2) .
+            fake()->numberBetween(100, 199) .
+            fake()->numberBetween(200, 399) .
+            fake()->numberBetween(1, 9);
 
         return [
-            'school_class_id' => $schoolClassID,
-            'school_major_id' => $schoolMajorID,
+            'school_class_id' => SchoolClass::inRandomOrder()->value('id'),
+            'school_major_id' => SchoolMajor::inRandomOrder()->value('id'),
             'identification_number' => $identificationNumber,
             'name' => fake()->name,
             'phone_number' => fake()->phoneNumber,
-            'gender' => fake()->randomElement([1, 2]),
+            'gender' => fake()->randomElement([1, 2]), // 1 = male, 2 = female
             'school_year_start' => $currentYear,
             'school_year_end' => $currentYear + 3,
         ];
