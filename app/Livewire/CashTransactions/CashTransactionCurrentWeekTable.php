@@ -4,7 +4,7 @@ namespace App\Livewire\CashTransactions;
 
 use App\Models\CashTransaction;
 use Livewire\Component;
-use App\Models\SchoolClass;
+use App\Models\Student;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
@@ -19,6 +19,13 @@ class CashTransactionCurrentWeekTable extends Component
     public int $limit = 5;
     public string $orderByColumn = 'date_paid';
     public string $orderBy = 'desc';
+
+    public array $statistics = [
+        'totalCurrentMonth' => 0,
+        'totalCurrentYear' => 0,
+        'studentsPaidThisWeek' => 0,
+        'studentsNotPaidThisWeek' => 0,
+    ];
 
     #[On('cash-transaction-created')]
     #[On('cash-transaction-updated')]
@@ -36,6 +43,8 @@ class CashTransactionCurrentWeekTable extends Component
             ->orderBy($this->orderByColumn, $this->orderBy)
             ->paginate($this->limit);
 
+        $this->calculateStatistics();
+
         return view('livewire.cash-transactions.cash-transaction-current-week-table', [
             'cashTransactions' => $cashTransactions,
         ]);
@@ -49,5 +58,33 @@ class CashTransactionCurrentWeekTable extends Component
             'orderByColumn',
             'orderBy',
         ]);
+    }
+
+    public function calculateStatistics()
+    {
+        $currentYear = now()->year;
+        $currentMonth = now()->month;
+
+        $totalAmountCurrentYear = CashTransaction::whereYear('date_paid', $currentYear)
+            ->sum('amount');
+
+        $totalAmountCurrentMonth = CashTransaction::whereYear('date_paid', $currentYear)
+            ->whereMonth('date_paid', $currentMonth)
+            ->sum('amount');
+
+        $studentsPaidThisWeekCount = Student::whereHas('cashTransactions', function (Builder $query) {
+            return $query->whereBetween('date_paid', [now()->startOfWeek(), now()->endOfWeek()]);
+        })->count();
+
+        $studentsNotPaidThisWeekCount = Student::whereDoesntHave('cashTransactions', function (Builder $query) {
+            return $query->whereBetween('date_paid', [now()->startOfWeek(), now()->endOfWeek()]);
+        })->count();
+
+        $this->statistics = [
+            'totalCurrentMonth' => $totalAmountCurrentMonth,
+            'totalCurrentYear' => $totalAmountCurrentYear,
+            'studentsPaidThisWeek' => $studentsPaidThisWeekCount,
+            'studentsNotPaidThisWeek' => $studentsNotPaidThisWeekCount,
+        ];
     }
 }
