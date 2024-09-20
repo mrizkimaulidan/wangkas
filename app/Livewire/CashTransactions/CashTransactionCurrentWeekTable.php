@@ -26,8 +26,8 @@ class CashTransactionCurrentWeekTable extends Component
     public array $statistics = [
         'totalCurrentMonth' => 0,
         'totalCurrentYear' => 0,
-        'studentsPaidThisWeek' => 0,
-        'studentsNotPaidThisWeek' => 0,
+        'studentsPaidThisWeekCount' => 0,
+        'studentsNotPaidThisWeekCount' => 0,
     ];
 
     #[On('cash-transaction-created')]
@@ -69,14 +69,12 @@ class CashTransactionCurrentWeekTable extends Component
     public function calculateStatistics()
     {
         $currentYear = now()->year;
-        $currentMonth = now()->month;
 
-        $totalAmountCurrentYear = CashTransaction::whereYear('date_paid', $currentYear)
-            ->sum('amount');
+        $cashTransactions = CashTransaction::whereYear('date_paid', $currentYear)->get();
 
-        $totalAmountCurrentMonth = CashTransaction::whereYear('date_paid', $currentYear)
-            ->whereMonth('date_paid', $currentMonth)
-            ->sum('amount');
+        $totalAmountCurrentMonth = $cashTransactions->filter(function ($cashTransaction) {
+            return now()->isSameMonth($cashTransaction->date_paid);
+        })->sum('amount');
 
         $studentsPaidThisWeekCount = Student::whereHas('cashTransactions', function (Builder $query) {
             return $query->whereBetween('date_paid', [now()->startOfWeek(), now()->endOfWeek()]);
@@ -88,9 +86,9 @@ class CashTransactionCurrentWeekTable extends Component
 
         $this->statistics = [
             'totalCurrentMonth' => $totalAmountCurrentMonth,
-            'totalCurrentYear' => $totalAmountCurrentYear,
-            'studentsPaidThisWeek' => $studentsPaidThisWeekCount,
-            'studentsNotPaidThisWeek' => $studentsNotPaidThisWeekCount,
+            'totalCurrentYear' => $cashTransactions->sum('amount'),
+            'studentsPaidThisWeekCount' => $studentsPaidThisWeekCount,
+            'studentsNotPaidThisWeekCount' => $studentsNotPaidThisWeekCount,
         ];
     }
 }
