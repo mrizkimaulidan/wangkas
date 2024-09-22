@@ -130,10 +130,13 @@
             </li>
 
             <li class="sidebar-item">
-              <a href="#" wire:navigate class="sidebar-link">
-                <i class="bi bi-box-arrow-left"></i>
-                <span>Logout</span>
-              </a>
+              <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="sidebar-link btn btn-link w-100">
+                  <i class="bi bi-box-arrow-left"></i>
+                  <span class="fw-bold">Keluar</span>
+                </button>
+              </form>
             </li>
           </ul>
         </div>
