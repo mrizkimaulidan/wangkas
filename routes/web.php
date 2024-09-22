@@ -11,15 +11,18 @@ use App\Livewire\Students\StudentTable;
 use App\Livewire\UpdateProfile;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+Route::middleware('guest')->group(function () {
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'authenticate']);
+});
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::middleware('auth')->group(function () {
+    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
     Route::get('/kelas', SchoolClassTable::class)->name('school-classes.index');
     Route::get('/jurusan', SchoolMajorTable::class)->name('school-majors.index');
