@@ -77,12 +77,16 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header text-center">
+          @if($statistics['studentsNotPaidThisWeekCount'] > 0)
           <h4>
-            Belum Membayar Minggu Ini
+            Daftar Yang Belum Membayar Minggu Ini
             <span class="fw-bolder fst-italic">(16-09-2024 sampai 22-09-2024)</span>
           </h4>
+          @endif
         </div>
+
         <div class="card-body">
+          @if($statistics['studentsNotPaidThisWeekCount'] > 0)
           <button type="button" class="btn btn-danger btn-block btn-xl font-bold" data-bs-toggle="modal"
             data-bs-target="#notPaidModal">
             Ada <b>{{ $statistics['studentsNotPaidThisWeekCount'] }}</b> orang belum membayar pada minggu ini! <i
@@ -101,10 +105,15 @@
           </div>
           <button type="button" class="btn btn-primary btn-block btn-xl font-bold" data-bs-toggle="modal"
             data-bs-target="#notPaidModal">Lihat Selengkapnya</button>
-        </div>
 
-        <!-- Modal -->
-        <livewire:cash-transactions.not-paid-modal :students="$statistics['studentsNotPaidThisWeek']" />
+          <livewire:cash-transactions.not-paid-modal :students="$statistics['studentsNotPaidThisWeek']" />
+          @else
+          <button type="button" class="btn btn-success btn-block btn-xl font-bold" data-bs-toggle="modal"
+            data-bs-target="#notPaidModal">
+            Semua sudah membayar pada minggu ini! <i class="bi bi-emoji-smile"></i>
+          </button>
+          @endif
+        </div>
       </div>
     </div>
   </div>
