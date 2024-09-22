@@ -5,6 +5,7 @@ namespace App\Livewire\CashTransactions;
 use App\Models\CashTransaction;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -35,7 +36,9 @@ class CashTransactionCurrentWeekTable extends Component
     #[On('cash-transaction-deleted')]
     public function render()
     {
-        $students = Student::all();
+        $students = Student::with(['cashTransactions' => function ($query) {
+            return $query->whereBetween('date_paid', [now()->startOfWeek(), now()->endOfWeek()]);
+        }, 'schoolClass', 'schoolMajor'])->get();
 
         $cashTransactions = CashTransaction::query()
             ->with('student', 'createdBy')
@@ -48,7 +51,7 @@ class CashTransactionCurrentWeekTable extends Component
             ->orderBy($this->orderByColumn, $this->orderBy)
             ->paginate($this->limit);
 
-        $this->calculateStatistics();
+        $this->calculateStatistics($students);
 
         return view('livewire.cash-transactions.cash-transaction-current-week-table', [
             'cashTransactions' => $cashTransactions,
@@ -66,29 +69,30 @@ class CashTransactionCurrentWeekTable extends Component
         ]);
     }
 
-    public function calculateStatistics()
+    public function calculateStatistics(Collection $students)
     {
         $currentYear = now()->year;
-
         $cashTransactions = CashTransaction::whereYear('date_paid', $currentYear)->get();
 
         $totalAmountCurrentMonth = $cashTransactions->filter(function ($cashTransaction) {
             return now()->isSameMonth($cashTransaction->date_paid);
         })->sum('amount');
 
-        $studentsPaidThisWeekCount = Student::whereHas('cashTransactions', function (Builder $query) {
-            return $query->whereBetween('date_paid', [now()->startOfWeek(), now()->endOfWeek()]);
-        })->count();
+        $studentsPaidThisWeek = $students->filter(function ($student) {
+            return $student->cashTransactions->isNotEmpty();
+        });
 
-        $studentsNotPaidThisWeekCount = Student::whereDoesntHave('cashTransactions', function (Builder $query) {
-            return $query->whereBetween('date_paid', [now()->startOfWeek(), now()->endOfWeek()]);
-        })->count();
+        $studentsNotPaidThisWeek = $students->filter(function ($student) {
+            return $student->cashTransactions->isEmpty();
+        })->sortBy('name');
 
         $this->statistics = [
             'totalCurrentMonth' => $totalAmountCurrentMonth,
             'totalCurrentYear' => $cashTransactions->sum('amount'),
-            'studentsPaidThisWeekCount' => $studentsPaidThisWeekCount,
-            'studentsNotPaidThisWeekCount' => $studentsNotPaidThisWeekCount,
+            'studentsNotPaidThisWeekLimit' => $studentsNotPaidThisWeek->take(6),
+            'studentsPaidThisWeekCount' => $studentsPaidThisWeek->count(),
+            'studentsNotPaidThisWeekCount' => $studentsNotPaidThisWeek->count(),
+            'studentsNotPaidThisWeek' => $studentsNotPaidThisWeek,
         ];
     }
 }

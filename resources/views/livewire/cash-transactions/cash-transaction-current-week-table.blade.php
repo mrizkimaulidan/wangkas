@@ -85,91 +85,26 @@
         <div class="card-body">
           <button type="button" class="btn btn-danger btn-block btn-xl font-bold" data-bs-toggle="modal"
             data-bs-target="#notPaidModal">
-            Ada <b>21</b> orang belum membayar pada minggu ini! <i class="bi bi-exclamation-triangle"></i>
+            Ada <b>{{ $statistics['studentsNotPaidThisWeekCount'] }}</b> orang belum membayar pada minggu ini! <i
+              class="bi bi-exclamation-triangle"></i>
           </button>
 
           <div class="row text-center mt-3">
-            <!-- Student Information Cards -->
+            @foreach ($statistics['studentsNotPaidThisWeekLimit'] as $student)
             <div class="col-6 mb-3">
               <div class="p-3 border rounded">
-                <h5 class="mb-1">Antoinette Swift Sr.</h5>
-                <h6 class="text-muted mb-0">246125459</h6>
+                <h5 class="mb-1">{{ $student->name }}</h5>
+                <h6 class="text-muted mb-0">{{ $student->identification_number }}</h6>
               </div>
             </div>
-            <div class="col-6 mb-3">
-              <div class="p-3 border rounded">
-                <h5 class="mb-1">Arlie Rutherford</h5>
-                <h6 class="text-muted mb-0">246128989</h6>
-              </div>
-            </div>
-            <div class="col-6 mb-3">
-              <div class="p-3 border rounded">
-                <h5 class="mb-1">Darwin Rempel</h5>
-                <h6 class="text-muted mb-0">246137309</h6>
-              </div>
-            </div>
-            <div class="col-6 mb-3">
-              <div class="p-3 border rounded">
-                <h5 class="mb-1">Devonte Rolfson</h5>
-                <h6 class="text-muted mb-0">246131946</h6>
-              </div>
-            </div>
-            <div class="col-6 mb-3">
-              <div class="p-3 border rounded">
-                <h5 class="mb-1">Dr. Alexandre Braun Jr.</h5>
-                <h6 class="text-muted mb-0">246118023</h6>
-              </div>
-            </div>
-            <div class="col-6 mb-3">
-              <div class="p-3 border rounded">
-                <h5 class="mb-1">Earnest Wilkinson</h5>
-                <h6 class="text-muted mb-0">246128443</h6>
-              </div>
-            </div>
+            @endforeach
           </div>
           <button type="button" class="btn btn-primary btn-block btn-xl font-bold" data-bs-toggle="modal"
             data-bs-target="#notPaidModal">Lihat Selengkapnya</button>
         </div>
 
         <!-- Modal -->
-        <div wire:ignore.self data-bs-backdrop="static" class="modal fade" id="notPaidModal" tabindex="-1"
-          aria-labelledby="notPaidModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg modal-dialog-scrollable">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="notPaidModalLabel">Daftar Pelajar Yang Belum Membayar Minggu Ini</h1>
-                <button wire:loading.attr="disabled" type="button" class="btn-close" data-bs-dismiss="modal"
-                  aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <div class="row">
-                  <!-- Student Details Cards -->
-                  <div class="col-6 mb-3">
-                    <div class="card border rounded">
-                      <div class="card-body">
-                        <h5 class="card-title fw-bold">Antoinette Swift Sr.</h5>
-                        <p class="card-text text-muted">246125459</p>
-                        <p class="card-text text-muted">
-                          <span class="badge bg-secondary">
-                            <i class="bi bi-telephone-fill"></i> (769) 528-2610
-                          </span>
-                        </p>
-                        <span class="badge bg-primary"><i class="bi bi-bookmark"></i> est</span>
-                        <span class="badge bg-success"><i class="bi bi-briefcase"></i> voluptatem</span>
-                        <span class="badge bg-info"><i class="bi bi-gender-male"></i></span>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- Additional student details can be added here -->
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button wire:loading.attr="disabled" type="button" class="btn btn-secondary"
-                  data-bs-dismiss="modal">Tutup</button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <livewire:cash-transactions.not-paid-modal :students="$statistics['studentsNotPaidThisWeek']" />
       </div>
     </div>
   </div>
