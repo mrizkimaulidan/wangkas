@@ -7,6 +7,7 @@ use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -28,6 +29,13 @@ class FilterCashTransaction extends Component
 
     public $end_date;
 
+    public array $statistics = [
+        'totalCurrentDay' => 0,
+        'totalCurrentWeek' => 0,
+        'totalCurrentMonth' => 0,
+        'totalCurrentYear' => 0,
+    ];
+
     public function render()
     {
         $filteredResult = CashTransaction::query()
@@ -39,6 +47,8 @@ class FilterCashTransaction extends Component
             ->orWhereBetween('date_paid', [$this->start_date, $this->end_date])
             ->paginate(5);
 
+        $this->calculateStatistics();
+
         return view('livewire.cash-transactions.filter-cash-transaction', [
             'filteredResult' => $filteredResult,
             'students' => Student::orderBy('name')->get(),
@@ -46,5 +56,30 @@ class FilterCashTransaction extends Component
             'schoolMajors' => SchoolMajor::orderBy('name')->get(),
             'schoolClasses' => SchoolClass::orderBy('name')->get(),
         ]);
+    }
+
+    public function calculateStatistics()
+    {
+        $currentYear = now()->year;
+        $cashTransactions = CashTransaction::whereYear('date_paid', $currentYear)->get();
+
+        $totalAmountCurrentDay = $cashTransactions->filter(function ($cashTransaction) {
+            return now()->isSameDay($cashTransaction->date_paid);
+        })->sum('amount');
+
+        $totalAmountCurrentWeek = $cashTransactions->filter(function ($cashTransaction) {
+            return now()->isSameWeek($cashTransaction->date_paid);
+        })->sum('amount');
+
+        $totalAmountCurrentMonth = $cashTransactions->filter(function ($cashTransaction) {
+            return now()->isSameMonth($cashTransaction->date_paid);
+        })->sum('amount');
+
+        $this->statistics = [
+            'totalCurrentDay' => $totalAmountCurrentDay,
+            'totalCurrentWeek' => $totalAmountCurrentWeek,
+            'totalCurrentMonth' => $totalAmountCurrentMonth,
+            'totalCurrentYear' => $cashTransactions->sum('amount'),
+        ];
     }
 }

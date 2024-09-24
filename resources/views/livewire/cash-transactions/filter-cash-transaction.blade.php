@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
               <h6 class="text-muted font-semibold">Total Hari Ini</h6>
-              <h6 class="font-extrabold mb-0">123</h6>
+              <h6 class="font-extrabold mb-0">{{ $statistics['totalCurrentDay'] }}</h6>
             </div>
           </div>
         </div>
@@ -28,7 +28,7 @@
             </div>
             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
               <h6 class="text-muted font-semibold">Total Minggu Ini</h6>
-              <h6 class="font-extrabold mb-0">123</h6>
+              <h6 class="font-extrabold mb-0">{{ $statistics['totalCurrentWeek'] }}</h6>
             </div>
           </div>
         </div>
@@ -48,7 +48,7 @@
             </div>
             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
               <h6 class="text-muted font-semibold">Total Bulan Ini</h6>
-              <h6 class="font-extrabold mb-0">123</h6>
+              <h6 class="font-extrabold mb-0">{{ $statistics['totalCurrentMonth'] }}</h6>
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
             </div>
             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
               <h6 class="text-muted font-semibold">Total Tahun Ini</h6>
-              <h6 class="font-extrabold mb-0">123</h6>
+              <h6 class="font-extrabold mb-0">{{ $statistics['totalCurrentYear'] }}</h6>
             </div>
           </div>
         </div>
