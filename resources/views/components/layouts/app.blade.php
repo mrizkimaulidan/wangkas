@@ -98,7 +98,8 @@
               </a>
             </li>
 
-            <li class="sidebar-item has-sub {{ request()->routeIs('cash-transactions.index') ? 'active' : '' }}">
+            <li
+              class="sidebar-item has-sub {{ request()->routeIs('cash-transactions.index') ? 'active' : '' }} || {{ request()->routeIs('cash-transactions.filter') ? 'active' : '' }}">
               <a href="#" class="sidebar-link">
                 <i class="bi bi-cash-stack"></i>
                 <span>Kas</span>
@@ -109,8 +110,8 @@
                   <a href="{{ route('cash-transactions.index') }}" wire:navigate class="submenu-link">Kas Minggu Ini</a>
                 </li>
 
-                <li class="submenu-item">
-                  <a href="#" wire:navigate class="submenu-link">Filter Kas</a>
+                <li class="submenu-item {{ request()->routeIs('cash-transactions.filter') ? 'active' : '' }}">
+                  <a href="{{ route('cash-transactions.filter') }}" wire:navigate class="submenu-link">Filter Kas</a>
                 </li>
               </ul>
             </li>

@@ -4,6 +4,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Livewire\Administrators\AdministratorTable;
 use App\Livewire\CashTransactions\CashTransactionCurrentWeekTable;
+use App\Livewire\CashTransactions\FilterCashTransaction;
 use App\Livewire\Dashboard;
 use App\Livewire\SchoolClasses\SchoolClassTable;
 use App\Livewire\SchoolMajors\SchoolMajorTable;
@@ -31,4 +32,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/pelajar', StudentTable::class)->name('students.index');
 
     Route::get('/kas', CashTransactionCurrentWeekTable::class)->name('cash-transactions.index');
+    Route::get('/kas/filter', FilterCashTransaction::class)->name('cash-transactions.filter');
 });
