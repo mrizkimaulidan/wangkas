@@ -80,7 +80,8 @@
           @if($statistics['studentsNotPaidThisWeekCount'] > 0)
           <h4>
             Daftar Yang Belum Membayar Minggu Ini
-            <span class="fw-bolder fst-italic">(16-09-2024 sampai 22-09-2024)</span>
+            <span class="fw-bolder fst-italic">({{ $currentWeek['startOfWeek'] }} sampai {{ $currentWeek['endOfWeek']
+              }})</span>
           </h4>
           @endif
         </div>

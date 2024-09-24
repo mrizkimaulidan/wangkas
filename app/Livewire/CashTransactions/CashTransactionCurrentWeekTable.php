@@ -31,6 +31,17 @@ class CashTransactionCurrentWeekTable extends Component
         'studentsNotPaidThisWeekCount' => 0,
     ];
 
+    public array $currentWeek = [
+        'startOfWeek' => null,
+        'endOfWeek' => null,
+    ];
+
+    public function mount()
+    {
+        $this->currentWeek['startOfWeek'] = now()->startOfWeek()->format('d-m-Y');
+        $this->currentWeek['endOfWeek'] = now()->endOfWeek()->format('d-m-Y');
+    }
+
     #[On('cash-transaction-created')]
     #[On('cash-transaction-updated')]
     #[On('cash-transaction-deleted')]
