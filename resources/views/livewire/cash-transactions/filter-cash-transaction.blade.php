@@ -169,7 +169,9 @@
                 </div>
               </div>
 
-              <hr>
+              <div class="divider">
+                <div class="divider-text fw-bold">Pilih menu filter di atas untuk mencari data</div>
+              </div>
 
               <div class="table-responsive">
                 <table class="table table-bordered table-hover">
