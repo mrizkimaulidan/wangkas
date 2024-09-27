@@ -40,21 +40,17 @@ class FilterCashTransaction extends Component
     {
         $filteredResult = CashTransaction::query()
             ->with('student', 'createdBy')
-            ->whereRelation('student', 'id', '=', $this->student_id)
-            ->orWhereRelation('student.schoolMajor', 'id', '=', $this->school_major_id)
-            ->orWhereRelation('student.schoolClass', 'id', '=', $this->school_class_id)
-            ->orWhereRelation('createdBy', 'id', '=', $this->user_id)
-            ->orWhereBetween('date_paid', [$this->start_date, $this->end_date])
-            ->paginate(5);
+            ->whereBetween('date_paid', [$this->start_date, $this->end_date]);
 
         $this->calculateStatistics();
 
         return view('livewire.cash-transactions.filter-cash-transaction', [
-            'filteredResult' => $filteredResult,
+            'filteredResult' => $filteredResult->paginate(5),
             'students' => Student::orderBy('name')->get(),
             'users' => User::orderBy('name')->get(),
             'schoolMajors' => SchoolMajor::orderBy('name')->get(),
             'schoolClasses' => SchoolClass::orderBy('name')->get(),
+            'sumAmountDateRange' => $filteredResult->sum('amount')
         ]);
     }
 
