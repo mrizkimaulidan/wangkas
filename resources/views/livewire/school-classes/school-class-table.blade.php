@@ -74,7 +74,7 @@
               @endphp
 
               @forelse ($schoolClasses as $index => $schoolClass)
-              <tr wire:loading.remove wire:key="{{ $schoolClass->id }}">
+              <tr wire:key="{{ $schoolClass->id }}">
                 <th scope="row">{{ $startIndex + $index }}</th>
                 <td>{{ $schoolClass->name }}</td>
                 <td>

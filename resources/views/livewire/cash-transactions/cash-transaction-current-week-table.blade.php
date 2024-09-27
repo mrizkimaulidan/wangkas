@@ -197,7 +197,7 @@
               @endphp
 
               @forelse ($cashTransactions as $index => $cashTransaction)
-              <tr wire:loading.remove wire:key="{{ $cashTransaction->id }}">
+              <tr wire:key="{{ $cashTransaction->id }}">
                 <th scope="row">{{ $startIndex + $index }}</th>
                 <td>{{ $cashTransaction->student->name }}</td>
                 <td>{{ $cashTransaction->amount }}</td>

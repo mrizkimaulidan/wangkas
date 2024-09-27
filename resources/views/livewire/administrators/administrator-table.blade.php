@@ -76,7 +76,7 @@
               @endphp
 
               @forelse ($administrators as $index => $administrator)
-              <tr wire:loading.remove wire:key="{{ $administrator->id }}">
+              <tr wire:key="{{ $administrator->id }}">
                 <th scope="row">{{ $startIndex + $index }}</th>
                 <td>{{ $administrator->name }}</td>
                 <td>{{ $administrator->email }}</td>
