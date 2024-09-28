@@ -41,6 +41,8 @@ class FilterCashTransaction extends Component
 
     public function render()
     {
+        $sumAmountDateRange = CashTransaction::whereBetween('date_paid', [$this->start_date, $this->end_date])->sum('amount');
+
         $filteredResult = CashTransaction::query()
             ->with('student', 'createdBy')
             ->when($this->query, function (Builder $query) {
@@ -60,7 +62,7 @@ class FilterCashTransaction extends Component
             'users' => User::orderBy('name')->get(),
             'schoolMajors' => SchoolMajor::orderBy('name')->get(),
             'schoolClasses' => SchoolClass::orderBy('name')->get(),
-            'sumAmountDateRange' => $filteredResult->sum('amount')
+            'sumAmountDateRange' => $sumAmountDateRange
         ]);
     }
 
