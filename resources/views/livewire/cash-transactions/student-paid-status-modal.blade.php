@@ -4,7 +4,7 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5" id="notPaidModalLabel">Daftar Pelajar Yang Belum Membayar Minggu Ini</h1>
+          <h1 class="modal-title fs-5" id="notPaidModalLabel">{{ $modalTitle }}</h1>
           <button wire:loading.attr="disabled" type="button" class="btn-close" data-bs-dismiss="modal"
             aria-label="Close"></button>
         </div>

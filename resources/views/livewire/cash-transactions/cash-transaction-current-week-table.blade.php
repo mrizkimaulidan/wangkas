@@ -107,7 +107,9 @@
           <button type="button" class="btn btn-primary btn-block btn-xl font-bold" data-bs-toggle="modal"
             data-bs-target="#notPaidModal">Lihat Selengkapnya</button>
 
-          <livewire:cash-transactions.not-paid-modal :students="$statistics['studentsNotPaidThisWeek']" />
+          <livewire:cash-transactions.student-paid-status-modal
+            modalTitle="Daftar Pelajar Yang Belum Membayar Minggu Ini"
+            :students="$statistics['studentsNotPaidThisWeek']" />
           @else
           <button type="button" class="btn btn-success btn-block btn-xl font-bold" data-bs-toggle="modal"
             data-bs-target="#notPaidModal">
