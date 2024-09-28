@@ -102,6 +102,19 @@
           <div class="divider-text fw-bold">Pilih menu filter di atas untuk mencari data</div>
         </div>
 
+        <div class="d-flex flex-wrap flex-row-reverse mb-3 gap-2">
+          <div class="col-auto">
+            <button wire:click="$refresh" class="btn btn-sm btn-light"><i class="bi bi-arrow-clockwise"></i></button>
+          </div>
+
+          <div class="col-12 col-md mt-2 mt-md-0">
+            <form class="d-inline-block w-100">
+              <input wire:model.live="query" type="text" class="form-control form-control shadow-sm fw-bold"
+                placeholder="Masukan keyword pencarian..">
+            </form>
+          </div>
+        </div>
+
         <div class="table-responsive">
           <table class="table table-bordered table-hover">
             <thead>

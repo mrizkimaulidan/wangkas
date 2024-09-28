@@ -7,6 +7,7 @@ use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -29,6 +30,8 @@ class FilterCashTransaction extends Component
 
     public $end_date;
 
+    public $query;
+
     public array $statistics = [
         'totalCurrentDay' => 0,
         'totalCurrentWeek' => 0,
@@ -40,6 +43,13 @@ class FilterCashTransaction extends Component
     {
         $filteredResult = CashTransaction::query()
             ->with('student', 'createdBy')
+            ->when($this->query, function (Builder $query) {
+                $this->resetPage();
+
+                return $query->whereHas('student', function ($studentQuery) {
+                    return $studentQuery->where('name', 'like', "%{$this->query}%");
+                });
+            })
             ->whereBetween('date_paid', [$this->start_date, $this->end_date]);
 
         $this->calculateStatistics();
