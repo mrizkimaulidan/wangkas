@@ -8,7 +8,6 @@ use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -39,8 +38,27 @@ class FilterCashTransaction extends Component
         'totalCurrentYear' => 0,
     ];
 
+    public $studentsWhoNotPaid;
+
+    public $studentsWhoNotPaidLimit;
+
+    public $studentsWhoNotPaidCount = 0;
+
     public function render()
     {
+        if ($this->start_date && $this->end_date !== null) {
+            $students = Student::with(['cashTransactions' => function ($query) {
+                return $query->whereBetween('date_paid', [$this->start_date, $this->end_date]);
+            }, 'schoolClass', 'schoolMajor'])->get();
+
+            $this->studentsWhoNotPaid = $students->filter(function ($student) {
+                return $student->cashTransactions->isEmpty();
+            });
+
+            $this->studentsWhoNotPaidCount = $this->studentsWhoNotPaid->count();
+            $this->studentsWhoNotPaidLimit = $this->studentsWhoNotPaid->take(6);
+        }
+
         $sumAmountDateRange = CashTransaction::whereBetween('date_paid', [$this->start_date, $this->end_date])->sum('amount');
 
         $filteredResult = CashTransaction::query()
@@ -62,7 +80,10 @@ class FilterCashTransaction extends Component
             'users' => User::orderBy('name')->get(),
             'schoolMajors' => SchoolMajor::orderBy('name')->get(),
             'schoolClasses' => SchoolClass::orderBy('name')->get(),
-            'sumAmountDateRange' => $sumAmountDateRange
+            'sumAmountDateRange' => $sumAmountDateRange,
+            'studentsWhoNotPaidCount' => $this->studentsWhoNotPaidCount,
+            'studentsWhoNotPaid' => $this->studentsWhoNotPaid,
+            'studentsWhoNotPaidLimit' => $this->studentsWhoNotPaidLimit,
         ]);
     }
 

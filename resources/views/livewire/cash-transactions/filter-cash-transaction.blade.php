@@ -102,16 +102,44 @@
           <div class="divider-text fw-bold">Pilih menu filter di atas untuk mencari data</div>
         </div>
 
-        <div class="d-flex flex-wrap flex-row-reverse mb-3 gap-2">
-          <div class="col-auto">
-            <button wire:click="$refresh" class="btn btn-sm btn-light"><i class="bi bi-arrow-clockwise"></i></button>
+        <div class="card">
+          <div class="card-body">
+            @if($studentsWhoNotPaidCount > 0)
+            <button type="button" class="btn btn-danger btn-block btn-xl font-bold" data-bs-toggle="modal"
+              data-bs-target="#notPaidModal">
+              Ada <b>{{ $studentsWhoNotPaidCount }}</b> orang belum membayar pada rentang tanggal tersebut! <i
+                class="bi bi-exclamation-triangle"></i>
+            </button>
+
+            <div class="row text-center mt-3">
+              @foreach ($studentsWhoNotPaidLimit as $student)
+              <div class="col-6 mb-3">
+                <div class="p-3 border rounded">
+                  <h5 class="mb-1">{{ $student->name }}</h5>
+                  <h6 class="text-muted mb-0">{{ $student->identification_number }}</h6>
+                </div>
+              </div>
+              @endforeach
+            </div>
+            <button type="button" class="btn btn-primary btn-block btn-xl font-bold" data-bs-toggle="modal"
+              data-bs-target="#notPaidModal">Lihat Selengkapnya</button>
+
+            <livewire:cash-transactions.student-paid-status-modal
+              modalTitle="Daftar Pelajar Yang Belum Membayar di Tanggal Tersebut" :students="$studentsWhoNotPaid" />
+            @endif
           </div>
 
-          <div class="col-12 col-md mt-2 mt-md-0">
-            <form class="d-inline-block w-100">
-              <input wire:model.live="query" type="text" class="form-control form-control shadow-sm fw-bold"
-                placeholder="Masukan keyword pencarian..">
-            </form>
+          <div class="d-flex flex-wrap flex-row-reverse mb-3 gap-2">
+            <div class="col-auto">
+              <button wire:click="$refresh" class="btn btn-sm btn-light"><i class="bi bi-arrow-clockwise"></i></button>
+            </div>
+
+            <div class="col-12 col-md mt-2 mt-md-0">
+              <form class="d-inline-block w-100">
+                <input wire:model.live="query" type="text" class="form-control form-control shadow-sm fw-bold"
+                  placeholder="Masukan keyword pencarian..">
+              </form>
+            </div>
           </div>
         </div>
 
