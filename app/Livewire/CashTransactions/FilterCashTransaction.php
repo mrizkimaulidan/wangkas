@@ -68,10 +68,6 @@ class FilterCashTransaction extends Component
 
         return view('livewire.cash-transactions.filter-cash-transaction', [
             'filteredResult' => $filteredResult->paginate(5),
-            'students' => Student::orderBy('name')->get(),
-            'users' => User::orderBy('name')->get(),
-            'schoolMajors' => SchoolMajor::orderBy('name')->get(),
-            'schoolClasses' => SchoolClass::orderBy('name')->get(),
             'sumAmountDateRange' => $sumAmountDateRange,
             'studentsWhoNotPaidCount' => $this->studentsWhoNotPaidCount,
             'studentsWhoNotPaid' => $this->studentsWhoNotPaid,
