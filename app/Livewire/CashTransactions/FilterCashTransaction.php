@@ -3,10 +3,7 @@
 namespace App\Livewire\CashTransactions;
 
 use App\Models\CashTransaction;
-use App\Models\SchoolClass;
-use App\Models\SchoolMajor;
 use App\Models\Student;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Title;
 use Livewire\Component;

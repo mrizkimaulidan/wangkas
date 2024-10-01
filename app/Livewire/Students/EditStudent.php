@@ -3,8 +3,6 @@
 namespace App\Livewire\Students;
 
 use App\Livewire\Forms\UpdateStudentForm;
-use App\Models\SchoolClass;
-use App\Models\SchoolMajor;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
@@ -13,7 +11,9 @@ use Livewire\Component;
 class EditStudent extends Component
 {
     public UpdateStudentForm $form;
+
     public Collection $schoolClasses;
+
     public Collection $schoolMajors;
 
     public function render()

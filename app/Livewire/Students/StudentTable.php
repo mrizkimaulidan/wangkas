@@ -45,7 +45,7 @@ class StudentTable extends Component
         return view('livewire.students.student-table', [
             'students' => $students,
             'schoolClasses' => $schoolClasses,
-            'schoolMajors' => $schoolMajors
+            'schoolMajors' => $schoolMajors,
         ]);
     }
 
