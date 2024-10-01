@@ -114,7 +114,7 @@
     </div>
   </div>
 
-  <livewire:students.create-student />
-  <livewire:students.edit-student />
+  <livewire:students.create-student :$schoolClasses :$schoolMajors />
+  <livewire:students.edit-student :$schoolClasses :$schoolMajors />
   <livewire:students.delete-student />
 </div>
