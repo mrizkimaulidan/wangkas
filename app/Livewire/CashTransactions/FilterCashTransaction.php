@@ -17,14 +17,6 @@ class FilterCashTransaction extends Component
 {
     use WithPagination;
 
-    public $student_id;
-
-    public $user_id;
-
-    public $school_major_id;
-
-    public $school_class_id;
-
     public $start_date;
 
     public $end_date;
