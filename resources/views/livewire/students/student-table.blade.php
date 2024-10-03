@@ -21,6 +21,15 @@
           </div>
 
           <div class="col-auto">
+            <p class="d-inline-flex gap-1">
+              <a class="btn btn-primary" data-bs-toggle="collapse" href="#filterCollapse" role="button"
+                aria-expanded="false" aria-controls="filterCollapse">
+                Menu Filter
+              </a>
+            </p>
+          </div>
+
+          <div class="col-auto">
             <select wire:model.live="orderBy" class="form-select form-select-sm w-auto">
               <option value="asc">A-Z</option>
               <option value="desc">Z-A</option>
@@ -46,6 +55,39 @@
               <input wire:model.live="query" type="text" class="form-control form-control-sm shadow-sm fw-bold"
                 placeholder="Masukan keyword pencarian..">
             </form>
+          </div>
+        </div>
+
+        <div wire:ignore.self class="collapse border mb-3" id="filterCollapse">
+          <div class="card card-body">
+            <div class="row">
+              <div class="col">
+                <label for="school_class_id" class="form-label">Kelas:</label>
+                <select wire:model.live="filters.schoolClassID" class="form-select" id="school_class_id">
+                  <option value="" selected>Pilh Kelas</option>
+                  @foreach ($schoolClasses as $schoolClass)
+                  <option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="col">
+                <label for="school_major_id" class="form-label">Jurusan:</label>
+                <select wire:model.live="filters.schoolMajorID" class="form-select" id="school_major_id">
+                  <option value="" selected>Pilh Jurusan</option>
+                  @foreach ($schoolMajors as $schoolMajor)
+                  <option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="col">
+                <label for="gender" class="form-label">Jenis Kelamin:</label>
+                <select wire:model.live="filters.gender" class="form-select" id="gender">
+                  <option value="" selected>Pilh Jenis Kelamin</option>
+                  <option value="1">Laki-laki</option>
+                  <option value="2">Perempuan</option>
+                </select>
+              </div>
+            </div>
           </div>
         </div>
 

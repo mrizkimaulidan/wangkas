@@ -24,6 +24,12 @@ class StudentTable extends Component
 
     public string $orderBy = 'asc';
 
+    public array $filters = [
+        'schoolClassID' => '',
+        'schoolMajorID' => '',
+        'gender' => '',
+    ];
+
     #[On('student-created')]
     #[On('student-updated')]
     #[On('student-deleted')]
@@ -31,6 +37,15 @@ class StudentTable extends Component
     {
         $students = Student::query()
             ->with('schoolClass', 'schoolMajor')
+            ->when($this->filters['schoolClassID'], function (Builder $query) {
+                return $query->where('school_class_id', '=', $this->filters['schoolClassID']);
+            })
+            ->when($this->filters['schoolMajorID'], function (Builder $query) {
+                return $query->where('school_major_id', '=', $this->filters['schoolMajorID']);
+            })
+            ->when($this->filters['gender'], function (Builder $query) {
+                return $query->where('gender', $this->filters['gender']);
+            })
             ->when($this->query, function (Builder $query) {
                 $this->resetPage();
 
@@ -56,6 +71,7 @@ class StudentTable extends Component
             'limit',
             'orderByColumn',
             'orderBy',
+            'filters',
         ]);
     }
 }
