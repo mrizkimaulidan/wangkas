@@ -143,6 +143,15 @@
           </div>
 
           <div class="col-auto">
+            <p class="d-inline-flex gap-1">
+              <a class="btn btn-primary" data-bs-toggle="collapse" href="#filterCollapse" role="button"
+                aria-expanded="false" aria-controls="filterCollapse">
+                Menu Filter
+              </a>
+            </p>
+          </div>
+
+          <div class="col-auto">
             <select wire:model.live="orderBy" class="form-select form-select-sm w-auto">
               <option value="asc">A-Z</option>
               <option value="desc">Z-A</option>
@@ -168,6 +177,22 @@
               <input wire:model.live="query" type="text" class="form-control form-control-sm shadow-sm fw-bold"
                 placeholder="Masukan keyword pencarian..">
             </form>
+          </div>
+        </div>
+
+        <div wire:ignore.self class="collapse border mb-3" id="filterCollapse">
+          <div class="card card-body">
+            <div class="row">
+              <div class="col-6">
+                <label for="user_id" class="form-label">Dicatat Oleh:</label>
+                <select wire:model.live="filters.user_id" class="form-select" id="user_id">
+                  <option value="" selected>Pilh Dicatat Oleh</option>
+                  @foreach ($users as $user)
+                  <option value="{{ $user->id }}">{{ $user->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+            </div>
           </div>
         </div>
 

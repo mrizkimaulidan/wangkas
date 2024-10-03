@@ -4,6 +4,7 @@ namespace App\Livewire\CashTransactions;
 
 use App\Models\CashTransaction;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
@@ -36,6 +37,10 @@ class CashTransactionCurrentWeekTable extends Component
         'endOfWeek' => null,
     ];
 
+    public array $filters = [
+        'user_id' => '',
+    ];
+
     public function mount()
     {
         $this->currentWeek['startOfWeek'] = now()->startOfWeek()->format('d-m-Y');
@@ -51,9 +56,14 @@ class CashTransactionCurrentWeekTable extends Component
             return $query->whereBetween('date_paid', [now()->startOfWeek(), now()->endOfWeek()]);
         }, 'schoolClass', 'schoolMajor'])->get();
 
+        $users = User::orderBy('name')->get();
+
         $cashTransactions = CashTransaction::query()
             ->with('student', 'createdBy')
             ->whereBetween('date_paid', [now()->startOfWeek(), now()->endOfWeek()])
+            ->when($this->filters['user_id'], function (Builder $query) {
+                return $query->where('created_by', '=', $this->filters['user_id']);
+            })
             ->when($this->query, function (Builder $query) {
                 $this->resetPage();
 
@@ -67,6 +77,7 @@ class CashTransactionCurrentWeekTable extends Component
         return view('livewire.cash-transactions.cash-transaction-current-week-table', [
             'cashTransactions' => $cashTransactions,
             'students' => $students,
+            'users' => $users,
         ]);
     }
 
@@ -77,6 +88,7 @@ class CashTransactionCurrentWeekTable extends Component
             'limit',
             'orderByColumn',
             'orderBy',
+            'filters',
         ]);
     }
 
