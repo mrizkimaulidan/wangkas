@@ -185,48 +185,59 @@
 
   <script>
     document.addEventListener("livewire:navigated", () => {
-        document.querySelectorAll(".modal").forEach((modalElement) => {
-          modalElement.addEventListener("show.bs.modal", () => {
-            document
-              .querySelectorAll(".modal-backdrop")
-              .forEach((backdrop) => backdrop.remove());
-          });
-        });
+      const toggler = document.getElementById("toggle-dark")
+      const theme = localStorage.getItem(THEME_KEY)
 
-        document.addEventListener("close-modal", (e) => {
-          const modalIds = ["createModal", "editModal", "deleteModal"];
-          modalIds.forEach((id) => {
-            const modal = document.getElementById(id);
-            if (modal) {
-              const bootstrapModal = bootstrap.Modal.getInstance(modal);
-              if (bootstrapModal) {
-                bootstrapModal.hide();
-              }
+      if (toggler) {
+        toggler.checked = theme === "dark"
+
+        toggler.addEventListener("input", (e) => {
+          setTheme(e.target.checked ? "dark" : "light", true)
+        })
+      }
+
+      document.querySelectorAll(".modal").forEach((modalElement) => {
+        modalElement.addEventListener("show.bs.modal", () => {
+          document
+            .querySelectorAll(".modal-backdrop")
+            .forEach((backdrop) => backdrop.remove());
+        });
+      });
+
+      document.addEventListener("close-modal", (e) => {
+        const modalIds = ["createModal", "editModal", "deleteModal"];
+        modalIds.forEach((id) => {
+          const modal = document.getElementById(id);
+          if (modal) {
+            const bootstrapModal = bootstrap.Modal.getInstance(modal);
+            if (bootstrapModal) {
+              bootstrapModal.hide();
             }
-          });
+          }
         });
       });
+    });
 
-      document.addEventListener("livewire:init", () => {
-        const Toast = Swal.mixin({
-          toast: true,
-          position: "top-end",
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener("mouseenter", Swal.stopTimer);
-            toast.addEventListener("mouseleave", Swal.resumeTimer);
-          },
-        });
+    document.addEventListener("livewire:init", () => {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
 
-        Livewire.on("success", (e) => {
-          Toast.fire({
-            icon: "success",
-            title: e.message,
-          });
+      Livewire.on("success", (e) => {
+        Toast.fire({
+          icon: "success",
+          title: e.message,
         });
       });
+    });
   </script>
 </body>
 

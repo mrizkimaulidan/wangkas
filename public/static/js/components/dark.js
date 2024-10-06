@@ -47,19 +47,5 @@ function initTheme() {
   return setTheme(mediaQuery.matches ? "dark" : "light", true)
 }
 
-window.addEventListener('DOMContentLoaded', () => {
-  const toggler = document.getElementById("toggle-dark")
-  const theme = localStorage.getItem(THEME_KEY)
-
-  if(toggler) {
-    toggler.checked = theme === "dark"
-    
-    toggler.addEventListener("input", (e) => {
-      setTheme(e.target.checked ? "dark" : "light", true)
-    })
-  }
-
-});
-
 initTheme()
 
