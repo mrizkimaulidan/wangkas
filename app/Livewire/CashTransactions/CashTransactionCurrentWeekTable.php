@@ -67,7 +67,15 @@ class CashTransactionCurrentWeekTable extends Component
             ->when($this->query, function (Builder $query) {
                 $this->resetPage();
 
-                return $query->where('id', 'like', "%{$this->query}%");
+                return $query->where(function (Builder $query) {
+                    $query->where('amount', 'like', "%{$this->query}%")
+                        ->orWhereHas('student', function (Builder $studentQuery) {
+                            return $studentQuery->where('name', 'like', "%{$this->query}%");
+                        })
+                        ->orWhereHas('createdBy', function (Builder $userQuery) {
+                            return $userQuery->where('name', 'like', "%{$this->query}%");
+                        });
+                });
             })
             ->orderBy($this->orderByColumn, $this->orderBy)
             ->paginate($this->limit);
