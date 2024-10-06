@@ -49,7 +49,16 @@ class StudentTable extends Component
             ->when($this->query, function (Builder $query) {
                 $this->resetPage();
 
-                return $query->where('name', 'like', "%{$this->query}%");
+                return $query->where('identification_number', 'like', "%{$this->query}%")
+                    ->orWhereHas('schoolClass', function (Builder $schoolClassQuery) {
+                        return $schoolClassQuery->where('name', 'like', "%{$this->query}%");
+                    })
+                    ->orWhereHas('schoolMajor', function (Builder $schoolMajorQuery) {
+                        return $schoolMajorQuery->where('name', 'like', "%{$this->query}%");
+                    })
+                    ->orWhere('name', 'like', "%{$this->query}%")
+                    ->orWhere('school_year_start', 'like', "%{$this->query}%")
+                    ->orWhere('school_year_end', 'like', "%{$this->query}%");
             })
             ->orderBy($this->orderByColumn, $this->orderBy)
             ->paginate($this->limit);
