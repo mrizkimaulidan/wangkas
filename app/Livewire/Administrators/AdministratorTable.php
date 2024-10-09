@@ -29,7 +29,8 @@ class AdministratorTable extends Component
             ->when($this->query, function (Builder $query) {
                 $this->resetPage();
 
-                return $query->where('name', 'like', "%{$this->query}%");
+                return $query->where('name', 'like', "%{$this->query}%")
+                    ->orWhere('email', 'like', "%{$this->query}%");
             })
             ->orderBy($this->orderByColumn, $this->orderBy)
             ->paginate($this->limit);
