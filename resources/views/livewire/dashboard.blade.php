@@ -141,7 +141,7 @@
         <x-apexcharts.pie-chart chartTitle="Total Transaksi Berdasarkan Jenis Kelamin"
           chartID="chart-pie-cash-transaction-by-gender"
           :series="$charts['pieChart']['cashTransactionCountByGender']['series']"
-          :labels="$charts['pieChart']['cashTransactionCountByGender']['labels']" />
+          :labels="$charts['pieChart']['cashTransactionCountByGender']['labels']" :colors="['#57CAEB', '#FF7976']" />
       </div>
     </div>
   </section>
