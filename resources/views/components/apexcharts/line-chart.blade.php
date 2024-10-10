@@ -1,4 +1,4 @@
-<div>
+<div wire:ignore>
   <div class="card-header">
     <h4>{{ $chartTitle }}</h4>
   </div>
