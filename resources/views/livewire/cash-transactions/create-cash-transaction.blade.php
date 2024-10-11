@@ -12,36 +12,19 @@
           <form wire:submit="save">
             <div class="row">
               <div class="col-6">
-                <div class="mb-3">
-                  <label for="student_id" class="form-label">Pilih Pelajar:</label>
-                  <select wire:model.blur="form.student_id"
-                    class="form-select @error('form.student_id') is-invalid @enderror" id="student_id">
-                    <option selected>Pilih Pelajar</option>
-                    @foreach ($students as $student)
-                    <option value="{{ $student->id }}">{{ $student->identification_number }} - {{ $student->name }}
-                    </option>
-                    @endforeach
-                  </select>
-                  <div>
-                    @error('form.student_id')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
+                <x-forms.select-with-icon wire:model.blur="form.student_id" label="Pilih Pelajar" name="form.student_id"
+                  icon="bi bi-people-fill">
+                  @foreach ($students as $student)
+                  <option value="{{ $student->id }}">{{ $student->identification_number }} - {{ $student->name }}
+                  </option>
+                  @endforeach
+                </x-forms.select-with-icon>
               </div>
 
               <div class="col-6">
-                <div class="mb-3">
-                  <label for="amount" class="form-label">Tagihan:</label>
-                  <input wire:model.blur="form.amount" type="number"
-                    class="form-control @error('form.amount') is-invalid @enderror" id="amount"
-                    placeholder="Masukan nominal tagihan..">
-                  <div>
-                    @error('form.amount')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
+                <x-forms.input-with-icon wire:model.blur="form.amount" label="Tagihan" name="form.amount"
+                  placeholder="Masukan tagihan.." type="number" icon="bi bi-cash" />
+
                 <div class="mb-3">
                   <label for="date_paid" class="form-label">Pilih Tanggal:</label>
                   <input wire:model.blur="form.date_paid" type="date"
@@ -53,17 +36,8 @@
                     @enderror
                   </div>
                 </div>
-                <div class="mb-3">
-                  <label for="transaction_note" class="form-label">Catatan:</label>
-                  <textarea wire:model.blur="form.transaction_note"
-                    class="form-control @error('form.transaction_note') is-invalid @enderror" id="transaction_note"
-                    cols="30" rows="5" placeholder="Masukan catatan... (opsional)"></textarea>
-                  <div>
-                    @error('form.transaction_note')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
+                <x-forms.textarea-with-icon label="Catatan" name="form.transaction_note"
+                  placeholder="Masukan catatan.. (opsional)" icon="bi bi-card-text" cols="30" rows="5" />
               </div>
             </div>
 

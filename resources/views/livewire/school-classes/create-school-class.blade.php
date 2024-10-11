@@ -12,17 +12,8 @@
           <form wire:submit="save">
             <div class="row">
               <div class="col">
-                <div class="mb-3">
-                  <label for="name" class="form-label">Nama Kelas:</label>
-                  <input wire:model.blur="form.name" type="text"
-                    class="form-control @error('form.name') is-invalid @enderror" id="name"
-                    placeholder="Masukan nama kelas..">
-                  <div>
-                    @error('form.name')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
+                <x-forms.input-with-icon wire:model.blur="form.name" label="Nama Kelas" name="form.name"
+                  placeholder="Masukan nama kelas.." type="text" icon="bi bi-bookmark" />
               </div>
             </div>
 

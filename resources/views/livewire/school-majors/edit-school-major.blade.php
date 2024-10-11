@@ -12,28 +12,12 @@
           <form wire:submit="edit">
             <div class="row">
               <div class="col">
-                <div class="mb-3">
-                  <label for="name" class="form-label">Nama Jurusan:</label>
-                  <input wire:model.blur="form.name" type="text"
-                    class="form-control @error('form.name') is-invalid @enderror" id="name"
-                    placeholder="Masukan nama kelas..">
-                  <div>
-                    @error('form.name')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="abbreviation" class="form-label">Singkatan Jurusan:</label>
-                  <input wire:model.blur="form.abbreviation" type="text"
-                    class="form-control @error('form.abbreviation') is-invalid @enderror" id="abbreviation"
-                    placeholder="Masukan nama kelas..">
-                  <div>
-                    @error('form.abbreviation')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
+                <x-forms.input-with-icon wire:model.blur="form.name" label="Nama Jurusan" name="form.name"
+                  placeholder="Masukan nama jurusan.." type="text" icon="bi bi-briefcase" />
+
+                <x-forms.input-with-icon wire:model.blur="form.abbreviation" label="Singkatan Jurusan"
+                  name="form.abbreviation" placeholder="Masukan singkatan jurusan.." type="text"
+                  icon="bi bi-card-text" />
               </div>
             </div>
 

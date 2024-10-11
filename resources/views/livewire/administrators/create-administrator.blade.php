@@ -12,50 +12,18 @@
           <form wire:submit="save">
             <div class="row">
               <div class="col">
-                <div class="mb-3">
-                  <label for="name" class="form-label">Nama Lengkap:</label>
-                  <input wire:model.blur="form.name" type="text"
-                    class="form-control @error('form.name') is-invalid @enderror" id="name"
-                    placeholder="Masukan nama lengkap..">
-                  <div>
-                    @error('form.name')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="email" class="form-label">Alamat Email:</label>
-                  <input wire:model.blur="form.email" type="email"
-                    class="form-control @error('form.email') is-invalid @enderror" id="email"
-                    placeholder="Masukan alamat email..">
-                  <div>
-                    @error('form.email')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="password" class="form-label">Kata Sandi:</label>
-                  <input wire:model.blur="form.password" type="password"
-                    class="form-control @error('form.password') is-invalid @enderror" id="password"
-                    placeholder="Masukan kata sandi..">
-                  <div>
-                    @error('form.password')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
-                <div class="mb-3">
-                  <label for="password_confirmation" class="form-label">Konfirmasi Kata Sandi:</label>
-                  <input wire:model.blur="form.password_confirmation" type="password"
-                    class="form-control @error('form.password_confirmation') is-invalid @enderror"
-                    id="password_confirmation" placeholder="Konfirmasi kata sandi..">
-                  <div>
-                    @error('form.password_confirmation')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
+                <x-forms.input-with-icon wire:model.blur="form.name" label="Nama Lengkap" name="form.name"
+                  placeholder="Masukan nama lengkap.." type="text" icon="bi bi-person" />
+
+                <x-forms.input-with-icon wire:model.blur="form.email" label="Alamat Email" name="form.email"
+                  placeholder="Masukan alamat email.." type="email" icon="bi bi-envelope-at" />
+
+                <x-forms.input-with-icon wire:model.blur="form.password" label="Kata Sandi" name="form.password"
+                  placeholder="Masukan kata sandi.." type="password" icon="bi bi-lock" />
+
+                <x-forms.input-with-icon wire:model.blur="form.password_confirmation" label="Konfirmasi Kata Sandi"
+                  name="form.password_confirmation" placeholder="Konfirmasi kata sandi.." type="password"
+                  icon="bi bi-lock" />
               </div>
             </div>
 

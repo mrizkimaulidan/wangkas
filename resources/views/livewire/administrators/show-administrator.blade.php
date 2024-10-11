@@ -11,14 +11,11 @@
         <div class="modal-body">
           <div class="row">
             <div class="col">
-              <div class="mb-3">
-                <label for="name" class="form-label">Nama Lengkap:</label>
-                <input wire:model="name" type="text" class="form-control" disabled>
-              </div>
-              <div class="mb-3">
-                <label for="email" class="form-label">Alamat Email:</label>
-                <input wire:model="email" type="email" class="form-control" disabled>
-              </div>
+              <x-forms.input-with-icon wire:model="name" label="Nama Lengkap" name="name" type="text"
+                icon="bi bi-person" placeholder="" disabled />
+
+              <x-forms.input-with-icon wire:model="email" label="Alamat Email" name="email" type="email"
+                icon="bi bi-person" placeholder="" disabled />
             </div>
           </div>
 
