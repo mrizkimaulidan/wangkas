@@ -30,13 +30,17 @@ class StudentTable extends Component
         'gender' => '',
     ];
 
+    public function updated()
+    {
+        return $this->resetPage();
+    }
+
     #[On('student-created')]
     #[On('student-updated')]
     #[On('student-deleted')]
     public function render()
     {
         $students = Student::query()
-            ->with('schoolClass', 'schoolMajor')
             ->when($this->filters['schoolClassID'], function (Builder $query) {
                 return $query->where('school_class_id', '=', $this->filters['schoolClassID']);
             })
@@ -46,20 +50,8 @@ class StudentTable extends Component
             ->when($this->filters['gender'], function (Builder $query) {
                 return $query->where('gender', $this->filters['gender']);
             })
-            ->when($this->query, function (Builder $query) {
-                $this->resetPage();
-
-                return $query->where('identification_number', 'like', "%{$this->query}%")
-                    ->orWhereHas('schoolClass', function (Builder $schoolClassQuery) {
-                        return $schoolClassQuery->where('name', 'like', "%{$this->query}%");
-                    })
-                    ->orWhereHas('schoolMajor', function (Builder $schoolMajorQuery) {
-                        return $schoolMajorQuery->where('name', 'like', "%{$this->query}%");
-                    })
-                    ->orWhere('name', 'like', "%{$this->query}%")
-                    ->orWhere('school_year_start', 'like', "%{$this->query}%")
-                    ->orWhere('school_year_end', 'like', "%{$this->query}%");
-            })
+            ->search($this->query)
+            ->with('schoolClass', 'schoolMajor')
             ->orderBy($this->orderByColumn, $this->orderBy)
             ->paginate($this->limit);
 

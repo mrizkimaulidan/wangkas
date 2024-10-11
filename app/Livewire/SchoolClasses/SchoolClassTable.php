@@ -3,7 +3,6 @@
 namespace App\Livewire\SchoolClasses;
 
 use App\Models\SchoolClass;
-use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -22,17 +21,17 @@ class SchoolClassTable extends Component
 
     public string $orderBy = 'asc';
 
+    public function updated()
+    {
+        return $this->resetPage();
+    }
+
     #[On('school-class-created')]
     #[On('school-class-updated')]
     #[On('school-class-deleted')]
     public function render()
     {
-        $schoolClasses = SchoolClass::query()
-            ->when($this->query, function (Builder $query) {
-                $this->resetPage();
-
-                return $query->where('name', 'like', "%{$this->query}%");
-            })
+        $schoolClasses = SchoolClass::search($this->query)
             ->orderBy($this->orderByColumn, $this->orderBy)
             ->paginate($this->limit);
 

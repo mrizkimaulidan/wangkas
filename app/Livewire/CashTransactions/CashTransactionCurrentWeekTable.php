@@ -47,6 +47,11 @@ class CashTransactionCurrentWeekTable extends Component
         $this->currentWeek['endOfWeek'] = now()->endOfWeek()->format('d-m-Y');
     }
 
+    public function updated()
+    {
+        return $this->resetPage();
+    }
+
     #[On('cash-transaction-created')]
     #[On('cash-transaction-updated')]
     #[On('cash-transaction-deleted')]
@@ -64,19 +69,7 @@ class CashTransactionCurrentWeekTable extends Component
             ->when($this->filters['user_id'], function (Builder $query) {
                 return $query->where('created_by', '=', $this->filters['user_id']);
             })
-            ->when($this->query, function (Builder $query) {
-                $this->resetPage();
-
-                return $query->where(function (Builder $query) {
-                    $query->where('amount', 'like', "%{$this->query}%")
-                        ->orWhereHas('student', function (Builder $studentQuery) {
-                            return $studentQuery->where('name', 'like', "%{$this->query}%");
-                        })
-                        ->orWhereHas('createdBy', function (Builder $userQuery) {
-                            return $userQuery->where('name', 'like', "%{$this->query}%");
-                        });
-                });
-            })
+            ->search($this->query)
             ->orderBy($this->orderByColumn, $this->orderBy)
             ->paginate($this->limit);
 

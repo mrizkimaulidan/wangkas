@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -44,5 +45,21 @@ class Student extends Model
     public function cashTransactions(): HasMany
     {
         return $this->hasMany(CashTransaction::class);
+    }
+
+    public function scopeSearch(Builder $query, $searchQuery)
+    {
+        return $query->when($searchQuery, function (Builder $query) use ($searchQuery) {
+            return $query->where('identification_number', 'like', "%{$searchQuery}%")
+                ->orWhereHas('schoolClass', function (Builder $schoolClassQuery) use ($searchQuery) {
+                    return $schoolClassQuery->where('name', 'like', "%{$searchQuery}%");
+                })
+                ->orWhereHas('schoolMajor', function (Builder $schoolMajorQuery) use ($searchQuery) {
+                    return $schoolMajorQuery->where('name', 'like', "%{$searchQuery}%");
+                })
+                ->orWhere('name', 'like', "%{$searchQuery}%")
+                ->orWhere('school_year_start', 'like', "%{$searchQuery}%")
+                ->orWhere('school_year_end', 'like', "%{$searchQuery}%");
+        });
     }
 }
