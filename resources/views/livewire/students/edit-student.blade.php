@@ -24,20 +24,11 @@
 
             <div class="row">
               <div class="col-6">
-                <div class="mb-3">
-                  <label for="gender" class="form-label">Jenis Kelamin:</label>
-                  <select wire:model.blur="form.gender" class="form-select @error('form.gender') is-invalid @enderror"
-                    id="gender">
-                    <option selected>Pilih Jenis Kelamin</option>
-                    <option value="1">Laki-laki</option>
-                    <option value="2">Perempuan</option>
-                  </select>
-                  <div>
-                    @error('form.gender')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
+                <x-forms.select-with-icon wire:model.blur="form.gender" label="Pilih Jenis Kelamin" name="form.gender"
+                  icon="bi bi-gender-male">
+                  <option value="1">Laki-laki</option>
+                  <option value="2">Perempuan</option>
+                </x-forms.select-with-icon>
               </div>
 
               <div class="col-6">
@@ -48,63 +39,33 @@
 
             <div class="row">
               <div class="col-6">
-                <div class="mb-3">
-                  <label for="school_class_id" class="form-label">Kelas:</label>
-                  <select wire:model.blur="form.school_class_id"
-                    class="form-select @error('form.school_class_id') is-invalid @enderror" id="school_class_id">
-                    <option selected>Pilih Kelas</option>
-                    @foreach ($schoolClasses as $schoolClass)
-                    <option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
-                    @endforeach
-                  </select>
-                  <div>
-                    @error('form.school_class_id')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
+                <x-forms.select-with-icon wire:model.blur="form.school_class_id" label="Pilih Kelas"
+                  name="form.school_class_id" icon="bi bi-bookmark-fill">
+                  @foreach ($schoolClasses as $schoolClass)
+                  <option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
+                  @endforeach
+                </x-forms.select-with-icon>
               </div>
               <div class="col-6">
-                <div class="mb-3">
-                  <label for="school_major_id" class="form-label">Jurusan:</label>
-                  <select wire:model.blur="form.school_major_id"
-                    class="form-select @error('form.school_major_id') is-invalid @enderror" id="school_major_id">
-                    <option selected>Pilih Jurusan</option>
-                    @foreach ($schoolMajors as $schoolMajor)
-                    <option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
-                    @endforeach
-                  </select>
-                  <div>
-                    @error('form.school_major_id')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
+                <x-forms.select-with-icon wire:model.blur="form.school_major_id" label="Pilih Jurusan"
+                  name="form.school_major_id" icon="bi bi-briefcase-fill">
+                  @foreach ($schoolMajors as $schoolMajor)
+                  <option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
+                  @endforeach
+                </x-forms.select-with-icon>
               </div>
             </div>
 
             <div class="row">
-              <div class="col">
-                <label for="school_year_start" class="form-label">Tahun Masuk dan Lulus:</label>
-                <div class="input-group mb-3">
-                  <input wire:model.blur="form.school_year_start" type="text"
-                    class="form-control @error('form.school_year_start') is-invalid @enderror" id="school_year_start"
-                    placeholder="Masukan tahun masuk..">
-                  <span class="input-group-text">-</span>
-                  <input wire:model.blur="form.school_year_end" type="text"
-                    class="form-control @error('form.school_year_end') is-invalid @enderror" id="school_year_end"
-                    placeholder="Masukan tahun lulus..">
-                </div>
-                <div>
-                  @error('form.school_year_start')
-                  <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                  @enderror
-                </div>
-                <div>
-                  @error('form.school_year_end')
-                  <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                  @enderror
-                </div>
+              <div class="col-6">
+                <x-forms.input-with-icon wire:model.blur="form.school_year_start" label="Tahun Masuk"
+                  name="form.school_year_start" type="number" placeholder="Masukan tahun masuk.."
+                  icon="bi bi-calendar" />
+              </div>
+              <div class="col-6">
+                <x-forms.input-with-icon wire:model.blur="form.school_year_end" label="Tahun Lulus"
+                  name="form.school_year_end" type="number" placeholder="Masukan tahun lulus.."
+                  icon="bi bi-calendar-event" />
               </div>
             </div>
 
