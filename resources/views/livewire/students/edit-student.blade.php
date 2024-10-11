@@ -12,30 +12,13 @@
           <form wire:submit="edit">
             <div class="row">
               <div class="col-6">
-                <div class="mb-3">
-                  <label for="identification_number" class="form-label">Nomor Identitas:</label>
-                  <input wire:model.blur="form.identification_number" type="text"
-                    class="form-control @error('form.identification_number') is-invalid @enderror"
-                    id="identification_number" placeholder="Masukan nomor identitas..">
-                  <div>
-                    @error('form.identification_number')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
+                <x-forms.input-with-icon wire:model.blur="form.identification_number" label="Nomor Identitas"
+                  name="form.identification_number" type="number" placeholder="Masukan nomor identitas.."
+                  icon="bi bi-person-badge" />
               </div>
               <div class="col-6">
-                <div class="mb-3">
-                  <label for="name" class="form-label">Nama Lengkap:</label>
-                  <input wire:model.blur="form.name" type="text"
-                    class="form-control @error('form.name') is-invalid @enderror" id="name"
-                    placeholder="Masukan nama lengkap..">
-                  <div>
-                    @error('form.name')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
+                <x-forms.input-with-icon wire:model.blur="form.name" label="Nama Lengkap" name="form.name" type="text"
+                  placeholder="Masukan nama lengkap.." icon="bi bi-person" />
               </div>
             </div>
 
@@ -58,17 +41,8 @@
               </div>
 
               <div class="col-6">
-                <div class="mb-3">
-                  <label for="phone_number" class="form-label">Nomor Telepon:</label>
-                  <input wire:model.blur="form.phone_number" type="text"
-                    class="form-control @error('form.phone_number') is-invalid @enderror" id="phone_number"
-                    placeholder="Masukan nomor telepon..">
-                  <div>
-                    @error('form.phone_number')
-                    <div class="d-block invalid-feedback fw-bold">{{ $message }}</div>
-                    @enderror
-                  </div>
-                </div>
+                <x-forms.input-with-icon wire:model.blur="form.phone_number" label="Nomor Telepon"
+                  name="form.phone_number" type="number" placeholder="Masukan nomor telepon.." icon="bi bi-telephone" />
               </div>
             </div>
 
