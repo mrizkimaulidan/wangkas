@@ -1,6 +1,6 @@
 <div>
   <div class="form-group has-icon-left">
-    <label for="{{ $name }}">{{ $label }}</label>
+    <label for="{{ $name }}" class="form-label">{{ $label }}</label>
     <div class="position-relative">
       <input type="{{ $type }}" class="form-control @error($name) is-invalid @enderror" placeholder="{{ $placeholder }}"
         id="{{ $name }}" {{ $attributes }}>

@@ -1,6 +1,6 @@
 <div>
   <div class="form-group has-icon-left">
-    <label for="{{ $name }}">{{ $label }}</label>
+    <label for="{{ $name }}" class="form-label">{{ $label }}</label>
     <div class="input-group mb-3">
       <label class="input-group-text" for="{{ $name }}">
         <div><i class="{{ $icon }}"></i></div>
