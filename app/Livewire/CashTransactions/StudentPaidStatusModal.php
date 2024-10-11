@@ -3,10 +3,12 @@
 namespace App\Livewire\CashTransactions;
 
 use Illuminate\Database\Eloquent\Collection;
+use Livewire\Attributes\Reactive;
 use Livewire\Component;
 
 class StudentPaidStatusModal extends Component
 {
+    #[Reactive]
     public Collection $students;
 
     public string $modalTitle;
