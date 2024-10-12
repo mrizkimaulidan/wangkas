@@ -90,10 +90,10 @@ class FilterCashTransaction extends Component
         })->sum('amount');
 
         $this->statistics = [
-            'totalCurrentDay' => $totalAmountCurrentDay,
-            'totalCurrentWeek' => $totalAmountCurrentWeek,
-            'totalCurrentMonth' => $totalAmountCurrentMonth,
-            'totalCurrentYear' => $cashTransactions->sum('amount'),
+            'totalCurrentDay' => local_amount_format($totalAmountCurrentDay),
+            'totalCurrentWeek' => local_amount_format($totalAmountCurrentWeek),
+            'totalCurrentMonth' => local_amount_format($totalAmountCurrentMonth),
+            'totalCurrentYear' => local_amount_format($cashTransactions->sum('amount')),
         ];
     }
 }

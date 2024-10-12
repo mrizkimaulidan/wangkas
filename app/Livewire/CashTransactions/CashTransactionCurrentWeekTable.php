@@ -111,8 +111,8 @@ class CashTransactionCurrentWeekTable extends Component
         })->sortBy('name');
 
         $this->statistics = [
-            'totalCurrentMonth' => $totalAmountCurrentMonth,
-            'totalCurrentYear' => $cashTransactions->sum('amount'),
+            'totalCurrentMonth' => local_amount_format($totalAmountCurrentMonth),
+            'totalCurrentYear' => local_amount_format($cashTransactions->sum('amount')),
             'studentsNotPaidThisWeekLimit' => $studentsNotPaidThisWeek->take(6),
             'studentsPaidThisWeekCount' => $studentsPaidThisWeek->count(),
             'studentsNotPaidThisWeekCount' => $studentsNotPaidThisWeek->count(),

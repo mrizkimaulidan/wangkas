@@ -227,7 +227,7 @@
               <tr wire:key="{{ $cashTransaction->id }}">
                 <th scope="row">{{ $startIndex + $index }}</th>
                 <td>{{ $cashTransaction->student->name }}</td>
-                <td>{{ $cashTransaction->amount }}</td>
+                <td>{{ local_amount_format($cashTransaction->amount) }}</td>
                 <td>{{ $cashTransaction->date_paid }}</td>
                 <td>{{ $cashTransaction->createdBy->name }}</td>
                 <td>
