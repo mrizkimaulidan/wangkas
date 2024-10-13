@@ -21,7 +21,7 @@ class CashTransactionFactory extends Factory
         return [
             'student_id' => Student::inRandomOrder()->value('id'),
             'amount' => round(fake()->numberBetween(100000, 250000), -3),
-            'date_paid' => fake()->dateTimeBetween('-3 years'),
+            'date_paid' => fake()->dateTimeBetween('-10 years'),
             'transaction_note' => fake()->optional()->word,
             'created_by' => User::inRandomOrder()->value('id'),
         ];
