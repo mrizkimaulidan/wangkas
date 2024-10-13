@@ -15,14 +15,6 @@ class Dashboard extends Component
 {
     public function render()
     {
-        $students = Student::select('gender')->get();
-
-        $counts = $students->countBy(function ($student) {
-            return $student->gender == 1 ? 'male' : 'female';
-        })->all();
-
-        $counts += ['male' => 0, 'female' => 0];
-
         $studentWithMajors = SchoolMajor::select('name', 'abbreviation')->withCount('students')->get();
         $cashTransactionAmountPerYear = CashTransaction::selectRaw('EXTRACT(YEAR FROM date_paid) AS year, SUM(amount) AS amount')
             ->groupBy('year')
@@ -38,8 +30,6 @@ class Dashboard extends Component
             ->groupBy('gender')
             ->get();
 
-        $studentGenders = $counts;
-
         $charts = [
             'counter' => [
                 'student' => Student::count(),
@@ -50,8 +40,8 @@ class Dashboard extends Component
             'pieChart' => [
                 'studentGender' => [
                     'series' => [
-                        $studentGenders['male'],
-                        $studentGenders['female'],
+                        Student::select('gender')->where('gender', 1)->count(),
+                        Student::select('gender')->where('gender', 2)->count(),
                     ],
                     'labels' => ['Laki-laki', 'Perempuan'],
                 ],
