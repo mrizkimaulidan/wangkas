@@ -172,10 +172,17 @@
               @forelse ($filteredResult as $index => $cashTransaction)
               <tr wire:key="{{ $cashTransaction->id }}">
                 <th scope="row">{{ $startIndex + $index }}</th>
-                <td><span class="badge text-bg-primary">{{ $cashTransaction->student->name }}</span></td>
+                <td>
+                  <span class="text-uppercase badge bg-primary">{{ $cashTransaction->student->name }}</span>
+                </td>
                 <td>{{ local_amount_format($cashTransaction->amount) }}</td>
                 <td>{{ $cashTransaction->date_paid }}</td>
-                <td>{{ $cashTransaction->createdBy->name }}</td>
+                <td class="text-center">
+                  <span class="badge bg-primary">
+                    <i class="bi bi-person-badge-fill"></i>
+                    {{ $cashTransaction->createdBy->name }}
+                  </span>
+                </td>
               </tr>
               @empty
               <tr wire:loading.remove class="text-center">
@@ -187,7 +194,9 @@
             <tfoot>
               <tr role="row">
                 <td colspan="4" class="fw-bold">Total</td>
-                <td colspan="4">{{ $sumAmountDateRange }}</td>
+                <td colspan="4">
+                  <span class="fw-bold">{{ local_amount_format($sumAmountDateRange) }}</span>
+                </td>
               </tr>
             </tfoot>
             @endempty

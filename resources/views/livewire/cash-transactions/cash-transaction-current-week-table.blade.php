@@ -226,10 +226,19 @@
               @forelse ($cashTransactions as $index => $cashTransaction)
               <tr wire:key="{{ $cashTransaction->id }}">
                 <th scope="row">{{ $startIndex + $index }}</th>
-                <td>{{ $cashTransaction->student->name }}</td>
+                <td>
+                  <span class="text-uppercase fw-bold">
+                    {{ $cashTransaction->student->name }}
+                  </span>
+                </td>
                 <td>{{ local_amount_format($cashTransaction->amount) }}</td>
                 <td>{{ $cashTransaction->date_paid }}</td>
-                <td>{{ $cashTransaction->createdBy->name }}</td>
+                <td class="text-center">
+                  <span class="badge bg-primary w-100">
+                    <i class="bi bi-person-badge-fill"></i>
+                    {{ $cashTransaction->createdBy->name }}
+                  </span>
+                </td>
                 <td>
                   <div class="btn-group grid gap-1" role="group">
                     <button wire:loading.attr="disabled"

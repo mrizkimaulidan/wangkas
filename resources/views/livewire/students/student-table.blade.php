@@ -122,11 +122,31 @@
               @forelse ($students as $index => $student)
               <tr wire:key="{{ $student->id }}">
                 <th scope="row">{{ $startIndex + $index }}</th>
-                <td>{{ $student->identification_number }}</td>
-                <td>{{ $student->name }}</td>
-                <td>{{ $student->schoolClass->name }}</td>
-                <td>{{ $student->schoolMajor->name }}</td>
-                <td>{{ $student->school_year_start }} - {{ $student->school_year_end }}</td>
+                <td class="fw-bold">{{ $student->identification_number }}</td>
+                <td>
+                  <span class="text-uppercase">{{ $student->name }}</span>
+                  <span class="badge bg-light-{{ $student->gender == 1 ? 'primary' : 'danger' }}">
+                    <i class="bi bi-gender-{{ $student->gender == 1 ? 'male' : 'female' }}"></i>
+                  </span>
+                </td>
+                <td class="text-center">
+                  <span class="badge bg-primary w-100">
+                    <i class="bi bi-bookmark-fill"></i>
+                    {{ $student->schoolClass->name }}
+                  </span>
+                </td>
+                <td class="text-center">
+                  <span class="badge bg-success w-100">
+                    <i class="bi bi-briefcase-fill"></i>
+                    {{ $student->schoolMajor->name }}
+                  </span>
+                </td>
+                <td class="text-center">
+                  <span class="badge bg-info w-100">
+                    <i class="bi bi-calendar-event"></i>
+                    {{ $student->school_year_start }} - {{ $student->school_year_end }}
+                  </span>
+                </td>
                 <td>
                   <div class="btn-group grid gap-1" role="group">
                     <button wire:loading.attr="disabled"
