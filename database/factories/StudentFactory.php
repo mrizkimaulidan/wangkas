@@ -31,7 +31,7 @@ class StudentFactory extends Factory
             'school_major_id' => SchoolMajor::inRandomOrder()->value('id'),
             'identification_number' => $identificationNumber,
             'name' => fake()->name,
-            'phone_number' => fake()->phoneNumber,
+            'phone_number' => fake()->unique()->phoneNumber,
             'gender' => fake()->randomElement([1, 2]), // 1 = male, 2 = female
             'school_year_start' => $currentYear,
             'school_year_end' => $currentYear + 3,
