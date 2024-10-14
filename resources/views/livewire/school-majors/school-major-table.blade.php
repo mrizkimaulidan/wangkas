@@ -29,7 +29,8 @@
 
           <div class="col-auto">
             <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto">
-              <option value="name">Name</option>
+              <option value="name">Nama Jurusan</option>
+              <option value="abbreviation">Singkatan Jurusan</option>
             </select>
           </div>
 

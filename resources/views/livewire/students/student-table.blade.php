@@ -38,7 +38,8 @@
 
           <div class="col-auto">
             <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto">
-              <option value="name">Name</option>
+              <option value="identification_number">Nomor Identitas</option>
+              <option value="name">Nama Lengkap</option>
             </select>
           </div>
 

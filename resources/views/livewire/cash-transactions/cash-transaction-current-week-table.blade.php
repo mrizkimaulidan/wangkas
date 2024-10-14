@@ -160,7 +160,8 @@
 
           <div class="col-auto">
             <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto">
-              <option value="name">Name</option>
+              <option value="amount">Total Bayar</option>
+              <option value="date_paid">Tanggal Transaksi</option>
             </select>
           </div>
 
