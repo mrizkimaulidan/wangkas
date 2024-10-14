@@ -39,7 +39,7 @@ class Dashboard extends Component
         );
     }
 
-    public function check()
+    public function updateChart()
     {
         $cashTransactionAmount = CashTransaction::selectRaw('EXTRACT(MONTH FROM date_paid) AS month, SUM(amount) AS amount')
             ->whereYear('date_paid', $this->year)
