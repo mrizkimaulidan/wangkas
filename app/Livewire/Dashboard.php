@@ -7,12 +7,57 @@ use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Models\User;
+use Illuminate\Support\Collection;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 #[Title('Dashboard')]
 class Dashboard extends Component
 {
+    public string $year;
+
+    private $months = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
+
+    public function mount()
+    {
+        $this->year = now()->year;
+
+        $cashTransactionAmount = CashTransaction::selectRaw('EXTRACT(MONTH FROM date_paid) AS month, SUM(amount) AS amount')
+            ->whereYear('date_paid', $this->year)
+            ->groupBy('month')
+            ->get();
+
+        $cashTransactionCount = CashTransaction::selectRaw('EXTRACT(MONTH FROM date_paid) AS month, COUNT(*) AS count')
+            ->whereYear('date_paid', $this->year)
+            ->groupBy('month')
+            ->get();
+
+        $this->dispatch(
+            'dashboard-chart-loaded',
+            amount: $this->fillMissingMonthsCounts($cashTransactionAmount->pluck('amount', 'month')),
+            count: $this->fillMissingMonthsCounts($cashTransactionCount->pluck('count', 'month'))
+        );
+    }
+
+    public function check()
+    {
+        $cashTransactionAmount = CashTransaction::selectRaw('EXTRACT(MONTH FROM date_paid) AS month, SUM(amount) AS amount')
+            ->whereYear('date_paid', $this->year)
+            ->groupBy('month')
+            ->get();
+
+        $cashTransactionCount = CashTransaction::selectRaw('EXTRACT(MONTH FROM date_paid) AS month, COUNT(*) AS count')
+            ->whereYear('date_paid', $this->year)
+            ->groupBy('month')
+            ->get();
+
+        $this->dispatch(
+            'dashboard-chart-updated',
+            amount: $this->fillMissingMonthsCounts($cashTransactionAmount->pluck('amount', 'month')),
+            count: $this->fillMissingMonthsCounts($cashTransactionCount->pluck('count', 'month'))
+        );
+    }
+
     public function render()
     {
         $studentWithMajors = SchoolMajor::select('name', 'abbreviation')->withCount('students')->get();
@@ -71,5 +116,22 @@ class Dashboard extends Component
         return view('livewire.dashboard', [
             'charts' => $charts,
         ]);
+    }
+
+    /**
+     * Fill in missing counts for each month in the provided collection.
+     */
+    private function fillMissingMonthsCounts(Collection $collection): array
+    {
+        $statistics = [];
+
+        for ($i = 1; $i <= 12; $i++) {
+            // if key exists so there is a borrowing count on that month
+            // if key does not exists there is no borrowing on that month so the count
+            // should be 0
+            $statistics[$this->months[$i - 1]] = isset($collection[$i]) ? $collection[$i] : 0;
+        }
+
+        return $statistics;
     }
 }

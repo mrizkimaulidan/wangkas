@@ -77,18 +77,20 @@
           <div class="card">
             <div class="card-header">
               <h4 id="card-chart-cash-transactions-title">Total Transaksi Tahun Ini</h4>
-              <div class="mb-3">
-                <label for="year" class="form-label">Isi Tahun:</label>
-                <input type="number" id="year" placeholder="Masukan tahun.." value="{{ date('Y') }}"
-                  class="form-control">
-                <div class="form-text">Tekan tombol `Enter` untuk menampilkan grafik berdasarkan tahun yang dipilih.
+              <form wire:submit="check">
+                <div class="mb-3">
+                  <label for="year" class="form-label">Isi Tahun:</label>
+                  <input wire:model="year" type="number" id="year" placeholder="Masukan tahun.." value="{{ date('Y') }}"
+                    class="form-control">
+                  <div class="form-text">Tekan tombol `Enter` untuk menampilkan grafik berdasarkan tahun yang dipilih.
+                  </div>
                 </div>
-              </div>
+              </form>
             </div>
-            <div class="card-body">
+            <div wire:ignore class="card-body">
               <div id="cash-transaction-chart-bar-by-year"></div>
             </div>
-            <div class="card-body">
+            <div wire:ignore class="card-body">
               <div id="cash-transaction-chart-line-by-year"></div>
             </div>
           </div>

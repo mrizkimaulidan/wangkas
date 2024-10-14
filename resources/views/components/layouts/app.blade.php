@@ -185,118 +185,6 @@
 
   <script>
     document.addEventListener("livewire:navigated", () => {
-      const barChartOptions = {
-        chart: {
-          type: "bar",
-          height: 250,
-        },
-        series: [
-          {
-            name: "Total Transaksi",
-            data: [
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-            ],
-          },
-        ],
-        colors: ["#435ebe"],
-        xaxis: {
-          categories: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "Mei",
-            "Jun",
-            "Jul",
-            "Agu",
-            "Sep",
-            "Okt",
-            "Nov",
-            "Des",
-          ],
-        },
-      };
-
-      cashTransactionBarChart = new ApexCharts(
-        document.querySelector("#cash-transaction-chart-bar-by-year"),
-        barChartOptions
-      );
-      cashTransactionBarChart.render();
-
-      const lineChartOptions = {
-        series: [
-          {
-            name: "Jumlah Pembayaran",
-            data: [
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-              2,
-            ],
-          },
-        ],
-        chart: {
-          height: 250,
-          type: "line",
-          zoom: {
-            enabled: false,
-          },
-        },
-        dataLabels: {
-          enabled: false,
-        },
-        stroke: {
-          curve: "straight",
-        },
-        grid: {
-          row: {
-            colors: ["#f3f3f3", "transparent"], // takes an array which will be repeated on columns
-            opacity: 0.5,
-          },
-        },
-        xaxis: {
-          categories: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "Mei",
-            "Jun",
-            "Jul",
-            "Agu",
-            "Sep",
-            "Okt",
-            "Nov",
-            "Des",
-          ],
-        },
-      };
-
-      cashTransactionLineChart = new ApexCharts(
-        document.querySelector("#cash-transaction-chart-line-by-year"),
-        lineChartOptions
-      );
-      cashTransactionLineChart.render();
-
       const toggler = document.getElementById("toggle-dark")
       const theme = localStorage.getItem(THEME_KEY)
 
@@ -348,6 +236,155 @@
           icon: "success",
           title: e.message,
         });
+      });
+
+      let cashTransactionBarChart;
+      let cashTransactionLineChart;
+
+      Livewire.on('dashboard-chart-loaded', (e) => {
+        const { amount, count } = e;
+
+        const barChartOptions = {
+          chart: {
+            type: "bar",
+            height: 250,
+          },
+          series: [
+            {
+              name: "Total Transaksi",
+              data: [
+                count.jan,
+                count.feb,
+                count.mar,
+                count.apr,
+                count.mei,
+                count.jun,
+                count.jul,
+                count.agu,
+                count.sep,
+                count.okt,
+                count.nov,
+                count.des,
+              ],
+            },
+          ],
+          colors: ["#435ebe"],
+          xaxis: {
+            categories: [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "Mei",
+              "Jun",
+              "Jul",
+              "Agu",
+              "Sep",
+              "Okt",
+              "Nov",
+              "Des",
+            ],
+          },
+        };
+
+        cashTransactionBarChart = new ApexCharts(
+          document.querySelector("#cash-transaction-chart-bar-by-year"),
+          barChartOptions
+        );
+
+        cashTransactionBarChart.render();
+
+        const lineChartOptions = {
+          series: [
+            {
+              name: "Jumlah Pembayaran",
+              data: Object.values(amount),
+            },
+          ],
+          chart: {
+            height: 250,
+            type: "line",
+            zoom: {
+              enabled: false,
+            },
+          },
+          dataLabels: {
+            enabled: false,
+          },
+          stroke: {
+            curve: "straight",
+          },
+          grid: {
+            row: {
+              colors: ["#f3f3f3", "transparent"],
+              opacity: 0.5,
+            },
+          },
+          xaxis: {
+            categories: [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "Mei",
+              "Jun",
+              "Jul",
+              "Agu",
+              "Sep",
+              "Okt",
+              "Nov",
+              "Des",
+            ],
+          },
+        };
+
+        cashTransactionLineChart = new ApexCharts(
+          document.querySelector("#cash-transaction-chart-line-by-year"),
+          lineChartOptions
+        );
+        cashTransactionLineChart.render();
+      })
+
+      Livewire.on('dashboard-chart-updated', (e) => {
+        const { amount, count } = e;
+
+        cashTransactionBarChart.updateSeries([
+          {
+            data: [
+              count.jan,
+              count.feb,
+              count.mar,
+              count.apr,
+              count.mei,
+              count.jun,
+              count.jul,
+              count.agu,
+              count.sep,
+              count.okt,
+              count.nov,
+              count.des,
+            ],
+          }
+        ]);
+
+        cashTransactionLineChart.updateSeries([
+          {
+            data: [
+              amount.jan,
+              amount.feb,
+              amount.mar,
+              amount.apr,
+              amount.mei,
+              amount.jun,
+              amount.jul,
+              amount.agu,
+              amount.sep,
+              amount.okt,
+              amount.nov,
+              amount.des,
+            ],
+          }
+        ]);
       });
     });
   </script>
