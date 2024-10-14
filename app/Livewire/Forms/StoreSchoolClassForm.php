@@ -11,26 +11,39 @@ class StoreSchoolClassForm extends Form
     #[Validate]
     public string $name = '';
 
-    public function store()
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(): void
     {
         $this->validate();
 
         SchoolClass::create($this->pull());
     }
 
-    public function rules()
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
     {
         return [
-            'name' => 'required|min:3|max:255',
+            'name' => 'required|max:255|unique:school_classes,name',
         ];
     }
 
-    public function messages()
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
     {
         return [
-            'name.required' => 'Kolom nama kelas tidak boleh kosong!',
-            'name.min' => 'Kolom nama kelas minimal :min karakter!',
-            'name.max' => 'Kolom nama kelas maksimal :max karakter!',
+            'name.required' => 'Nama kelas tidak boleh kosong!',
+            'name.max' => 'Nama kelas harus maksimal :max karakter!',
+            'name.unique' => 'Nama kelas sudah terdaftar!',
         ];
     }
 }

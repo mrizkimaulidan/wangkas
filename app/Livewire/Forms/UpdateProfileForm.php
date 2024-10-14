@@ -3,6 +3,8 @@
 namespace App\Livewire\Forms;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rules\Password;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -19,45 +21,63 @@ class UpdateProfileForm extends Form
 
     public string $password_confirmation = '';
 
-    public function update()
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(): void
     {
         $this->validate();
 
-        User::find(auth()->guard()->id())->update($this->all());
+        User::find(Auth::id())->update($this->all());
 
         $this->reset('current_password', 'password', 'password_confirmation');
     }
 
-    public function rules()
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
     {
         return [
             'name' => 'required|min:3|max:255',
             'email' => 'required|email|min:3|max:255',
             'current_password' => 'required|current_password|min:3|max:255',
-            'password' => 'required|confirmed|min:3|max:255',
+            'password' => [
+                'required',
+                'confirmed',
+                Password::min(8)->numbers()->uncompromised(),
+            ],
         ];
     }
 
-    public function messages()
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
     {
         return [
-            'name.required' => 'Kolom nama lengkap tidak boleh kosong!',
-            'name.min' => 'Kolom nama lengkap minimal :min karakter!',
-            'name.max' => 'Kolom nama lengkap maksimal :max karakter!',
+            'name.required' => 'Nama lengkap tidak boleh kosong!',
+            'name.min' => 'Nama lengkap harus minimal :min karakter!',
+            'name.max' => 'Nama lengkap harus maksimal :max karakter!',
 
-            'email.required' => 'Kolom alamat email tidak boleh kosong!',
-            'email.email' => 'Kolom alamat email bukan email yang valid!',
-            'email.min' => 'Kolom alamat email minimal :min karakter!',
-            'email.max' => 'Kolom alamat email maksimal :max karakter!',
+            'email.required' => 'Alamat email tidak boleh kosong!',
+            'email.email' => 'Alamat email bukan email yang valid!',
+            'email.min' => 'Alamat email harus minimal :min karakter!',
+            'email.max' => 'Alamat email harus maksimal :max karakter!',
 
-            'password.required' => 'Kolom kata sandi baru tidak boleh kosong!',
-            'password.confirmed' => 'Konfirmasi kata sandi baru tidak sesuai!',
-            'password.min' => 'Kolom kata sandi baru minimal :min karakter!',
-            'password.max' => 'Kolom kata sandi baru maksimal :max karakter!',
+            'password.required' => 'Kata sandi tidak boleh kosong!',
+            'password.confirmed' => 'Konfirmasi kata sandi tidak cocok!',
+            'password.min' => 'Kata sandi harus minimal :min karakter!',
+            'password.numbers' => 'Kata sandi harus berisi minimal 1 angka!',
+            'password.uncompromised' => 'Kata sandi ini telah digunakan dalam kebocoran data dan tidak aman!',
 
-            'current_password.required' => 'Kolom kata sandi saat ini tidak boleh kosong!',
-            'current_password.min' => 'Kolom kata sandi saat ini minimal :min karakter!',
-            'current_password.max' => 'Kolom kata sandi saat ini maksimal :max karakter!',
+            'current_password.required' => 'Kata sandi saat ini tidak boleh kosong!',
+            'current_password.min' => 'Kata sandi saat ini harus minimal :min karakter!',
+            'current_password.max' => 'Kata sandi saat ini harus maksimal :max karakter!',
             'current_password.current_password' => 'Kata sandi saat ini tidak benar!',
         ];
     }

@@ -20,7 +20,10 @@ class UpdateCashTransactionForm extends Form
 
     public ?string $transaction_note = '';
 
-    public function update()
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(): void
     {
         $this->validate();
 
@@ -29,22 +32,41 @@ class UpdateCashTransactionForm extends Form
         CashTransaction::find($this->id)->update($request);
     }
 
-    public function rules()
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
     {
         return [
-            'student_id' => 'required',
-            'amount' => 'required',
-            'date_paid' => 'required',
-            'transaction_note' => 'nullable',
+            'student_id' => 'required|exists:students,id',
+            'amount' => 'required|numeric|min:0',
+            'date_paid' => 'required|date',
+            'transaction_note' => 'nullable|string|max:255',
         ];
     }
 
-    public function messages()
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
     {
         return [
-            'student_id.required' => 'Kolom pelajar tidak boleh kosong!',
-            'amount.required' => 'Kolom tagihan tidak boleh kosong!',
-            'date_paid.required' => 'Kolom tanggal tidak boleh kosong!',
+            'student_id.required' => 'Pelajar tidak boleh kosong!',
+            'student_id.exists' => 'Pelajar yang dipilih tidak valid!',
+
+            'amount.required' => 'Tagihan tidak boleh kosong!',
+            'amount.numeric' => 'Tagihan harus berupa angka!',
+            'amount.min' => 'Tagihan tidak boleh kurang dari 0!',
+
+            'date_paid.required' => 'Tanggal tidak boleh kosong!',
+            'date_paid.date' => 'Tanggal tidak valid!',
+
+            'transaction_note.string' => 'Catatan transaksi harus berupa teks!',
+            'transaction_note.max' => 'Catatan transaksi harus maksimal :max karakter!',
         ];
     }
 }

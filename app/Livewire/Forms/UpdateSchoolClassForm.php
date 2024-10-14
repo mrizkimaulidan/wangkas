@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\SchoolClass;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
@@ -13,26 +14,43 @@ class UpdateSchoolClassForm extends Form
     #[Validate]
     public string $name = '';
 
-    public function update()
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(): void
     {
         $this->validate();
 
         SchoolClass::find($this->id)->update($this->all());
     }
 
-    public function rules()
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
     {
         return [
-            'name' => 'required|min:3|max:255',
+            'name' => [
+                'required',
+                'max:255',
+                Rule::unique('school_classes')->ignore($this->id),
+            ],
         ];
     }
 
-    public function messages()
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
     {
         return [
-            'name.required' => 'Kolom nama kelas tidak boleh kosong!',
-            'name.min' => 'Kolom nama kelas minimal :min karakter!',
-            'name.max' => 'Kolom nama kelas maksimal :max karakter!',
+            'name.required' => 'Nama kelas tidak boleh kosong!',
+            'name.max' => 'Nama kelas harus maksimal :max karakter!',
+            'name.unique' => 'Nama kelas sudah terdaftar!',
         ];
     }
 }

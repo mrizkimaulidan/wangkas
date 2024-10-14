@@ -13,31 +13,43 @@ class StoreSchoolMajorForm extends Form
 
     public string $abbreviation = '';
 
-    public function store()
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(): void
     {
         $this->validate();
 
         SchoolMajor::create($this->pull());
     }
 
-    public function rules()
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
     {
         return [
-            'name' => 'required|min:3|max:255',
-            'abbreviation' => 'required|min:3|max:255',
+            'name' => 'required|max:255',
+            'abbreviation' => 'required|max:255|unique:school_majors,abbreviation',
         ];
     }
 
-    public function messages()
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
     {
         return [
-            'name.required' => 'Kolom nama jurusan tidak boleh kosong!',
-            'name.min' => 'Kolom nama jurusan minimal :min karakter!',
-            'name.max' => 'Kolom nama jurusan maksimal :max karakter!',
+            'name.required' => 'Nama jurusan tidak boleh kosong!',
+            'name.max' => 'Nama jurusan harus maksimal :max karakter!',
 
-            'abbreviation.required' => 'Kolom singkatan jurusan tidak boleh kosong!',
-            'abbreviation.min' => 'Kolom singkatan jurusan minimal :min karakter!',
-            'abbreviation.max' => 'Kolom singkatan jurusan maksimal :max karakter!',
+            'abbreviation.required' => 'Singkatan jurusan tidak boleh kosong!',
+            'abbreviation.max' => 'Singkatan jurusan harus maksimal :max karakter!',
+            'abbreviation.unique' => 'Singkatan jurusan sudah terdaftar!',
         ];
     }
 }
