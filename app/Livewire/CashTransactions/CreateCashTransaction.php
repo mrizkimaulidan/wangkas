@@ -2,13 +2,13 @@
 
 namespace App\Livewire\CashTransactions;
 
-use App\Livewire\Forms\StoreCashTransaction;
+use App\Livewire\Forms\StoreCashTransactionForm;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
 class CreateCashTransaction extends Component
 {
-    public StoreCashTransaction $form;
+    public StoreCashTransactionForm $form;
 
     public Collection $students;
 

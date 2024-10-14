@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
-class StoreCashTransaction extends Form
+class UpdateCashTransactionForm extends Form
 {
+    public string $id;
+
     #[Validate]
     public string $student_id = '';
 
@@ -16,15 +18,15 @@ class StoreCashTransaction extends Form
 
     public string $date_paid = '';
 
-    public string $transaction_note = '';
+    public ?string $transaction_note = '';
 
-    public function store()
+    public function update()
     {
         $this->validate();
 
-        $request = collect($this->pull())->merge(['created_by' => Auth::id()])->toArray();
+        $request = collect($this->all())->merge(['created_by' => Auth::id()])->toArray();
 
-        CashTransaction::create($request);
+        CashTransaction::find($this->id)->update($request);
     }
 
     public function rules()

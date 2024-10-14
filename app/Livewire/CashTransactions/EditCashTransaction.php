@@ -2,7 +2,7 @@
 
 namespace App\Livewire\CashTransactions;
 
-use App\Livewire\Forms\UpdateCashTransaction;
+use App\Livewire\Forms\UpdateCashTransactionForm;
 use App\Models\CashTransaction;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
@@ -10,7 +10,7 @@ use Livewire\Component;
 
 class EditCashTransaction extends Component
 {
-    public UpdateCashTransaction $form;
+    public UpdateCashTransactionForm $form;
 
     public Collection $students;
 
