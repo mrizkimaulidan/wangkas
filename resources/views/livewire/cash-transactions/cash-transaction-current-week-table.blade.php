@@ -1,4 +1,4 @@
-<div class="row">
+<div>
   <div class="row">
     <div class="col-6">
       <div class="card">
@@ -121,149 +121,152 @@
     </div>
   </div>
 
-  <div class="col-12">
-    <div class="card">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
 
-      <div class="card-body">
-        <h5 class="card-title">Daftar Transaksi Kas Minggu Ini</h5>
+        <div class="card-body">
+          <h5 class="card-title">Daftar Transaksi Kas Minggu Ini</h5>
 
-        <div class="d-flex flex-wrap flex-row-reverse mb-3 gap-2">
-          <div class="col-auto">
-            <button wire:click="$refresh" class="btn btn-sm btn-light"><i class="bi bi-arrow-clockwise"></i></button>
+          <div class="d-flex flex-wrap flex-row-reverse mb-3 gap-2">
+            <div class="col-auto">
+              <button wire:click="$refresh" class="btn btn-sm btn-light"><i class="bi bi-arrow-clockwise"></i></button>
+            </div>
+
+            <div class="col-auto">
+              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
+                Tambah Data
+              </button>
+            </div>
+
+            <div class="col-auto">
+              <button wire:click="resetFilter" type="button" class="btn btn-outline-warning">Reset filter</button>
+            </div>
+
+            <div class="col-auto">
+              <p class="d-inline-flex gap-1">
+                <a class="btn btn-primary" data-bs-toggle="collapse" href="#filterCollapse" role="button"
+                  aria-expanded="false" aria-controls="filterCollapse">
+                  Menu Filter
+                </a>
+              </p>
+            </div>
+
+            <div class="col-auto">
+              <select wire:model.live="orderBy" class="form-select form-select-sm w-auto">
+                <option value="asc">A-Z</option>
+                <option value="desc">Z-A</option>
+              </select>
+            </div>
+
+            <div class="col-auto">
+              <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto">
+                <option value="amount">Total Bayar</option>
+                <option value="date_paid">Tanggal Transaksi</option>
+              </select>
+            </div>
+
+            <div class="col-auto">
+              <select wire:model.live="limit" class="form-select form-select-sm w-auto">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+              </select>
+            </div>
+
+            <div class="col-12 col-md-auto mt-2 mt-md-0">
+              <form class="d-inline-block w-100">
+                <input wire:model.live="query" type="text" class="form-control form-control-sm shadow-sm fw-bold"
+                  placeholder="Masukan keyword pencarian..">
+              </form>
+            </div>
           </div>
 
-          <div class="col-auto">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
-              Tambah Data
-            </button>
-          </div>
-
-          <div class="col-auto">
-            <button wire:click="resetFilter" type="button" class="btn btn-outline-warning">Reset filter</button>
-          </div>
-
-          <div class="col-auto">
-            <p class="d-inline-flex gap-1">
-              <a class="btn btn-primary" data-bs-toggle="collapse" href="#filterCollapse" role="button"
-                aria-expanded="false" aria-controls="filterCollapse">
-                Menu Filter
-              </a>
-            </p>
-          </div>
-
-          <div class="col-auto">
-            <select wire:model.live="orderBy" class="form-select form-select-sm w-auto">
-              <option value="asc">A-Z</option>
-              <option value="desc">Z-A</option>
-            </select>
-          </div>
-
-          <div class="col-auto">
-            <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto">
-              <option value="amount">Total Bayar</option>
-              <option value="date_paid">Tanggal Transaksi</option>
-            </select>
-          </div>
-
-          <div class="col-auto">
-            <select wire:model.live="limit" class="form-select form-select-sm w-auto">
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-            </select>
-          </div>
-
-          <div class="col-12 col-md-auto mt-2 mt-md-0">
-            <form class="d-inline-block w-100">
-              <input wire:model.live="query" type="text" class="form-control form-control-sm shadow-sm fw-bold"
-                placeholder="Masukan keyword pencarian..">
-            </form>
-          </div>
-        </div>
-
-        <div wire:ignore.self class="collapse border mb-3" id="filterCollapse">
-          <div class="card card-body">
-            <div class="row">
-              <div class="col-6">
-                <label for="user_id" class="form-label">Dicatat Oleh:</label>
-                <select wire:model.live="filters.user_id" class="form-select" id="user_id">
-                  <option value="" selected>Pilh Dicatat Oleh</option>
-                  @foreach ($users as $user)
-                  <option value="{{ $user->id }}">{{ $user->name }}</option>
-                  @endforeach
-                </select>
+          <div wire:ignore.self class="collapse border mb-3" id="filterCollapse">
+            <div class="card card-body">
+              <div class="row">
+                <div class="col-6">
+                  <label for="user_id" class="form-label">Dicatat Oleh:</label>
+                  <select wire:model.live="filters.user_id" class="form-select" id="user_id">
+                    <option value="" selected>Pilh Dicatat Oleh</option>
+                    @foreach ($users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="table-responsive">
-          <table class="table table-bordered table-hover">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Nama Pelajar</th>
-                <th scope="col">Nama Total Bayar</th>
-                <th scope="col">Tanggal</th>
-                <th scope="col">Dicatat Oleh</th>
-                <th scope="col">Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr wire:loading>
-                <td colspan="3">
-                  <div class="d-flex justify-content-center">
-                    <div class="spinner-border" role="status">
-                      <span class="visually-hidden">Loading...</span>
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nama Pelajar</th>
+                  <th scope="col">Nama Total Bayar</th>
+                  <th scope="col">Tanggal</th>
+                  <th scope="col">Dicatat Oleh</th>
+                  <th scope="col">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr wire:loading>
+                  <td colspan="3">
+                    <div class="d-flex justify-content-center">
+                      <div class="spinner-border" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                      </div>
                     </div>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                </tr>
 
-              @php
-              $startIndex = ($cashTransactions->currentPage() - 1) * $cashTransactions->perPage() + 1;
-              @endphp
+                @php
+                $startIndex = ($cashTransactions->currentPage() - 1) * $cashTransactions->perPage() + 1;
+                @endphp
 
-              @forelse ($cashTransactions as $index => $cashTransaction)
-              <tr wire:key="{{ $cashTransaction->id }}">
-                <th scope="row">{{ $startIndex + $index }}</th>
-                <td>
-                  <span class="text-uppercase fw-bold">
-                    {{ $cashTransaction->student->name }}
-                  </span>
-                </td>
-                <td>{{ local_amount_format($cashTransaction->amount) }}</td>
-                <td>{{ $cashTransaction->date_paid }}</td>
-                <td class="text-center">
-                  <span class="badge bg-primary w-100">
-                    <i class="bi bi-person-badge-fill"></i>
-                    {{ $cashTransaction->createdBy->name }}
-                  </span>
-                </td>
-                <td>
-                  <div class="btn-group grid gap-1" role="group">
-                    <button wire:loading.attr="disabled"
-                      wire:click="$dispatch('cash-transaction-edit', {id: {{ $cashTransaction->id }}})" type="button"
-                      class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editModal">
-                      <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button wire:loading.attr="disabled"
-                      wire:click="$dispatch('cash-transaction-delete', {id: {{ $cashTransaction->id }}})" type="button"
-                      class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                      <i class="bi bi-trash-fill"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              @empty
-              <tr wire:loading.remove class="text-center">
-                <th colspan="6" class="fw-bold">Tidak ada data yang ditemukan!</th>
-              </tr>
-              @endforelse
-            </tbody>
-          </table>
+                @forelse ($cashTransactions as $index => $cashTransaction)
+                <tr wire:key="{{ $cashTransaction->id }}">
+                  <th scope="row">{{ $startIndex + $index }}</th>
+                  <td>
+                    <span class="text-uppercase fw-bold">
+                      {{ $cashTransaction->student->name }}
+                    </span>
+                  </td>
+                  <td>{{ local_amount_format($cashTransaction->amount) }}</td>
+                  <td>{{ $cashTransaction->date_paid }}</td>
+                  <td class="text-center">
+                    <span class="badge bg-primary w-100">
+                      <i class="bi bi-person-badge-fill"></i>
+                      {{ $cashTransaction->createdBy->name }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="btn-group grid gap-1" role="group">
+                      <button wire:loading.attr="disabled"
+                        wire:click="$dispatch('cash-transaction-edit', {id: {{ $cashTransaction->id }}})" type="button"
+                        class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editModal">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                      <button wire:loading.attr="disabled"
+                        wire:click="$dispatch('cash-transaction-delete', {id: {{ $cashTransaction->id }}})"
+                        type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                        data-bs-target="#deleteModal">
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                @empty
+                <tr wire:loading.remove class="text-center">
+                  <th colspan="6" class="fw-bold">Tidak ada data yang ditemukan!</th>
+                </tr>
+                @endforelse
+              </tbody>
+            </table>
 
-          {{ $cashTransactions->links() }}
+            {{ $cashTransactions->links() }}
+          </div>
         </div>
       </div>
     </div>
