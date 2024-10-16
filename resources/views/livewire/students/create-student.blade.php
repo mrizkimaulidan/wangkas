@@ -11,19 +11,19 @@
         <div class="modal-body">
           <form wire:submit="save">
             <div class="row">
-              <div class="col-6">
+              <div class="col-sm-12 col-md-6">
                 <x-forms.input-with-icon wire:model.blur="form.identification_number" label="Nomor Identitas"
                   name="form.identification_number" type="number" placeholder="Masukan nomor identitas.."
                   icon="bi bi-person-badge" />
               </div>
-              <div class="col-6">
+              <div class="col-sm-12 col-md-6">
                 <x-forms.input-with-icon wire:model.blur="form.name" label="Nama Lengkap" name="form.name" type="text"
                   placeholder="Masukan nama lengkap.." icon="bi bi-person" />
               </div>
             </div>
 
             <div class="row">
-              <div class="col-6">
+              <div class="col-sm-6 col-md-6">
                 <x-forms.select-with-icon wire:model.blur="form.gender" label="Pilih Jenis Kelamin" name="form.gender"
                   icon="bi bi-gender-male">
                   <option value="1">Laki-laki</option>
@@ -31,14 +31,14 @@
                 </x-forms.select-with-icon>
               </div>
 
-              <div class="col-6">
+              <div class="col-sm-6 col-md-6">
                 <x-forms.input-with-icon wire:model.blur="form.phone_number" label="Nomor Telepon"
                   name="form.phone_number" type="number" placeholder="Masukan nomor telepon.." icon="bi bi-telephone" />
               </div>
             </div>
 
             <div class="row">
-              <div class="col-6">
+              <div class="col-sm-6 col-md-6">
                 <x-forms.select-with-icon wire:model.blur="form.school_class_id" label="Pilih Kelas"
                   name="form.school_class_id" icon="bi bi-bookmark-fill">
                   @foreach ($schoolClasses as $schoolClass)
@@ -46,7 +46,7 @@
                   @endforeach
                 </x-forms.select-with-icon>
               </div>
-              <div class="col-6">
+              <div class="col-sm-6 col-md-6">
                 <x-forms.select-with-icon wire:model.blur="form.school_major_id" label="Pilih Jurusan"
                   name="form.school_major_id" icon="bi bi-briefcase-fill">
                   @foreach ($schoolMajors as $schoolMajor)
@@ -57,12 +57,12 @@
             </div>
 
             <div class="row">
-              <div class="col-6">
+              <div class="col-sm-6 col-md-6">
                 <x-forms.input-with-icon wire:model.blur="form.school_year_start" label="Tahun Masuk"
                   name="form.school_year_start" type="number" placeholder="Masukan tahun masuk.."
                   icon="bi bi-calendar" />
               </div>
-              <div class="col-6">
+              <div class="col-sm-6 col-md-6">
                 <x-forms.input-with-icon wire:model.blur="form.school_year_end" label="Tahun Lulus"
                   name="form.school_year_end" type="number" placeholder="Masukan tahun lulus.."
                   icon="bi bi-calendar-event" />

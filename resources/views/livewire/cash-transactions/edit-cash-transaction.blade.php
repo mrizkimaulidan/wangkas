@@ -11,7 +11,7 @@
         <div class="modal-body">
           <form wire:submit="edit">
             <div class="row">
-              <div class="col-6">
+              <div class="col-md-6">
                 <x-forms.select-with-icon wire:model.blur="form.student_id" label="Pilih Pelajar" name="form.student_id"
                   icon="bi bi-people-fill">
                   @foreach ($students as $student)
@@ -21,7 +21,7 @@
                 </x-forms.select-with-icon>
               </div>
 
-              <div class="col-6">
+              <div class="col-sm-12 col-md-6">
                 <x-forms.input-with-icon wire:model.blur="form.amount" label="Tagihan" name="form.amount"
                   placeholder="Masukan tagihan.." type="number" icon="bi bi-cash" />
 
