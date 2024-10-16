@@ -12,6 +12,11 @@ class CreateCashTransaction extends Component
 
     public Collection $students;
 
+    public function mount()
+    {
+        $this->form->date_paid = now()->toDateString();
+    }
+
     public function render()
     {
         return view('livewire.cash-transactions.create-cash-transaction', [
