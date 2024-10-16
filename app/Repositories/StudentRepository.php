@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Student;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection as SupportCollection;
@@ -16,9 +17,9 @@ class StudentRepository
     /**
      * Get the paid and unpaid status of students for the given cash transactions.
      *
-     * @param  \Illuminate\Database\Eloquent\Collection|Illuminate\Pagination\LengthAwarePaginator  $cashTransactions
+     * @param  \Illuminate\Database\Eloquent\Collection|\Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder  $cashTransactions
      */
-    public function getStudentPaymentStatus(Collection|LengthAwarePaginator $cashTransactions): SupportCollection
+    public function getStudentPaymentStatus(Collection|LengthAwarePaginator|Builder $cashTransactions): SupportCollection
     {
         $students = $this->model->select(
             'id',

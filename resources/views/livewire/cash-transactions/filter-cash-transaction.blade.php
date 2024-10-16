@@ -103,9 +103,9 @@
             <div class="divider-text fw-bold">Pilih menu filter di atas untuk mencari data</div>
           </div>
 
+          @if($statistics['studentsNotPaidCount'] > 0)
           <div class="card">
             <div class="card-body">
-              @if($statistics['studentsNotPaidCount'] > 0)
               <button type="button" class="btn btn-danger btn-block btn-xl font-bold" data-bs-toggle="modal"
                 data-bs-target="#notPaidModal">
                 Ada <b>{{ $statistics['studentsNotPaidCount'] }}</b> orang belum membayar pada rentang tanggal tersebut!
@@ -128,7 +128,6 @@
               <livewire:cash-transactions.student-paid-status-modal
                 modalTitle="Daftar Pelajar Yang Belum Membayar di Tanggal Tersebut"
                 :students="$statistics['studentsNotPaid']" />
-              @endif
             </div>
 
             <div class="d-flex flex-wrap flex-row-reverse mb-3 gap-2">
@@ -207,6 +206,7 @@
 
             {{ $filteredResult->links() }}
           </div>
+          @endif
         </div>
       </div>
     </div>
