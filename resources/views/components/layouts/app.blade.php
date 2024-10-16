@@ -68,53 +68,51 @@
           <ul class="menu">
             <li class="sidebar-title">Menu</li>
 
-            <li class="sidebar-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-              <a href="/dashboard" wire:navigate class="sidebar-link">
-                <i class="bi bi-grid-fill"></i>
-                <span>Dashboard</span>
-              </a>
-            </li>
+            <x-sidebar.sidebar-item :active="request()->routeIs('dashboard')">
+              <x-sidebar.sidebar-link :href="route('dashboard')" icon="bi bi-grid-fill" wire:navigate>
+                Dashboard
+              </x-sidebar.sidebar-link>
+            </x-sidebar.sidebar-item>
 
             <li class="sidebar-title"><i class="bi bi-menu-button-wide-fill"></i></li>
 
-            <li class="sidebar-item {{ request()->routeIs('students.index') ? 'active' : '' }}">
-              <a href="/pelajar" wire:navigate class="sidebar-link">
-                <i class="bi bi-people-fill"></i>
-                <span>Pelajar</span>
-              </a>
-            </li>
+            <x-sidebar.sidebar-item :active="request()->routeIs('students.index')">
+              <x-sidebar.sidebar-link :href="route('students.index')" icon="bi bi-people-fill" wire:navigate>
+                Pelajar
+              </x-sidebar.sidebar-link>
+            </x-sidebar.sidebar-item>
 
-            <li class="sidebar-item {{ request()->routeIs('school-classes.index') ? 'active' : '' }}">
-              <a href="/kelas" wire:navigate class="sidebar-link">
-                <i class="bi bi-bookmark-fill"></i>
-                <span>Kelas</span>
-              </a>
-            </li>
+            <x-sidebar.sidebar-item :active="request()->routeIs('school-classes.index')">
+              <x-sidebar.sidebar-link :href="route('school-classes.index')" icon="bi bi-bookmark-fill" wire:navigate>
+                Kelas
+              </x-sidebar.sidebar-link>
+            </x-sidebar.sidebar-item>
 
-            <li class="sidebar-item {{ request()->routeIs('school-majors.index') ? 'active' : '' }}">
-              <a href="/jurusan" wire:navigate class="sidebar-link">
-                <i class="bi bi-briefcase-fill"></i>
-                <span>Jurusan</span>
-              </a>
-            </li>
+            <x-sidebar.sidebar-item :active="request()->routeIs('school-majors.index')">
+              <x-sidebar.sidebar-link :href="route('school-majors.index')" icon="bi bi-briefcase-fill" wire:navigate>
+                Jurusan
+              </x-sidebar.sidebar-link>
+            </x-sidebar.sidebar-item>
 
-            <li
-              class="sidebar-item has-sub {{ request()->routeIs('cash-transactions.index') ? 'active' : '' }} || {{ request()->routeIs('cash-transactions.filter') ? 'active' : '' }}">
-              <a href="#" class="sidebar-link">
-                <i class="bi bi-cash-stack"></i>
-                <span>Kas</span>
-              </a>
+            <x-sidebar.sidebar-item class="has-sub" :active="request()->routeIs('cash-transactions.*')">
+              <x-sidebar.sidebar-link href="#" icon="bi bi-cash-stack">
+                Kas
+              </x-sidebar.sidebar-link>
 
               <ul class="submenu">
-                <li class="submenu-item {{ request()->routeIs('cash-transactions.index') ? 'active' : '' }}">
-                  <a href="{{ route('cash-transactions.index') }}" wire:navigate class="submenu-link">Kas Minggu Ini</a>
-                </li>
+                <x-sidebar.submenu-item :active="request()->routeIs('cash-transactions.index')">
+                  <x-sidebar.submenu-link :href="route('cash-transactions.index')" wire:navigate>
+                    Kas Minggu
+                  </x-sidebar.submenu-link>
+                </x-sidebar.submenu-item>
 
-                <li class="submenu-item {{ request()->routeIs('cash-transactions.filter') ? 'active' : '' }}">
-                  <a href="{{ route('cash-transactions.filter') }}" wire:navigate class="submenu-link">Filter Kas</a>
-                </li>
+                <x-sidebar.submenu-item :active="request()->routeIs('cash-transactions.filter')">
+                  <x-sidebar.submenu-link :href="route('cash-transactions.filter')" wire:navigate>
+                    Filter Kas
+                  </x-sidebar.submenu-link>
+                </x-sidebar.submenu-item>
               </ul>
-            </li>
+            </x-sidebar.sidebar-item>
 
             <li class="sidebar-item {{ request()->routeIs('administrators.index') ? 'active' : '' }}">
               <a href="/pengguna" wire:navigate class="sidebar-link">
