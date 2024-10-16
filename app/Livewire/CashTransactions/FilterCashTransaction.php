@@ -3,7 +3,8 @@
 namespace App\Livewire\CashTransactions;
 
 use App\Models\CashTransaction;
-use App\Models\Student;
+use App\Repositories\CashTransactionRepository;
+use App\Repositories\StudentRepository;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -14,40 +15,41 @@ class FilterCashTransaction extends Component
 {
     use WithPagination;
 
+    protected StudentRepository $studentRepository;
+
+    protected CashTransactionRepository $cashTransactionRepository;
+
     public $start_date;
 
     public $end_date;
 
     public $query;
 
-    public array $statistics = [
-        'totalCurrentDay' => 0,
-        'totalCurrentWeek' => 0,
-        'totalCurrentMonth' => 0,
-        'totalCurrentYear' => 0,
-    ];
+    public array $statistics = [];
 
-    public $studentsWhoNotPaid;
+    public function boot(
+        StudentRepository $studentRepository,
+        CashTransactionRepository $cashTransactionRepository
+    ) {
+        $this->studentRepository = $studentRepository;
+        $this->cashTransactionRepository = $cashTransactionRepository;
+    }
 
-    public $studentsWhoNotPaidLimit;
-
-    public $studentsWhoNotPaidCount = 0;
+    public function mount()
+    {
+        $this->statistics = [
+            'totalCurrentDay' => 0,
+            'totalCurrentWeek' => 0,
+            'totalCurrentMonth' => 0,
+            'totalCurrentYear' => 0,
+            'studentsNotPaidLimit' => collect(),
+            'studentsNotPaid' => collect(),
+            'studentsNotPaidCount' => 0,
+        ];
+    }
 
     public function render()
     {
-        if ($this->start_date && $this->end_date !== null) {
-            $students = Student::with(['cashTransactions' => function ($query) {
-                return $query->whereBetween('date_paid', [$this->start_date, $this->end_date]);
-            }, 'schoolClass', 'schoolMajor'])->get();
-
-            $this->studentsWhoNotPaid = $students->filter(function ($student) {
-                return $student->cashTransactions->isEmpty();
-            });
-
-            $this->studentsWhoNotPaidCount = $this->studentsWhoNotPaid->count();
-            $this->studentsWhoNotPaidLimit = $this->studentsWhoNotPaid->take(6);
-        }
-
         $sumAmountDateRange = CashTransaction::whereBetween('date_paid', [$this->start_date, $this->end_date])->sum('amount');
 
         $filteredResult = CashTransaction::query()
@@ -61,39 +63,24 @@ class FilterCashTransaction extends Component
             })
             ->whereBetween('date_paid', [$this->start_date, $this->end_date]);
 
-        $this->calculateStatistics();
+        if ($this->start_date && $this->end_date !== null) {
+            $studentPaidStatus = $this->studentRepository->getStudentPaymentStatus($filteredResult);
+
+            $this->statistics['studentsNotPaidLimit'] = $studentPaidStatus['studentsNotPaid']->take(6);
+            $this->statistics['studentsNotPaid'] = $studentPaidStatus['studentsNotPaid'];
+            $this->statistics['studentsNotPaidCount'] = $studentPaidStatus['studentsNotPaid']->count();
+        }
+
+        $cashTransactionSummaries = $this->cashTransactionRepository->calculateTransactionSums(now()->year);
+
+        $this->statistics['totalToday'] = local_amount_format($cashTransactionSummaries['today']);
+        $this->statistics['totalCurrentWeek'] = local_amount_format($cashTransactionSummaries['week']);
+        $this->statistics['totalCurrentMonth'] = local_amount_format($cashTransactionSummaries['month']);
+        $this->statistics['totalCurrentYear'] = local_amount_format($cashTransactionSummaries['year']);
 
         return view('livewire.cash-transactions.filter-cash-transaction', [
             'filteredResult' => $filteredResult->paginate(5),
             'sumAmountDateRange' => $sumAmountDateRange,
-            'studentsWhoNotPaidCount' => $this->studentsWhoNotPaidCount,
-            'studentsWhoNotPaid' => $this->studentsWhoNotPaid,
-            'studentsWhoNotPaidLimit' => $this->studentsWhoNotPaidLimit,
         ]);
-    }
-
-    public function calculateStatistics()
-    {
-        $currentYear = now()->year;
-        $cashTransactions = CashTransaction::whereYear('date_paid', $currentYear)->get();
-
-        $totalAmountCurrentDay = $cashTransactions->filter(function ($cashTransaction) {
-            return now()->isSameDay($cashTransaction->date_paid);
-        })->sum('amount');
-
-        $totalAmountCurrentWeek = $cashTransactions->filter(function ($cashTransaction) {
-            return now()->isSameWeek($cashTransaction->date_paid);
-        })->sum('amount');
-
-        $totalAmountCurrentMonth = $cashTransactions->filter(function ($cashTransaction) {
-            return now()->isSameMonth($cashTransaction->date_paid);
-        })->sum('amount');
-
-        $this->statistics = [
-            'totalCurrentDay' => local_amount_format($totalAmountCurrentDay),
-            'totalCurrentWeek' => local_amount_format($totalAmountCurrentWeek),
-            'totalCurrentMonth' => local_amount_format($totalAmountCurrentMonth),
-            'totalCurrentYear' => local_amount_format($cashTransactions->sum('amount')),
-        ];
     }
 }

@@ -104,15 +104,15 @@
 
         <div class="card">
           <div class="card-body">
-            @if($studentsWhoNotPaidCount > 0)
+            @if($statistics['studentsNotPaidCount'] > 0)
             <button type="button" class="btn btn-danger btn-block btn-xl font-bold" data-bs-toggle="modal"
               data-bs-target="#notPaidModal">
-              Ada <b>{{ $studentsWhoNotPaidCount }}</b> orang belum membayar pada rentang tanggal tersebut! <i
-                class="bi bi-exclamation-triangle"></i>
+              Ada <b>{{ $statistics['studentsNotPaidCount'] }}</b> orang belum membayar pada rentang tanggal tersebut!
+              <i class="bi bi-exclamation-triangle"></i>
             </button>
 
             <div class="row text-center mt-3">
-              @foreach ($studentsWhoNotPaidLimit as $student)
+              @foreach ($statistics['studentsNotPaidLimit'] as $student)
               <div class="col-6 mb-3">
                 <div class="p-3 border rounded">
                   <h5 class="mb-1">{{ $student->name }}</h5>
@@ -125,7 +125,8 @@
               data-bs-target="#notPaidModal">Lihat Selengkapnya</button>
 
             <livewire:cash-transactions.student-paid-status-modal
-              modalTitle="Daftar Pelajar Yang Belum Membayar di Tanggal Tersebut" :students="$studentsWhoNotPaid" />
+              modalTitle="Daftar Pelajar Yang Belum Membayar di Tanggal Tersebut"
+              :students="$statistics['studentsNotPaid']" />
             @endif
           </div>
 
