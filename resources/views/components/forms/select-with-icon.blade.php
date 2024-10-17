@@ -5,7 +5,7 @@
       <label class="input-group-text" for="{{ $name }}">
         <div><i class="{{ $icon }}"></i></div>
       </label>
-      <select class="form-select" id="{{ $name }}" {{ $attributes }}>
+      <select class="form-select @error($name) is-invalid @enderror" id="{{ $name }}" {{ $attributes }}>
         <option value="">{{ $label }}</option>
         {{ $slot }}
       </select>
