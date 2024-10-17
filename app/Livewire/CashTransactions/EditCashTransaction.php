@@ -4,6 +4,7 @@ namespace App\Livewire\CashTransactions;
 
 use App\Livewire\Forms\UpdateCashTransactionForm;
 use App\Models\CashTransaction;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -14,15 +15,21 @@ class EditCashTransaction extends Component
 
     public Collection $students;
 
-    public function render()
+    /**
+     * Render the view.
+     */
+    public function render(): View
     {
         return view('livewire.cash-transactions.edit-cash-transaction', [
             'students' => $this->students,
         ]);
     }
 
+    /**
+     * Set the value based on the given ID.
+     */
     #[On('cash-transaction-edit')]
-    public function setValue(string $id)
+    public function setValue(int $id): void
     {
         $cashTransaction = CashTransaction::find($id);
         $this->form->id = $cashTransaction->id;
@@ -32,7 +39,10 @@ class EditCashTransaction extends Component
         $this->form->transaction_note = $cashTransaction->transaction_note;
     }
 
-    public function edit()
+    /**
+     * Update the form data and handle the related events.
+     */
+    public function edit(): void
     {
         $this->form->update();
 

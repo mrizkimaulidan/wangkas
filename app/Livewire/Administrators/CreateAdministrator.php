@@ -3,18 +3,25 @@
 namespace App\Livewire\Administrators;
 
 use App\Livewire\Forms\StoreAdministratorForm;
+use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class CreateAdministrator extends Component
 {
     public StoreAdministratorForm $form;
 
-    public function render()
+    /**
+     * Render the view.
+     */
+    public function render(): View
     {
         return view('livewire.administrators.create-administrator');
     }
 
-    public function save()
+    /**
+     * Save the form data and handle the related events.
+     */
+    public function save(): void
     {
         $this->form->store();
 

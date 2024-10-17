@@ -3,6 +3,7 @@
 namespace App\Livewire\Administrators;
 
 use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -13,7 +14,7 @@ class AdministratorTable extends Component
 {
     use WithPagination;
 
-    public string $query = '';
+    public ?string $query = '';
 
     public int $limit = 5;
 
@@ -21,13 +22,19 @@ class AdministratorTable extends Component
 
     public string $orderBy = 'asc';
 
-    public function updated()
+    /**
+     * This method is automatically triggered whenever a property of the component is updated.
+     */
+    public function updated(): void
     {
-        return $this->resetPage();
+        $this->resetPage();
     }
 
+    /**
+     * Render the view.
+     */
     #[On('administrator-created')]
-    public function render()
+    public function render(): View
     {
         $administrators = User::search($this->query)
             ->orderBy($this->orderByColumn, $this->orderBy)
@@ -38,6 +45,9 @@ class AdministratorTable extends Component
         ]);
     }
 
+    /**
+     * Reset the filter criteria to default values.
+     */
     public function resetFilter()
     {
         $this->reset([

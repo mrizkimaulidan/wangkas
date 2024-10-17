@@ -12,9 +12,9 @@ class UpdateSchoolMajorForm extends Form
     public string $id;
 
     #[Validate]
-    public string $name = '';
+    public ?string $name;
 
-    public string $abbreviation = '';
+    public ?string $abbreviation;
 
     /**
      * Update the specified resource in storage.
@@ -28,8 +28,6 @@ class UpdateSchoolMajorForm extends Form
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -45,8 +43,6 @@ class UpdateSchoolMajorForm extends Form
 
     /**
      * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
      */
     public function messages(): array
     {

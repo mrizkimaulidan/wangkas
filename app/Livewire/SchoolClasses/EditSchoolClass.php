@@ -4,6 +4,7 @@ namespace App\Livewire\SchoolClasses;
 
 use App\Livewire\Forms\UpdateSchoolClassForm;
 use App\Models\SchoolClass;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -11,20 +12,29 @@ class EditSchoolClass extends Component
 {
     public UpdateSchoolClassForm $form;
 
-    public function render()
+    /**
+     * Render the view.
+     */
+    public function render(): View
     {
         return view('livewire.school-classes.edit-school-class');
     }
 
+    /**
+     * Set the value based on the given ID.
+     */
     #[On('school-class-edit')]
-    public function setValue(string $id)
+    public function setValue(int $id): void
     {
         $schoolClass = SchoolClass::find($id);
         $this->form->id = $schoolClass->id;
         $this->form->name = $schoolClass->name;
     }
 
-    public function edit()
+    /**
+     * Update the form data and handle the related events.
+     */
+    public function edit(): void
     {
         $this->form->update();
 

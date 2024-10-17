@@ -12,7 +12,7 @@ class UpdateSchoolClassForm extends Form
     public string $id;
 
     #[Validate]
-    public string $name = '';
+    public ?string $name;
 
     /**
      * Update the specified resource in storage.
@@ -26,8 +26,6 @@ class UpdateSchoolClassForm extends Form
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -42,8 +40,6 @@ class UpdateSchoolClassForm extends Form
 
     /**
      * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
      */
     public function messages(): array
     {

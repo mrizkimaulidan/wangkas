@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\User;
 use App\Repositories\CashTransactionRepository;
 use App\Repositories\StudentRepository;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
@@ -27,7 +28,7 @@ class CashTransactionCurrentWeekTable extends Component
 
     public Collection $users;
 
-    public string $query = '';
+    public ?string $query = '';
 
     public int $limit = 5;
 
@@ -35,23 +36,29 @@ class CashTransactionCurrentWeekTable extends Component
 
     public string $orderBy = 'desc';
 
-    public array $statistics = [];
+    public ?array $statistics = [];
 
-    public array $currentWeek = [];
+    public ?array $currentWeek = [];
 
     public array $filters = [
         'user_id' => '',
     ];
 
+    /**
+     * Boot the component.
+     */
     public function boot(
         StudentRepository $studentRepository,
         CashTransactionRepository $cashTransactionRepository
-    ) {
+    ): void {
         $this->studentRepository = $studentRepository;
         $this->cashTransactionRepository = $cashTransactionRepository;
     }
 
-    public function mount()
+    /**
+     * Initialize the component's state.
+     */
+    public function mount(): void
     {
         $this->currentWeek['startOfWeek'] = now()->startOfWeek()->format('d-m-Y');
         $this->currentWeek['endOfWeek'] = now()->endOfWeek()->format('d-m-Y');
@@ -60,15 +67,21 @@ class CashTransactionCurrentWeekTable extends Component
         $this->students = Student::all();
     }
 
-    public function updated()
+    /**
+     * This method is automatically triggered whenever a property of the component is updated.
+     */
+    public function updated(): void
     {
-        return $this->resetPage();
+        $this->resetPage();
     }
 
+    /**
+     * Render the view.
+     */
     #[On('cash-transaction-created')]
     #[On('cash-transaction-updated')]
     #[On('cash-transaction-deleted')]
-    public function render()
+    public function render(): View
     {
         $cashTransactions = CashTransaction::query()
             ->with('student', 'createdBy')
@@ -95,7 +108,10 @@ class CashTransactionCurrentWeekTable extends Component
         ]);
     }
 
-    public function resetFilter()
+    /**
+     * Reset the filter criteria to default values.
+     */
+    public function resetFilter(): void
     {
         $this->reset([
             'query',

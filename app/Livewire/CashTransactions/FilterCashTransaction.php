@@ -5,6 +5,7 @@ namespace App\Livewire\CashTransactions;
 use App\Models\CashTransaction;
 use App\Repositories\CashTransactionRepository;
 use App\Repositories\StudentRepository;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -19,23 +20,29 @@ class FilterCashTransaction extends Component
 
     protected CashTransactionRepository $cashTransactionRepository;
 
-    public $start_date;
+    public ?string $start_date = '';
 
-    public $end_date;
+    public ?string $end_date = '';
 
-    public $query;
+    public ?string $query = '';
 
-    public array $statistics = [];
+    public ?array $statistics = [];
 
+    /**
+     * Boot the component.
+     */
     public function boot(
         StudentRepository $studentRepository,
         CashTransactionRepository $cashTransactionRepository
-    ) {
+    ): void {
         $this->studentRepository = $studentRepository;
         $this->cashTransactionRepository = $cashTransactionRepository;
     }
 
-    public function mount()
+    /**
+     * Initialize the component's state.
+     */
+    public function mount(): void
     {
         $this->statistics = [
             'totalCurrentDay' => 0,
@@ -48,15 +55,24 @@ class FilterCashTransaction extends Component
         ];
     }
 
-    public function render()
+    /**
+     * This method is automatically triggered whenever a property of the component is updated.
+     */
+    public function updated(): void
+    {
+        $this->resetPage();
+    }
+
+    /**
+     * Render the view.
+     */
+    public function render(): View
     {
         $sumAmountDateRange = CashTransaction::whereBetween('date_paid', [$this->start_date, $this->end_date])->sum('amount');
 
         $filteredResult = CashTransaction::query()
             ->with('student', 'createdBy')
             ->when($this->query, function (Builder $query) {
-                $this->resetPage();
-
                 return $query->whereHas('student', function ($studentQuery) {
                     return $studentQuery->where('name', 'like', "%{$this->query}%");
                 });

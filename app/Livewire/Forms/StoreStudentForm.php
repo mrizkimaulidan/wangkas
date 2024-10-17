@@ -9,21 +9,21 @@ use Livewire\Form;
 class StoreStudentForm extends Form
 {
     #[Validate]
-    public string $identification_number = '';
+    public ?string $identification_number;
 
-    public string $name = '';
+    public ?string $name;
 
-    public string $phone_number = '';
+    public ?string $phone_number;
 
-    public string $gender = '';
+    public ?string $gender;
 
-    public string $school_class_id = '';
+    public ?string $school_class_id;
 
-    public string $school_major_id = '';
+    public ?string $school_major_id;
 
-    public string $school_year_start = '';
+    public ?string $school_year_start;
 
-    public string $school_year_end = '';
+    public ?string $school_year_end;
 
     /**
      * Store a newly created resource in storage.
@@ -32,13 +32,13 @@ class StoreStudentForm extends Form
     {
         $this->validate();
 
-        Student::create($this->pull());
+        Student::create($this->all());
+
+        $this->reset(['identification_number', 'name', 'phone_number', 'gender', 'school_class_id', 'school_major_id']);
     }
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -56,8 +56,6 @@ class StoreStudentForm extends Form
 
     /**
      * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
      */
     public function messages(): array
     {

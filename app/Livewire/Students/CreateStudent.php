@@ -3,6 +3,7 @@
 namespace App\Livewire\Students;
 
 use App\Livewire\Forms\StoreStudentForm;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Component;
 
@@ -14,7 +15,21 @@ class CreateStudent extends Component
 
     public Collection $schoolMajors;
 
-    public function render()
+    /**
+     * Initialize the component's state.
+     */
+    public function mount(): void
+    {
+        $year = now()->year;
+
+        $this->form->school_year_start = $year;
+        $this->form->school_year_end = $year + 3;
+    }
+
+    /**
+     * Render the view.
+     */
+    public function render(): View
     {
         return view('livewire.students.create-student', [
             'schoolClasses' => $this->schoolClasses,
@@ -22,12 +37,15 @@ class CreateStudent extends Component
         ]);
     }
 
-    public function save()
+    /**
+     * Save the form data and handle the related events.
+     */
+    public function save(): void
     {
         $this->form->store();
 
         $this->dispatch('close-modal');
         $this->dispatch('success', message: 'Data berhasil ditambahkan!');
-        $this->dispatch('school-major-created')->to(StudentTable::class);
+        $this->dispatch('student-created')->to(StudentTable::class);
     }
 }

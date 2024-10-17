@@ -5,7 +5,9 @@ namespace App\Livewire\Students;
 use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -15,6 +17,10 @@ use Livewire\WithPagination;
 class StudentTable extends Component
 {
     use WithPagination;
+
+    public Collection $schoolClasses;
+
+    public Collection $schoolMajors;
 
     public string $query = '';
 
@@ -30,15 +36,30 @@ class StudentTable extends Component
         'gender' => '',
     ];
 
+    /**
+     * Initialize the component's state.
+     */
+    public function mount(): void
+    {
+        $this->schoolClasses = SchoolClass::all();
+        $this->schoolMajors = SchoolMajor::all();
+    }
+
+    /**
+     * This method is automatically triggered whenever a property of the component is updated.
+     */
     public function updated()
     {
         return $this->resetPage();
     }
 
+    /**
+     * Render the view.
+     */
     #[On('student-created')]
     #[On('student-updated')]
     #[On('student-deleted')]
-    public function render()
+    public function render(): View
     {
         $students = Student::query()
             ->when($this->filters['schoolClassID'], function (Builder $query) {
@@ -55,17 +76,15 @@ class StudentTable extends Component
             ->orderBy($this->orderByColumn, $this->orderBy)
             ->paginate($this->limit);
 
-        $schoolClasses = SchoolClass::all();
-        $schoolMajors = SchoolMajor::all();
-
         return view('livewire.students.student-table', [
             'students' => $students,
-            'schoolClasses' => $schoolClasses,
-            'schoolMajors' => $schoolMajors,
         ]);
     }
 
-    public function resetFilter()
+    /**
+     * Reset the filter criteria to default values.
+     */
+    public function resetFilter(): void
     {
         $this->reset([
             'query',

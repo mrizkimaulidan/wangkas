@@ -7,6 +7,7 @@ use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -18,7 +19,10 @@ class Dashboard extends Component
 
     private $months = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
 
-    public function mount()
+    /**
+     * Initialize the component's state.
+     */
+    public function mount(): void
     {
         $this->year = now()->year;
 
@@ -39,7 +43,10 @@ class Dashboard extends Component
         );
     }
 
-    public function updateChart()
+    /**
+     * Update the dashboard chart with cash transaction data for the specified year.
+     */
+    public function updateChart(): void
     {
         $cashTransactionAmount = CashTransaction::selectRaw('EXTRACT(MONTH FROM date_paid) AS month, SUM(amount) AS amount')
             ->whereYear('date_paid', $this->year)
@@ -58,7 +65,10 @@ class Dashboard extends Component
         );
     }
 
-    public function render()
+    /**
+     * Render the view.
+     */
+    public function render(): View
     {
         $studentWithMajors = SchoolMajor::select('name', 'abbreviation')->withCount('students')->get();
         $cashTransactionAmountPerYear = CashTransaction::selectRaw('EXTRACT(YEAR FROM date_paid) AS year, SUM(amount) AS amount')

@@ -10,13 +10,13 @@ use Livewire\Form;
 class StoreCashTransactionForm extends Form
 {
     #[Validate]
-    public string $student_id = '';
+    public ?string $student_id;
 
-    public string $amount = '';
+    public ?string $amount;
 
-    public string $date_paid = '';
+    public ?string $date_paid;
 
-    public string $transaction_note = '';
+    public ?string $transaction_note;
 
     /**
      * Store a newly created resource in storage.
@@ -34,8 +34,6 @@ class StoreCashTransactionForm extends Form
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -49,8 +47,6 @@ class StoreCashTransactionForm extends Form
 
     /**
      * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
      */
     public function messages(): array
     {

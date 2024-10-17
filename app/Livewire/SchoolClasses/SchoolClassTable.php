@@ -3,6 +3,7 @@
 namespace App\Livewire\SchoolClasses;
 
 use App\Models\SchoolClass;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -21,15 +22,21 @@ class SchoolClassTable extends Component
 
     public string $orderBy = 'asc';
 
-    public function updated()
+    /**
+     * This method is automatically triggered whenever a property of the component is updated.
+     */
+    public function updated(): void
     {
-        return $this->resetPage();
+        $this->resetPage();
     }
 
+    /**
+     * Render the view.
+     */
     #[On('school-class-created')]
     #[On('school-class-updated')]
     #[On('school-class-deleted')]
-    public function render()
+    public function render(): View
     {
         $schoolClasses = SchoolClass::search($this->query)
             ->orderBy($this->orderByColumn, $this->orderBy)
@@ -40,7 +47,10 @@ class SchoolClassTable extends Component
         ]);
     }
 
-    public function resetFilter()
+    /**
+     * Reset the filter criteria to default values.
+     */
+    public function resetFilter(): void
     {
         $this->reset([
             'query',

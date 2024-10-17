@@ -3,6 +3,7 @@
 namespace App\Livewire\Students;
 
 use App\Models\Student;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -10,18 +11,27 @@ class DeleteStudent extends Component
 {
     public Student $student;
 
-    public function render()
+    /**
+     * Render the view.
+     */
+    public function render(): View
     {
         return view('livewire.students.delete-student');
     }
 
+    /**
+     * Set the value based on the given ID.
+     */
     #[On('student-delete')]
-    public function setValue(string $id)
+    public function setValue(int $id): void
     {
         $this->student = Student::find($id);
     }
 
-    public function destroy()
+    /**
+     * Remove the specified resource from storage and handle the related events.
+     */
+    public function destroy(): void
     {
         $this->student->delete();
 

@@ -3,6 +3,7 @@
 namespace App\Livewire\SchoolMajors;
 
 use App\Models\SchoolMajor;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -21,15 +22,21 @@ class SchoolMajorTable extends Component
 
     public string $orderBy = 'asc';
 
-    public function updated()
+    /**
+     * This method is automatically triggered whenever a property of the component is updated.
+     */
+    public function updated(): void
     {
-        return $this->resetPage();
+        $this->resetPage();
     }
 
+    /**
+     * Render the view.
+     */
     #[On('school-major-created')]
     #[On('school-major-updated')]
     #[On('school-major-deleted')]
-    public function render()
+    public function render(): View
     {
         $schoolMajors = SchoolMajor::search($this->query)
             ->orderBy($this->orderByColumn, $this->orderBy)
@@ -40,7 +47,10 @@ class SchoolMajorTable extends Component
         ]);
     }
 
-    public function resetFilter()
+    /**
+     * Reset the filter criteria to default values.
+     */
+    public function resetFilter(): void
     {
         $this->reset([
             'query',

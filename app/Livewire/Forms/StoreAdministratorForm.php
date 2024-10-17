@@ -10,13 +10,13 @@ use Livewire\Form;
 class StoreAdministratorForm extends Form
 {
     #[Validate]
-    public string $name = '';
+    public ?string $name;
 
-    public string $email = '';
+    public ?string $email;
 
-    public string $password = '';
+    public ?string $password;
 
-    public string $password_confirmation = '';
+    public ?string $password_confirmation;
 
     /**
      * Store a newly created resource in storage.
@@ -30,8 +30,6 @@ class StoreAdministratorForm extends Form
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -48,8 +46,6 @@ class StoreAdministratorForm extends Form
 
     /**
      * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
      */
     public function messages(): array
     {

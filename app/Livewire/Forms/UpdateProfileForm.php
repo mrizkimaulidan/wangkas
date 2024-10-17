@@ -11,15 +11,15 @@ use Livewire\Form;
 class UpdateProfileForm extends Form
 {
     #[Validate]
-    public string $name = '';
+    public ?string $name;
 
-    public string $email = '';
+    public ?string $email;
 
-    public string $current_password = '';
+    public ?string $current_password;
 
-    public string $password = '';
+    public ?string $password;
 
-    public string $password_confirmation = '';
+    public ?string $password_confirmation;
 
     /**
      * Update the specified resource in storage.
@@ -35,8 +35,6 @@ class UpdateProfileForm extends Form
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -54,8 +52,6 @@ class UpdateProfileForm extends Form
 
     /**
      * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
      */
     public function messages(): array
     {

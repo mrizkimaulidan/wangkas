@@ -9,9 +9,9 @@ use Livewire\Form;
 class StoreSchoolMajorForm extends Form
 {
     #[Validate]
-    public string $name = '';
+    public ?string $name;
 
-    public string $abbreviation = '';
+    public ?string $abbreviation;
 
     /**
      * Store a newly created resource in storage.
@@ -25,8 +25,6 @@ class StoreSchoolMajorForm extends Form
 
     /**
      * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
@@ -38,8 +36,6 @@ class StoreSchoolMajorForm extends Form
 
     /**
      * Get the error messages for the defined validation rules.
-     *
-     * @return array<string, string>
      */
     public function messages(): array
     {

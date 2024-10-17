@@ -4,6 +4,7 @@ namespace App\Livewire\Students;
 
 use App\Livewire\Forms\UpdateStudentForm;
 use App\Models\Student;
+use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -16,7 +17,10 @@ class EditStudent extends Component
 
     public Collection $schoolMajors;
 
-    public function render()
+    /**
+     * Render the view.
+     */
+    public function render(): View
     {
         return view('livewire.students.edit-student', [
             'schoolClasses' => $this->schoolClasses,
@@ -24,8 +28,11 @@ class EditStudent extends Component
         ]);
     }
 
+    /**
+     * Set the value based on the given ID.
+     */
     #[On('student-edit')]
-    public function setValue(string $id)
+    public function setValue(int $id): void
     {
         $student = Student::find($id);
         $this->form->id = $student->id;
@@ -39,7 +46,10 @@ class EditStudent extends Component
         $this->form->school_year_end = $student->school_year_end;
     }
 
-    public function edit()
+    /**
+     * Update the form data and handle the related events.
+     */
+    public function edit(): void
     {
         $this->form->update();
 

@@ -3,6 +3,7 @@
 namespace App\Livewire\CashTransactions;
 
 use App\Models\CashTransaction;
+use Illuminate\Contracts\View\View;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -10,18 +11,27 @@ class DeleteCashTransaction extends Component
 {
     public CashTransaction $cashTransaction;
 
-    public function render()
+    /**
+     * Render the view.
+     */
+    public function render(): View
     {
         return view('livewire.cash-transactions.delete-cash-transaction');
     }
 
+    /**
+     * Set the value based on the given ID.
+     */
     #[On('cash-transaction-delete')]
-    public function setValue(string $id)
+    public function setValue(int $id): void
     {
         $this->cashTransaction = CashTransaction::find($id);
     }
 
-    public function destroy()
+    /**
+     * Remove the specified resource from storage and handle the related events.
+     */
+    public function destroy(): void
     {
         $this->cashTransaction->delete();
 
