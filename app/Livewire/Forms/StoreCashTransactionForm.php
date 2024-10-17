@@ -25,9 +25,11 @@ class StoreCashTransactionForm extends Form
     {
         $this->validate();
 
-        $request = collect($this->pull())->merge(['created_by' => Auth::id()])->toArray();
+        $request = collect($this->all())->merge(['created_by' => Auth::id()])->toArray();
 
         CashTransaction::create($request);
+
+        $this->reset(['student_id', 'amount', 'transaction_note']);
     }
 
     /**
