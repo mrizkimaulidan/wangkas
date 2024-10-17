@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Repositories\CashTransactionRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -21,6 +22,10 @@ class CashTransactionCurrentWeekTable extends Component
     protected StudentRepository $studentRepository;
 
     protected CashTransactionRepository $cashTransactionRepository;
+
+    public Collection $students;
+
+    public Collection $users;
 
     public string $query = '';
 
@@ -50,6 +55,9 @@ class CashTransactionCurrentWeekTable extends Component
     {
         $this->currentWeek['startOfWeek'] = now()->startOfWeek()->format('d-m-Y');
         $this->currentWeek['endOfWeek'] = now()->endOfWeek()->format('d-m-Y');
+
+        $this->users = User::orderBy('name')->get();
+        $this->students = Student::all();
     }
 
     public function updated()
@@ -62,9 +70,6 @@ class CashTransactionCurrentWeekTable extends Component
     #[On('cash-transaction-deleted')]
     public function render()
     {
-        $users = User::orderBy('name')->get();
-        $students = Student::all();
-
         $cashTransactions = CashTransaction::query()
             ->with('student', 'createdBy')
             ->whereBetween('date_paid', [now()->startOfWeek(), now()->endOfWeek()])
@@ -87,8 +92,6 @@ class CashTransactionCurrentWeekTable extends Component
 
         return view('livewire.cash-transactions.cash-transaction-current-week-table', [
             'cashTransactions' => $cashTransactions,
-            'students' => $students,
-            'users' => $users,
         ]);
     }
 
