@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class CashTransaction extends Model
 {
@@ -12,28 +13,33 @@ class CashTransaction extends Model
 
     protected $fillable = ['student_id', 'amount', 'date_paid', 'transaction_note', 'created_by'];
 
-    public function student()
+    /**
+     * Get the student relationship.
+     */
+    public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
     }
 
-    public function createdBy()
+    /**
+     * Get the student relationship.
+     */
+    public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by', 'id');
     }
 
-    public function scopeSearch(Builder $query, string $searchQuery)
+    /**
+     * Scope a query to search for data across multiple columns.
+     */
+    public function scopeSearch(Builder $query, string $searchQuery): void
     {
-        return $query->when($searchQuery, function (Builder $query) use ($searchQuery) {
-            return $query->where(function (Builder $query) use ($searchQuery) {
-                $query->where('amount', 'like', "%{$searchQuery}%")
-                    ->orWhereHas('student', function (Builder $studentQuery) use ($searchQuery) {
-                        return $studentQuery->where('name', 'like', "%{$searchQuery}%");
-                    })
-                    ->orWhereHas('createdBy', function (Builder $userQuery) use ($searchQuery) {
-                        return $userQuery->where('name', 'like', "%{$searchQuery}%");
-                    });
+        $query->where('amount', 'like', "%{$searchQuery}%")
+            ->orWhereHas('student', function (Builder $studentQuery) use ($searchQuery) {
+                $studentQuery->where('name', 'like', "%{$searchQuery}%");
+            })
+            ->orWhereHas('createdBy', function (Builder $userQuery) use ($searchQuery) {
+                $userQuery->where('name', 'like', "%{$searchQuery}%");
             });
-        });
     }
 }

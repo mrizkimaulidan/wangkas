@@ -47,19 +47,20 @@ class Student extends Model
         return $this->hasMany(CashTransaction::class);
     }
 
-    public function scopeSearch(Builder $query, $searchQuery)
+    /**
+     * Scope a query to search for data across multiple columns.
+     */
+    public function scopeSearch(Builder $query, string $searchQuery): void
     {
-        return $query->when($searchQuery, function (Builder $query) use ($searchQuery) {
-            return $query->where('identification_number', 'like', "%{$searchQuery}%")
-                ->orWhereHas('schoolClass', function (Builder $schoolClassQuery) use ($searchQuery) {
-                    return $schoolClassQuery->where('name', 'like', "%{$searchQuery}%");
-                })
-                ->orWhereHas('schoolMajor', function (Builder $schoolMajorQuery) use ($searchQuery) {
-                    return $schoolMajorQuery->where('name', 'like', "%{$searchQuery}%");
-                })
-                ->orWhere('name', 'like', "%{$searchQuery}%")
-                ->orWhere('school_year_start', 'like', "%{$searchQuery}%")
-                ->orWhere('school_year_end', 'like', "%{$searchQuery}%");
-        });
+        $query->where('identification_number', 'like', "%{$searchQuery}%")
+            ->orWhere('name', 'like', "%{$searchQuery}%")
+            ->orWhere('school_year_start', 'like', "%{$searchQuery}%")
+            ->orWhere('school_year_end', 'like', "%{$searchQuery}%")
+            ->orWhereHas('schoolClass', function (Builder $schoolClassQuery) use ($searchQuery) {
+                $schoolClassQuery->where('name', 'like', "%{$searchQuery}%");
+            })
+            ->orWhereHas('schoolMajor', function (Builder $schoolMajorQuery) use ($searchQuery) {
+                $schoolMajorQuery->where('name', 'like', "%{$searchQuery}%");
+            });
     }
 }

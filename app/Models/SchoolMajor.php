@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SchoolMajor extends Model
 {
@@ -12,16 +13,22 @@ class SchoolMajor extends Model
 
     protected $fillable = ['name', 'abbreviation'];
 
-    public function students()
+    /**
+     * Get the students relationship.
+     */
+    public function students(): HasMany
     {
         return $this->hasMany(Student::class);
     }
 
-    public function scopeSearch(Builder $query, string $searchQuery)
+    /**
+     * Scope a query to search for data across multiple columns.
+     *
+     * @param  Illuminate\Database\Eloquent\Builder  $query
+     */
+    public function scopeSearch(Builder $query, string $searchQuery): void
     {
-        return $query->when($searchQuery, function (Builder $query) use ($searchQuery) {
-            return $query->where('name', 'like', "%{$searchQuery}%")
-                ->orWhere('abbreviation', 'like', "%{$searchQuery}%");
-        });
+        $query->where('name', 'like', "%{$searchQuery}%")
+            ->orWhere('abbreviation', 'like', "%{$searchQuery}%");
     }
 }

@@ -47,12 +47,12 @@ class User extends Authenticatable
         ];
     }
 
-    public function scopeSearch(Builder $query, string $searchQuery)
+    /**
+     * Scope a query to search for data across multiple columns.
+     */
+    public function scopeSearch(Builder $query, string $searchQuery): void
     {
-        return $query
-            ->when($searchQuery, function (Builder $query) use ($searchQuery) {
-                return $query->where('name', 'like', "%{$searchQuery}%")
-                    ->orWhere('email', 'like', "%{$searchQuery}%");
-            });
+        $query->where('name', 'like', "%{$searchQuery}%")
+            ->orWhere('email', 'like', "%{$searchQuery}%");
     }
 }

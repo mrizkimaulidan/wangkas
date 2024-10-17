@@ -12,10 +12,11 @@ class SchoolClass extends Model
 
     protected $fillable = ['name'];
 
-    public function scopeSearch(Builder $query, string $searchQuery)
+    /**
+     * Scope a query to search for data across multiple columns.
+     */
+    public function scopeSearch(Builder $query, string $searchQuery): void
     {
-        return $query->when($searchQuery, function (Builder $query) use ($searchQuery) {
-            return $query->where('name', 'like', "%{$searchQuery}%");
-        });
+        $query->where('name', 'like', "%{$searchQuery}%");
     }
 }
