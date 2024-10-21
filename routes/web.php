@@ -13,12 +13,10 @@ use App\Livewire\UpdateProfile;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
+    Route::get('/', [LoginController::class, 'showLoginForm']);
+
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'authenticate']);
-});
-
-Route::get('/', function () {
-    return view('welcome');
 });
 
 Route::middleware('auth')->group(function () {
