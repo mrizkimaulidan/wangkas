@@ -1,8 +1,8 @@
 <?php
 
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\LogoutController;
 use App\Livewire\Administrators\AdministratorTable;
+use App\Livewire\Authentication\Login;
+use App\Livewire\Authentication\Logout;
 use App\Livewire\CashTransactions\CashTransactionCurrentWeekTable;
 use App\Livewire\CashTransactions\FilterCashTransaction;
 use App\Livewire\Dashboard;
@@ -13,14 +13,13 @@ use App\Livewire\UpdateProfile;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('/', [LoginController::class, 'showLoginForm']);
+    Route::get('/', Login::class);
 
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [LoginController::class, 'authenticate']);
+    Route::get('/login', Login::class)->name('login');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+    Route::post('/logout', Logout::class)->name('logout');
 
     Route::get('/dashboard', Dashboard::class)->name('dashboard');
     Route::get('/kelas', SchoolClassTable::class)->name('school-classes.index');
