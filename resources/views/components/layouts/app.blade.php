@@ -100,7 +100,7 @@
               <ul class="submenu">
                 <x-sidebar.submenu-item :active="request()->routeIs('cash-transactions.index')">
                   <x-sidebar.submenu-link :href="route('cash-transactions.index')" wire:navigate>
-                    Kas Minggu
+                    Kas Minggu Ini
                   </x-sidebar.submenu-link>
                 </x-sidebar.submenu-item>
 
