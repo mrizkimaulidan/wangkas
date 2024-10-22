@@ -1,66 +1,169 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Wangkas
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Wangkas adalah aplikasi pendataan uang kas yang dibuat menggunakan Framework Laravel 11 dan Fullstack Framework Livewire 3. Aplikasi ini dirancang untuk sistem pembayaran kas yang dilakukan satu kali setiap minggu, dan sangat cocok digunakan di lingkungan sekolah atau untuk masing-masing kelas.
 
-## About Laravel
+## Demo
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+-   Demo Aplikasi (https://demo.wangkas.mrizkimaulidan.my.id/login)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Prasyarat
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Berikut beberapa hal yang perlu diinstal terlebih dahulu:
 
-## Learning Laravel
+-   Composer (https://getcomposer.org/)
+-   PHP ^8.2
+-   MySQL 15.x
+-   NodeJS ^20.x (https://nodejs.org/)
+-   XAMPP (https://www.apachefriends.org/)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Jika Anda menggunakan XAMPP, PHP, dan MySQL sudah menjadi satu paket di dalam aplikasi XAMPP.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Fitur
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+-   CRUD Pelajar
+-   CRUD Kelas
+-   CRUD Jurusan
+-   Transaksi kas
+-   Filter transaksi kas
+-   CRUD Administrator
+-   Pengaturan Profil
 
-## Laravel Sponsors
+## Preview Gambar
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+**Tampilan Login**
+![Image 1](https://i.imgur.com/XxHhqON.jpeg)
 
-### Premium Partners
+**Tampilan Dashboard**
+![Image 2](https://i.imgur.com/22ytFSv.jpeg)
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+**Tampilan Pelajar**
+![Image 3](https://i.imgur.com/DgT8SKQ.jpeg)
 
-## Contributing
+**Tampilan Kelas**
+![Image 4](https://i.imgur.com/xYpzWtx.jpeg)
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+**Tampilan Jurusan**
+![Image 5](https://i.imgur.com/1bBrBs4.jpeg)
 
-## Code of Conduct
+**Tampilan Transaksi Kas Minggu Ini**
+![Image 6](https://i.imgur.com/zgKq8Dt.jpeg)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**Tampilan Filter Transaksi Kas**
+![Image 7](https://i.imgur.com/bNvjbWR.jpeg)
 
-## Security Vulnerabilities
+**Tampilan Administrator**
+![Image 8](https://i.imgur.com/iXKQXzP.jpeg)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**Tampilan Pengaturan Profil**
+![Image 9](https://i.imgur.com/Ocn0uGU.jpeg)
 
-## License
+## Langkah-langkah Instalasi
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+1. Clone repository ini dengan memilih tipe protokol HTTPS atau SSH. Jika belum memiliki setup SSH, bisa menggunakan HTTPS.
+
+**HTTPS:**
+
+```bash
+$ git clone https://github.com/mrizkimaulidan/wangkas.git
+```
+
+**SSH:**
+
+```bash
+$ git clone git@github.com:mrizkimaulidan/wangkas.git
+```
+
+2. Instal seluruh packages yang dibutuhkan.
+
+```bash
+$ npm install
+```
+
+```bash
+$ composer install
+```
+
+3. Siapkan database dan atur value pada file `.env` sesuai dengan konfigurasi Anda.
+
+```bash
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
+```
+
+4. Ubah value `APP_NAME=` pada file `.env` menjadi nama aplikasi yang Anda inginkan.
+
+```bash
+APP_NAME=
+```
+
+5. Ubah value `APP_TIMEZONE=` pada file `.env` menjadi lokasi Timezone Anda.
+
+```bash
+APP_TIMEZONE=
+```
+
+6. Migrate seluruh migrasi dan seeding data palsu.
+
+```bash
+$ php artisan migrate:fresh --seed
+```
+
+7. Jalankan local server Laravel.
+
+```bash
+$ php artisan serve
+```
+
+```bash
+INFO  Server running on [http://127.0.0.1:8000].
+
+Press Ctrl+C to stop the server
+```
+
+8. Jalankan juga development server untuk NPM.
+
+```bash
+$ npm run dev
+```
+
+```bash
+> dev
+> vite
+
+
+  VITE v5.4.9  ready in 341 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: use --host to expose
+  ➜  press h + enter to show help
+
+  LARAVEL v11.28.1  plugin v1.0.5
+
+  ➜  APP_URL: http://localhost
+
+```
+
+## User default aplikasi untuk login
+
+```bash
+Email   : admin@mail.com
+Pass    : secret
+```
+
+## Dibuat dengan
+
+-   Laravel 11 (https://laravel.com/)
+-   Livewire 3 (https://livewire.laravel.com/)
+-   Mazer Admin Dashboard (https://github.com/zuramai/mazer)
+-   Bootstrap 5 (https://getbootstrap.com/)
+
+## Kontribusi
+
+Silakan request melalui kolom `Pull Requests` jika ingin melakukan kontribusi.
+
+## Lisensi
+
+Aplikasi ini boleh untuk dibagi dan diubah. Mohon tidak untuk diperjualbelikan!
+
+Muhammad Rizki Maulidan - [@mrizkimaulidan](https://github.com/mrizkimaulidan)
