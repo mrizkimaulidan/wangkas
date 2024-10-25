@@ -27,8 +27,7 @@ class EditSchoolClass extends Component
     public function setValue(int $id): void
     {
         $schoolClass = SchoolClass::find($id);
-        $this->form->id = $schoolClass->id;
-        $this->form->name = $schoolClass->name;
+        $this->form->fill($schoolClass);
     }
 
     /**

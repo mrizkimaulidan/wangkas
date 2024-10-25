@@ -27,9 +27,7 @@ class EditSchoolMajor extends Component
     public function setValue(int $id): void
     {
         $schoolMajor = SchoolMajor::find($id);
-        $this->form->id = $schoolMajor->id;
-        $this->form->name = $schoolMajor->name;
-        $this->form->abbreviation = $schoolMajor->abbreviation;
+        $this->form->fill($schoolMajor);
     }
 
     /**

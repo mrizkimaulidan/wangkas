@@ -32,11 +32,7 @@ class EditCashTransaction extends Component
     public function setValue(int $id): void
     {
         $cashTransaction = CashTransaction::find($id);
-        $this->form->id = $cashTransaction->id;
-        $this->form->student_id = $cashTransaction->student_id;
-        $this->form->amount = $cashTransaction->amount;
-        $this->form->date_paid = $cashTransaction->date_paid;
-        $this->form->transaction_note = $cashTransaction->transaction_note;
+        $this->form->fill($cashTransaction);
     }
 
     /**
