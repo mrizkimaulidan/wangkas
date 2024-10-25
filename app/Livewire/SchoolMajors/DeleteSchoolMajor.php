@@ -33,6 +33,13 @@ class DeleteSchoolMajor extends Component
      */
     public function destroy(): void
     {
+        if ($this->schoolMajor->students()->exists()) {
+            $this->dispatch('close-modal');
+            $this->dispatch('warning', message: 'Data masih memiliki relasi terhadap pelajar tidak dapat dihapus!');
+
+            return;
+        }
+
         $this->schoolMajor->delete();
 
         $this->dispatch('close-modal');

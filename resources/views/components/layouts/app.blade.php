@@ -227,6 +227,13 @@
           title: e.message,
         });
       });
+
+      Livewire.on("warning", (e) => {
+        Toast.fire({
+          icon: "warning",
+          title: e.message,
+        });
+      });
     });
   </script>
 

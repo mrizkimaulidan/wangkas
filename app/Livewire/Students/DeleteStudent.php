@@ -33,6 +33,13 @@ class DeleteStudent extends Component
      */
     public function destroy(): void
     {
+        if ($this->student->cashTransactions()->exists()) {
+            $this->dispatch('close-modal');
+            $this->dispatch('warning', message: 'Data masih memiliki relasi terhadap transaksi yang ada tidak dapat dihapus!');
+
+            return;
+        }
+
         $this->student->delete();
 
         $this->dispatch('close-modal');
