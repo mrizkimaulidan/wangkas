@@ -30,6 +30,7 @@
           <div class="col-auto">
             <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto">
               <option value="name">Nama Kelas</option>
+              <option value="created_at">Baru Ditambahkan</option>
             </select>
           </div>
 
