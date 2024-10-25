@@ -22,8 +22,8 @@ class CashTransactionRepository
     public function calculateTransactionSums(int $year): SupportCollection
     {
         $now = now();
-        $startOfWeek = now()->startOfWeek();
-        $endOfWeek = now()->endOfWeek();
+        $startOfWeek = now()->startOfWeek()->toDateString();
+        $endOfWeek = now()->endOfWeek()->toDateString();
 
         $cashTransactions = $this->model
             ->select('date_paid', 'amount')

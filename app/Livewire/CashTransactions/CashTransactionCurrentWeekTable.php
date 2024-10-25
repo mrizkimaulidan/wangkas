@@ -85,7 +85,7 @@ class CashTransactionCurrentWeekTable extends Component
     {
         $cashTransactions = CashTransaction::query()
             ->with('student', 'createdBy')
-            ->whereBetween('date_paid', [now()->startOfWeek(), now()->endOfWeek()])
+            ->whereBetween('date_paid', [now()->startOfWeek()->toDateString(), now()->endOfWeek()->toDateString()])
             ->when($this->filters['user_id'], function (Builder $query) {
                 return $query->where('created_by', '=', $this->filters['user_id']);
             })
