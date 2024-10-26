@@ -9,7 +9,7 @@ use Livewire\Form;
 
 class UpdateStudentForm extends Form
 {
-    public string $id;
+    public Student $student;
 
     #[Validate]
     public ?string $identification_number;
@@ -34,8 +34,7 @@ class UpdateStudentForm extends Form
     public function update(): void
     {
         $this->validate();
-
-        Student::find($this->id)->update($this->all());
+        $this->student->update($this->all());
     }
 
     /**
@@ -49,13 +48,13 @@ class UpdateStudentForm extends Form
             'identification_number' => [
                 'required',
                 'numeric',
-                Rule::unique('students')->ignore($this->id),
+                Rule::unique('students')->ignore($this->student),
             ],
             'name' => 'required|string|min:3|max:255',
             'phone_number' => [
                 'required',
                 'digits_between:8,15',
-                Rule::unique('students')->ignore($this->id),
+                Rule::unique('students')->ignore($this->student),
             ],
             'gender' => 'required|in:1,2',
             'school_year_start' => 'required|digits:4',

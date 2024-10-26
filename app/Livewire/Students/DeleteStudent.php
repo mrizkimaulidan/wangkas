@@ -20,12 +20,12 @@ class DeleteStudent extends Component
     }
 
     /**
-     * Set the value based on the given ID.
+     * Set the specified model instance for the component.
      */
     #[On('student-delete')]
-    public function setValue(int $id): void
+    public function setValue(Student $student): void
     {
-        $this->student = Student::find($id);
+        $this->student = $student;
     }
 
     /**

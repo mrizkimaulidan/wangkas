@@ -21,12 +21,12 @@ class EditSchoolClass extends Component
     }
 
     /**
-     * Set the value based on the given ID.
+     * Set the specified model instance for the component.
      */
     #[On('school-class-edit')]
-    public function setValue(int $id): void
+    public function setValue(SchoolClass $schoolClass): void
     {
-        $schoolClass = SchoolClass::find($id);
+        $this->form->schoolClass = $schoolClass;
         $this->form->fill($schoolClass);
     }
 

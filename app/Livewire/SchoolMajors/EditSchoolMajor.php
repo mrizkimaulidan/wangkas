@@ -21,12 +21,12 @@ class EditSchoolMajor extends Component
     }
 
     /**
-     * Set the value based on the given ID.
+     * Set the specified model instance for the component.
      */
     #[On('school-major-edit')]
-    public function setValue(int $id): void
+    public function setValue(SchoolMajor $schoolMajor): void
     {
-        $schoolMajor = SchoolMajor::find($id);
+        $this->form->schoolMajor = $schoolMajor;
         $this->form->fill($schoolMajor);
     }
 

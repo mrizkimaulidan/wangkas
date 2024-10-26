@@ -86,7 +86,7 @@
                 <td>
                   <div class="btn-group grid gap-1" role="group">
                     <button wire:loading.attr="disabled"
-                      wire:click="$dispatch('administrator-show', {id: {{ $administrator->id }}})" type="button"
+                      wire:click="$dispatch('administrator-show', {user: {{ $administrator->id }}})" type="button"
                       class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#showModal">
                       <i class="bi bi-info-circle-fill"></i>
                     </button>

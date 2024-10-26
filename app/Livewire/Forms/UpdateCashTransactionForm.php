@@ -9,7 +9,7 @@ use Livewire\Form;
 
 class UpdateCashTransactionForm extends Form
 {
-    public string $id;
+    public CashTransaction $cashTransaction;
 
     #[Validate]
     public ?string $student_id;
@@ -29,7 +29,7 @@ class UpdateCashTransactionForm extends Form
 
         $request = collect($this->all())->merge(['created_by' => Auth::id()])->toArray();
 
-        CashTransaction::find($this->id)->update($request);
+        $this->cashTransaction->update($request);
     }
 
     /**

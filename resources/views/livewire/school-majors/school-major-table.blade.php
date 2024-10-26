@@ -84,12 +84,12 @@
                 <td>
                   <div class="btn-group grid gap-1" role="group">
                     <button wire:loading.attr="disabled"
-                      wire:click="$dispatch('school-major-edit', {id: {{ $schoolMajor->id }}})" type="button"
+                      wire:click="$dispatch('school-major-edit', {schoolMajor: {{ $schoolMajor->id }}})" type="button"
                       class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editModal">
                       <i class="bi bi-pencil-square"></i>
                     </button>
                     <button wire:loading.attr="disabled"
-                      wire:click="$dispatch('school-major-delete', {id: {{ $schoolMajor->id }}})" type="button"
+                      wire:click="$dispatch('school-major-delete', {schoolMajor: {{ $schoolMajor->id }}})" type="button"
                       class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
                       <i class="bi bi-trash-fill"></i>
                     </button>

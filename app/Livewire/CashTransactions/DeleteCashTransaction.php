@@ -20,12 +20,12 @@ class DeleteCashTransaction extends Component
     }
 
     /**
-     * Set the value based on the given ID.
+     * Set the specified model instance for the component.
      */
     #[On('cash-transaction-delete')]
-    public function setValue(int $id): void
+    public function setValue(CashTransaction $cashTransaction): void
     {
-        $this->cashTransaction = CashTransaction::find($id);
+        $this->cashTransaction = $cashTransaction;
     }
 
     /**

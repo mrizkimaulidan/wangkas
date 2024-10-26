@@ -22,13 +22,11 @@ class ShowAdministrator extends Component
     }
 
     /**
-     * Set the value based on the given ID.
+     * Set the specified model instance for the component.
      */
     #[On('administrator-show')]
-    public function setValue(int $id): void
+    public function setValue(User $user): void
     {
-        $user = User::find($id);
-        $this->name = $user->name;
-        $this->email = $user->email;
+        $this->fill($user);
     }
 }

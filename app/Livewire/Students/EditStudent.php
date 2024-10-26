@@ -29,13 +29,12 @@ class EditStudent extends Component
     }
 
     /**
-     * Set the value based on the given ID.
+     * Set the specified model instance for the component.
      */
     #[On('student-edit')]
-    public function setValue(int $id): void
+    public function setValue(Student $student): void
     {
-        $student = Student::find($id);
-
+        $this->form->student = $student;
         $this->form->fill($student);
     }
 

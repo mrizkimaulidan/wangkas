@@ -20,12 +20,12 @@ class DeleteSchoolMajor extends Component
     }
 
     /**
-     * Set the value based on the given ID.
+     * Set the specified model instance for the component.
      */
     #[On('school-major-delete')]
-    public function setValue(int $id): void
+    public function setValue(SchoolMajor $schoolMajor): void
     {
-        $this->schoolMajor = SchoolMajor::find($id);
+        $this->schoolMajor = $schoolMajor;
     }
 
     /**

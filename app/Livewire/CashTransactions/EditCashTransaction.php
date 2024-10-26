@@ -26,12 +26,12 @@ class EditCashTransaction extends Component
     }
 
     /**
-     * Set the value based on the given ID.
+     * Set the specified model instance for the component.
      */
     #[On('cash-transaction-edit')]
-    public function setValue(int $id): void
+    public function setValue(CashTransaction $cashTransaction): void
     {
-        $cashTransaction = CashTransaction::find($id);
+        $this->form->cashTransaction = $cashTransaction;
         $this->form->fill($cashTransaction);
     }
 
