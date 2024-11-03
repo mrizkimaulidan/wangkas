@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
               <h6 class="text-muted font-semibold">Total Hari Ini</h6>
-              <h6 class="font-extrabold mb-0">{{ $statistics['totalCurrentDay'] }}</h6>
+              <h6 class="font-extrabold mb-0">{{ $statistics['totalToday'] }}</h6>
             </div>
           </div>
         </div>

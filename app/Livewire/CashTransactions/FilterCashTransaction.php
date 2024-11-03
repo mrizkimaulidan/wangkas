@@ -45,7 +45,6 @@ class FilterCashTransaction extends Component
     public function mount(): void
     {
         $this->statistics = [
-            'totalCurrentDay' => 0,
             'totalCurrentWeek' => 0,
             'totalCurrentMonth' => 0,
             'totalCurrentYear' => 0,
@@ -87,7 +86,7 @@ class FilterCashTransaction extends Component
             $this->statistics['studentsNotPaidCount'] = $studentPaidStatus['studentsNotPaid']->count();
         }
 
-        $cashTransactionSummaries = $this->cashTransactionRepository->calculateTransactionSums(now()->year);
+        $cashTransactionSummaries = $this->cashTransactionRepository->calculateTransactionSums();
 
         $this->statistics['totalToday'] = local_amount_format($cashTransactionSummaries['today']);
         $this->statistics['totalCurrentWeek'] = local_amount_format($cashTransactionSummaries['week']);

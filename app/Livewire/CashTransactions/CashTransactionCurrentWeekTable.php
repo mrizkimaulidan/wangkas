@@ -93,7 +93,7 @@ class CashTransactionCurrentWeekTable extends Component
             ->orderBy($this->orderByColumn, $this->orderBy)
             ->paginate($this->limit);
 
-        $cashTransactionSummaries = $this->cashTransactionRepository->calculateTransactionSums(now()->year);
+        $cashTransactionSummaries = $this->cashTransactionRepository->calculateTransactionSums();
         $this->statistics['totalCurrentMonth'] = local_amount_format($cashTransactionSummaries['month']);
         $this->statistics['totalCurrentYear'] = local_amount_format($cashTransactionSummaries['year']);
 

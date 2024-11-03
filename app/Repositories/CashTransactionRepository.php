@@ -19,28 +19,20 @@ class CashTransactionRepository
      *
      * @param  int  $year  The year for which to calculate the sums.
      */
-    public function calculateTransactionSums(int $year): SupportCollection
+    public function calculateTransactionSums(): SupportCollection
     {
-        $now = now();
         $startOfWeek = now()->startOfWeek()->toDateString();
         $endOfWeek = now()->endOfWeek()->toDateString();
 
-        $cashTransactions = $this->model
-            ->select('date_paid', 'amount')
-            ->whereYear('date_paid', $year)
-            ->get();
+        $yearSum = $this->model->select('date_paid', 'amount')->whereYear('date_paid', now()->year)->sum('amount');
 
-        $yearSum = $this->calculateSumForPeriod($cashTransactions, fn ($transaction) => $now
-            ->isSameYear($transaction->date_paid));
+        $monthSum = $this->model->select('date_paid', 'amount')->whereMonth('date_paid', now()->month)->sum('amount');
 
-        $monthSum = $this->calculateSumForPeriod($cashTransactions, fn ($transaction) => $now
-            ->isSameMonth($transaction->date_paid));
+        $weekSum = $this->model->select('date_paid', 'amount')->whereBetween('date_paid', [$startOfWeek, $endOfWeek])
+            ->sum('amount');
 
-        $weekSum = $this->calculateSumForPeriod($cashTransactions, fn ($transaction) => $now->parse($transaction->date_paid)
-            ->between($startOfWeek, $endOfWeek));
-
-        $todaySum = $this->calculateSumForPeriod($cashTransactions, fn ($transaction) => $now->parse($transaction->date_paid)
-            ->isToday());
+        $todaySum = $this->model->select('date_paid', 'amount')->whereDate('date_paid', now()->today())
+            ->sum('amount');
 
         return collect([
             'year' => $yearSum,
@@ -48,13 +40,5 @@ class CashTransactionRepository
             'week' => $weekSum,
             'today' => $todaySum,
         ]);
-    }
-
-    /**
-     * Helper method to calculate the sum for a specific period.
-     */
-    private function calculateSumForPeriod(SupportCollection $cashTransactions, \Closure $filterCondition): int
-    {
-        return $cashTransactions->filter($filterCondition)->sum('amount');
     }
 }
