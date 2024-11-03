@@ -204,7 +204,7 @@
               @endempty
             </table>
 
-            {{ $filteredResult->links() }}
+            {{ $filteredResult->links(data: ['scrollTo' => false]) }}
           </div>
           @endif
         </div>

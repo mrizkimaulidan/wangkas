@@ -265,7 +265,7 @@
               </tbody>
             </table>
 
-            {{ $cashTransactions->links() }}
+            {{ $cashTransactions->links(data: ['scrollTo' => false]) }}
           </div>
         </div>
       </div>
