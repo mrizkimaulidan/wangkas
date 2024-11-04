@@ -97,7 +97,10 @@ class CashTransactionCurrentWeekTable extends Component
         $this->statistics['totalCurrentMonth'] = local_amount_format($cashTransactionSummaries['month']);
         $this->statistics['totalCurrentYear'] = local_amount_format($cashTransactionSummaries['year']);
 
-        $studentPaidStatus = $this->studentRepository->getStudentPaymentStatus($cashTransactions);
+        $studentPaidStatus = $this->studentRepository->getStudentPaymentStatus(
+            startDate: now()->createFromDate($this->currentWeek['startOfWeek'])->format('Y-m-d'),
+            endDate: now()->createFromDate($this->currentWeek['endOfWeek'])->format('Y-m-d')
+        );
         $this->statistics['studentsNotPaidThisWeekLimit'] = $studentPaidStatus['studentsNotPaid']->take(6);
         $this->statistics['studentsNotPaidThisWeek'] = $studentPaidStatus['studentsNotPaid'];
         $this->statistics['studentsPaidThisWeekCount'] = $studentPaidStatus['studentsPaid']->count();

@@ -79,7 +79,7 @@ class FilterCashTransaction extends Component
             ->whereBetween('date_paid', [$this->start_date, $this->end_date]);
 
         if ($this->start_date && $this->end_date !== null) {
-            $studentPaidStatus = $this->studentRepository->getStudentPaymentStatus($filteredResult);
+            $studentPaidStatus = $this->studentRepository->getStudentPaymentStatus($this->start_date, $this->end_date);
 
             $this->statistics['studentsNotPaidLimit'] = $studentPaidStatus['studentsNotPaid']->take(6);
             $this->statistics['studentsNotPaid'] = $studentPaidStatus['studentsNotPaid'];

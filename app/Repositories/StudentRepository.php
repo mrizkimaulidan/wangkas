@@ -3,9 +3,6 @@
 namespace App\Repositories;
 
 use App\Models\Student;
-use Illuminate\Contracts\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection as SupportCollection;
 
 class StudentRepository
@@ -17,27 +14,17 @@ class StudentRepository
     /**
      * Get the paid and unpaid status of students for the given cash transactions.
      *
-     * @param  \Illuminate\Database\Eloquent\Collection|\Illuminate\Pagination\LengthAwarePaginator|\Illuminate\Database\Eloquent\Builder  $cashTransactions
+     * @param  string  $endDate
      */
-    public function getStudentPaymentStatus(Collection|LengthAwarePaginator|Builder $cashTransactions): SupportCollection
+    public function getStudentPaymentStatus(string $startDate, $endDate): SupportCollection
     {
-        $students = $this->model->select(
-            'id',
-            'school_class_id',
-            'school_major_id',
-            'name',
-            'identification_number',
-            'phone_number',
-            'gender'
-        )
-            ->with('schoolClass:id,name', 'schoolMajor:id,name,abbreviation')
-            ->orderBy('identification_number')
-            ->get();
+        $studentsWhoPaid = $this->model->whereHas('cashTransactions', function ($query) use ($startDate, $endDate) {
+            return $query->whereBetween('date_paid', [$startDate, $endDate]);
+        })->get();
 
-        $studentIds = $cashTransactions->pluck('student_id');
-
-        $studentsWhoPaid = $students->whereIn('id', $studentIds)->sortBy('name');
-        $studentsWhoDidNotPay = $students->whereNotIn('id', $studentIds)->sortBy('name');
+        $studentsWhoDidNotPay = $this->model->whereDoesntHave('cashTransactions', function ($query) use ($startDate, $endDate) {
+            return $query->whereBetween('date_paid', [$startDate, $endDate]);
+        })->get();
 
         return collect([
             'studentsPaid' => $studentsWhoPaid,
