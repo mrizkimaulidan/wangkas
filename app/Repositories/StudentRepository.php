@@ -18,11 +18,11 @@ class StudentRepository
      */
     public function getStudentPaymentStatus(string $startDate, $endDate): SupportCollection
     {
-        $studentsWhoPaid = $this->model->whereHas('cashTransactions', function ($query) use ($startDate, $endDate) {
+        $studentsWhoPaid = $this->model->with('schoolMajor', 'schoolClass')->whereHas('cashTransactions', function ($query) use ($startDate, $endDate) {
             return $query->whereBetween('date_paid', [$startDate, $endDate]);
         })->get();
 
-        $studentsWhoDidNotPay = $this->model->whereDoesntHave('cashTransactions', function ($query) use ($startDate, $endDate) {
+        $studentsWhoDidNotPay = $this->model->with('schoolMajor', 'schoolClass')->whereDoesntHave('cashTransactions', function ($query) use ($startDate, $endDate) {
             return $query->whereBetween('date_paid', [$startDate, $endDate]);
         })->get();
 
