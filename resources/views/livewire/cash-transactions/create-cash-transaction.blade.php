@@ -11,9 +11,9 @@
         <div class="modal-body">
           <form wire:submit="save">
             <div class="row">
-              <div class="col-md-6">
-                <x-forms.select-with-icon wire:model.blur="form.student_id" label="Pilih Pelajar" name="form.student_id"
-                  icon="bi bi-people-fill">
+              <div wire:ignore class="col-md-6">
+                <x-forms.select-with-icon wire:model.blur="form.student_ids" label="Pilih Pelajar"
+                  name="form.student_ids" icon="bi bi-people-fill" multiple>
                   @foreach ($students as $student)
                   <option value="{{ $student->id }}">{{ $student->identification_number }} - {{ $student->name }}
                   </option>

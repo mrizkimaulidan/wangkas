@@ -10,13 +10,13 @@ use Livewire\Form;
 class StoreCashTransactionForm extends Form
 {
     #[Validate]
-    public ?string $student_id;
+    public ?array $student_ids;
 
     public ?string $amount;
 
     public ?string $date_paid;
 
-    public ?string $transaction_note;
+    public string $transaction_note = '';
 
     /**
      * Store a newly created resource in storage.
@@ -25,11 +25,22 @@ class StoreCashTransactionForm extends Form
     {
         $this->validate();
 
-        $request = collect($this->all())->merge(['created_by' => Auth::id()])->toArray();
+        $now = now();
+        $requests = collect($this->student_ids)->map(function ($studentID) use ($now) {
+            return [
+                'student_id' => $studentID,
+                'amount' => $this->amount,
+                'date_paid' => $this->date_paid,
+                'transaction_note' => $this->transaction_note,
+                'created_by' => Auth::id(),
+                'created_at' => $now,
+                'updated_at' => $now,
+            ];
+        })->toArray();
 
-        CashTransaction::create($request);
+        CashTransaction::insert($requests);
 
-        $this->reset(['student_id', 'amount', 'transaction_note']);
+        $this->reset(['student_ids', 'amount', 'transaction_note']);
     }
 
     /**
@@ -38,7 +49,7 @@ class StoreCashTransactionForm extends Form
     public function rules(): array
     {
         return [
-            'student_id' => 'required|exists:students,id',
+            'student_ids' => 'required|exists:students,id',
             'amount' => 'required|numeric|min:0',
             'date_paid' => 'required|date',
             'transaction_note' => 'nullable|string|max:255',
@@ -51,8 +62,8 @@ class StoreCashTransactionForm extends Form
     public function messages(): array
     {
         return [
-            'student_id.required' => 'Pelajar tidak boleh kosong!',
-            'student_id.exists' => 'Pelajar yang dipilih tidak valid!',
+            'student_ids.required' => 'Pelajar tidak boleh kosong!',
+            'student_ids.exists' => 'Pelajar yang dipilih tidak valid!',
 
             'amount.required' => 'Tagihan tidak boleh kosong!',
             'amount.numeric' => 'Tagihan harus berupa angka!',

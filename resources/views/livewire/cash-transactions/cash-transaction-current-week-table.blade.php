@@ -275,4 +275,11 @@
   <livewire:cash-transactions.create-cash-transaction :$students />
   <livewire:cash-transactions.edit-cash-transaction :$students />
   <livewire:cash-transactions.delete-cash-transaction />
+
+  @script
+  <script>
+    const formCreate = document.getElementById('form.student_ids');
+    new TomSelect(formCreate, {});
+  </script>
+  @endscript
 </div>
