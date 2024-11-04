@@ -114,7 +114,7 @@
 
               <div class="row text-center mt-3">
                 @foreach ($statistics['studentsNotPaidLimit'] as $student)
-                <div class="col-6 mb-3">
+                <div class="col-sm-12 col-md-6 mb-3">
                   <div class="p-3 border rounded">
                     <h5 class="mb-1">{{ $student->name }}</h5>
                     <h6 class="text-muted mb-0">{{ $student->identification_number }}</h6>
@@ -137,7 +137,7 @@
                     <div class="modal-body">
                       <div class="row">
                         @foreach ($statistics['studentsNotPaid'] as $student)
-                        <div class="col-6 mb-3">
+                        <div class="col-sm-12 col-md-6 mb-3">
                           <div class="card border rounded">
                             <div class="card-body">
                               <h5 class="card-title fw-bold">{{ $student->name }}</h5>
