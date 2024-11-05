@@ -317,7 +317,16 @@
   @script
   <script>
     const formCreate = document.getElementById('form.student_ids');
-    new TomSelect(formCreate, {});
+    new TomSelect(formCreate, {
+      plugins: {
+        remove_button: {
+          title: 'Hapus'
+        },
+        clear_button: {
+          title: 'Hapus semua'
+        },
+      }
+    });
   </script>
   @endscript
 </div>
