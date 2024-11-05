@@ -48,6 +48,7 @@ class Login extends Component
         }
 
         session()->flash('error', 'Alamat email atau kata sandi salah!');
+        $this->reset('password');
     }
 
     /**
