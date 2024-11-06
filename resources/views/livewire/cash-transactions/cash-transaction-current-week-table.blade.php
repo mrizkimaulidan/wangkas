@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-body px-4">
           <div class="row">
-            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
               <div class="stats-icon">
                 <i class="iconly-boldChart"></i>
               </div>
@@ -17,11 +17,12 @@
         </div>
       </div>
     </div>
+
     <div class="col-6">
       <div class="card">
         <div class="card-body px-4">
           <div class="row">
-            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
               <div class="stats-icon">
                 <i class="iconly-boldChart"></i>
               </div>
@@ -41,8 +42,8 @@
       <div class="card">
         <div class="card-body px-4">
           <div class="row">
-            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-              <div class="stats-icon green">
+            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+              <div class="stats-icon red">
                 <i class="iconly-boldActivity"></i>
               </div>
             </div>
@@ -54,12 +55,13 @@
         </div>
       </div>
     </div>
+
     <div class="col-6">
       <div class="card">
         <div class="card-body px-4">
           <div class="row">
-            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-              <div class="stats-icon red">
+            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+              <div class="stats-icon purple">
                 <i class="iconly-boldActivity"></i>
               </div>
             </div>
@@ -104,50 +106,12 @@
             </div>
             @endforeach
           </div>
-          <button type="button" class="btn btn-primary btn-block btn-xl font-bold" data-bs-toggle="modal"
-            data-bs-target="#notPaidModal">Lihat Selengkapnya</button>
 
-          <div wire:ignore.self data-bs-backdrop="static" class="modal fade" id="notPaidModal" tabindex="-1"
-            aria-labelledby="notPaidModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-scrollable">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="notPaidModalLabel">Daftar Pelajar Yang Belum Membayar</h1>
-                  <button wire:loading.attr="disabled" type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <div class="row">
-                    @foreach ($statistics['studentsNotPaidThisWeek'] as $student)
-                    <div class="col-sm-12 col-md-6 mb-3">
-                      <div class="card border rounded">
-                        <div class="card-body">
-                          <h5 class="card-title fw-bold">{{ $student->name }}</h5>
-                          <p class="card-text text-muted">{{ $student->identification_number }}</p>
-                          <p class="card-text text-muted">
-                            <span class="badge bg-secondary">
-                              <i class="bi bi-telephone-fill"></i> {{ $student->phone_number }}
-                            </span>
-                          </p>
-                          <span class="badge bg-primary"><i class="bi bi-bookmark"></i> {{ $student->schoolClass->name
-                            }}</span>
-                          <span class="badge bg-success"><i class="bi bi-briefcase"></i> {{ $student->schoolMajor->name
-                            }}</span>
-                          <span class="badge bg-light-{{ $student->gender == 1 ? 'primary' : 'danger' }}"><i
-                              class="bi bi-gender-{{ $student->gender == 1 ? 'male' : 'female' }}"></i></span>
-                        </div>
-                      </div>
-                    </div>
-                    @endforeach
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button wire:loading.attr="disabled" type="button" class="btn btn-secondary"
-                    data-bs-dismiss="modal">Tutup</button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <button type="button" class="btn btn-primary btn-block btn-xl font-bold" data-bs-toggle="modal"
+            data-bs-target="#notPaidModal">
+            Lihat Selengkapnya
+          </button>
+
           @else
           <button type="button" class="btn btn-success btn-block btn-xl font-bold" data-bs-toggle="modal"
             data-bs-target="#notPaidModal">
@@ -159,65 +123,88 @@
     </div>
   </div>
 
+  <div wire:ignore.self data-bs-backdrop="static" class="modal fade" id="notPaidModal" tabindex="-1"
+    aria-labelledby="notPaidModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="notPaidModalLabel">Daftar Pelajar Yang Belum Membayar</h1>
+          <button wire:loading.attr="disabled" type="button" class="btn-close" data-bs-dismiss="modal"
+            aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="row">
+            @foreach ($statistics['studentsNotPaidThisWeek'] as $student)
+            <div class="col-sm-12 col-md-6 mb-3">
+              <div class="card border rounded">
+                <div class="card-body">
+                  <h5 class="card-title fw-bold">{{ $student->name }}</h5>
+                  <p class="card-text text-muted">{{ $student->identification_number }}</p>
+                  <p class="card-text text-muted">
+                    <span class="badge bg-secondary"><i class="bi bi-telephone-fill"></i> {{ $student->phone_number
+                      }}</span>
+                  </p>
+                  <span class="badge bg-primary"><i class="bi bi-bookmark"></i> {{ $student->schoolClass->name }}</span>
+                  <span class="badge bg-success"><i class="bi bi-briefcase"></i> {{ $student->schoolMajor->name
+                    }}</span>
+                  <span class="badge bg-light-{{ $student->gender == 1 ? 'primary' : 'danger' }}">
+                    <i class="bi bi-gender-{{ $student->gender == 1 ? 'male' : 'female' }}"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+            @endforeach
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button wire:loading.attr="disabled" type="button" class="btn btn-secondary"
+            data-bs-dismiss="modal">Tutup</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-12">
       <div class="card">
-
         <div class="card-body">
           <h5 class="card-title">Daftar Transaksi Kas Minggu Ini</h5>
+          <div class="d-flex flex-wrap justify-content-end mb-3 gap-3">
+            <select wire:model.live="limit" class="form-select form-select-sm w-auto rounded">
+              <option value="5">5</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+            </select>
 
-          <div class="d-flex flex-wrap flex-row-reverse mb-3 gap-2">
-            <div class="col-auto">
-              <button wire:click="$refresh" class="btn btn-sm btn-light"><i class="bi bi-arrow-clockwise"></i></button>
-            </div>
+            <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto rounded">
+              <option value="amount">Total Bayar</option>
+              <option value="date_paid">Tanggal Transaksi</option>
+            </select>
 
-            <div class="col-auto">
-              <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
-                Tambah Data
-              </button>
-            </div>
+            <select wire:model.live="orderBy" class="form-select form-select-sm w-auto rounded">
+              <option value="asc">A-Z</option>
+              <option value="desc">Z-A</option>
+            </select>
 
-            <div class="col-auto">
-              <button wire:click="resetFilter" type="button" class="btn btn-outline-warning">Reset filter</button>
-            </div>
+            <button wire:click="resetFilter" type="button" class="btn btn-outline-warning btn-sm rounded">
+              <i class="bi bi-x-circle me-1"></i> Reset Filter
+            </button>
 
-            <div class="col-auto">
-              <p class="d-inline-flex gap-1">
-                <a class="btn btn-primary" data-bs-toggle="collapse" href="#filterCollapse" role="button"
-                  aria-expanded="false" aria-controls="filterCollapse">
-                  Menu Filter
-                </a>
-              </p>
-            </div>
+            <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#filterCollapse" role="button"
+              aria-expanded="false" aria-controls="filterCollapse">
+              <i class="bi bi-funnel me-1"></i> Menu Filter
+            </a>
 
-            <div class="col-auto">
-              <select wire:model.live="orderBy" class="form-select form-select-sm w-auto">
-                <option value="asc">A-Z</option>
-                <option value="desc">Z-A</option>
-              </select>
-            </div>
+            <button type="button" class="btn btn-primary btn-sm rounded" data-bs-toggle="modal"
+              data-bs-target="#createModal">
+              <i class="bi bi-plus-circle me-1"></i> Tambah Data
+            </button>
 
-            <div class="col-auto">
-              <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto">
-                <option value="amount">Total Bayar</option>
-                <option value="date_paid">Tanggal Transaksi</option>
-              </select>
-            </div>
-
-            <div class="col-auto">
-              <select wire:model.live="limit" class="form-select form-select-sm w-auto">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-              </select>
-            </div>
-
-            <div class="col-12 col-md-auto mt-2 mt-md-0">
-              <form class="d-inline-block w-100">
-                <input wire:model.live="query" type="text" class="form-control form-control-sm shadow-sm fw-bold"
-                  placeholder="Masukan keyword pencarian..">
-              </form>
-            </div>
+            <button wire:click="$refresh" class="btn btn-outline-secondary btn-sm rounded">
+              <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+            </button>
           </div>
 
           <div wire:ignore.self class="collapse border mb-3" id="filterCollapse">
@@ -231,6 +218,18 @@
                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach
                   </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <div class="form-group has-icon-left">
+              <div class="position-relative">
+                <input wire:model.live="query" type="text" class="form-control form-control shadow-sm rounded fw-bold"
+                  placeholder="Masukan keyword pencarian...">
+                <div class="form-control-icon">
+                  <i class="bi bi-search"></i>
                 </div>
               </div>
             </div>
@@ -250,11 +249,9 @@
               </thead>
               <tbody>
                 <tr wire:loading>
-                  <td colspan="3">
-                    <div class="d-flex justify-content-center">
-                      <div class="spinner-border" role="status">
-                        <span class="visually-hidden">Loading...</span>
-                      </div>
+                  <td colspan="6" class="text-center">
+                    <div class="spinner-border" role="status">
+                      <span class="visually-hidden">Loading...</span>
                     </div>
                   </td>
                 </tr>
@@ -266,11 +263,7 @@
                 @forelse ($cashTransactions as $index => $cashTransaction)
                 <tr wire:key="{{ $cashTransaction->id }}">
                   <th scope="row">{{ $startIndex + $index }}</th>
-                  <td>
-                    <span class="text-uppercase fw-bold">
-                      {{ $cashTransaction->student->name }}
-                    </span>
-                  </td>
+                  <td class="text-uppercase fw-bold">{{ $cashTransaction->student->name }}</td>
                   <td>{{ local_amount_format($cashTransaction->amount) }}</td>
                   <td>{{ $cashTransaction->date_paid }}</td>
                   <td class="text-center">
@@ -280,15 +273,16 @@
                     </span>
                   </td>
                   <td>
-                    <div class="btn-group grid gap-1" role="group">
+                    <div class="btn-group gap-1" role="group">
                       <button wire:loading.attr="disabled"
                         wire:click="$dispatch('cash-transaction-edit', {cashTransaction: {{ $cashTransaction->id }}})"
-                        type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editModal">
+                        type="button" class="btn btn-sm btn-success rounded" data-bs-toggle="modal"
+                        data-bs-target="#editModal">
                         <i class="bi bi-pencil-square"></i>
                       </button>
                       <button wire:loading.attr="disabled"
                         wire:click="$dispatch('cash-transaction-delete', {cashTransaction: {{ $cashTransaction->id }}})"
-                        type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                        type="button" class="btn btn-sm btn-danger rounded" data-bs-toggle="modal"
                         data-bs-target="#deleteModal">
                         <i class="bi bi-trash-fill"></i>
                       </button>
@@ -302,17 +296,16 @@
                 @endforelse
               </tbody>
             </table>
-
             {{ $cashTransactions->links(data: ['scrollTo' => false]) }}
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <livewire:cash-transactions.create-cash-transaction :$students />
-  <livewire:cash-transactions.edit-cash-transaction :$students />
-  <livewire:cash-transactions.delete-cash-transaction />
+    <livewire:cash-transactions.create-cash-transaction :$students />
+    <livewire:cash-transactions.edit-cash-transaction :$students />
+    <livewire:cash-transactions.delete-cash-transaction />
+  </div>
 
   @script
   <script>

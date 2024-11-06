@@ -1,53 +1,49 @@
 <div class="row">
   <div class="col-12">
     <div class="card">
-
       <div class="card-body">
         <h5 class="card-title">Daftar Administrator</h5>
+        <div class="d-flex flex-wrap justify-content-end mb-3 gap-3">
+          <select wire:model.live="limit" class="form-select form-select-sm w-auto rounded">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+          </select>
 
-        <div class="d-flex flex-wrap flex-row-reverse mb-3 gap-2">
-          <div class="col-auto">
-            <button wire:click="$refresh" class="btn btn-sm btn-light"><i class="bi bi-arrow-clockwise"></i></button>
-          </div>
+          <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto rounded">
+            <option value="name">Nama Lengkap</option>
+            <option value="email">Alamat Email</option>
+            <option value="created_at">Baru Ditambahkan</option>
+          </select>
 
-          <div class="col-auto">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
-              Tambah Data
-            </button>
-          </div>
+          <select wire:model.live="orderBy" class="form-select form-select-sm w-auto rounded">
+            <option value="asc">A-Z</option>
+            <option value="desc">Z-A</option>
+          </select>
 
-          <div class="col-auto">
-            <button wire:click="resetFilter" type="button" class="btn btn-outline-warning">Reset filter</button>
-          </div>
+          <button wire:click="resetFilter" type="button" class="btn btn-outline-warning btn-sm rounded">
+            <i class="bi bi-x-circle me-1"></i> Reset Filter
+          </button>
 
-          <div class="col-auto">
-            <select wire:model.live="orderBy" class="form-select form-select-sm w-auto">
-              <option value="asc">A-Z</option>
-              <option value="desc">Z-A</option>
-            </select>
-          </div>
+          <button type="button" class="btn btn-primary btn-sm rounded" data-bs-toggle="modal"
+            data-bs-target="#createModal">
+            <i class="bi bi-plus-circle me-1"></i> Tambah Data
+          </button>
 
-          <div class="col-auto">
-            <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto">
-              <option value="name">Nama Lengkap</option>
-              <option value="email">Alamat Email</option>
-              <option value="created_at">Baru Ditambahkan</option>
-            </select>
-          </div>
+          <button wire:click="$refresh" class="btn btn-outline-secondary btn-sm rounded">
+            <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+          </button>
+        </div>
 
-          <div class="col-auto">
-            <select wire:model.live="limit" class="form-select form-select-sm w-auto">
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-            </select>
-          </div>
-
-          <div class="col-12 col-md-auto mt-2 mt-md-0">
-            <form class="d-inline-block w-100">
-              <input wire:model.live="query" type="text" class="form-control form-control-sm shadow-sm fw-bold"
-                placeholder="Masukan keyword pencarian..">
-            </form>
+        <div class="mb-3">
+          <div class="form-group has-icon-left">
+            <div class="position-relative">
+              <input wire:model.live="query" type="text" class="form-control form-control shadow-sm rounded fw-bold"
+                placeholder="Masukan keyword pencarian...">
+              <div class="form-control-icon">
+                <i class="bi bi-search"></i>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -87,7 +83,7 @@
                   <div class="btn-group grid gap-1" role="group">
                     <button wire:loading.attr="disabled"
                       wire:click="$dispatch('administrator-show', {user: {{ $administrator->id }}})" type="button"
-                      class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#showModal">
+                      class="btn btn-sm btn-success rounded" data-bs-toggle="modal" data-bs-target="#showModal">
                       <i class="bi bi-info-circle-fill"></i>
                     </button>
                   </div>

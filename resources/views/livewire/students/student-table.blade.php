@@ -1,63 +1,43 @@
 <div class="row">
   <div class="col-12">
     <div class="card">
-
       <div class="card-body">
         <h5 class="card-title">Daftar Pelajar</h5>
+        <div class="d-flex flex-wrap justify-content-end mb-3 gap-3">
+          <select wire:model.live="limit" class="form-select form-select-sm w-auto rounded">
+            <option value="5">5</option>
+            <option value="10">10</option>
+            <option value="15">15</option>
+          </select>
 
-        <div class="d-flex flex-wrap flex-row-reverse mb-3 gap-2">
-          <div class="col-auto">
-            <button wire:click="$refresh" class="btn btn-sm btn-light"><i class="bi bi-arrow-clockwise"></i></button>
-          </div>
+          <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto rounded">
+            <option value="identification_number">Nomor Identitas</option>
+            <option value="name">Nama Lengkap</option>
+            <option value="created_at">Baru Ditambahkan</option>
+          </select>
 
-          <div class="col-auto">
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
-              Tambah Data
-            </button>
-          </div>
+          <select wire:model.live="orderBy" class="form-select form-select-sm w-auto rounded">
+            <option value="asc">A-Z</option>
+            <option value="desc">Z-A</option>
+          </select>
 
-          <div class="col-auto">
-            <button wire:click="resetFilter" type="button" class="btn btn-outline-warning">Reset filter</button>
-          </div>
+          <button wire:click="resetFilter" type="button" class="btn btn-outline-warning btn-sm rounded">
+            <i class="bi bi-x-circle me-1"></i> Reset Filter
+          </button>
 
-          <div class="col-auto">
-            <p class="d-inline-flex gap-1">
-              <a class="btn btn-primary" data-bs-toggle="collapse" href="#filterCollapse" role="button"
-                aria-expanded="false" aria-controls="filterCollapse">
-                Menu Filter
-              </a>
-            </p>
-          </div>
+          <a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#filterCollapse" role="button"
+            aria-expanded="false" aria-controls="filterCollapse">
+            <i class="bi bi-funnel me-1"></i> Menu Filter
+          </a>
 
-          <div class="col-auto">
-            <select wire:model.live="orderBy" class="form-select form-select-sm w-auto">
-              <option value="asc">A-Z</option>
-              <option value="desc">Z-A</option>
-            </select>
-          </div>
+          <button type="button" class="btn btn-primary btn-sm rounded" data-bs-toggle="modal"
+            data-bs-target="#createModal">
+            <i class="bi bi-plus-circle me-1"></i> Tambah Data
+          </button>
 
-          <div class="col-auto">
-            <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto">
-              <option value="identification_number">Nomor Identitas</option>
-              <option value="name">Nama Lengkap</option>
-              <option value="created_at">Baru Ditambahkan</option>
-            </select>
-          </div>
-
-          <div class="col-auto">
-            <select wire:model.live="limit" class="form-select form-select-sm w-auto">
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="15">15</option>
-            </select>
-          </div>
-
-          <div class="col-12 col-md-auto mt-2 mt-md-0">
-            <form class="d-inline-block w-100">
-              <input wire:model.live="query" type="text" class="form-control form-control-sm shadow-sm fw-bold"
-                placeholder="Masukan keyword pencarian..">
-            </form>
-          </div>
+          <button wire:click="$refresh" class="btn btn-outline-secondary btn-sm rounded">
+            <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+          </button>
         </div>
 
         <div wire:ignore.self class="collapse border mb-3" id="filterCollapse">
@@ -93,6 +73,18 @@
           </div>
         </div>
 
+        <div class="mb-3">
+          <div class="form-group has-icon-left">
+            <div class="position-relative">
+              <input wire:model.live="query" type="text" class="form-control form-control shadow-sm rounded fw-bold"
+                placeholder="Masukan keyword pencarian...">
+              <div class="form-control-icon">
+                <i class="bi bi-search"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="table-responsive">
           <table class="table table-bordered table-hover">
             <thead>
@@ -106,69 +98,58 @@
                 <th scope="col">Aksi</th>
               </tr>
             </thead>
-            <tbody>
-              <tr wire:loading>
-                <td colspan="3">
-                  <div class="d-flex justify-content-center">
-                    <div class="spinner-border" role="status">
-                      <span class="visually-hidden">Loading...</span>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+            @php
+            $startIndex = ($students->currentPage() - 1) * $students->perPage() + 1;
+            @endphp
 
-              @php
-              $startIndex = ($students->currentPage() - 1) * $students->perPage() + 1;
-              @endphp
-
-              @forelse ($students as $index => $student)
-              <tr wire:key="{{ $student->id }}">
-                <th scope="row">{{ $startIndex + $index }}</th>
-                <td class="fw-bold">{{ $student->identification_number }}</td>
-                <td>
-                  <span class="text-uppercase">{{ $student->name }}</span>
-                  <span class="badge bg-light-{{ $student->gender == 1 ? 'primary' : 'danger' }}">
-                    <i class="bi bi-gender-{{ $student->gender == 1 ? 'male' : 'female' }}"></i>
-                  </span>
-                </td>
-                <td class="text-center">
-                  <span class="badge bg-primary w-100">
-                    <i class="bi bi-bookmark-fill"></i>
-                    {{ $student->schoolClass->name }}
-                  </span>
-                </td>
-                <td class="text-center">
-                  <span class="badge bg-success w-100">
-                    <i class="bi bi-briefcase-fill"></i>
-                    {{ $student->schoolMajor->name }}
-                  </span>
-                </td>
-                <td class="text-center">
-                  <span class="badge bg-info w-100">
-                    <i class="bi bi-calendar-event"></i>
-                    {{ $student->school_year_start }} - {{ $student->school_year_end }}
-                  </span>
-                </td>
-                <td>
-                  <div class="btn-group grid gap-1" role="group">
-                    <button wire:loading.attr="disabled"
-                      wire:click="$dispatch('student-edit', {student: {{ $student->id }}})" type="button"
-                      class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#editModal">
-                      <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button wire:loading.attr="disabled"
-                      wire:click="$dispatch('student-delete', {student: {{ $student->id }}})" type="button"
-                      class="btn btn-sm btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                      <i class="bi bi-trash-fill"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              @empty
-              <tr wire:loading.remove class="text-center">
-                <th colspan="3" class="fw-bold">Tidak ada data yang ditemukan!</th>
-              </tr>
-              @endforelse
+            @forelse ($students as $index => $student)
+            <tr wire:key="{{ $student->id }}">
+              <th scope="row">{{ $startIndex + $index }}</th>
+              <td class="fw-bold">{{ $student->identification_number }}</td>
+              <td>
+                <span class="text-uppercase">{{ $student->name }}</span>
+                <span class="badge bg-light-{{ $student->gender == 1 ? 'primary' : 'danger' }}">
+                  <i class="bi bi-gender-{{ $student->gender == 1 ? 'male' : 'female' }}"></i>
+                </span>
+              </td>
+              <td class="text-center">
+                <span class="badge bg-primary w-100">
+                  <i class="bi bi-bookmark-fill"></i>
+                  {{ $student->schoolClass->name }}
+                </span>
+              </td>
+              <td class="text-center">
+                <span class="badge bg-success w-100">
+                  <i class="bi bi-briefcase-fill"></i>
+                  {{ $student->schoolMajor->name }}
+                </span>
+              </td>
+              <td class="text-center">
+                <span class="badge bg-info w-100">
+                  <i class="bi bi-calendar-event"></i>
+                  {{ $student->school_year_start }} - {{ $student->school_year_end }}
+                </span>
+              </td>
+              <td>
+                <div class="btn-group grid gap-1" role="group">
+                  <button wire:loading.attr="disabled"
+                    wire:click="$dispatch('student-edit', {student: {{ $student->id }}})" type="button"
+                    class="btn btn-sm btn-success rounded" data-bs-toggle="modal" data-bs-target="#editModal">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button wire:loading.attr="disabled"
+                    wire:click="$dispatch('student-delete', {student: {{ $student->id }}})" type="button"
+                    class="btn btn-sm btn-danger rounded" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                    <i class="bi bi-trash-fill"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            @empty
+            <tr wire:loading.remove class="text-center">
+              <th colspan="7" class="fw-bold">Tidak ada data yang ditemukan!</th>
+            </tr>
+            @endforelse
             </tbody>
           </table>
 

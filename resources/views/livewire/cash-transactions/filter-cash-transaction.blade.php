@@ -4,7 +4,7 @@
       <div class="card">
         <div class="card-body px-4">
           <div class="row">
-            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
               <div class="stats-icon purple">
                 <i class="iconly-boldChart"></i>
               </div>
@@ -17,11 +17,12 @@
         </div>
       </div>
     </div>
+
     <div class="col-6">
       <div class="card">
         <div class="card-body px-4">
           <div class="row">
-            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
               <div class="stats-icon purple">
                 <i class="iconly-boldChart"></i>
               </div>
@@ -41,7 +42,7 @@
       <div class="card">
         <div class="card-body px-4">
           <div class="row">
-            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
               <div class="stats-icon purple">
                 <i class="iconly-boldChart"></i>
               </div>
@@ -54,11 +55,12 @@
         </div>
       </div>
     </div>
+
     <div class="col-6">
       <div class="card">
         <div class="card-body px-4">
           <div class="row">
-            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
               <div class="stats-icon purple">
                 <i class="iconly-boldChart"></i>
               </div>
@@ -76,11 +78,9 @@
   <div class="row">
     <div class="col-12">
       <div class="card">
-
         <div class="card-header text-center">
           <h4>Filter Data dengan Rentang Tanggal</h4>
         </div>
-
         <div class="card-body">
           <div class="row">
             <div class="col-sm-12 col-md-6">
@@ -98,7 +98,6 @@
               </div>
             </div>
           </div>
-
           <div class="divider">
             <div class="divider-text fw-bold">Pilih menu filter di atas untuk mencari data</div>
           </div>
@@ -111,7 +110,6 @@
                 Ada <b>{{ $statistics['studentsNotPaidCount'] }}</b> orang belum membayar pada rentang tanggal tersebut!
                 <i class="bi bi-exclamation-triangle"></i>
               </button>
-
               <div class="row text-center mt-3">
                 @foreach ($statistics['studentsNotPaidLimit'] as $student)
                 <div class="col-sm-12 col-md-6 mb-3">
@@ -124,7 +122,6 @@
               </div>
               <button type="button" class="btn btn-primary btn-block btn-xl font-bold" data-bs-toggle="modal"
                 data-bs-target="#notPaidModal">Lihat Selengkapnya</button>
-
               <div wire:ignore.self data-bs-backdrop="static" class="modal fade" id="notPaidModal" tabindex="-1"
                 aria-labelledby="notPaidModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-scrollable">
@@ -148,11 +145,9 @@
                                 </span>
                               </p>
                               <span class="badge bg-primary"><i class="bi bi-bookmark"></i> {{
-                                $student->schoolClass->name
-                                }}</span>
+                                $student->schoolClass->name }}</span>
                               <span class="badge bg-success"><i class="bi bi-briefcase"></i> {{
-                                $student->schoolMajor->name
-                                }}</span>
+                                $student->schoolMajor->name }}</span>
                               <span class="badge bg-light-{{ $student->gender == 1 ? 'primary' : 'danger' }}"><i
                                   class="bi bi-gender-{{ $student->gender == 1 ? 'male' : 'female' }}"></i></span>
                             </div>
@@ -170,17 +165,22 @@
               </div>
             </div>
 
-            <div class="d-flex flex-wrap flex-row-reverse mb-3 gap-2">
-              <div class="col-auto">
-                <button wire:click="$refresh" class="btn btn-sm btn-light"><i
-                    class="bi bi-arrow-clockwise"></i></button>
-              </div>
+            <div class="d-flex flex-wrap justify-content-end">
+              <button wire:click="$refresh" class="btn btn-outline-secondary btn-sm rounded">
+                <i class="bi bi-arrow-clockwise me-1"></i> Refresh
+              </button>
+            </div>
+          </div>
+          @endif
 
-              <div class="col-12 col-md mt-2 mt-md-0">
-                <form class="d-inline-block w-100">
-                  <input wire:model.live="query" type="text" class="form-control form-control shadow-sm fw-bold"
-                    placeholder="Masukan keyword pencarian..">
-                </form>
+          <div class="mb-3">
+            <div class="form-group has-icon-left">
+              <div class="position-relative">
+                <input wire:model.live="query" type="text" class="form-control form-control shadow-sm rounded fw-bold"
+                  placeholder="Masukan keyword pencarian...">
+                <div class="form-control-icon">
+                  <i class="bi bi-search"></i>
+                </div>
               </div>
             </div>
           </div>
@@ -206,11 +206,9 @@
                     </div>
                   </td>
                 </tr>
-
                 @php
                 $startIndex = ($filteredResult->currentPage() - 1) * $filteredResult->perPage() + 1;
                 @endphp
-
                 @forelse ($filteredResult as $index => $cashTransaction)
                 <tr wire:key="{{ $cashTransaction->id }}">
                   <th scope="row">{{ $startIndex + $index }}</th>
@@ -221,8 +219,7 @@
                   <td>{{ $cashTransaction->date_paid }}</td>
                   <td class="text-center">
                     <span class="badge bg-primary">
-                      <i class="bi bi-person-badge-fill"></i>
-                      {{ $cashTransaction->createdBy->name }}
+                      <i class="bi bi-person-badge-fill"></i> {{ $cashTransaction->createdBy->name }}
                     </span>
                   </td>
                 </tr>
@@ -243,10 +240,8 @@
               </tfoot>
               @endempty
             </table>
-
             {{ $filteredResult->links(data: ['scrollTo' => false]) }}
           </div>
-          @endif
         </div>
       </div>
     </div>
