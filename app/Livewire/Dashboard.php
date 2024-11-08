@@ -7,6 +7,7 @@ use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Models\User;
+use App\Repositories\CashTransactionRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Title;
@@ -15,9 +16,20 @@ use Livewire\Component;
 #[Title('Dashboard')]
 class Dashboard extends Component
 {
+    protected CashTransactionRepository $cashTransactionRepository;
+
     public string $year;
 
     private $months = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
+
+    /**
+     * Boot the component.
+     */
+    public function boot(
+        CashTransactionRepository $cashTransactionRepository
+    ): void {
+        $this->cashTransactionRepository = $cashTransactionRepository;
+    }
 
     /**
      * Initialize the component's state.
@@ -26,15 +38,8 @@ class Dashboard extends Component
     {
         $this->year = now()->year;
 
-        $cashTransactionAmount = CashTransaction::selectRaw('EXTRACT(MONTH FROM date_paid) AS month, SUM(amount) AS amount')
-            ->whereYear('date_paid', $this->year)
-            ->groupBy('month')
-            ->get();
-
-        $cashTransactionCount = CashTransaction::selectRaw('EXTRACT(MONTH FROM date_paid) AS month, COUNT(*) AS count')
-            ->whereYear('date_paid', $this->year)
-            ->groupBy('month')
-            ->get();
+        $cashTransactionAmount = $this->cashTransactionRepository->getMonthlyAmounts($this->year);
+        $cashTransactionCount = $this->cashTransactionRepository->getMonthlyCounts($this->year);
 
         $this->dispatch(
             'dashboard-chart-loaded',
@@ -48,15 +53,8 @@ class Dashboard extends Component
      */
     public function updateChart(): void
     {
-        $cashTransactionAmount = CashTransaction::selectRaw('EXTRACT(MONTH FROM date_paid) AS month, SUM(amount) AS amount')
-            ->whereYear('date_paid', $this->year)
-            ->groupBy('month')
-            ->get();
-
-        $cashTransactionCount = CashTransaction::selectRaw('EXTRACT(MONTH FROM date_paid) AS month, COUNT(*) AS count')
-            ->whereYear('date_paid', $this->year)
-            ->groupBy('month')
-            ->get();
+        $cashTransactionAmount = $this->cashTransactionRepository->getMonthlyAmounts($this->year);
+        $cashTransactionCount = $this->cashTransactionRepository->getMonthlyCounts($this->year);
 
         $this->dispatch(
             'dashboard-chart-updated',
