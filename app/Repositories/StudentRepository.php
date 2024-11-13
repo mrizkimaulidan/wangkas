@@ -31,4 +31,20 @@ class StudentRepository
             'studentsNotPaid' => $studentsWhoDidNotPay,
         ]);
     }
+
+    /**
+     * Counts male and female students.
+     *
+     * @return array Array with 'male' and 'female' counts.
+     */
+    public function countStudentGender(): array
+    {
+        $male = $this->model->select('gender')->where('gender', 1)->count();
+        $female = $this->model->select('gender')->where('gender', 2)->count();
+
+        return [
+            'male' => $male,
+            'female' => $female,
+        ];
+    }
 }

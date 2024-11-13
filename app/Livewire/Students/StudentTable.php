@@ -5,6 +5,7 @@ namespace App\Livewire\Students;
 use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
+use App\Repositories\StudentRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
@@ -17,6 +18,8 @@ use Livewire\WithPagination;
 class StudentTable extends Component
 {
     use WithPagination;
+
+    protected StudentRepository $studentRepository;
 
     public Collection $schoolClasses;
 
@@ -35,6 +38,17 @@ class StudentTable extends Component
         'schoolMajorID' => '',
         'gender' => '',
     ];
+
+    public array $studentGenders;
+
+    /**
+     * Boot the component.
+     */
+    public function boot(
+        StudentRepository $studentRepository,
+    ): void {
+        $this->studentRepository = $studentRepository;
+    }
 
     /**
      * Initialize the component's state.
@@ -75,6 +89,8 @@ class StudentTable extends Component
             ->with('schoolClass', 'schoolMajor')
             ->orderBy($this->orderByColumn, $this->orderBy)
             ->paginate($this->limit);
+
+        $this->studentGenders = $this->studentRepository->countStudentGender();
 
         return view('livewire.students.student-table', [
             'students' => $students,

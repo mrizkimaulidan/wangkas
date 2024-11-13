@@ -8,6 +8,7 @@ use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Models\User;
 use App\Repositories\CashTransactionRepository;
+use App\Repositories\StudentRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
 use Livewire\Attributes\Title;
@@ -18,6 +19,8 @@ class Dashboard extends Component
 {
     protected CashTransactionRepository $cashTransactionRepository;
 
+    protected StudentRepository $studentRepository;
+
     public string $year;
 
     private $months = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
@@ -26,9 +29,11 @@ class Dashboard extends Component
      * Boot the component.
      */
     public function boot(
-        CashTransactionRepository $cashTransactionRepository
+        CashTransactionRepository $cashTransactionRepository,
+        StudentRepository $studentRepository,
     ): void {
         $this->cashTransactionRepository = $cashTransactionRepository;
+        $this->studentRepository = $studentRepository;
     }
 
     /**
@@ -69,6 +74,8 @@ class Dashboard extends Component
     public function render(): View
     {
         $studentWithMajors = SchoolMajor::select('name', 'abbreviation')->withCount('students')->get();
+        $studentGenders = $this->studentRepository->countStudentGender();
+
         $cashTransactionAmountPerYear = CashTransaction::selectRaw('EXTRACT(YEAR FROM date_paid) AS year, SUM(amount) AS amount')
             ->groupBy('year')
             ->orderBy('year')
@@ -93,8 +100,8 @@ class Dashboard extends Component
             'pieChart' => [
                 'studentGender' => [
                     'series' => [
-                        Student::select('gender')->where('gender', 1)->count(),
-                        Student::select('gender')->where('gender', 2)->count(),
+                        $studentGenders['male'],
+                        $studentGenders['female'],
                     ],
                     'labels' => ['Laki-laki', 'Perempuan'],
                 ],
