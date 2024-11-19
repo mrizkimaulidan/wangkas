@@ -9,7 +9,7 @@ use Livewire\Form;
 
 class UpdateSchoolMajorForm extends Form
 {
-    public SchoolMajor $schoolMajor;
+    public ?SchoolMajor $schoolMajor;
 
     #[Validate]
     public ?string $name;
@@ -23,6 +23,8 @@ class UpdateSchoolMajorForm extends Form
     {
         $this->validate();
         $this->schoolMajor->update($this->all());
+
+        $this->reset();
     }
 
     /**

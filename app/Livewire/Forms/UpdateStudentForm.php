@@ -9,7 +9,7 @@ use Livewire\Form;
 
 class UpdateStudentForm extends Form
 {
-    public Student $student;
+    public ?Student $student;
 
     #[Validate]
     public ?string $identification_number;
@@ -35,6 +35,8 @@ class UpdateStudentForm extends Form
     {
         $this->validate();
         $this->student->update($this->all());
+
+        $this->reset();
     }
 
     /**
