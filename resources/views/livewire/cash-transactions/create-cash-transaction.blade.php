@@ -19,6 +19,7 @@
                   </option>
                   @endforeach
                 </x-forms.select-with-icon>
+                <div class="form-text">Pilih 1 atau lebih pelajar di atas.</div>
               </div>
 
               <div class="col-sm-12 col-md-6">
