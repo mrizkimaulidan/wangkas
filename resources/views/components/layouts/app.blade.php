@@ -171,7 +171,6 @@
 
   <!-- Need: Apexcharts -->
   <script src="{{ asset('extensions/apexcharts/apexcharts.min.js') }}"></script>
-  <script src="{{ asset('static/js/pages/dashboard.js') }}" data-navigate-once=""></script>
 
   <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
