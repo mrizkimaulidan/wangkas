@@ -210,7 +210,7 @@
           <div wire:ignore.self class="collapse border mb-3" id="filterCollapse">
             <div class="card card-body">
               <div class="row">
-                <div class="col-6">
+                <div class="col-sm-12 col-md-6">
                   <label for="user_id" class="form-label">Dicatat Oleh:</label>
                   <select wire:model.live="filters.user_id" class="form-select" id="user_id">
                     <option value="" selected>Pilh Dicatat Oleh</option>

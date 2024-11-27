@@ -82,7 +82,7 @@
           <div wire:ignore.self class="collapse border mb-3" id="filterCollapse">
             <div class="card card-body">
               <div class="row">
-                <div class="col">
+                <div class="col-sm-12 col-md-4">
                   <label for="school_class_id" class="form-label">Kelas:</label>
                   <select wire:model.live="filters.schoolClassID" class="form-select" id="school_class_id">
                     <option value="" selected>Pilh Kelas</option>
@@ -91,7 +91,7 @@
                     @endforeach
                   </select>
                 </div>
-                <div class="col">
+                <div class="col-sm-12 col-md-4">
                   <label for="school_major_id" class="form-label">Jurusan:</label>
                   <select wire:model.live="filters.schoolMajorID" class="form-select" id="school_major_id">
                     <option value="" selected>Pilh Jurusan</option>
@@ -100,7 +100,7 @@
                     @endforeach
                   </select>
                 </div>
-                <div class="col">
+                <div class="col-sm-12 col-md-4">
                   <label for="gender" class="form-label">Jenis Kelamin:</label>
                   <select wire:model.live="filters.gender" class="form-select" id="gender">
                     <option value="" selected>Pilh Jenis Kelamin</option>
