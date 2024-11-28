@@ -37,14 +37,17 @@
               </div>
             </div>
 
-            <div class="form-group mb-4">
-              <div class="input-group">
-                <input type="{{ $input_type }}" wire:model.blur="password"
-                  class="form-control form-control-xl @error('password') is-invalid @enderror" placeholder="Kata Sandi">
-                <button wire:click="togglePasswordVisibility" type="button"
-                  class="btn input-group-text border-3 w-25 {{ $input_type == 'text' ? 'border-danger' : 'border-primary' }}">
-                  <i class="{{ $icon }}"></i>
-                </button>
+            <div class="form-group mb-4 position-relative has-icon-left">
+              <input type="{{ $input_type }}" wire:model.blur="password"
+                class="form-control form-control-xl pe-5 @error('password') is-invalid @enderror"
+                placeholder="Kata Sandi" />
+              <span wire:click="togglePasswordVisibility" title="{{ $input_title }}"
+                class="position-absolute top-50 end-0 translate-middle-y me-3 text-muted" style="cursor: pointer;">
+                <i class="{{ $icon }}"></i>
+              </span>
+
+              <div class="form-control-icon">
+                <i class="bi bi-lock"></i>
               </div>
             </div>
 

@@ -23,7 +23,9 @@ class Login extends Component
 
     public string $input_type = 'password';
 
-    public string $icon = 'bi bi-eye';
+    public string $icon = 'bi bi-eye-fill';
+
+    public string $input_title = 'Tampilkan kata sandi';
 
     /**
      * Toggle password visibility by switching the input type and icon.
@@ -31,7 +33,8 @@ class Login extends Component
     public function togglePasswordVisibility(): void
     {
         $this->input_type = $this->input_type === 'text' ? 'password' : 'text';
-        $this->icon = $this->input_type === 'text' ? 'bi bi-eye-slash' : 'bi bi-eye';
+        $this->icon = $this->input_type === 'text' ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill';
+        $this->input_title = $this->input_type === 'text' ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi';
     }
 
     /**
