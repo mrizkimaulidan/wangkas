@@ -131,8 +131,8 @@
                   <th scope="col">#</th>
                   <th scope="col">Nomor Identitas</th>
                   <th scope="col">Nama Lengkap</th>
-                  <th scope="col">Kelas</th>
                   <th scope="col">Jurusan</th>
+                  <th scope="col">Kelas</th>
                   <th scope="col">TA (Tahun Ajaran)</th>
                   <th scope="col">Aksi</th>
                 </tr>
@@ -152,15 +152,15 @@
                   </span>
                 </td>
                 <td class="text-center">
-                  <span class="badge bg-primary w-100">
-                    <i class="bi bi-bookmark-fill"></i>
-                    {{ $student->schoolClass->name }}
-                  </span>
-                </td>
-                <td class="text-center">
                   <span class="badge bg-success w-100">
                     <i class="bi bi-briefcase-fill"></i>
                     {{ $student->schoolMajor->name }}
+                  </span>
+                </td>
+                <td class="text-center">
+                  <span class="badge bg-primary w-100">
+                    <i class="bi bi-bookmark-fill"></i>
+                    {{ $student->schoolClass->name }}
                   </span>
                 </td>
                 <td class="text-center">
