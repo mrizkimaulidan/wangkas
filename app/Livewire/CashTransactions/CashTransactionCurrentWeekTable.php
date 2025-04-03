@@ -3,6 +3,8 @@
 namespace App\Livewire\CashTransactions;
 
 use App\Models\CashTransaction;
+use App\Models\SchoolClass;
+use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Models\User;
 use App\Repositories\CashTransactionRepository;
@@ -28,6 +30,10 @@ class CashTransactionCurrentWeekTable extends Component
 
     public Collection $users;
 
+    public Collection $schoolMajors;
+
+    public Collection $schoolClasses;
+
     public ?string $query = '';
 
     public int $limit = 5;
@@ -42,6 +48,8 @@ class CashTransactionCurrentWeekTable extends Component
 
     public array $filters = [
         'user_id' => '',
+        'schoolMajorID' => '',
+        'schoolClassID' => '',
     ];
 
     /**
@@ -65,6 +73,8 @@ class CashTransactionCurrentWeekTable extends Component
 
         $this->users = User::orderBy('name')->get();
         $this->students = Student::all();
+        $this->schoolMajors = SchoolMajor::all();
+        $this->schoolClasses = SchoolClass::all();
     }
 
     /**
@@ -88,6 +98,12 @@ class CashTransactionCurrentWeekTable extends Component
             ->whereBetween('date_paid', [now()->startOfWeek()->toDateString(), now()->endOfWeek()->toDateString()])
             ->when($this->filters['user_id'], function (Builder $query) {
                 return $query->where('created_by', '=', $this->filters['user_id']);
+            })
+            ->when($this->filters['schoolMajorID'], function (Builder $query) {
+                return $query->whereRelation('student', 'school_major_id', '=', $this->filters['schoolMajorID']);
+            })
+            ->when($this->filters['schoolClassID'], function (Builder $query) {
+                return $query->whereRelation('student', 'school_class_id', '=', $this->filters['schoolClassID']);
             })
             ->search($this->query)
             ->orderBy($this->orderByColumn, $this->orderBy)

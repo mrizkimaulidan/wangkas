@@ -209,13 +209,33 @@
 
           <div wire:ignore.self class="collapse border mb-3" id="filterCollapse">
             <div class="card card-body">
-              <div class="row">
-                <div class="col-sm-12 col-md-6">
+              <div class="row g-3">
+                <div class="col-12 col-md-6">
                   <label for="user_id" class="form-label">Dicatat Oleh:</label>
                   <select wire:model.live="filters.user_id" class="form-select" id="user_id">
                     <option value="" selected>Pilh Dicatat Oleh</option>
                     @foreach ($users as $user)
                     <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <label for="school_major_id" class="form-label">Jurusan:</label>
+                  <select wire:model.live="filters.schoolMajorID" class="form-select" id="school_major_id">
+                    <option value="" selected>Pilh Jurusan</option>
+                    @foreach ($schoolMajors as $schoolMajor)
+                    <option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+
+                <div class="col-12 col-md-6">
+                  <label for="school_class_id" class="form-label">Kelas:</label>
+                  <select wire:model.live="filters.schoolClassID" class="form-select" id="school_class_id">
+                    <option value="" selected>Pilh Kelas</option>
+                    @foreach ($schoolClasses as $schoolClass)
+                    <option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -263,7 +283,19 @@
                 @forelse ($cashTransactions as $index => $cashTransaction)
                 <tr wire:key="{{ $cashTransaction->id }}">
                   <th scope="row">{{ $startIndex + $index }}</th>
-                  <td class="text-uppercase fw-bold">{{ $cashTransaction->student->name }}</td>
+                  <td class="text-uppercase fw-bold">
+                    <div>{{ $cashTransaction->student->name }}</div>
+
+                    <span class="badge bg-primary mt-1">
+                      <i class="bi bi-bookmark-fill"></i>
+                      {{ $cashTransaction->student->schoolClass->name }}
+                    </span>
+
+                    <span class="badge bg-success mt-1">
+                      <i class="bi bi-briefcase-fill"></i>
+                      {{ $cashTransaction->student->schoolMajor->name }}
+                    </span>
+                  </td>
                   <td>{{ local_amount_format($cashTransaction->amount) }}</td>
                   <td>{{ $cashTransaction->date_paid }}</td>
                   <td class="text-center">
