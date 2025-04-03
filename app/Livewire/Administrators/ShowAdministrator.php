@@ -27,6 +27,9 @@ class ShowAdministrator extends Component
     #[On('administrator-show')]
     public function setValue(User $user): void
     {
-        $this->fill($user);
+        $this->fill([
+            'name' => $user->name,
+            'email' => $user->maskedEmail,
+        ]);
     }
 }

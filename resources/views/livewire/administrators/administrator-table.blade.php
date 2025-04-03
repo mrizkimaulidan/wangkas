@@ -77,7 +77,7 @@
               <tr wire:key="{{ $administrator->id }}">
                 <th scope="row">{{ $startIndex + $index }}</th>
                 <td>{{ $administrator->name }}</td>
-                <td>{{ $administrator->email }}</td>
+                <td>{{ $administrator->masked_email }}</td>
                 <td>{{ $administrator->created_at }}</td>
                 <td>
                   <div class="btn-group grid gap-1" role="group">
