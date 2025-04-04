@@ -212,8 +212,18 @@
                 @forelse ($filteredResult as $index => $cashTransaction)
                 <tr wire:key="{{ $cashTransaction->id }}">
                   <th scope="row">{{ $startIndex + $index }}</th>
-                  <td>
-                    <span class="text-uppercase badge bg-primary">{{ $cashTransaction->student->name }}</span>
+                  <td class="text-uppercase fw-bold">
+                    <div>{{ $cashTransaction->student->name }}</div>
+
+                    <span class="badge bg-primary mt-1">
+                      <i class="bi bi-bookmark-fill"></i>
+                      {{ $cashTransaction->student->schoolClass->name }}
+                    </span>
+
+                    <span class="badge bg-success mt-1">
+                      <i class="bi bi-briefcase-fill"></i>
+                      {{ $cashTransaction->student->schoolMajor->name }}
+                    </span>
                   </td>
                   <td>{{ local_amount_format($cashTransaction->amount) }}</td>
                   <td>{{ $cashTransaction->date_paid }}</td>
