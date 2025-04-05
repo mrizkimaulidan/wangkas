@@ -97,7 +97,7 @@
             </tbody>
           </table>
 
-          {{ $administrators->links() }}
+          {{ $administrators->links(data: ['scrollTo' => false]) }}
         </div>
       </div>
     </div>

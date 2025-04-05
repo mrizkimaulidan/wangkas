@@ -96,7 +96,7 @@
             </tbody>
           </table>
 
-          {{ $schoolMajors->links() }}
+          {{ $schoolMajors->links(data: ['scrollTo' => false]) }}
         </div>
       </div>
     </div>

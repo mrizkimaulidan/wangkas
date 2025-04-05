@@ -94,7 +94,7 @@
             </tbody>
           </table>
 
-          {{ $schoolClasses->links() }}
+          {{ $schoolClasses->links(data: ['scrollTo' => false]) }}
         </div>
       </div>
     </div>
