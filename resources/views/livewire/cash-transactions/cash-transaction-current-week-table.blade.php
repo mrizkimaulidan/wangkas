@@ -11,7 +11,7 @@
             </div>
             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
               <h6 class="text-muted font-semibold">Total Bulan Ini</h6>
-              <h6 class="font-extrabold mb-0">{{ $statistics['totalCurrentMonth'] }}</h6>
+              <h6 class="font-extrabold mb-0">{{ $this->statistics['totalCurrentMonth'] }}</h6>
             </div>
           </div>
         </div>
@@ -29,7 +29,7 @@
             </div>
             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
               <h6 class="text-muted font-semibold">Total Tahun Ini</h6>
-              <h6 class="font-extrabold mb-0">{{ $statistics['totalCurrentYear'] }}</h6>
+              <h6 class="font-extrabold mb-0">{{ $this->statistics['totalCurrentYear'] }}</h6>
             </div>
           </div>
         </div>
@@ -49,7 +49,7 @@
             </div>
             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
               <h6 class="text-muted font-semibold">Sudah Membayar Minggu Ini</h6>
-              <h6 class="font-extrabold mb-0">{{ $statistics['studentsPaidThisWeekCount'] }}</h6>
+              <h6 class="font-extrabold mb-0">{{ $this->statistics['studentsPaidThisWeekCount'] }}</h6>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@
             </div>
             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
               <h6 class="text-muted font-semibold">Belum Membayar Minggu Ini</h6>
-              <h6 class="font-extrabold mb-0">{{ $statistics['studentsNotPaidThisWeekCount'] }}</h6>
+              <h6 class="font-extrabold mb-0">{{ $this->statistics['studentsNotPaidThisWeekCount'] }}</h6>
             </div>
           </div>
         </div>
@@ -79,7 +79,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header text-center">
-          @if($statistics['studentsNotPaidThisWeekCount'] > 0)
+          @if($this->statistics['studentsNotPaidThisWeekCount'] > 0)
           <h4>
             Daftar Yang Belum Membayar Minggu Ini
             <span class="fw-bolder fst-italic">({{ $currentWeek['startOfWeek'] }} sampai {{ $currentWeek['endOfWeek']
@@ -89,15 +89,15 @@
         </div>
 
         <div class="card-body">
-          @if($statistics['studentsNotPaidThisWeekCount'] > 0)
+          @if($this->statistics['studentsNotPaidThisWeekCount'] > 0)
           <button type="button" class="btn btn-danger btn-block btn-xl font-bold" data-bs-toggle="modal"
             data-bs-target="#notPaidModal">
-            Ada <b>{{ $statistics['studentsNotPaidThisWeekCount'] }}</b> orang belum membayar pada minggu ini! <i
+            Ada <b>{{ $this->statistics['studentsNotPaidThisWeekCount'] }}</b> orang belum membayar pada minggu ini! <i
               class="bi bi-exclamation-triangle"></i>
           </button>
 
           <div class="row text-center mt-3">
-            @foreach ($statistics['studentsNotPaidThisWeekLimit'] as $student)
+            @foreach ($this->statistics['studentsNotPaidThisWeekLimit'] as $student)
             <div class="col-sm-12 col-md-6 mb-3">
               <div class="p-3 border rounded">
                 <h5 class="mb-1">{{ $student->name }}</h5>
@@ -135,7 +135,7 @@
 
         <div class="modal-body">
           <div class="row">
-            @foreach ($statistics['studentsNotPaidThisWeek'] as $student)
+            @foreach ($this->statistics['studentsNotPaidThisWeek'] as $student)
             <div class="col-sm-12 col-md-6 mb-3">
               <div class="card border rounded">
                 <div class="card-body">
@@ -214,7 +214,7 @@
                   <label for="user_id" class="form-label">Dicatat Oleh:</label>
                   <select wire:model.live="filters.user_id" class="form-select" id="user_id">
                     <option value="" selected>Pilh Dicatat Oleh</option>
-                    @foreach ($users as $user)
+                    @foreach ($this->users as $user)
                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach
                   </select>
@@ -224,7 +224,7 @@
                   <label for="school_major_id" class="form-label">Jurusan:</label>
                   <select wire:model.live="filters.schoolMajorID" class="form-select" id="school_major_id">
                     <option value="" selected>Pilh Jurusan</option>
-                    @foreach ($schoolMajors as $schoolMajor)
+                    @foreach ($this->schoolMajors as $schoolMajor)
                     <option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
                     @endforeach
                   </select>
@@ -234,7 +234,7 @@
                   <label for="school_class_id" class="form-label">Kelas:</label>
                   <select wire:model.live="filters.schoolClassID" class="form-select" id="school_class_id">
                     <option value="" selected>Pilh Kelas</option>
-                    @foreach ($schoolClasses as $schoolClass)
+                    @foreach ($this->schoolClasses as $schoolClass)
                     <option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
                     @endforeach
                   </select>
@@ -277,10 +277,10 @@
                 </tr>
 
                 @php
-                $startIndex = ($cashTransactions->currentPage() - 1) * $cashTransactions->perPage() + 1;
+                $startIndex = ($this->cashTransactions->currentPage() - 1) * $this->cashTransactions->perPage() + 1;
                 @endphp
 
-                @forelse ($cashTransactions as $index => $cashTransaction)
+                @forelse ($this->cashTransactions as $index => $cashTransaction)
                 <tr wire:key="{{ $cashTransaction->id }}">
                   <th scope="row">{{ $startIndex + $index }}</th>
                   <td class="text-uppercase fw-bold">
@@ -328,14 +328,14 @@
                 @endforelse
               </tbody>
             </table>
-            {{ $cashTransactions->links(data: ['scrollTo' => false]) }}
+            {{ $this->cashTransactions->links(data: ['scrollTo' => false]) }}
           </div>
         </div>
       </div>
     </div>
 
-    <livewire:cash-transactions.create-cash-transaction :$students />
-    <livewire:cash-transactions.edit-cash-transaction :$students />
+    <livewire:cash-transactions.create-cash-transaction :students="$this->students" />
+    <livewire:cash-transactions.edit-cash-transaction :students="$this->students" />
     <livewire:cash-transactions.delete-cash-transaction />
   </div>
 
