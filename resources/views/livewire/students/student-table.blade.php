@@ -137,58 +137,67 @@
                   <th scope="col">Aksi</th>
                 </tr>
               </thead>
-              @php
-              $startIndex = ($students->currentPage() - 1) * $students->perPage() + 1;
-              @endphp
+              <tbody>
+                <tr wire:loading>
+                  <td colspan="7" class="text-center">
+                    <div class="spinner-border" role="status">
+                      <span class="visually-hidden">Loading...</span>
+                    </div>
+                  </td>
+                </tr>
 
-              @forelse ($students as $index => $student)
-              <tr wire:key="{{ $student->id }}">
-                <th scope="row">{{ $startIndex + $index }}</th>
-                <td class="fw-bold">{{ $student->identification_number }}</td>
-                <td>
-                  <span class="text-uppercase">{{ $student->name }}</span>
-                  <span class="badge bg-light-{{ $student->gender == 1 ? 'primary' : 'danger' }}">
-                    <i class="bi bi-gender-{{ $student->gender == 1 ? 'male' : 'female' }}"></i>
-                  </span>
-                </td>
-                <td class="text-center">
-                  <span class="badge bg-success w-100">
-                    <i class="bi bi-briefcase-fill"></i>
-                    {{ $student->schoolMajor->name }}
-                  </span>
-                </td>
-                <td class="text-center">
-                  <span class="badge bg-primary w-100">
-                    <i class="bi bi-bookmark-fill"></i>
-                    {{ $student->schoolClass->name }}
-                  </span>
-                </td>
-                <td class="text-center">
-                  <span class="badge bg-info w-100">
-                    <i class="bi bi-calendar-event"></i>
-                    {{ $student->school_year_start }} - {{ $student->school_year_end }}
-                  </span>
-                </td>
-                <td>
-                  <div class="btn-group grid gap-1" role="group">
-                    <button wire:loading.attr="disabled"
-                      wire:click="$dispatch('student-edit', {student: {{ $student->id }}})" type="button"
-                      class="btn btn-sm btn-success rounded" data-bs-toggle="modal" data-bs-target="#editModal">
-                      <i class="bi bi-pencil-square"></i>
-                    </button>
-                    <button wire:loading.attr="disabled"
-                      wire:click="$dispatch('student-delete', {student: {{ $student->id }}})" type="button"
-                      class="btn btn-sm btn-danger rounded" data-bs-toggle="modal" data-bs-target="#deleteModal">
-                      <i class="bi bi-trash-fill"></i>
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              @empty
-              <tr wire:loading.remove class="text-center">
-                <th colspan="7" class="fw-bold">Tidak ada data yang ditemukan!</th>
-              </tr>
-              @endforelse
+                @php
+                $startIndex = ($students->currentPage() - 1) * $students->perPage() + 1;
+                @endphp
+
+                @forelse ($students as $index => $student)
+                <tr wire:key="{{ $student->id }}">
+                  <th scope="row">{{ $startIndex + $index }}</th>
+                  <td class="fw-bold">{{ $student->identification_number }}</td>
+                  <td>
+                    <span class="text-uppercase">{{ $student->name }}</span>
+                    <span class="badge bg-light-{{ $student->gender == 1 ? 'primary' : 'danger' }}">
+                      <i class="bi bi-gender-{{ $student->gender == 1 ? 'male' : 'female' }}"></i>
+                    </span>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge bg-success w-100">
+                      <i class="bi bi-briefcase-fill"></i>
+                      {{ $student->schoolMajor->name }}
+                    </span>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge bg-primary w-100">
+                      <i class="bi bi-bookmark-fill"></i>
+                      {{ $student->schoolClass->name }}
+                    </span>
+                  </td>
+                  <td class="text-center">
+                    <span class="badge bg-info w-100">
+                      <i class="bi bi-calendar-event"></i>
+                      {{ $student->school_year_start }} - {{ $student->school_year_end }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="btn-group grid gap-1" role="group">
+                      <button wire:loading.attr="disabled"
+                        wire:click="$dispatch('student-edit', {student: {{ $student->id }}})" type="button"
+                        class="btn btn-sm btn-success rounded" data-bs-toggle="modal" data-bs-target="#editModal">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                      <button wire:loading.attr="disabled"
+                        wire:click="$dispatch('student-delete', {student: {{ $student->id }}})" type="button"
+                        class="btn btn-sm btn-danger rounded" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                        <i class="bi bi-trash-fill"></i>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                @empty
+                <tr wire:loading.remove class="text-center">
+                  <th colspan="7" class="fw-bold">Tidak ada data yang ditemukan!</th>
+                </tr>
+                @endforelse
               </tbody>
             </table>
 
