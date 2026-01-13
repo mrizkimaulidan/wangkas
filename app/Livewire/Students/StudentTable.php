@@ -85,7 +85,9 @@ class StudentTable extends Component
             ->when($this->filters['gender'], function (Builder $query) {
                 return $query->where('gender', $this->filters['gender']);
             })
-            ->search($this->query)
+            ->when(! empty($this->query), function (Builder $query) {
+                return $query->search($this->query);
+            })
             ->with('schoolClass', 'schoolMajor')
             ->orderBy($this->orderByColumn, $this->orderBy)
             ->paginate($this->limit);

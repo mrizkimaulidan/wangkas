@@ -123,7 +123,7 @@ class CashTransactionCurrentWeekTable extends Component
             ->when($this->filters['user_id'], fn (Builder $q) => $q->where('created_by', $this->filters['user_id']))
             ->when($this->filters['schoolMajorID'], fn (Builder $q) => $q->whereRelation('student', 'school_major_id', $this->filters['schoolMajorID']))
             ->when($this->filters['schoolClassID'], fn (Builder $q) => $q->whereRelation('student', 'school_class_id', $this->filters['schoolClassID']))
-            ->search($this->query)
+            ->when(! empty($this->query), fn (Builder $q) => $q->search($this->query))
             ->orderBy($this->orderByColumn, $this->orderBy)
             ->paginate($this->limit);
     }

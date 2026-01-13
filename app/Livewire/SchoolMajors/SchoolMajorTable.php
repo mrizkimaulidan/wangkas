@@ -4,6 +4,7 @@ namespace App\Livewire\SchoolMajors;
 
 use App\Models\SchoolMajor;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -38,8 +39,10 @@ class SchoolMajorTable extends Component
     #[On('school-major-deleted')]
     public function render(): View
     {
-        $schoolMajors = SchoolMajor::search($this->query)
-            ->orderBy($this->orderByColumn, $this->orderBy)
+        $schoolMajors = SchoolMajor::orderBy($this->orderByColumn, $this->orderBy)
+            ->when(! empty($this->query), function (Builder $query) {
+                return $query->search($this->query);
+            })
             ->paginate($this->limit);
 
         return view('livewire.school-majors.school-major-table', [

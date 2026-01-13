@@ -4,6 +4,7 @@ namespace App\Livewire\Administrators;
 
 use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -36,8 +37,10 @@ class AdministratorTable extends Component
     #[On('administrator-created')]
     public function render(): View
     {
-        $administrators = User::search($this->query)
-            ->orderBy($this->orderByColumn, $this->orderBy)
+        $administrators = User::orderBy($this->orderByColumn, $this->orderBy)
+            ->when(! empty($this->query), function (Builder $query) {
+                return $query->search($this->query);
+            })
             ->paginate($this->limit);
 
         return view('livewire.administrators.administrator-table', [
