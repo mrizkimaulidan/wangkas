@@ -1,82 +1,30 @@
 <div>
   <div class="row">
     <div class="col-6">
-      <div class="card">
-        <div class="card-body px-4">
-          <div class="row">
-            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-              <div class="stats-icon">
-                <i class="iconly-boldChart"></i>
-              </div>
-            </div>
-            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-              <h6 class="text-muted font-semibold">Total Bulan Ini</h6>
-              <h6 class="font-extrabold mb-0">{{ $this->statistics['totalCurrentMonth'] }}</h6>
-            </div>
-          </div>
-        </div>
-      </div>
+      <x-cards.statistic title="Total Bulan Ini" icon="iconly-boldChart"
+        :count="$this->statistics['totalCurrentMonth']" />
     </div>
 
     <div class="col-6">
-      <div class="card">
-        <div class="card-body px-4">
-          <div class="row">
-            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-              <div class="stats-icon">
-                <i class="iconly-boldChart"></i>
-              </div>
-            </div>
-            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-              <h6 class="text-muted font-semibold">Total Tahun Ini</h6>
-              <h6 class="font-extrabold mb-0">{{ $this->statistics['totalCurrentYear'] }}</h6>
-            </div>
-          </div>
-        </div>
-      </div>
+      <x-cards.statistic title="Total Tahun Ini" icon="iconly-boldChart"
+        :count="$this->statistics['totalCurrentYear']" />
     </div>
   </div>
 
   <div class="row">
     <div class="col-6">
-      <div class="card">
-        <div class="card-body px-4">
-          <div class="row">
-            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-              <div class="stats-icon red">
-                <i class="iconly-boldActivity"></i>
-              </div>
-            </div>
-            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-              <h6 class="text-muted font-semibold">Sudah Membayar Minggu Ini</h6>
-              <h6 class="font-extrabold mb-0">{{ $this->statistics['studentsPaidThisWeekCount'] }}</h6>
-            </div>
-          </div>
-        </div>
-      </div>
+      <x-cards.statistic title="Sudah Membayar Minggu Ini" icon="iconly-boldActivity" color="red"
+        :count="$this->statistics['studentsPaidThisWeekCount']" />
     </div>
 
     <div class="col-6">
-      <div class="card">
-        <div class="card-body px-4">
-          <div class="row">
-            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
-              <div class="stats-icon purple">
-                <i class="iconly-boldActivity"></i>
-              </div>
-            </div>
-            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-              <h6 class="text-muted font-semibold">Belum Membayar Minggu Ini</h6>
-              <h6 class="font-extrabold mb-0">{{ $this->statistics['studentsNotPaidThisWeekCount'] }}</h6>
-            </div>
-          </div>
-        </div>
-      </div>
+      <x-cards.statistic title="Sudah Membayar Minggu Ini" icon="iconly-boldActivity" color="red"
+        :count="$this->statistics['studentsPaidThisWeekCount']" />
     </div>
   </div>
 
   <div class="row">
-    <div class="col-12">
+    <div class="col-12">h
       <div class="card">
         <div class="card-header text-center">
           @if($this->statistics['studentsNotPaidThisWeekCount'] > 0)
