@@ -13,13 +13,13 @@
 
   <div class="row">
     <div class="col-6">
-      <x-cards.statistic title="Sudah Membayar Minggu Ini" icon="iconly-boldActivity" color="red"
+      <x-cards.statistic title="Sudah Membayar Minggu Ini" icon="iconly-boldActivity" color="green"
         :count="$this->statistics['studentsPaidThisWeekCount']" />
     </div>
 
     <div class="col-6">
-      <x-cards.statistic title="Sudah Membayar Minggu Ini" icon="iconly-boldActivity" color="red"
-        :count="$this->statistics['studentsPaidThisWeekCount']" />
+      <x-cards.statistic title="Belum Membayar Minggu Ini" icon="iconly-boldActivity" color="red"
+        :count="$this->statistics['studentsNotPaidThisWeekCount']" />
     </div>
   </div>
 
