@@ -18,6 +18,20 @@ class StudentTable extends Component
 {
     use WithPagination;
 
+    private const DEFAULT_LIMIT = 5;
+
+    private const DEFAULT_SORT_COLUMN = 'name';
+
+    private const DEFAULT_SORT_ORDER = 'asc';
+
+    private const VALID_LIMITS = [5, 10, 15, 20, 25];
+
+    private const VALID_SORT_COLUMNS = ['identification_number', 'name', 'created_at'];
+
+    private const VALID_SORT_ORDERS = ['asc', 'desc'];
+
+    private const VALID_GENDERS = ['1', '2'];
+
     protected StudentRepository $studentRepository;
 
     public $schoolClasses;
@@ -26,19 +40,19 @@ class StudentTable extends Component
 
     public $studentGenders;
 
-    public string $query = '';
+    public string $search = '';
 
-    public int $limit = 5;
+    public int $perPage = self::DEFAULT_LIMIT;
 
-    public string $orderByColumn = 'name';
+    public string $sortBy = self::DEFAULT_SORT_COLUMN;
 
-    public string $orderBy = 'asc';
+    public string $sortOrder = self::DEFAULT_SORT_ORDER;
 
-    public array $filters = [
-        'schoolClassID' => '',
-        'schoolMajorID' => '',
-        'gender' => '',
-    ];
+    public string $filterSchoolClassID = '';
+
+    public string $filterSchoolMajorID = '';
+
+    public string $gender = '';
 
     public function boot(StudentRepository $studentRepository): void
     {
@@ -47,7 +61,6 @@ class StudentTable extends Component
 
     /**
      * Mount method - runs once when component is first rendered
-     * Fetches initial data that doesn't change frequently
      */
     public function mount(): void
     {
@@ -56,32 +69,23 @@ class StudentTable extends Component
     }
 
     /**
-     * Updated hook - automatically called when any property value changes
-     * Validates the changed property and resets pagination
-     *
-     * @param  string  $property  The name of the property that was updated
+     * Updated hook - called when any property changes
      */
     public function updated(string $property): void
     {
-        // Validate the changed property
         $this->validateProperty($property);
-
-        // Reset to first page when filters or sorting changes
         $this->resetPage();
     }
 
     /**
-     * Validates a single property using Laravel Validator
-     * Silently resets invalid values to defaults (no error messages shown)
-     *
-     * @param  string  $property  Property name to validate
+     * Validate a single property silently
      */
     private function validateProperty(string $property): void
     {
         // Create validator for the specific property
         $validator = Validator::make(
-            [$property => $this->{$property}], // Data to validate
-            $this->getValidationRules($property) // Validation rules
+            [$property => $this->{$property}],
+            $this->getValidationRules($property)
         );
 
         // If validation fails, reset property to default value
@@ -91,62 +95,63 @@ class StudentTable extends Component
     }
 
     /**
-     * Returns validation rules for specific properties
-     * Used by validateProperty() method
-     *
-     * @param  string  $property  Property name
-     * @return array Validation rules array
+     * Returns validation rules for properties
      */
     private function getValidationRules(string $property): array
     {
         return match ($property) {
-            'limit' => ['limit' => ['required', 'integer', 'in:5,10,15,20,25']],
-            'orderByColumn' => ['orderByColumn' => ['in:name,created_at,updated_at']],
-            'orderBy' => ['orderBy' => ['in:asc,desc']],
-            'filters.gender' => ['filters.gender' => ['nullable', 'in:male,female,other']],
-            default => [], // No validation for other properties
+            'perPage' => ['perPage' => ['required', 'integer', 'in:'.implode(',', self::VALID_LIMITS)]],
+            'sortBy' => ['sortBy' => ['in:'.implode(',', self::VALID_SORT_COLUMNS)]],
+            'sortOrder' => ['sortOrder' => ['in:'.implode(',', self::VALID_SORT_ORDERS)]],
+            'filterSchoolClassID' => ['filterSchoolClassID' => ['nullable', 'integer', 'exists:school_classes,id']],
+            'filterSchoolMajorID' => ['filterSchoolMajorID' => ['nullable', 'integer', 'exists:school_majors,id']],
+            'gender' => ['gender' => ['nullable', 'in:'.implode(',', self::VALID_GENDERS)]],
+            default => [],
         };
     }
 
     /**
-     * Resets a property to its default value
-     * Called when validation fails
-     *
-     * @param  string  $property  Property name to reset
+     * Reset property to default value
      */
     private function resetPropertyToDefault(string $property): void
     {
-        match ($property) {
-            'limit' => $this->limit = 5,
-            'orderByColumn' => $this->orderByColumn = 'name',
-            'orderBy' => $this->orderBy = 'asc',
-            'filters.gender' => $this->filters['gender'] = '',
-            default => null,
+        $this->{$property} = match ($property) {
+            'perPage' => self::DEFAULT_LIMIT,
+            'sortBy' => self::DEFAULT_SORT_COLUMN,
+            'sortOrder' => self::DEFAULT_SORT_ORDER,
+            'filterSchoolClassID' => '',
+            'filterSchoolMajorID' => '',
+            'gender' => '',
+            default => $this->{$property},
         };
     }
 
     /**
-     * Render method - builds and returns the view
-     * Called automatically by Livewire when data changes
-     * Listens for student CRUD events to refresh data
+     * Render the component
      */
     #[On(['student-created', 'student-updated', 'student-deleted'])]
     public function render(): View
     {
         $students = Student::query()
             ->when(
-                $this->filters['schoolClassID'],
-                fn ($q) => $q->where('school_class_id', (int) $this->filters['schoolClassID'])
+                $this->filterSchoolClassID,
+                fn ($q) => $q->where('school_class_id', (int) $this->filterSchoolClassID)
             )
             ->when(
-                $this->filters['schoolMajorID'],
-                fn ($q) => $q->where('school_major_id', (int) $this->filters['schoolMajorID'])
+                $this->filterSchoolMajorID,
+                fn ($q) => $q->where('school_major_id', (int) $this->filterSchoolMajorID)
             )
-            ->when($this->filters['gender'], fn ($q) => $q->where('gender', $this->filters['gender']))
-            ->when($this->query, fn ($q) => $q->search($this->query))
+            ->when(
+                $this->gender,
+                fn ($q) => $q->where('gender', (int) $this->gender)
+            )
+            ->when(
+                $this->search,
+                fn ($q) => $q->search($this->search)
+            )
             ->with('schoolClass', 'schoolMajor')
-            ->orderBy($this->orderByColumn, $this->orderBy)
-            ->paginate($this->limit);
+            ->orderBy($this->sortBy, $this->sortOrder)
+            ->paginate($this->perPage);
 
         $this->studentGenders = $this->studentRepository->countStudentGender();
 
@@ -156,15 +161,20 @@ class StudentTable extends Component
     }
 
     /**
-     * Reset all filters, sorting, and search to default values
-     * Also resets pagination to first page
+     * Reset all filters to default values
      */
-    public function resetFilter(): void
+    public function resetFilters(): void
     {
-        // Reset all filter-related properties
-        $this->reset(['query', 'limit', 'orderByColumn', 'orderBy', 'filters']);
+        $this->reset([
+            'search',
+            'perPage',
+            'sortBy',
+            'sortOrder',
+            'filterSchoolClassID',
+            'filterSchoolMajorID',
+            'gender',
+        ]);
 
-        // Return to first page
         $this->resetPage();
     }
 }

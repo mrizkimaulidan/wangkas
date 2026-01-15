@@ -24,7 +24,7 @@
   </div>
 
   <div class="row">
-    <div class="col-12">h
+    <div class="col-12">
       <div class="card">
         <div class="card-header text-center">
           @if($this->statistics['studentsNotPaidThisWeekCount'] > 0)
@@ -120,23 +120,25 @@
         <div class="card-body">
           <h5 class="card-title">Daftar Transaksi Kas Minggu Ini</h5>
           <div class="d-flex flex-wrap justify-content-end mb-3 gap-3">
-            <select wire:model.live="limit" class="form-select form-select-sm w-auto rounded">
+            <select wire:model.live="perPage" class="form-select form-select-sm w-auto rounded">
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
             </select>
 
-            <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto rounded">
+            <select wire:model.live="sortBy" class="form-select form-select-sm w-auto rounded">
               <option value="amount">Total Bayar</option>
               <option value="date_paid">Tanggal Transaksi</option>
             </select>
 
-            <select wire:model.live="orderBy" class="form-select form-select-sm w-auto rounded">
+            <select wire:model.live="sortOrder" class="form-select form-select-sm w-auto rounded">
               <option value="asc">A-Z</option>
               <option value="desc">Z-A</option>
             </select>
 
-            <button wire:click="resetFilter" type="button" class="btn btn-outline-warning btn-sm rounded">
+            <button wire:click="resetFilters" type="button" class="btn btn-outline-warning btn-sm rounded">
               <i class="bi bi-x-circle me-1"></i> Reset Filter
             </button>
 
@@ -160,8 +162,8 @@
               <div class="row g-3">
                 <div class="col-12 col-md-6">
                   <label for="user_id" class="form-label">Dicatat Oleh:</label>
-                  <select wire:model.live="filters.user_id" class="form-select" id="user_id">
-                    <option value="" selected>Pilh Dicatat Oleh</option>
+                  <select wire:model.live="filterByUserID" class="form-select" id="user_id">
+                    <option value="" selected>Pilih Dicatat Oleh</option>
                     @foreach ($this->users as $user)
                     <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @endforeach
@@ -170,8 +172,8 @@
 
                 <div class="col-12 col-md-6">
                   <label for="school_major_id" class="form-label">Jurusan:</label>
-                  <select wire:model.live="filters.schoolMajorID" class="form-select" id="school_major_id">
-                    <option value="" selected>Pilh Jurusan</option>
+                  <select wire:model.live="filterBySchoolMajorID" class="form-select" id="school_major_id">
+                    <option value="" selected>Pilih Jurusan</option>
                     @foreach ($this->schoolMajors as $schoolMajor)
                     <option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
                     @endforeach
@@ -180,8 +182,8 @@
 
                 <div class="col-12 col-md-6">
                   <label for="school_class_id" class="form-label">Kelas:</label>
-                  <select wire:model.live="filters.schoolClassID" class="form-select" id="school_class_id">
-                    <option value="" selected>Pilh Kelas</option>
+                  <select wire:model.live="filterBySchoolClassID" class="form-select" id="school_class_id">
+                    <option value="" selected>Pilih Kelas</option>
                     @foreach ($this->schoolClasses as $schoolClass)
                     <option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
                     @endforeach
@@ -194,7 +196,7 @@
           <div class="mb-3">
             <div class="form-group has-icon-left">
               <div class="position-relative">
-                <input wire:model.live="query" type="text" class="form-control form-control shadow-sm rounded fw-bold"
+                <input wire:model.live="search" type="text" class="form-control form-control shadow-sm rounded fw-bold"
                   placeholder="Masukan keyword pencarian...">
                 <div class="form-control-icon">
                   <i class="bi bi-search"></i>
@@ -209,7 +211,7 @@
                 <tr>
                   <th scope="col">#</th>
                   <th scope="col">Nama Pelajar</th>
-                  <th scope="col">Nama Total Bayar</th>
+                  <th scope="col">Total Bayar</th>
                   <th scope="col">Tanggal</th>
                   <th scope="col">Dicatat Oleh</th>
                   <th scope="col">Aksi</th>

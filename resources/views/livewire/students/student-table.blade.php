@@ -15,24 +15,26 @@
         <div class="card-body">
           <h5 class="card-title">Daftar Pelajar</h5>
           <div class="d-flex flex-wrap justify-content-end mb-3 gap-3">
-            <select wire:model.live="limit" class="form-select form-select-sm w-auto rounded">
+            <select wire:model.live="perPage" class="form-select form-select-sm w-auto rounded">
               <option value="5">5</option>
               <option value="10">10</option>
               <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
             </select>
 
-            <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto rounded">
+            <select wire:model.live="sortBy" class="form-select form-select-sm w-auto rounded">
               <option value="identification_number">Nomor Identitas</option>
               <option value="name">Nama Lengkap</option>
               <option value="created_at">Baru Ditambahkan</option>
             </select>
 
-            <select wire:model.live="orderBy" class="form-select form-select-sm w-auto rounded">
+            <select wire:model.live="sortOrder" class="form-select form-select-sm w-auto rounded">
               <option value="asc">A-Z</option>
               <option value="desc">Z-A</option>
             </select>
 
-            <button wire:click="resetFilter" type="button" class="btn btn-outline-warning btn-sm rounded">
+            <button wire:click="resetFilters" type="button" class="btn btn-outline-warning btn-sm rounded">
               <i class="bi bi-x-circle me-1"></i> Reset Filter
             </button>
 
@@ -56,8 +58,8 @@
               <div class="row">
                 <div class="col-sm-12 col-md-4">
                   <label for="school_class_id" class="form-label">Kelas:</label>
-                  <select wire:model.live="filters.schoolClassID" class="form-select" id="school_class_id">
-                    <option value="" selected>Pilh Kelas</option>
+                  <select wire:model.live="filterSchoolClassID" class="form-select" id="school_class_id">
+                    <option value="" selected>Pilih Kelas</option>
                     @foreach ($schoolClasses as $schoolClass)
                     <option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
                     @endforeach
@@ -65,8 +67,8 @@
                 </div>
                 <div class="col-sm-12 col-md-4">
                   <label for="school_major_id" class="form-label">Jurusan:</label>
-                  <select wire:model.live="filters.schoolMajorID" class="form-select" id="school_major_id">
-                    <option value="" selected>Pilh Jurusan</option>
+                  <select wire:model.live="filterSchoolMajorID" class="form-select" id="school_major_id">
+                    <option value="" selected>Pilih Jurusan</option>
                     @foreach ($schoolMajors as $schoolMajor)
                     <option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
                     @endforeach
@@ -74,8 +76,8 @@
                 </div>
                 <div class="col-sm-12 col-md-4">
                   <label for="gender" class="form-label">Jenis Kelamin:</label>
-                  <select wire:model.live="filters.gender" class="form-select" id="gender">
-                    <option value="" selected>Pilh Jenis Kelamin</option>
+                  <select wire:model.live="gender" class="form-select" id="gender">
+                    <option value="" selected>Pilih Jenis Kelamin</option>
                     <option value="1">Laki-laki</option>
                     <option value="2">Perempuan</option>
                   </select>
@@ -87,7 +89,7 @@
           <div class="mb-3">
             <div class="form-group has-icon-left">
               <div class="position-relative">
-                <input wire:model.live="query" type="text" class="form-control form-control shadow-sm rounded fw-bold"
+                <input wire:model.live="search" type="text" class="form-control form-control shadow-sm rounded fw-bold"
                   placeholder="Masukan keyword pencarian...">
                 <div class="form-control-icon">
                   <i class="bi bi-search"></i>

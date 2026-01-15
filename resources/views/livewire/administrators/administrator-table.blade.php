@@ -4,24 +4,26 @@
       <div class="card-body">
         <h5 class="card-title">Daftar Administrator</h5>
         <div class="d-flex flex-wrap justify-content-end mb-3 gap-3">
-          <select wire:model.live="limit" class="form-select form-select-sm w-auto rounded">
+          <select wire:model.live="perPage" class="form-select form-select-sm w-auto rounded">
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="15">15</option>
+            <option value="20">20</option>
+            <option value="25">25</option>
           </select>
 
-          <select wire:model.live="orderByColumn" class="form-select form-select-sm w-auto rounded">
+          <select wire:model.live="sortBy" class="form-select form-select-sm w-auto rounded">
             <option value="name">Nama Lengkap</option>
             <option value="email">Alamat Email</option>
             <option value="created_at">Baru Ditambahkan</option>
           </select>
 
-          <select wire:model.live="orderBy" class="form-select form-select-sm w-auto rounded">
+          <select wire:model.live="sortOrder" class="form-select form-select-sm w-auto rounded">
             <option value="asc">A-Z</option>
             <option value="desc">Z-A</option>
           </select>
 
-          <button wire:click="resetFilter" type="button" class="btn btn-outline-warning btn-sm rounded">
+          <button wire:click="resetFilters" type="button" class="btn btn-outline-warning btn-sm rounded">
             <i class="bi bi-x-circle me-1"></i> Reset Filter
           </button>
 
@@ -38,7 +40,7 @@
         <div class="mb-3">
           <div class="form-group has-icon-left">
             <div class="position-relative">
-              <input wire:model.live="query" type="text" class="form-control form-control shadow-sm rounded fw-bold"
+              <input wire:model.live="search" type="text" class="form-control form-control shadow-sm rounded fw-bold"
                 placeholder="Masukan keyword pencarian...">
               <div class="form-control-icon">
                 <i class="bi bi-search"></i>
@@ -60,11 +62,9 @@
             </thead>
             <tbody>
               <tr wire:loading>
-                <td colspan="3">
-                  <div class="d-flex justify-content-center">
-                    <div class="spinner-border" role="status">
-                      <span class="visually-hidden">Loading...</span>
-                    </div>
+                <td colspan="5" class="text-center">
+                  <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
                   </div>
                 </td>
               </tr>
@@ -91,7 +91,7 @@
               </tr>
               @empty
               <tr wire:loading.remove class="text-center">
-                <th colspan="3" class="fw-bold">Tidak ada data yang ditemukan!</th>
+                <th colspan="5" class="fw-bold">Tidak ada data yang ditemukan!</th>
               </tr>
               @endforelse
             </tbody>

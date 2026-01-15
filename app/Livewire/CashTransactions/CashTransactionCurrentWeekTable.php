@@ -11,8 +11,8 @@ use App\Repositories\CashTransactionRepository;
 use App\Repositories\StudentRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
@@ -24,25 +24,37 @@ class CashTransactionCurrentWeekTable extends Component
 {
     use WithPagination;
 
+    private const DEFAULT_LIMIT = 5;
+
+    private const DEFAULT_SORT_COLUMN = 'date_paid';
+
+    private const DEFAULT_SORT_ORDER = 'desc';
+
+    private const VALID_LIMITS = [5, 10, 15, 20, 25];
+
+    private const VALID_SORT_COLUMNS = ['date_paid', 'amount', 'created_at'];
+
+    private const VALID_SORT_ORDERS = ['asc', 'desc'];
+
     protected StudentRepository $studentRepository;
 
     protected CashTransactionRepository $cashTransactionRepository;
 
-    public ?string $query = '';
+    public string $search = '';
 
-    public int $limit = 5;
+    public int $perPage = self::DEFAULT_LIMIT;
 
-    public string $orderByColumn = 'date_paid';
+    public string $sortBy = self::DEFAULT_SORT_COLUMN;
 
-    public string $orderBy = 'desc';
+    public string $sortOrder = self::DEFAULT_SORT_ORDER;
 
     public ?array $currentWeek = [];
 
-    public array $filters = [
-        'user_id' => '',
-        'schoolMajorID' => '',
-        'schoolClassID' => '',
-    ];
+    public string $filterByUserID = '';
+
+    public string $filterBySchoolMajorID = '';
+
+    public string $filterBySchoolClassID = '';
 
     /**
      * Boot the component.
@@ -120,44 +132,94 @@ class CashTransactionCurrentWeekTable extends Component
                 now()->createFromDate($this->currentWeek['startOfWeek'])->startOfDay(),
                 now()->createFromDate($this->currentWeek['endOfWeek'])->endOfDay(),
             ])
-            ->when($this->filters['user_id'], fn (Builder $q) => $q->where('created_by', $this->filters['user_id']))
-            ->when($this->filters['schoolMajorID'], fn (Builder $q) => $q->whereRelation('student', 'school_major_id', $this->filters['schoolMajorID']))
-            ->when($this->filters['schoolClassID'], fn (Builder $q) => $q->whereRelation('student', 'school_class_id', $this->filters['schoolClassID']))
-            ->when(! empty($this->query), fn (Builder $q) => $q->search($this->query))
-            ->orderBy($this->orderByColumn, $this->orderBy)
-            ->paginate($this->limit);
+            ->when($this->filterByUserID, fn ($q) => $q->where('created_by', $this->filterByUserID))
+            ->when($this->filterBySchoolMajorID, fn ($q) => $q->whereRelation('student', 'school_major_id', $this->filterBySchoolMajorID))
+            ->when($this->filterBySchoolClassID, fn ($q) => $q->whereRelation('student', 'school_class_id', $this->filterBySchoolClassID))
+            ->when($this->search, fn ($q) => $q->search($this->search))
+            ->orderBy($this->sortBy, $this->sortOrder)
+            ->paginate($this->perPage);
     }
 
     /**
-     * This method is automatically triggered whenever a property of the component is updated.
+     * Updated hook - called when any property changes
      */
-    public function updated(): void
+    public function updated(string $property): void
     {
+        $this->validateProperty($property);
         $this->resetPage();
+    }
+
+    /**
+     * Validate a single property silently
+     */
+    private function validateProperty(string $property): void
+    {
+        $validator = Validator::make(
+            [$property => $this->{$property}],
+            $this->getValidationRules($property)
+        );
+
+        if ($validator->fails()) {
+            $this->resetPropertyToDefault($property);
+        }
+    }
+
+    /**
+     * Returns validation rules for properties
+     */
+    private function getValidationRules(string $property): array
+    {
+        return match ($property) {
+            'perPage' => ['perPage' => ['required', 'integer', 'in:'.implode(',', self::VALID_LIMITS)]],
+            'sortBy' => ['sortBy' => ['in:'.implode(',', self::VALID_SORT_COLUMNS)]],
+            'sortOrder' => ['sortOrder' => ['in:'.implode(',', self::VALID_SORT_ORDERS)]],
+            'filterByUserID' => ['filterByUserID' => ['nullable', 'integer', 'exists:users,id']],
+            'filterBySchoolMajorID' => ['filterBySchoolMajorID' => ['nullable', 'integer', 'exists:school_majors,id']],
+            'filterBySchoolClassID' => ['filterBySchoolClassID' => ['nullable', 'integer', 'exists:school_classes,id']],
+            default => [],
+        };
+    }
+
+    /**
+     * Reset property to default value
+     */
+    private function resetPropertyToDefault(string $property): void
+    {
+        $this->{$property} = match ($property) {
+            'perPage' => self::DEFAULT_LIMIT,
+            'sortBy' => self::DEFAULT_SORT_COLUMN,
+            'sortOrder' => self::DEFAULT_SORT_ORDER,
+            'filterByUserID' => '',
+            'filterBySchoolMajorID' => '',
+            'filterBySchoolClassID' => '',
+            default => $this->{$property},
+        };
     }
 
     /**
      * Render the view.
      */
-    #[On('cash-transaction-created')]
-    #[On('cash-transaction-updated')]
-    #[On('cash-transaction-deleted')]
+    #[On(['cash-transaction-created', 'cash-transaction-updated', 'cash-transaction-deleted'])]
     public function render(): View
     {
         return view('livewire.cash-transactions.cash-transaction-current-week-table');
     }
 
     /**
-     * Reset the filter criteria to default values.
+     * Reset all filters to default values
      */
-    public function resetFilter(): void
+    public function resetFilters(): void
     {
         $this->reset([
-            'query',
-            'limit',
-            'orderByColumn',
-            'orderBy',
-            'filters',
+            'search',
+            'perPage',
+            'sortBy',
+            'sortOrder',
+            'filterByUserID',
+            'filterBySchoolMajorID',
+            'filterBySchoolClassID',
         ]);
+
+        $this->resetPage();
     }
 }
