@@ -112,19 +112,19 @@
               </ul>
             </x-sidebar.sidebar-item>
 
-            <li class="sidebar-item {{ request()->routeIs('administrators.index') ? 'active' : '' }}">
-              <a href="/pengguna" wire:navigate class="sidebar-link">
-                <i class="bi bi-person-badge-fill"></i>
-                <span>Administrator</span>
-              </a>
-            </li>
+            <x-sidebar.sidebar-item :active="request()->routeIs('administrators.index')">
+              <x-sidebar.sidebar-link :href="route('administrators.index')" icon="bi bi-person-badge-fill"
+                wire:navigate>
+                Administrator
+              </x-sidebar.sidebar-link>
+            </x-sidebar.sidebar-item>
 
-            <li class="sidebar-item {{ request()->routeIs('update-profiles.index') ? 'active' : '' }}">
-              <a href="/profil" wire:navigate class="sidebar-link">
-                <i class="bi bi-person-fill-gear"></i>
-                <span>Pengaturan Profil</span>
-              </a>
-            </li>
+            <x-sidebar.sidebar-item :active="request()->routeIs('update-profiles.index')">
+              <x-sidebar.sidebar-link :href="route('update-profiles.index')" icon="bi bi-person-fill-gear"
+                wire:navigate>
+                Pengaturan Profil
+              </x-sidebar.sidebar-link>
+            </x-sidebar.sidebar-item>
 
             <li class="sidebar-item">
               <livewire:authentication.logout />
