@@ -9,7 +9,11 @@ use Livewire\Component;
 
 class DeleteCashTransaction extends Component
 {
-    public CashTransaction $cashTransaction;
+    public $cashTransaction;
+
+    public bool $isBatchDelete = false;
+
+    public array $selectedIDs = [];
 
     /**
      * Render the view.
@@ -23,9 +27,18 @@ class DeleteCashTransaction extends Component
      * Set the specified model instance for the component.
      */
     #[On('cash-transaction-delete')]
-    public function setValue(CashTransaction $cashTransaction): void
+    public function setValue($cashTransaction): void
     {
-        $this->cashTransaction = $cashTransaction;
+        // Handle batch delete
+        if (is_array($cashTransaction)) {
+            $this->isBatchDelete = true;
+            $this->selectedIDs = $cashTransaction;
+            $this->cashTransaction = null;
+        } else {
+            $this->isBatchDelete = false;
+            $this->selectedIDs = [];
+            $this->cashTransaction = $cashTransaction;
+        }
     }
 
     /**
@@ -33,10 +46,47 @@ class DeleteCashTransaction extends Component
      */
     public function destroy(): void
     {
-        $this->cashTransaction->delete();
+        if ($this->isBatchDelete) {
+            $this->batchDelete();
+
+            return;
+        }
+
+        $this->singleDelete();
+    }
+
+    /**
+     * Handle batch delete operation.
+     */
+    protected function batchDelete(): void
+    {
+        if ($this->selectedIDs) {
+            CashTransaction::destroy($this->selectedIDs);
+
+            $this->dispatch('close-modal');
+            $this->dispatch('success', message: 'Data berhasil dihapus!');
+            $this->dispatch('cash-transaction-deleted')->to(\App\Livewire\CashTransactions\CashTransactionCurrentWeekTable::class);
+        }
+    }
+
+    /**
+     * Handle single delete operation.
+     */
+    protected function singleDelete(): void
+    {
+        $cashTransaction = CashTransaction::find($this->cashTransaction);
+
+        if (! $cashTransaction) {
+            $this->dispatch('close-modal');
+            $this->dispatch('warning', message: 'Data tidak ditemukan!');
+
+            return;
+        }
+
+        $cashTransaction->delete();
 
         $this->dispatch('close-modal');
         $this->dispatch('success', message: 'Data berhasil dihapus!');
-        $this->dispatch('cash-transaction-deleted')->to(CashTransactionCurrentWeekTable::class);
+        $this->dispatch('cash-transaction-deleted')->to(\App\Livewire\CashTransactions\CashTransactionCurrentWeekTable::class);
     }
 }

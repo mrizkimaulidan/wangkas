@@ -8,6 +8,7 @@ use App\Models\Student;
 use App\Repositories\StudentRepository;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -17,6 +18,18 @@ use Livewire\WithPagination;
 class StudentTable extends Component
 {
     use WithPagination;
+
+    public string $search = '';
+
+    public int $perPage = self::DEFAULT_LIMIT;
+
+    public string $sortBy = self::DEFAULT_SORT_COLUMN;
+
+    public string $sortOrder = self::DEFAULT_SORT_ORDER;
+
+    public array $selectedIDs = [];
+
+    public bool $isSelectAllChecked = false;
 
     private const DEFAULT_LIMIT = 5;
 
@@ -30,8 +43,6 @@ class StudentTable extends Component
 
     private const VALID_SORT_ORDERS = ['asc', 'desc'];
 
-    private const VALID_GENDERS = ['1', '2'];
-
     protected StudentRepository $studentRepository;
 
     public $schoolClasses;
@@ -39,14 +50,6 @@ class StudentTable extends Component
     public $schoolMajors;
 
     public $studentGenders;
-
-    public string $search = '';
-
-    public int $perPage = self::DEFAULT_LIMIT;
-
-    public string $sortBy = self::DEFAULT_SORT_COLUMN;
-
-    public string $sortOrder = self::DEFAULT_SORT_ORDER;
 
     public string $filterSchoolClassID = '';
 
@@ -69,12 +72,80 @@ class StudentTable extends Component
     }
 
     /**
+     * Handle select all checkbox state change
+     */
+    public function updatedisSelectAllChecked(bool $value): void
+    {
+        $this->selectedIDs = $value ? $this->getFilteredStudentQuery()->pluck('id')->toArray() : [];
+    }
+
+    /**
+     * Get filtered query based on current filters
+     */
+    private function getFilteredStudentQuery()
+    {
+        return Student::query()
+            ->when(
+                $this->filterSchoolClassID,
+                fn ($q) => $q->where('school_class_id', (int) $this->filterSchoolClassID)
+            )
+            ->when(
+                $this->filterSchoolMajorID,
+                fn ($q) => $q->where('school_major_id', (int) $this->filterSchoolMajorID)
+            )
+            ->when(
+                $this->gender,
+                fn ($q) => $q->where('gender', (int) $this->gender)
+            )
+            ->when(
+                $this->search,
+                fn ($q) => $q->search($this->search)
+            );
+    }
+
+    /**
+     * Check if all items are selected
+     */
+    #[Computed]
+    public function isAllSelected(): bool
+    {
+        if (empty($this->selectedIDs)) {
+            return false;
+        }
+
+        return $this->validSelectedCount === $this->getFilteredStudentQuery()->count();
+    }
+
+    /**
+     * Get valid selected IDs that exist in database
+     */
+    #[Computed]
+    public function validSelectedIDs(): array
+    {
+        return Student::whereIn('id', $this->selectedIDs)
+            ->pluck('id')
+            ->toArray();
+    }
+
+    /**
+     * Get count of valid selected items
+     */
+    #[Computed]
+    public function validSelectedCount(): int
+    {
+        return count($this->validSelectedIDs);
+    }
+
+    /**
      * Updated hook - called when any property changes
      */
     public function updated(string $property): void
     {
         $this->validateProperty($property);
-        $this->resetPage();
+
+        if (in_array($property, ['search', 'perPage', 'sortBy', 'sortOrder', 'filterSchoolClassID', 'filterSchoolMajorID', 'gender'])) {
+            $this->resetPage();
+        }
     }
 
     /**
@@ -82,13 +153,17 @@ class StudentTable extends Component
      */
     private function validateProperty(string $property): void
     {
-        // Create validator for the specific property
+        $rules = $this->getValidationRules($property);
+
+        if (empty($rules)) {
+            return;
+        }
+
         $validator = Validator::make(
             [$property => $this->{$property}],
-            $this->getValidationRules($property)
+            $rules
         );
 
-        // If validation fails, reset property to default value
         if ($validator->fails()) {
             $this->resetPropertyToDefault($property);
         }
@@ -105,7 +180,7 @@ class StudentTable extends Component
             'sortOrder' => ['sortOrder' => ['in:'.implode(',', self::VALID_SORT_ORDERS)]],
             'filterSchoolClassID' => ['filterSchoolClassID' => ['nullable', 'integer', 'exists:school_classes,id']],
             'filterSchoolMajorID' => ['filterSchoolMajorID' => ['nullable', 'integer', 'exists:school_majors,id']],
-            'gender' => ['gender' => ['nullable', 'in:'.implode(',', self::VALID_GENDERS)]],
+            'gender' => ['gender' => ['nullable', 'in:1,2']],
             default => [],
         };
     }
@@ -132,23 +207,7 @@ class StudentTable extends Component
     #[On(['student-created', 'student-updated', 'student-deleted'])]
     public function render(): View
     {
-        $students = Student::query()
-            ->when(
-                $this->filterSchoolClassID,
-                fn ($q) => $q->where('school_class_id', (int) $this->filterSchoolClassID)
-            )
-            ->when(
-                $this->filterSchoolMajorID,
-                fn ($q) => $q->where('school_major_id', (int) $this->filterSchoolMajorID)
-            )
-            ->when(
-                $this->gender,
-                fn ($q) => $q->where('gender', (int) $this->gender)
-            )
-            ->when(
-                $this->search,
-                fn ($q) => $q->search($this->search)
-            )
+        $students = $this->getFilteredStudentQuery()
             ->with('schoolClass', 'schoolMajor')
             ->orderBy($this->sortBy, $this->sortOrder)
             ->paginate($this->perPage);

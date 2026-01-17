@@ -5,6 +5,7 @@ namespace App\Livewire\SchoolClasses;
 use App\Models\SchoolClass;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Validator;
+use Livewire\Attributes\Computed;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -14,6 +15,18 @@ use Livewire\WithPagination;
 class SchoolClassTable extends Component
 {
     use WithPagination;
+
+    public string $search = '';
+
+    public int $perPage = self::DEFAULT_LIMIT;
+
+    public string $sortBy = self::DEFAULT_SORT_COLUMN;
+
+    public string $sortOrder = self::DEFAULT_SORT_ORDER;
+
+    public array $selectedIDs = [];
+
+    public bool $isSelectAllChecked = false;
 
     private const DEFAULT_LIMIT = 5;
 
@@ -27,13 +40,58 @@ class SchoolClassTable extends Component
 
     private const VALID_SORT_ORDERS = ['asc', 'desc'];
 
-    public string $search = '';
+    /**
+     * Handle select all checkbox state change
+     */
+    public function updatedisSelectAllChecked(bool $value): void
+    {
+        $this->selectedIDs = $value ? $this->getFilteredSchoolClassQuery()->pluck('id')->toArray() : [];
+    }
 
-    public int $perPage = self::DEFAULT_LIMIT;
+    /**
+     * Get filtered query based on current filters
+     */
+    private function getFilteredSchoolClassQuery()
+    {
+        return SchoolClass::query()
+            ->when(
+                $this->search,
+                fn ($q) => $q->search($this->search)
+            );
+    }
 
-    public string $sortBy = self::DEFAULT_SORT_COLUMN;
+    /**
+     * Check if all items are selected
+     */
+    #[Computed]
+    public function isAllSelected(): bool
+    {
+        if (empty($this->selectedIDs)) {
+            return false;
+        }
 
-    public string $sortOrder = self::DEFAULT_SORT_ORDER;
+        return $this->validSelectedCount === $this->getFilteredSchoolClassQuery()->count();
+    }
+
+    /**
+     * Get valid selected IDs that exist in database
+     */
+    #[Computed]
+    public function validSelectedIDs(): array
+    {
+        return SchoolClass::whereIn('id', $this->selectedIDs)
+            ->pluck('id')
+            ->toArray();
+    }
+
+    /**
+     * Get count of valid selected items
+     */
+    #[Computed]
+    public function validSelectedCount(): int
+    {
+        return count($this->validSelectedIDs);
+    }
 
     /**
      * Updated hook - called when any property changes
@@ -41,7 +99,10 @@ class SchoolClassTable extends Component
     public function updated(string $property): void
     {
         $this->validateProperty($property);
-        $this->resetPage();
+
+        if (in_array($property, ['search', 'perPage', 'sortBy', 'sortOrder'])) {
+            $this->resetPage();
+        }
     }
 
     /**
@@ -49,13 +110,17 @@ class SchoolClassTable extends Component
      */
     private function validateProperty(string $property): void
     {
-        // Create validator for the specific property
+        $rules = $this->getValidationRules($property);
+
+        if (empty($rules)) {
+            return;
+        }
+
         $validator = Validator::make(
             [$property => $this->{$property}],
-            $this->getValidationRules($property)
+            $rules
         );
 
-        // If validation fails, reset property to default value
         if ($validator->fails()) {
             $this->resetPropertyToDefault($property);
         }
@@ -93,11 +158,7 @@ class SchoolClassTable extends Component
     #[On(['school-class-created', 'school-class-updated', 'school-class-deleted'])]
     public function render(): View
     {
-        $schoolClasses = SchoolClass::query()
-            ->when(
-                $this->search,
-                fn ($q) => $q->search($this->search)
-            )
+        $schoolClasses = $this->getFilteredSchoolClassQuery()
             ->orderBy($this->sortBy, $this->sortOrder)
             ->paginate($this->perPage);
 

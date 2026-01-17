@@ -157,6 +157,41 @@
             </button>
           </div>
 
+          @if($this->validSelectedCount > 0)
+          <div class="alert alert-warning border-start border-warning border-5 bg-warning bg-opacity-10" role="alert">
+            <div
+              class="d-flex flex-column flex-md-row align-items-start align-items-md-center justify-content-between gap-3">
+              <div class="d-flex align-items-center gap-3">
+                <span class="badge rounded-pill bg-warning text-dark fs-6 px-3 py-2">
+                  {{ $this->validSelectedCount }}
+                </span>
+                <span class="fw-medium">Data transaksi terpilih untuk dihapus</span>
+              </div>
+              <div class="d-flex flex-wrap align-items-center gap-2">
+                <div class="form-check mb-0">
+                  <input wire:model.live="isSelectAllChecked" class="form-check-input" type="checkbox" id="select-all">
+                  <label class="form-check-label fw-medium" for="select-all">
+                    Pilih semua
+                  </label>
+                </div>
+                <div class="vr d-none d-md-block"></div>
+                <div class="d-flex gap-2">
+                  <button
+                    wire:click="$dispatch('cash-transaction-delete', {cashTransaction: {{ json_encode($this->validSelectedIDs) }}})"
+                    class="btn btn-sm btn-danger d-flex align-items-center gap-1" data-bs-toggle="modal"
+                    data-bs-target="#deleteModal">
+                    <span>Hapus</span>
+                  </button>
+                  <button wire:click="$set('selectedIDs', [])"
+                    class="btn btn-sm btn-outline-secondary d-flex align-items-center gap-1">
+                    <span>Batal</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          @endif
+
           <div wire:ignore.self class="collapse border mb-3" id="filterCollapse">
             <div class="card card-body">
               <div class="row g-3">
@@ -209,6 +244,7 @@
             <table class="table table-bordered table-hover">
               <thead>
                 <tr>
+                  <th scope="col"></th>
                   <th scope="col">#</th>
                   <th scope="col">Nama Pelajar</th>
                   <th scope="col">Total Bayar</th>
@@ -219,7 +255,7 @@
               </thead>
               <tbody>
                 <tr wire:loading>
-                  <td colspan="6" class="text-center">
+                  <td colspan="7" class="text-center">
                     <div class="spinner-border" role="status">
                       <span class="visually-hidden">Loading...</span>
                     </div>
@@ -232,6 +268,12 @@
 
                 @forelse ($this->cashTransactions as $index => $cashTransaction)
                 <tr wire:key="{{ $cashTransaction->id }}">
+                  <th>
+                    <div class="form-check">
+                      <input wire:model.live="selectedIDs" class="form-check-input" type="checkbox"
+                        value="{{ $cashTransaction->id }}" id="check">
+                    </div>
+                  </th>
                   <th scope="row">{{ $startIndex + $index }}</th>
                   <td class="text-uppercase fw-bold">
                     <div>{{ $cashTransaction->student->name }}</div>
@@ -273,7 +315,7 @@
                 </tr>
                 @empty
                 <tr wire:loading.remove class="text-center">
-                  <th colspan="6" class="fw-bold">Tidak ada data yang ditemukan!</th>
+                  <th colspan="7" class="fw-bold">Tidak ada data yang ditemukan!</th>
                 </tr>
                 @endforelse
               </tbody>

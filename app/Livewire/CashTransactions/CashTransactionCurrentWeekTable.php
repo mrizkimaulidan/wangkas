@@ -24,6 +24,18 @@ class CashTransactionCurrentWeekTable extends Component
 {
     use WithPagination;
 
+    public string $search = '';
+
+    public int $perPage = self::DEFAULT_LIMIT;
+
+    public string $sortBy = self::DEFAULT_SORT_COLUMN;
+
+    public string $sortOrder = self::DEFAULT_SORT_ORDER;
+
+    public array $selectedIDs = [];
+
+    public bool $isSelectAllChecked = false;
+
     private const DEFAULT_LIMIT = 5;
 
     private const DEFAULT_SORT_COLUMN = 'date_paid';
@@ -39,14 +51,6 @@ class CashTransactionCurrentWeekTable extends Component
     protected StudentRepository $studentRepository;
 
     protected CashTransactionRepository $cashTransactionRepository;
-
-    public string $search = '';
-
-    public int $perPage = self::DEFAULT_LIMIT;
-
-    public string $sortBy = self::DEFAULT_SORT_COLUMN;
-
-    public string $sortOrder = self::DEFAULT_SORT_ORDER;
 
     public ?array $currentWeek = [];
 
@@ -74,6 +78,68 @@ class CashTransactionCurrentWeekTable extends Component
     {
         $this->currentWeek['startOfWeek'] = now()->startOfWeek()->format('d-m-Y');
         $this->currentWeek['endOfWeek'] = now()->endOfWeek()->format('d-m-Y');
+    }
+
+    /**
+     * Handle select all checkbox state change
+     */
+    public function updatedisSelectAllChecked(bool $value): void
+    {
+        $this->selectedIDs = $value ? $this->getFilteredCashTransactionQuery()->pluck('id')->toArray() : [];
+    }
+
+    /**
+     * Get filtered query based on current filters
+     */
+    private function getFilteredCashTransactionQuery()
+    {
+        return CashTransaction::query()
+            ->with([
+                'student.schoolMajor',
+                'student.schoolClass',
+                'createdBy',
+            ])
+            ->whereBetween('date_paid', [
+                now()->createFromDate($this->currentWeek['startOfWeek'])->startOfDay(),
+                now()->createFromDate($this->currentWeek['endOfWeek'])->endOfDay(),
+            ])
+            ->when($this->filterByUserID, fn ($q) => $q->where('created_by', $this->filterByUserID))
+            ->when($this->filterBySchoolMajorID, fn ($q) => $q->whereRelation('student', 'school_major_id', $this->filterBySchoolMajorID))
+            ->when($this->filterBySchoolClassID, fn ($q) => $q->whereRelation('student', 'school_class_id', $this->filterBySchoolClassID))
+            ->when($this->search, fn ($q) => $q->search($this->search));
+    }
+
+    /**
+     * Check if all items are selected
+     */
+    #[Computed]
+    public function isAllSelected(): bool
+    {
+        if (empty($this->selectedIDs)) {
+            return false;
+        }
+
+        return $this->validSelectedCount === $this->getFilteredCashTransactionQuery()->count();
+    }
+
+    /**
+     * Get valid selected IDs that exist in database
+     */
+    #[Computed]
+    public function validSelectedIDs(): array
+    {
+        return CashTransaction::whereIn('id', $this->selectedIDs)
+            ->pluck('id')
+            ->toArray();
+    }
+
+    /**
+     * Get count of valid selected items
+     */
+    #[Computed]
+    public function validSelectedCount(): int
+    {
+        return count($this->validSelectedIDs);
     }
 
     #[Computed]
@@ -122,20 +188,7 @@ class CashTransactionCurrentWeekTable extends Component
     #[Computed]
     public function cashTransactions(): Paginator
     {
-        return CashTransaction::query()
-            ->with([
-                'student.schoolMajor',
-                'student.schoolClass',
-                'createdBy',
-            ])
-            ->whereBetween('date_paid', [
-                now()->createFromDate($this->currentWeek['startOfWeek'])->startOfDay(),
-                now()->createFromDate($this->currentWeek['endOfWeek'])->endOfDay(),
-            ])
-            ->when($this->filterByUserID, fn ($q) => $q->where('created_by', $this->filterByUserID))
-            ->when($this->filterBySchoolMajorID, fn ($q) => $q->whereRelation('student', 'school_major_id', $this->filterBySchoolMajorID))
-            ->when($this->filterBySchoolClassID, fn ($q) => $q->whereRelation('student', 'school_class_id', $this->filterBySchoolClassID))
-            ->when($this->search, fn ($q) => $q->search($this->search))
+        return $this->getFilteredCashTransactionQuery()
             ->orderBy($this->sortBy, $this->sortOrder)
             ->paginate($this->perPage);
     }
@@ -146,7 +199,10 @@ class CashTransactionCurrentWeekTable extends Component
     public function updated(string $property): void
     {
         $this->validateProperty($property);
-        $this->resetPage();
+
+        if (in_array($property, ['search', 'perPage', 'sortBy', 'sortOrder', 'filterByUserID', 'filterBySchoolMajorID', 'filterBySchoolClassID'])) {
+            $this->resetPage();
+        }
     }
 
     /**
@@ -154,9 +210,15 @@ class CashTransactionCurrentWeekTable extends Component
      */
     private function validateProperty(string $property): void
     {
+        $rules = $this->getValidationRules($property);
+
+        if (empty($rules)) {
+            return;
+        }
+
         $validator = Validator::make(
             [$property => $this->{$property}],
-            $this->getValidationRules($property)
+            $rules
         );
 
         if ($validator->fails()) {
