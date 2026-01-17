@@ -9,7 +9,7 @@ use Livewire\Attributes\Layout;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
 
-#[Layout('components.layouts.authentication.app')]
+#[Layout('layouts.authentication.app')]
 class Login extends Component
 {
     #[Validate('required', message: 'Alamat email tidak boleh kosong!')]
@@ -47,7 +47,7 @@ class Login extends Component
         if (Auth::attempt($this->only(['email', 'password']), $this->remember_me)) {
             session()->regenerate();
 
-            $this->redirect(Dashboard::class);
+            $this->redirect('/dashboard');
         }
 
         session()->flash('error', 'Alamat email atau kata sandi salah!');
