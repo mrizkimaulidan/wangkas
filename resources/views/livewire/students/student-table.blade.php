@@ -1,11 +1,13 @@
 <div>
   <div class="row">
     <div class="col-6">
-      <x-cards.statistic title="Laki-laki" icon="iconly-boldProfile" color="blue" :count="$studentGenders['male']" />
+      <livewire:cards.statistic title="Laki-laki" icon="iconly-boldProfile" color="blue"
+        :count="$studentGenders['male']" lazy />
     </div>
 
     <div class="col-6">
-      <x-cards.statistic title="Perempuan" icon="iconly-boldProfile" color="red" :count="$studentGenders['female']" />
+      <livewire:cards.statistic title="Perempuan" icon="iconly-boldProfile" color="red"
+        :count="$studentGenders['female']" lazy />
     </div>
   </div>
 
