@@ -1,25 +1,25 @@
 <div>
   <div class="row">
     <div class="col-6">
-      <livewire:cards.statistic title="Total Bulan Ini" icon="iconly-boldChart"
-        :count="$this->statistics['totalCurrentMonth']" lazy />
+      <x-cards.statistic title="Total Bulan Ini" icon="iconly-boldChart"
+        :count="$this->statistics['totalCurrentMonth']" />
     </div>
 
     <div class="col-6">
-      <livewire:cards.statistic title="Total Tahun Ini" icon="iconly-boldChart"
-        :count="$this->statistics['totalCurrentYear']" lazy />
+      <x-cards.statistic title="Total Tahun Ini" icon="iconly-boldChart"
+        :count="$this->statistics['totalCurrentYear']" />
     </div>
   </div>
 
   <div class="row">
     <div class="col-6">
-      <livewire:cards.statistic title="Sudah Membayar Minggu Ini" icon="iconly-boldActivity" color="green"
-        :count="$this->statistics['studentsPaidThisWeekCount']" lazy />
+      <x-cards.statistic title="Sudah Membayar Minggu Ini" icon="iconly-boldActivity" color="green"
+        :count="$this->statistics['studentsPaidThisWeekCount']" />
     </div>
 
     <div class="col-6">
-      <livewire:cards.statistic title="Belum Membayar Minggu Ini" icon="iconly-boldActivity" color="red"
-        :count="$this->statistics['studentsNotPaidThisWeekCount']" lazy />
+      <x-cards.statistic title="Belum Membayar Minggu Ini" icon="iconly-boldActivity" color="red"
+        :count="$this->statistics['studentsNotPaidThisWeekCount']" />
     </div>
   </div>
 

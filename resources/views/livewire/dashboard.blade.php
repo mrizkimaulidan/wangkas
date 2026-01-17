@@ -3,20 +3,20 @@
     <div class="col-12 col-lg-9">
       <div class="row">
         <div class="col-6 col-lg-3 col-md-6">
-          <livewire:cards.statistic title="Pelajar" icon="iconly-boldProfile" color="purple"
-            :count="$charts['counter']['student']" lazy />
+          <x-cards.statistic title="Pelajar" icon="iconly-boldProfile" color="purple"
+            :count="$charts['counter']['student']" />
         </div>
         <div class="col-6 col-lg-3 col-md-6">
-          <livewire:cards.statistic title="Kelas" icon="iconly-boldBookmark" color="blue"
-            :count="$charts['counter']['schoolClass']" lazy />
+          <x-cards.statistic title="Kelas" icon="iconly-boldBookmark" color="blue"
+            :count="$charts['counter']['schoolClass']" />
         </div>
         <div class="col-6 col-lg-3 col-md-6">
-          <livewire:cards.statistic title="Jurusan" icon="iconly-boldBag" color="green"
-            :count="$charts['counter']['schoolMajor']" lazy />
+          <x-cards.statistic title="Jurusan" icon="iconly-boldBag" color="green"
+            :count="$charts['counter']['schoolMajor']" />
         </div>
         <div class="col-6 col-lg-3 col-md-6">
-          <livewire:cards.statistic title="Administrator" icon="iconly-boldProfile" color="red"
-            :count="$charts['counter']['administrator']" lazy />
+          <x-cards.statistic title="Administrator" icon="iconly-boldProfile" color="red"
+            :count="$charts['counter']['administrator']" />
         </div>
       </div>
 
