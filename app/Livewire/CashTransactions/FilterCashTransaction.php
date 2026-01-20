@@ -16,15 +16,33 @@ class FilterCashTransaction extends Component
 {
     use WithPagination;
 
+    private const DEFAULT_LIMIT = 5;
+
+    private const DEFAULT_SORT_COLUMN = 'date_paid';
+
+    private const DEFAULT_SORT_ORDER = 'desc';
+
+    private const VALID_LIMITS = [5, 10, 15, 20, 25];
+
+    private const VALID_SORT_COLUMNS = ['date_paid', 'amount', 'created_at'];
+
+    private const VALID_SORT_ORDERS = ['asc', 'desc'];
+
     protected StudentRepository $studentRepository;
 
     protected CashTransactionRepository $cashTransactionRepository;
+
+    public int $perPage = self::DEFAULT_LIMIT;
+
+    public string $sortBy = self::DEFAULT_SORT_COLUMN;
+
+    public string $sortOrder = self::DEFAULT_SORT_ORDER;
 
     public ?string $start_date = '';
 
     public ?string $end_date = '';
 
-    public ?string $query = '';
+    public ?string $search = '';
 
     public ?array $statistics = [];
 
@@ -63,6 +81,21 @@ class FilterCashTransaction extends Component
     }
 
     /**
+     * Reset all filters to default values
+     */
+    public function resetFilters(): void
+    {
+        $this->reset([
+            'search',
+            'perPage',
+            'sortBy',
+            'sortOrder',
+        ]);
+
+        $this->resetPage();
+    }
+
+    /**
      * Render the view.
      */
     public function render(): View
@@ -71,14 +104,15 @@ class FilterCashTransaction extends Component
 
         $filteredResult = CashTransaction::query()
             ->with('student', 'createdBy')
-            ->when($this->query, function (Builder $query) {
+            ->when($this->search, function (Builder $query) {
                 return $query->whereHas('student', function ($studentQuery) {
-                    return $studentQuery->where('name', 'like', "%{$this->query}%");
+                    return $studentQuery->where('name', 'like', "%{$this->search}%");
                 });
             })
-            ->whereBetween('date_paid', [$this->start_date, $this->end_date]);
+            ->whereBetween('date_paid', [$this->start_date, $this->end_date])
+            ->orderBy($this->sortBy, $this->sortOrder);
 
-        if ($this->start_date && $this->end_date !== null) {
+        if ($this->start_date && $this->end_date) {
             $studentPaidStatus = $this->studentRepository->getStudentPaymentStatus($this->start_date, $this->end_date);
 
             $this->statistics['studentsNotPaidLimit'] = $studentPaidStatus['studentsNotPaid']->take(6);
@@ -94,7 +128,7 @@ class FilterCashTransaction extends Component
         $this->statistics['totalCurrentYear'] = local_amount_format($cashTransactionSummaries['year']);
 
         return view('livewire.cash-transactions.filter-cash-transaction', [
-            'filteredResult' => $filteredResult->paginate(5),
+            'filteredResult' => $filteredResult->paginate($this->perPage),
             'sumAmountDateRange' => $sumAmountDateRange,
         ]);
     }
