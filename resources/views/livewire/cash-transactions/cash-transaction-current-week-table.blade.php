@@ -267,7 +267,7 @@
                 @endphp
 
                 @forelse ($this->cashTransactions as $index => $cashTransaction)
-                <tr wire:key="{{ $cashTransaction->id }}">
+                <tr wire:loading.remove wire:key="{{ $cashTransaction->id }}">
                   <th>
                     <div class="form-check">
                       <input wire:model.live="selectedIDs" class="form-check-input" type="checkbox"

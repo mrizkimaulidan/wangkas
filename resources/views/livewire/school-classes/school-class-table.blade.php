@@ -106,7 +106,7 @@
               $startIndex = ($schoolClasses->currentPage() - 1) * $schoolClasses->perPage() + 1;
               @endphp
               @forelse ($schoolClasses as $index => $schoolClass)
-              <tr wire:key="{{ $schoolClass->id }}">
+              <tr wire:loading.remove wire:key="{{ $schoolClass->id }}">
                 <th>
                   <div class="form-check">
                     <input wire:model.live="selectedIDs" class="form-check-input" type="checkbox"

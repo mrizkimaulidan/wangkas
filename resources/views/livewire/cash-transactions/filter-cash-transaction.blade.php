@@ -207,7 +207,7 @@
                 @endphp
 
                 @forelse ($filteredResult as $index => $cashTransaction)
-                <tr wire:key="{{ $cashTransaction->id }}">
+                <tr wire:loading.remove wire:key="{{ $cashTransaction->id }}">
                   <th scope="row">{{ $startIndex + $index }}</th>
                   <td class="text-uppercase fw-bold">
                     <div>{{ $cashTransaction->student->name }}</div>

@@ -161,7 +161,7 @@
                 @endphp
 
                 @forelse ($students as $index => $student)
-                <tr wire:key="{{ $student->id }}">
+                <tr wire:loading.remove wire:key="{{ $student->id }}">
                   <th>
                     <div class="form-check">
                       <input wire:model.live="selectedIDs" class="form-check-input" type="checkbox"
