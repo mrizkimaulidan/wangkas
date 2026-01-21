@@ -60,6 +60,8 @@ class CashTransactionCurrentWeekTable extends Component
 
     public string $filterBySchoolClassID = '';
 
+    public int $filterByMonth;
+
     /**
      * Boot the component.
      */
@@ -78,6 +80,7 @@ class CashTransactionCurrentWeekTable extends Component
     {
         $this->currentWeek['startOfWeek'] = now()->startOfWeek()->format('d-m-Y');
         $this->currentWeek['endOfWeek'] = now()->endOfWeek()->format('d-m-Y');
+        $this->filterByMonth = now()->month;
     }
 
     /**
@@ -103,6 +106,7 @@ class CashTransactionCurrentWeekTable extends Component
                 now()->createFromDate($this->currentWeek['startOfWeek'])->startOfDay(),
                 now()->createFromDate($this->currentWeek['endOfWeek'])->endOfDay(),
             ])
+            ->when($this->filterByMonth, fn ($q) => $q->whereMonth('date_paid', $this->filterByMonth))
             ->when($this->filterByUserID, fn ($q) => $q->where('created_by', $this->filterByUserID))
             ->when($this->filterBySchoolMajorID, fn ($q) => $q->whereRelation('student', 'school_major_id', $this->filterBySchoolMajorID))
             ->when($this->filterBySchoolClassID, fn ($q) => $q->whereRelation('student', 'school_class_id', $this->filterBySchoolClassID))

@@ -224,6 +224,16 @@
                     @endforeach
                   </select>
                 </div>
+
+                <div class="col-12 col-md-6">
+                  <label for="school_class_id" class="form-label">Bulan:</label>
+                  <select wire:model.live="filterByMonth" class="form-select" id="school_class_id">
+                    <option value="" selected>Pilih Bulan</option>
+                    @foreach (range(1,12) as $month)
+                    <option value="{{ $month }}">{{ $month}}</option>
+                    @endforeach
+                  </select>
+                </div>
               </div>
             </div>
           </div>
