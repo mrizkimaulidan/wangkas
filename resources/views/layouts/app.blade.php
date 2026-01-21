@@ -14,7 +14,6 @@
   <link rel="stylesheet" crossorigin href="{{ asset('compiled/css/app.css') }}" />
   <link rel="stylesheet" crossorigin href="{{ asset('compiled/css/app-dark.css') }}" />
   <link rel="stylesheet" crossorigin href="{{ asset('compiled/css/iconly.css') }}" />
-  <link rel="stylesheet" crossorigin href="{{ asset('extensions/sweetalert2/sweetalert2.min.css') }}" />
   @vite('resources/js/app.js')
 </head>
 
@@ -149,72 +148,72 @@
     </div>
   </div>
   <script src="{{ asset('static/js/components/dark.js') }}" data-navigate-once></script>
-  <script src="{{ asset('extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/perfect-scrollbar@1.5.6/dist/perfect-scrollbar.min.js"></script>
   <script src="{{ asset('compiled/js/app.js') }}"></script>
-  <script src="{{ asset('extensions/sweetalert2/sweetalert2.min.js') }}"></script>
-  <!-- Need: Apexcharts -->
-  <script src="{{ asset('extensions/apexcharts/apexcharts.min.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+
   <script>
     document.addEventListener("livewire:navigated", () => {
-           const toggler = document.getElementById("toggle-dark")
-           const theme = localStorage.getItem(THEME_KEY)
+      const toggler = document.getElementById("toggle-dark")
+      const theme = localStorage.getItem(THEME_KEY)
 
-           if (toggler) {
-             toggler.checked = theme === "dark"
+      if (toggler) {
+        toggler.checked = theme === "dark"
 
-             toggler.addEventListener("input", (e) => {
-               setTheme(e.target.checked ? "dark" : "light", true)
-             })
-           }
+        toggler.addEventListener("input", (e) => {
+          setTheme(e.target.checked ? "dark" : "light", true)
+        })
+      }
 
-           document.addEventListener('show.bs.modal', () => {
-             document.querySelectorAll('.modal-backdrop').forEach((backdrop) => backdrop.remove());
-           })
+      document.addEventListener('show.bs.modal', () => {
+        document.querySelectorAll('.modal-backdrop').forEach((backdrop) => backdrop.remove());
+      })
 
-           document.addEventListener("close-modal", (e) => {
-             const modalIds = ["createModal", "editModal", "deleteModal"];
-             modalIds.forEach((id) => {
-               const modal = document.getElementById(id);
-               if (modal) {
-                 const bootstrapModal = bootstrap.Modal.getInstance(modal);
-                 if (bootstrapModal) {
-                   bootstrapModal.hide();
-                 }
-               }
-             });
-           });
-         }, { once: true });
+      document.addEventListener("close-modal", (e) => {
+        const modalIds = ["createModal", "editModal", "deleteModal"];
+        modalIds.forEach((id) => {
+          const modal = document.getElementById(id);
+          if (modal) {
+            const bootstrapModal = bootstrap.Modal.getInstance(modal);
+            if (bootstrapModal) {
+              bootstrapModal.hide();
+            }
+          }
+        });
+      });
+    }, { once: true });
 
-         document.addEventListener("livewire:init", () => {
-           const Toast = Swal.mixin({
-             toast: true,
-             position: "top-end",
-             showConfirmButton: false,
-             timer: 3000,
-             timerProgressBar: true,
-             didOpen: (toast) => {
-               toast.addEventListener("mouseenter", Swal.stopTimer);
-               toast.addEventListener("mouseleave", Swal.resumeTimer);
-             },
-           });
+    document.addEventListener("livewire:init", () => {
+      const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+          toast.addEventListener("mouseenter", Swal.stopTimer);
+          toast.addEventListener("mouseleave", Swal.resumeTimer);
+        },
+      });
 
-           Livewire.on("success", (e) => {
-             Toast.fire({
-               icon: "success",
-               title: e.message,
-             });
-           });
+      Livewire.on("success", (e) => {
+        Toast.fire({
+          icon: "success",
+          title: e.message,
+        });
+      });
 
-           Livewire.on("warning", (e) => {
-             Toast.fire({
-               icon: "warning",
-               title: e.message,
-             });
-           });
-         });
+      Livewire.on("warning", (e) => {
+        Toast.fire({
+          icon: "warning",
+          title: e.message,
+        });
+      });
+    });
   </script>
   @stack('scripts')
 </body>
