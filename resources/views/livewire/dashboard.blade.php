@@ -98,84 +98,74 @@
 @push('scripts')
 <script>
   document.addEventListener('livewire:init', () => {
-    let cashTransactionBarChart;
+    let cashTransactionBarChart = null;
+    let cashTransactionLineChart = null;
 
-    let cashTransactionLineChart;
+    // Function to destroy charts if they exist
+    function destroyCharts() {
+      if (cashTransactionBarChart) {
+        cashTransactionBarChart.destroy();
+        cashTransactionBarChart = null;
+      }
+      if (cashTransactionLineChart) {
+        cashTransactionLineChart.destroy();
+        cashTransactionLineChart = null;
+      }
+    }
 
-    const categories = [
-      "Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
-      "Jul", "Agu", "Sep", "Okt", "Nov", "Des",
-    ];
+    // Initialize charts
+    function initializeCharts(amount, count) {
+      destroyCharts(); // Clean up any existing charts
 
-    Livewire.on('dashboard-chart-loaded', (e) => {
-      const { amount, count } = e;
+      const categories = [
+        "Jan", "Feb", "Mar", "Apr", "Mei", "Jun",
+        "Jul", "Agu", "Sep", "Okt", "Nov", "Des",
+      ];
 
+      // Bar Chart
       const barChartOptions = {
         chart: {
           type: "bar",
           height: 250,
         },
-        series: [
-          {
-            name: "Total Transaksi",
-            data: [
-              count.jan,
-              count.feb,
-              count.mar,
-              count.apr,
-              count.mei,
-              count.jun,
-              count.jul,
-              count.agu,
-              count.sep,
-              count.okt,
-              count.nov,
-              count.des,
-            ],
-          },
-        ],
+        series: [{
+          name: "Total Transaksi",
+          data: [
+            count.jan, count.feb, count.mar, count.apr,
+            count.mei, count.jun, count.jul, count.agu,
+            count.sep, count.okt, count.nov, count.des,
+          ],
+        }],
         colors: ["#435ebe"],
-        xaxis: {
-          categories: categories,
-        },
+        xaxis: { categories: categories },
       };
 
       cashTransactionBarChart = new ApexCharts(
         document.querySelector("#cash-transaction-chart-bar-by-year"),
         barChartOptions
       );
-
       cashTransactionBarChart.render();
 
+      // Line Chart
       const lineChartOptions = {
-        series: [
-          {
-            name: "Jumlah Pembayaran",
-            data: Object.values(amount),
-          },
-        ],
+        series: [{
+          name: "Jumlah Pembayaran",
+          data: Object.values(amount),
+        }],
         chart: {
           height: 250,
           type: "line",
-          zoom: {
-            enabled: false,
-          },
+          zoom: { enabled: false },
         },
-        dataLabels: {
-          enabled: false,
-        },
-        stroke: {
-          curve: "straight",
-        },
+        dataLabels: { enabled: false },
+        stroke: { curve: "straight" },
         grid: {
           row: {
             colors: ["#f3f3f3", "transparent"],
             opacity: 0.5,
           },
         },
-        xaxis: {
-          categories: categories,
-        },
+        xaxis: { categories: categories },
       };
 
       cashTransactionLineChart = new ApexCharts(
@@ -183,48 +173,33 @@
         lineChartOptions
       );
       cashTransactionLineChart.render();
-    })
+    }
 
+    // Initial load
+    Livewire.on('dashboard-chart-loaded', (e) => {
+      initializeCharts(e.amount, e.count);
+    });
+
+    // Update existing charts
     Livewire.on('dashboard-chart-updated', (e) => {
-      const { amount, count } = e;
-
-      cashTransactionBarChart.updateSeries([
-        {
+      if (cashTransactionBarChart && cashTransactionLineChart) {
+        cashTransactionBarChart.updateSeries([{
           data: [
-            count.jan,
-            count.feb,
-            count.mar,
-            count.apr,
-            count.mei,
-            count.jun,
-            count.jul,
-            count.agu,
-            count.sep,
-            count.okt,
-            count.nov,
-            count.des,
+            e.count.jan, e.count.feb, e.count.mar, e.count.apr,
+            e.count.mei, e.count.jun, e.count.jul, e.count.agu,
+            e.count.sep, e.count.okt, e.count.nov, e.count.des,
           ],
-        }
-      ]);
+        }]);
 
-      cashTransactionLineChart.updateSeries([
-        {
-          data: [
-            amount.jan,
-            amount.feb,
-            amount.mar,
-            amount.apr,
-            amount.mei,
-            amount.jun,
-            amount.jul,
-            amount.agu,
-            amount.sep,
-            amount.okt,
-            amount.nov,
-            amount.des,
-          ],
-        }
-      ]);
+        cashTransactionLineChart.updateSeries([{
+          data: Object.values(e.amount),
+        }]);
+      }
+    });
+
+    // Clean up when component is destroyed
+    document.addEventListener('livewire:will-destroy', () => {
+      destroyCharts();
     });
   });
 </script>
