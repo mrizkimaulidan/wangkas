@@ -149,7 +149,7 @@
             </div>
           </div>
         </div>
-        <section class="section">
+        <section class="section pt-5">
           {{ $slot }}
         </section>
       </div>
