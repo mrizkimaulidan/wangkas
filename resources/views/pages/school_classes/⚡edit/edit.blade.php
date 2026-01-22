@@ -27,7 +27,7 @@
                   @enderror
                 </div>
 
-                <div class="border rounded p-3 mb-4 bg-light">
+                <div class="border rounded p-3 mb-4">
                   <div class="small">
                     <i class="bi bi-clock-history text-primary me-1"></i>
                     <strong>Terakhir diperbarui:</strong>
@@ -66,7 +66,7 @@
                 </div>
               </div>
 
-              <div class="bg-light rounded p-4">
+              <div class="border rounded p-4">
                 <h6 class="fw-semibold mb-3">
                   <i class="bi bi-info-circle text-primary me-2"></i>Informasi Penting
                 </h6>

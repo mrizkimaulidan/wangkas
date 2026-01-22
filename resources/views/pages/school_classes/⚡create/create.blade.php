@@ -45,7 +45,7 @@
             </div>
 
             <div class="col-lg-6">
-              <div class="bg-light rounded p-4">
+              <div class="border rounded p-4">
                 <h6 class="fw-semibold mb-3">
                   <i class="bi bi-info-circle text-primary me-2"></i>Panduan Pengisian
                 </h6>
