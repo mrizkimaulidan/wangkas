@@ -74,26 +74,26 @@
             </li>
             <li class="sidebar-item">
               <a href="/pelajar" class='sidebar-link' wire:navigate>
-                <i class="bi bi-grid-fill"></i>
+                <i class="bi bi-backpack-fill"></i>
                 <span>Pelajar</span>
               </a>
             </li>
             <li class="sidebar-item">
               <a href="kelas" class='sidebar-link' wire:navigate>
-                <i class="bi bi-grid-fill"></i>
+                <i class="bi bi-bookmarks-fill"></i>
                 <span>Kelas</span>
               </a>
             </li>
             <li class="sidebar-item">
               <a href="/jurusan" class='sidebar-link' wire:navigate>
-                <i class="bi bi-grid-fill"></i>
+                <i class="bi bi-briefcase-fill"></i>
                 <span>Jurusan</span>
               </a>
             </li>
 
             <li class="sidebar-item  has-sub">
               <a href="#" class='sidebar-link'>
-                <i class="bi bi-stack"></i>
+                <i class="bi bi-cash-stack"></i>
                 <span>Kas</span>
               </a>
               <ul class="submenu ">
@@ -107,19 +107,19 @@
             </li>
             <li class="sidebar-item">
               <a href="/users" class='sidebar-link' wire:navigate>
-                <i class="bi bi-grid-fill"></i>
+                <i class="bi bi-person-badge-fill"></i>
                 <span>Pengguna</span>
               </a>
             </li>
             <li class="sidebar-item">
               <a href="index.html" class='sidebar-link'>
-                <i class="bi bi-grid-fill"></i>
+                <i class="bi bi-person-fill-gear"></i>
                 <span>Pengaturan Profil</span>
               </a>
             </li>
             <li class="sidebar-item">
               <a href="index.html" class='sidebar-link'>
-                <i class="bi bi-grid-fill"></i>
+                <i class="bi bi-box-arrow-left"></i>
                 <span>Logout</span>
               </a>
             </li>
