@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Forms\StoreUserForm;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
@@ -16,6 +17,19 @@ new #[Title('Tambah Data Pengguna')] class extends Component
     public function togglePasswordVisibility(): void
     {
         $this->showPassword = ! $this->showPassword;
+    }
+
+    /**
+     * Generate a secure random password using Laravel's built-in functions
+     *
+     * This method generates a cryptographically secure random password
+     * that includes letters, numbers, and symbols.
+     */
+    public function generatePassword(): void
+    {
+        $generatedPassword = Str::password(12);
+        $this->form->password = $generatedPassword;
+        $this->form->password_confirmation = $generatedPassword;
     }
 
     /**

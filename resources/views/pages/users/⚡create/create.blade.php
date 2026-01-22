@@ -34,32 +34,49 @@
                   @enderror
                 </div>
 
-                <div class="mb-3 position-relative">
+                <div class="mb-3">
                   <label for="password" class="form-label">
                     Kata Sandi <span class="text-danger">*</span>
                   </label>
-                  <input type="{{ $showPassword ? 'text' : 'password' }}"
-                    class="form-control @error('form.password') is-invalid @enderror" id="password"
-                    wire:model="form.password" placeholder="Masukan kata sandi...">
-                  <i wire:click="togglePasswordVisibility"
-                    class="bi {{ $showPassword ? 'bi-eye-slash' : 'bi-eye' }} position-absolute"
-                    style="top: 38px;right: 15px;cursor: pointer;color: #6c757d;"></i>
+
+                  <div class="position-relative">
+                    <input type="{{ $showPassword ? 'text' : 'password' }}"
+                      class="form-control @error('form.password') is-invalid @enderror" id="password"
+                      wire:model="form.password" placeholder="Masukan kata sandi...">
+
+                    <button type="button" wire:click="togglePasswordVisibility"
+                      class="btn btn-link position-absolute top-50 end-0 translate-middle-y p-0 border-0 bg-transparent text-decoration-none me-3">
+                      <i class="bi {{ $showPassword ? 'bi-eye-slash' : 'bi-eye' }} text-secondary"></i>
+                    </button>
+                  </div>
+
+                  <div class="mt-2 d-flex justify-content-end">
+                    <button type="button" wire:click="generatePassword"
+                      class="btn btn-outline-secondary btn-sm d-flex align-items-center">
+                      <span>Generate Kata Sandi</span>
+                    </button>
+                  </div>
                   @error('form.password')
                   <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
                 </div>
 
-                <div class="mb-3 position-relative">
-                  <label for="password" class="form-label">
+                <div class="mb-3">
+                  <label for="password_confirmation" class="form-label">
                     Konfirmasi Kata Sandi <span class="text-danger">*</span>
                   </label>
-                  <input type="{{ $showPassword ? 'text' : 'password' }}"
-                    class="form-control @error('form.password_confirmation') is-invalid @enderror"
-                    id="password_confirmation" wire:model="form.password_confirmation"
-                    placeholder="Konfirmasi kata sandi...">
-                  <i wire:click="togglePasswordVisibility"
-                    class="bi {{ $showPassword ? 'bi-eye-slash' : 'bi-eye' }} position-absolute"
-                    style="top: 38px;right: 15px;cursor: pointer;color: #6c757d;"></i>
+
+                  <div class="position-relative">
+                    <input type="{{ $showPassword ? 'text' : 'password' }}"
+                      class="form-control @error('form.password_confirmation') is-invalid @enderror"
+                      id="password_confirmation" wire:model="form.password_confirmation"
+                      placeholder="Konfirmasi kata sandi...">
+
+                    <button type="button" wire:click="togglePasswordVisibility"
+                      class="btn btn-link position-absolute top-50 end-0 translate-middle-y p-0 border-0 bg-transparent text-decoration-none me-3">
+                      <i class="bi {{ $showPassword ? 'bi-eye-slash' : 'bi-eye' }} text-secondary"></i>
+                    </button>
+                  </div>
                   @error('form.password_confirmation')
                   <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
