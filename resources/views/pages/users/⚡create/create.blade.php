@@ -34,21 +34,32 @@
                   @enderror
                 </div>
 
-                <div class="mb-3">
-                  <label for="password" class="form-label">Kata Sandi <span class="text-danger">*</span></label>
-                  <input type="password" class="form-control @error('form.password') is-invalid @enderror" id="password"
+                <div class="mb-3 position-relative">
+                  <label for="password" class="form-label">
+                    Kata Sandi <span class="text-danger">*</span>
+                  </label>
+                  <input type="{{ $showPassword ? 'text' : 'password' }}"
+                    class="form-control @error('form.password') is-invalid @enderror" id="password"
                     wire:model="form.password" placeholder="Masukan kata sandi...">
+                  <i wire:click="togglePasswordVisibility"
+                    class="bi {{ $showPassword ? 'bi-eye-slash' : 'bi-eye' }} position-absolute"
+                    style="top: 38px;right: 15px;cursor: pointer;color: #6c757d;"></i>
                   @error('form.password')
                   <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
                 </div>
 
-                <div class="mb-3">
-                  <label for="password_confirmation" class="form-label">Konfirmasi Kata Sandi <span
-                      class="text-danger">*</span></label>
-                  <input type="password" class="form-control @error('form.password_confirmation') is-invalid @enderror"
+                <div class="mb-3 position-relative">
+                  <label for="password" class="form-label">
+                    Konfirmasi Kata Sandi <span class="text-danger">*</span>
+                  </label>
+                  <input type="{{ $showPassword ? 'text' : 'password' }}"
+                    class="form-control @error('form.password_confirmation') is-invalid @enderror"
                     id="password_confirmation" wire:model="form.password_confirmation"
                     placeholder="Konfirmasi kata sandi...">
+                  <i wire:click="togglePasswordVisibility"
+                    class="bi {{ $showPassword ? 'bi-eye-slash' : 'bi-eye' }} position-absolute"
+                    style="top: 38px;right: 15px;cursor: pointer;color: #6c757d;"></i>
                   @error('form.password_confirmation')
                   <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
