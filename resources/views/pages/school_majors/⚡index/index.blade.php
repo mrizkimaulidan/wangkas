@@ -131,6 +131,8 @@
                         <i class="bi bi-pencil"></i>
                         <span class="visually-hidden">Edit</span>
                       </a>
+
+                      <livewire:pages::school_majors.delete :schoolMajor="$schoolMajor" />
                     </div>
                   </td>
                 </tr>
