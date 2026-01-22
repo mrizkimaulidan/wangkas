@@ -18,4 +18,4 @@ Route::livewire('/kelas', 'pages::school_classes.index');
 Route::livewire('/kelas/tambah', 'pages::school_classes.create');
 Route::livewire('/kelas/{schoolClass}/edit', 'pages::school_classes.edit');
 
-Route::livewire('/users', 'pages::users.index');
+Route::livewire('/pengguna', 'pages::users.index');
