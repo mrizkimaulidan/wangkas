@@ -113,7 +113,7 @@
                       <input class="form-check-input" type="checkbox">
                     </div>
                   </td>
-                  <td class="fw-medium">{{ $loop->iteration }}</td>
+                  <td class="fw-medium">{{ $this->schoolClasses->firstItem() + $loop->index }}</td>
                   <td>
                     <div class="d-flex align-items-center">
                       <div class="me-3">
