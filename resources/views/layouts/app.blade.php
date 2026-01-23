@@ -106,7 +106,7 @@
               </ul>
             </li>
             <li class="sidebar-item">
-              <a href="/users" class='sidebar-link' wire:navigate>
+              <a href="/pengguna" class='sidebar-link' wire:navigate>
                 <i class="bi bi-person-badge-fill"></i>
                 <span>Pengguna</span>
               </a>
