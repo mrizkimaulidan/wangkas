@@ -6,7 +6,7 @@ use App\Models\SchoolClass;
 use Livewire\Attributes\Validate;
 use Livewire\Form;
 
-class CreateSchoolClassForm extends Form
+class StoreSchoolClassForm extends Form
 {
     #[Validate]
     public string $name = '';

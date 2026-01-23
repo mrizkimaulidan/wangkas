@@ -1,12 +1,12 @@
 <?php
 
-use App\Livewire\Forms\CreateSchoolClassForm;
+use App\Livewire\Forms\StoreSchoolClassForm;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 new #[Title('Tambah Data Kelas')] class extends Component
 {
-    public CreateSchoolClassForm $form;
+    public StoreSchoolClassForm $form;
 
     /**
      * Process form submission for creating data
