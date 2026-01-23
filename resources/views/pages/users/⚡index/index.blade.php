@@ -122,6 +122,8 @@
                         <i class="bi bi-pencil"></i>
                         <span class="visually-hidden">Edit</span>
                       </a>
+
+                      <livewire:pages::users.delete :user="$user" />
                     </div>
                   </td>
                 </tr>
