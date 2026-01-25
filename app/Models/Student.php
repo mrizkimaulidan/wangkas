@@ -13,6 +13,11 @@ class Student extends Model
     /** @use HasFactory<\Database\Factories\StudentFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        'school_major_id', 'school_class_id', 'identification_number', 'name',
+        'phone_number', 'gender', 'school_year_start', 'school_year_end',
+    ];
+
     /**
      * Search columns using LIKE operator.
      */
