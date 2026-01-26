@@ -156,8 +156,7 @@
                         <span class="visually-hidden">Edit</span>
                       </a>
 
-                      {{--
-                      <livewire:pages::school_majors.delete :schoolMajor="$student" /> --}}
+                      <livewire:pages::students.delete :student="$student" />
                     </div>
                   </td>
                 </tr>
