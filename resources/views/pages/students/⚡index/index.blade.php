@@ -150,11 +150,11 @@
                   <td>{{ $student->school_year_start }} - {{ $student->school_year_end }}</td>
                   <td>
                     <div class="d-flex justify-content-center gap-1">
-                      {{-- <a wire:navigate href="/pelajar/{{ $student->id }}/edit"
-                        class="btn btn-sm btn-outline-success" title="Edit jurusan">
+                      <a wire:navigate href="/pelajar/{{ $student->id }}/edit" class="btn btn-sm btn-outline-success"
+                        title="Edit jurusan">
                         <i class="bi bi-pencil"></i>
                         <span class="visually-hidden">Edit</span>
-                      </a> --}}
+                      </a>
 
                       {{--
                       <livewire:pages::school_majors.delete :schoolMajor="$student" /> --}}

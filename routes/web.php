@@ -10,6 +10,7 @@ Route::livewire('/dashboard', 'pages::dashboard');
 
 Route::livewire('/pelajar', 'pages::students.index');
 Route::livewire('/pelajar/tambah', 'pages::students.create');
+Route::livewire('/pelajar/{student}/edit', 'pages::students.edit');
 
 Route::livewire('/jurusan', 'pages::school_majors.index');
 Route::livewire('/jurusan/tambah', 'pages::school_majors.create');
