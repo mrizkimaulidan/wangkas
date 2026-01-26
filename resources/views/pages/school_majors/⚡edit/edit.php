@@ -16,6 +16,8 @@ new #[Title('Ubah Data Jurusan')] class extends Component
      */
     public function mount(SchoolMajor $schoolMajor)
     {
+        $schoolMajor->loadCount('students');
+
         $this->form->schoolMajor = $schoolMajor;
         $this->form->fill($schoolMajor);
     }
