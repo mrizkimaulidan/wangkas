@@ -67,25 +67,25 @@
           <ul class="menu">
             <li class="sidebar-title">Menu</li>
             <li class="sidebar-item">
-              <a href="/dashboard" class='sidebar-link' wire:navigate>
+              <a href="{{ route('dashboard.index') }}" class='sidebar-link' wire:navigate>
                 <i class="bi bi-grid-fill"></i>
                 <span>Beranda</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="/pelajar" class='sidebar-link' wire:navigate>
+              <a href="{{ route('pelajar.index') }}" class='sidebar-link' wire:navigate>
                 <i class="bi bi-backpack-fill"></i>
                 <span>Pelajar</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="kelas" class='sidebar-link' wire:navigate>
+              <a href="{{ route('kelas.index') }}" class='sidebar-link' wire:navigate>
                 <i class="bi bi-bookmarks-fill"></i>
                 <span>Kelas</span>
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="/jurusan" class='sidebar-link' wire:navigate>
+              <a href="{{ route('jurusan.index') }}" class='sidebar-link' wire:navigate>
                 <i class="bi bi-briefcase-fill"></i>
                 <span>Jurusan</span>
               </a>
@@ -106,7 +106,7 @@
               </ul>
             </li>
             <li class="sidebar-item">
-              <a href="/pengguna" class='sidebar-link' wire:navigate>
+              <a href="{{ route('pengguna.index') }}" class='sidebar-link' wire:navigate>
                 <i class="bi bi-person-badge-fill"></i>
                 <span>Pengguna</span>
               </a>

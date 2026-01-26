@@ -23,7 +23,8 @@
                 <i class="bi bi-funnel me-1"></i>
                 <span class="d-none d-sm-inline">Reset Filter</span>
               </button>
-              <a wire:navigate href="/pengguna/tambah" class="btn btn-primary btn-sm" title="Tambah pengguna baru">
+              <a wire:navigate href="{{ route('pengguna.create') }}" class="btn btn-primary btn-sm"
+                title="Tambah pengguna baru">
                 <i class="bi bi-plus-circle me-1"></i>
                 <span>Tambah Data</span>
               </a>
@@ -117,7 +118,7 @@
                   <td>{{ $user->email }}</td>
                   <td>
                     <div class="d-flex justify-content-center gap-1">
-                      <a wire:navigate href="/pengguna/{{ $user->id }}/edit" class="btn btn-sm btn-outline-success"
+                      <a wire:navigate href="{{ route('pengguna.edit', $user) }}" class="btn btn-sm btn-outline-success"
                         title="Edit pengguna">
                         <i class="bi bi-pencil"></i>
                         <span class="visually-hidden">Edit</span>

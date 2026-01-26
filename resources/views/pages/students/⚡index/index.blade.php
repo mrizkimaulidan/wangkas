@@ -26,7 +26,8 @@
                 <i class="bi bi-funnel me-1"></i>
                 <span class="d-none d-sm-inline">Reset Filter</span>
               </button>
-              <a wire:navigate href="/pelajar/tambah" class="btn btn-primary btn-sm" title="Tambah pelajar baru">
+              <a wire:navigate href="{{ route('pelajar.create') }}" class="btn btn-primary btn-sm"
+                title="Tambah pelajar baru">
                 <i class="bi bi-plus-circle me-1"></i>
                 <span>Tambah Data</span>
               </a>
@@ -150,8 +151,8 @@
                   <td>{{ $student->school_year_start }} - {{ $student->school_year_end }}</td>
                   <td>
                     <div class="d-flex justify-content-center gap-1">
-                      <a wire:navigate href="/pelajar/{{ $student->id }}/edit" class="btn btn-sm btn-outline-success"
-                        title="Edit jurusan">
+                      <a wire:navigate href="{{ route('pelajar.edit', $student) }}"
+                        class="btn btn-sm btn-outline-success" title="Edit jurusan">
                         <i class="bi bi-pencil"></i>
                         <span class="visually-hidden">Edit</span>
                       </a>

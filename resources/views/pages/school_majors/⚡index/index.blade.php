@@ -23,7 +23,8 @@
                 <i class="bi bi-funnel me-1"></i>
                 <span class="d-none d-sm-inline">Reset Filter</span>
               </button>
-              <a wire:navigate href="/jurusan/tambah" class="btn btn-primary btn-sm" title="Tambah jurusan baru">
+              <a wire:navigate href="{{ route('jurusan.create') }}" class="btn btn-primary btn-sm"
+                title="Tambah jurusan baru">
                 <i class="bi bi-plus-circle me-1"></i>
                 <span>Tambah Data</span>
               </a>
@@ -126,7 +127,7 @@
                   <td>{{ $schoolMajor->abbreviation }}</td>
                   <td>
                     <div class="d-flex justify-content-center gap-1">
-                      <a wire:navigate href="/jurusan/{{ $schoolMajor->id }}/edit"
+                      <a wire:navigate href="{{ route('jurusan.edit', $schoolMajor) }}"
                         class="btn btn-sm btn-outline-success" title="Edit jurusan">
                         <i class="bi bi-pencil"></i>
                         <span class="visually-hidden">Edit</span>
