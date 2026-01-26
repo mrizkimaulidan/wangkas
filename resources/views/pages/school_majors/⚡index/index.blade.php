@@ -138,7 +138,7 @@
                 </tr>
                 @empty
                 <tr>
-                  <td colspan="4" class="text-center py-4">
+                  <td colspan="5" class="text-center py-4">
                     <div class="text-muted">
                       <p class="mb-0">Tidak ada data yang ditemukan</p>
                     </div>
