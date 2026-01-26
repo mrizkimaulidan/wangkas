@@ -43,10 +43,6 @@ class StoreStudentForm extends Form
      */
     public function rules(): array
     {
-        $currentYear = date('Y');
-        $minYear = 2000;
-        $maxYear = $currentYear + 10;
-
         return [
             'name' => [
                 'required',
@@ -102,8 +98,6 @@ class StoreStudentForm extends Form
      */
     public function messages(): array
     {
-        $currentYear = date('Y');
-
         return [
             'name.required' => 'Kolom nama lengkap harus diisi!',
             'name.string' => 'Kolom nama lengkap harus berupa karakter!',
