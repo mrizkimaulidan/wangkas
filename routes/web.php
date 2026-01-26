@@ -6,7 +6,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::livewire('/dashboard', 'pages::dashboard');
+Route::livewire('/dashboard', 'pages::dashboard.index');
 
 Route::livewire('/pelajar', 'pages::students.index');
 Route::livewire('/pelajar/tambah', 'pages::students.create');
