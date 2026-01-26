@@ -50,6 +50,7 @@ new #[Title('Halaman Daftar Jurusan')] class extends Component
     public function schoolMajors(): LengthAwarePaginator
     {
         return SchoolMajor::query()
+            ->withCount('students')
             ->when($this->search, function (Builder $q) {
                 $q->search((string) $this->search);
             })

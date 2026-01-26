@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SchoolMajor extends Model
 {
@@ -39,6 +40,18 @@ class SchoolMajor extends Model
             $q->orderBy('name', 'asc');
         })->when($type === 'name_desc', function (Builder $q) {
             $q->orderBy('name', 'desc');
+        })->when($type === 'students_count_asc', function (Builder $q) {
+            $q->orderBy('students_count', 'asc');
+        })->when($type === 'students_count_desc', function (Builder $q) {
+            $q->orderBy('students_count', 'desc');
         });
+    }
+
+    /**
+     * Get students relationship
+     */
+    public function students(): HasMany
+    {
+        return $this->hasMany(Student::class);
     }
 }

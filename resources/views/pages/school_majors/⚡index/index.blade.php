@@ -117,7 +117,7 @@
                         <div class="d-flex flex-wrap align-items-center gap-2 small">
                           <span class="text-muted">
                             <i class="bi bi-people me-1"></i>
-                            30 Siswa
+                            {{ $schoolMajor->students_count }} Pelajar
                           </span>
                         </div>
                       </div>
