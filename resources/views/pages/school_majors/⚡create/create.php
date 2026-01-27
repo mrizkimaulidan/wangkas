@@ -14,6 +14,9 @@ new #[Title('Tambah Data Jurusan')] class extends Component
     public function save(): void
     {
         $this->form->store();
-        $this->redirect('/jurusan', navigate: true);
+
+        session()->flash('success', 'Data jurusan berhasil ditambahkan!');
+
+        $this->redirectRoute('jurusan.index', navigate: true);
     }
 };

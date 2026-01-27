@@ -21,6 +21,9 @@ new class extends Component
     public function destroy(): void
     {
         $this->user->delete();
-        $this->redirect('/pengguna', navigate: true);
+
+        session()->flash('success', 'Data pengguna berhasil dihapus!');
+
+        $this->redirectRoute('pengguna.index', navigate: true);
     }
 };

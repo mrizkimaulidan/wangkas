@@ -21,6 +21,9 @@ new class extends Component
     public function destroy(): void
     {
         $this->schoolMajor->delete();
-        $this->redirect('/jurusan', navigate: true);
+
+        session()->flash('success', 'Data jurusan berhasil dihapus');
+
+        $this->redirectRoute('jurusan.index', navigate: true);
     }
 };

@@ -50,6 +50,9 @@ new #[Title('Ubah Data Pengguna')] class extends Component
     public function update(): void
     {
         $this->form->update();
+
+        session()->flash('success', 'Data pengguna berhasil diubah!');
+
         $this->redirect('/pengguna', navigate: true);
     }
 };

@@ -9,6 +9,8 @@
             </div>
           </div>
 
+          @livewire('alert')
+
           <div class="row">
             <div class="col-lg-6">
               <form wire:submit="update">

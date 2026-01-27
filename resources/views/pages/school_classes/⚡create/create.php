@@ -14,6 +14,9 @@ new #[Title('Tambah Data Kelas')] class extends Component
     public function save(): void
     {
         $this->form->store();
-        $this->redirect('/kelas', navigate: true);
+
+        session()->flash('success', 'Data kelas berhasil ditambahkan!');
+
+        $this->redirectRoute('kelas.index', navigate: true);
     }
 };

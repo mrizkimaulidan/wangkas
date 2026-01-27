@@ -38,6 +38,9 @@ new #[Title('Tambah Data Pengguna')] class extends Component
     public function save(): void
     {
         $this->form->store();
-        $this->redirect('/pengguna', navigate: true);
+
+        session()->flash('success', 'Data pengguna berhasil ditambahkan!');
+
+        $this->redirectRoute('pengguna.index', navigate: true);
     }
 };

@@ -29,6 +29,9 @@ new #[Title('Ubah Profil')] class extends Component
     public function update(): void
     {
         $this->form->update();
-        $this->redirect('/profil', navigate: true);
+
+        session()->flash('success', 'Profil berhasil diubah!');
+
+        $this->redirectRoute('profil.edit', navigate: true);
     }
 };

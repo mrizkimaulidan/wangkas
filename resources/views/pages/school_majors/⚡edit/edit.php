@@ -28,6 +28,9 @@ new #[Title('Ubah Data Jurusan')] class extends Component
     public function update(): void
     {
         $this->form->update();
+
+        session()->flash('success', 'Data jurusan berhasil diubah!');
+
         $this->redirect('/jurusan', navigate: true);
     }
 };

@@ -36,6 +36,9 @@ new #[Title('Ubah Data Pelajar')] class extends Component
     public function update(): void
     {
         $this->form->update();
-        $this->redirect('/pelajar', navigate: true);
+
+        session()->flash('success', 'Data pelajar berhasil diubah!');
+
+        $this->redirectRoute('pelajar.index', navigate: true);
     }
 };
