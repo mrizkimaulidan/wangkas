@@ -112,7 +112,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a href="{{ route('profiles.edit') }}" class='sidebar-link' wire:navigate>
+              <a href="{{ route('profil.edit') }}" class='sidebar-link' wire:navigate>
                 <i class="bi bi-person-fill-gear"></i>
                 <span>Pengaturan Profil</span>
               </a>

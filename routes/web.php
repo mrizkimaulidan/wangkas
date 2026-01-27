@@ -24,4 +24,4 @@ Route::livewire('/pengguna', 'pages::users.index')->name('pengguna.index');
 Route::livewire('/pengguna/tambah', 'pages::users.create')->name('pengguna.create');
 Route::livewire('/pengguna/{user}/edit', 'pages::users.edit')->name('pengguna.edit');
 
-Route::livewire('/profil', 'pages::profiles.edit')->name('profiles.edit');
+Route::livewire('/profil', 'pages::profiles.edit')->name('profil.edit');
