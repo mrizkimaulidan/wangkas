@@ -1,5 +1,46 @@
 <div>
   <div class="row">
+    <div class="col-md-4">
+      <livewire:statistic-status label="Total Minggu Ini"
+        value="{{ Number::currency($this->totalThisWeek, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line"
+        color="primary" showTrend="true" trendDirection="{{ $this->weeklyGrowthTrendDirection }}"
+        trendPercentage="{{ $this->weekOverWeekGrowthRate }}%" comparisonText="dari minggu lalu" />
+    </div>
+
+    <div class="col-md-4">
+      <livewire:statistic-status label="Total Bulan Ini"
+        value="{{ Number::currency($this->totalThisMonth, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line"
+        color="success" showTrend="true" trendDirection="{{ $this->monthlyGrowthTrendDirection }}"
+        trendPercentage="{{ $this->monthOverMonthGrowthRate }}" comparisonText="dari bulan lalu" />
+    </div>
+
+    <div class="col-md-4">
+      <livewire:statistic-status label="Total Tahun Ini"
+        value="{{ Number::currency($this->totalThisYear, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line"
+        color="primary" showTrend="true" trendDirection="{{ $this->yearlyGrowthTrendDirection }}"
+        trendPercentage="{{ $this->yearOverYearGrowthRate }}%" comparisonText="dari tahun lalu" />
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <livewire:statistic-status label="Total Pelajar" value="{{ $this->studentCount }}" icon="bi-people" color="info"
+        subLabel="pelajar terdaftar" />
+    </div>
+
+    <div class="col-md-4">
+      <livewire:statistic-status label="Sudah Bayar Minggu Ini" value="{{ $this->studentPaidThisWeekCount }}"
+        icon="bi-check-circle" color="success" subValue="{{ $this->paidPercentageThisWeek }}%"
+        subLabel="dari total pelajar" />
+    </div>
+
+    <div class="col-md-4">
+      <livewire:statistic-status label="Belum Bayar Minggu Ini" value="{{ $this->studentNotPaidThisWeekCount }}"
+        icon="bi-clock" color="warning" subValue="{{ $this->unpaidPercentageThisWeek }}%" subLabel="perlu penagihan" />
+    </div>
+  </div>
+
+  <div class="row">
     <div class="col-12">
       <div class="card border-0 shadow-sm">
         <div class="card-body p-4">
@@ -135,7 +176,7 @@
                       </div>
                     </div>
                   </td>
-                  <td>{{ $cashTransaction->amount }}</td>
+                  <td>{{ Number::currency($cashTransaction->amount, in: 'IDR', locale: 'id') }}</td>
                   <td>{{ $cashTransaction->date_paid }}</td>
                   <td>{{ $cashTransaction->createdBy->name }}</td>
                   <td>
