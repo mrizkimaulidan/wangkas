@@ -98,7 +98,7 @@
               </a>
               <ul class="submenu ">
                 <li class="submenu-item">
-                  <a href="component-accordion.html" class="submenu-link">Accordion</a>
+                  <a href="{{ route('kas.index') }}" class="submenu-link" wire:navigate>Kas Minggu Ini</a>
                 </li>
                 <li class="submenu-item">
                   <a href="component-alert.html" class="submenu-link">Alert</a>
