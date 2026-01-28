@@ -23,6 +23,36 @@ new class extends Component
 ?>
 
 <div>
+  @placeholder
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-3">
+      <div class="d-flex align-items-start">
+        <div class="me-3">
+          <div class="rounded-2 p-3 placeholder">
+            <div class="placeholder" style="width: 48px; height: 48px;"></div>
+          </div>
+        </div>
+
+        <div class="flex-grow-1">
+          <div class="mb-2 placeholder-glow">
+            <h5 class="fs-3 fw-bold mb-0">
+              <span class="placeholder col-7"></span>
+            </h5>
+            <p class="text-muted mb-0">
+              <span class="placeholder col-4"></span>
+            </p>
+          </div>
+
+          <div class="mt-2 placeholder-glow">
+            <span class="placeholder col-2 me-2" style="height: 24px;"></span>
+            <span class="placeholder col-3" style="height: 16px;"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  @endplaceholder
+
   <div class="card border-0 shadow-sm">
     <div class="card-body p-3">
       <div class="d-flex align-items-start">

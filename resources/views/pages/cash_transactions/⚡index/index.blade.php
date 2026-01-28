@@ -4,39 +4,40 @@
       <livewire:statistic-status label="Total Minggu Ini"
         value="{{ Number::currency($this->totalThisWeek, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line"
         color="primary" showTrend="true" trendDirection="{{ $this->weeklyGrowthTrendDirection }}"
-        trendPercentage="{{ $this->weekOverWeekGrowthRate }}%" comparisonText="dari minggu lalu" />
+        trendPercentage="{{ $this->weekOverWeekGrowthRate }}%" comparisonText="dari minggu lalu" lazy />
     </div>
 
     <div class="col-md-4">
       <livewire:statistic-status label="Total Bulan Ini"
         value="{{ Number::currency($this->totalThisMonth, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line"
         color="success" showTrend="true" trendDirection="{{ $this->monthlyGrowthTrendDirection }}"
-        trendPercentage="{{ $this->monthOverMonthGrowthRate }}" comparisonText="dari bulan lalu" />
+        trendPercentage="{{ $this->monthOverMonthGrowthRate }}" comparisonText="dari bulan lalu" lazy />
     </div>
 
     <div class="col-md-4">
       <livewire:statistic-status label="Total Tahun Ini"
         value="{{ Number::currency($this->totalThisYear, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line"
         color="primary" showTrend="true" trendDirection="{{ $this->yearlyGrowthTrendDirection }}"
-        trendPercentage="{{ $this->yearOverYearGrowthRate }}%" comparisonText="dari tahun lalu" />
+        trendPercentage="{{ $this->yearOverYearGrowthRate }}%" comparisonText="dari tahun lalu" lazy />
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-4">
       <livewire:statistic-status label="Total Pelajar" value="{{ $this->studentCount }}" icon="bi-people" color="info"
-        subLabel="pelajar terdaftar" />
+        subLabel="pelajar terdaftar" lazy />
     </div>
 
     <div class="col-md-4">
       <livewire:statistic-status label="Sudah Bayar Minggu Ini" value="{{ $this->studentPaidThisWeekCount }}"
         icon="bi-check-circle" color="success" subValue="{{ $this->paidPercentageThisWeek }}%"
-        subLabel="dari total pelajar" />
+        subLabel="dari total pelajar" lazy />
     </div>
 
     <div class="col-md-4">
       <livewire:statistic-status label="Belum Bayar Minggu Ini" value="{{ $this->studentNotPaidThisWeekCount }}"
-        icon="bi-clock" color="warning" subValue="{{ $this->unpaidPercentageThisWeek }}%" subLabel="perlu penagihan" />
+        icon="bi-clock" color="warning" subValue="{{ $this->unpaidPercentageThisWeek }}%" subLabel="perlu penagihan"
+        lazy />
     </div>
   </div>
 
@@ -185,8 +186,9 @@
                         <i class="bi bi-pencil"></i>
                         <span class="visually-hidden">Edit</span>
                       </a>
+                      --}}
 
-                      <livewire:pages::school_classes.delete :cashTransaction="$cashTransaction" /> --}}
+                      <livewire:pages::cash_transactions.delete :cashTransaction="$cashTransaction" />
                     </div>
                   </td>
                 </tr>
