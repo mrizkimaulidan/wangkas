@@ -64,14 +64,12 @@ class User extends Authenticatable
     #[Scope]
     protected function sort(Builder $query, string $type): void
     {
-        $query->when($type === 'name_asc', function (Builder $q) {
-            $q->orderBy('name', 'asc');
-        })->when($type === 'name_desc', function (Builder $q) {
-            $q->orderBy('name', 'desc');
-        })->when($type === 'newest', function (Builder $q) {
-            $q->orderBy('created_at', 'desc');
-        })->when($type === 'oldest', function (Builder $q) {
-            $q->orderBy('created_at', 'asc');
-        });
+        match ($type) {
+            'name_asc' => $query->orderBy('name', 'asc'),
+            'name_desc' => $query->orderBy('name', 'desc'),
+            'newest' => $query->orderBy('created_at', 'desc'),
+            'oldest' => $query->orderBy('created_at', 'asc'),
+            default => $query->orderBy('created_at', 'desc'),
+        };
     }
 }
