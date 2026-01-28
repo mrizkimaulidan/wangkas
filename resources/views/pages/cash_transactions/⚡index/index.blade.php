@@ -64,8 +64,7 @@
                 <i class="bi bi-funnel me-1"></i>
                 <span class="d-none d-sm-inline">Reset Filter</span>
               </button>
-              <a wire:navigate href="{{ route('kelas.create') }}" class="btn btn-primary btn-sm"
-                title="Tambah kelas baru">
+              <a wire:navigate href="{{ route('kas.create') }}" class="btn btn-primary btn-sm" title="Tambah kas baru">
                 <i class="bi bi-plus-circle me-1"></i>
                 <span>Tambah Data</span>
               </a>
