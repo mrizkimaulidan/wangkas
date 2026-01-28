@@ -1,6 +1,8 @@
 <?php
 
 use App\Livewire\Forms\StoreCashTransactionForm;
+use App\Models\SchoolClass;
+use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
@@ -13,6 +15,10 @@ new #[Title('Tambah Data Kas')] class extends Component
 
     public Collection $students;
 
+    public Collection $schoolClasses;
+
+    public Collection $schoolMajors;
+
     /**
      * Initialize component with data
      */
@@ -24,6 +30,8 @@ new #[Title('Tambah Data Kas')] class extends Component
         $this->form->created_by = User::inRandomOrder()->first()->id;
 
         $this->students = Student::orderBy('name')->get();
+        $this->schoolClasses = SchoolClass::orderBy('name')->get();
+        $this->schoolMajors = SchoolMajor::orderBy('name')->get();
     }
 
     /**
