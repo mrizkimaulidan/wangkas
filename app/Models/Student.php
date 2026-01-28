@@ -43,6 +43,10 @@ class Student extends Model
             $q->orderBy('name', 'asc');
         })->when($type === 'name_desc', function (Builder $q) {
             $q->orderBy('name', 'desc');
+        })->when($type === 'newest', function (Builder $q) {
+            $q->orderBy('created_at', 'desc');
+        })->when($type === 'oldest', function (Builder $q) {
+            $q->orderBy('created_at', 'asc');
         });
     }
 

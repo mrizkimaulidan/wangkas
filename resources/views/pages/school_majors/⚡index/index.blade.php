@@ -75,6 +75,9 @@
                       <option disabled>──────────</option>
                       <option value="students_count_desc">Pelajar Terbanyak</option>
                       <option value="students_count_asc">Pelajar Sedikit</option>
+                      <option disabled>──────────</option>
+                      <option value="newest">Ditambahkan Terbaru</option>
+                      <option value="oldest">Ditambahkan Terlama</option>
                     </select>
                   </div>
                 </div>

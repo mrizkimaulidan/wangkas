@@ -43,6 +43,10 @@ class SchoolClass extends Model
             $q->orderBy('students_count', 'asc');
         })->when($type === 'students_count_desc', function (Builder $q) {
             $q->orderBy('students_count', 'desc');
+        })->when($type === 'newest', function (Builder $q) {
+            $q->orderBy('created_at', 'desc');
+        })->when($type === 'oldest', function (Builder $q) {
+            $q->orderBy('created_at', 'asc');
         });
     }
 

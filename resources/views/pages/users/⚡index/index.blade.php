@@ -72,6 +72,9 @@
                       <option value="">Urutkan</option>
                       <option value="name_asc">Nama Pengguna (A-Z)</option>
                       <option value="name_desc">Nama Pengguna (Z-A)</option>
+                      <option disabled>──────────</option>
+                      <option value="newest">Ditambahkan Terbaru</option>
+                      <option value="oldest">Ditambahkan Terlama</option>
                     </select>
                   </div>
                 </div>
