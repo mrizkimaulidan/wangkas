@@ -80,35 +80,24 @@
                   <h6 class="fw-semibold mb-3">
                     <i class="bi bi-filter text-info me-2"></i>Filter Pelajar Belum Bayar
                   </h6>
-                  <form wire:submit="filter">
-                    <div class="row g-2 mb-3">
-                      <div class="col-6">
-                        <label for="start_date" class="form-label small">Tanggal Awal</label>
-                        <input type="date"
-                          class="form-control form-control-sm @error('start_date') is-invalid @enderror" id="start_date"
-                          wire:model="start_date">
-                        @error('start_date')
-                        <div class="invalid-feedback small d-block">{{ $message }}</div>
-                        @enderror
-                      </div>
-                      <div class="col-6">
-                        <label for="end_date" class="form-label small">Tanggal Akhir</label>
-                        <input type="date" class="form-control form-control-sm @error('end_date') is-invalid @enderror"
-                          id="end_date" wire:model="end_date">
-                        @error('end_date')
-                        <div class="invalid-feedback small d-block">{{ $message }}</div>
-                        @enderror
-                      </div>
+                  <div class="row g-2 mb-3">
+                    <div class="col-6">
+                      <label for="start_date" class="form-label small">Tanggal Awal</label>
+                      <input type="date" class="form-control form-control-sm @error('start_date') is-invalid @enderror"
+                        id="start_date" wire:model.live="start_date">
+                      @error('start_date')
+                      <div class="invalid-feedback small d-block">{{ $message }}</div>
+                      @enderror
                     </div>
-                    <div class="d-flex gap-2">
-                      <button type="submit" class="btn btn-info btn-sm flex-fill">
-                        <i class="bi bi-search me-1"></i>Cari
-                      </button>
-                      <button type="button" wire:click="resetFilter" class="btn btn-outline-secondary btn-sm">
-                        <i class="bi bi-arrow-clockwise"></i>
-                      </button>
+                    <div class="col-6">
+                      <label for="end_date" class="form-label small">Tanggal Akhir</label>
+                      <input type="date" class="form-control form-control-sm @error('end_date') is-invalid @enderror"
+                        id="end_date" wire:model.live="end_date">
+                      @error('end_date')
+                      <div class="invalid-feedback small d-block">{{ $message }}</div>
+                      @enderror
                     </div>
-                  </form>
+                  </div>
                 </div>
               </div>
               <div class="card border">
@@ -117,7 +106,7 @@
                     <h6 class="fw-semibold mb-0">
                       <i class="bi bi-filter text-info me-2"></i>Daftar Belum Membayar
                     </h6>
-                    <span class="badge text-bg-primary">1 Orang</span>
+                    <span class="badge text-bg-primary">{{ $this->unpaidStudents->total() }} Orang</span>
                   </div>
                   <div class="row mb-4 g-2">
                     <div class="col-12 col-md-6">
@@ -133,23 +122,23 @@
                       <div class="d-flex flex-wrap gap-2 justify-content-md-end">
                         <div class="input-group input-group-sm" style="min-width: 140px;">
                           <span class="input-group-text">
-                            <i class="bi bi-bookmark"></i>
+                            <i class="bi bi-briefcase"></i>
                           </span>
-                          <select wire:model.live="classFilter" class="form-select">
-                            <option value="">Semua Kelas</option>
-                            @foreach ($schoolClasses as $schoolClass)
-                            <option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
+                          <select wire:model.live="school_major_id" class="form-select">
+                            <option value="">Semua Jurusan</option>
+                            @foreach ($schoolMajors as $schoolMajor)
+                            <option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
                             @endforeach
                           </select>
                         </div>
                         <div class="input-group input-group-sm" style="min-width: 140px;">
                           <span class="input-group-text">
-                            <i class="bi bi-briefcase"></i>
+                            <i class="bi bi-bookmark"></i>
                           </span>
-                          <select wire:model.live="majorFilter" class="form-select">
-                            <option value="">Semua Jurusan</option>
-                            @foreach ($schoolMajors as $schoolMajor)
-                            <option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
+                          <select wire:model.live="school_class_id" class="form-select">
+                            <option value="">Semua Kelas</option>
+                            @foreach ($schoolClasses as $schoolClass)
+                            <option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
                             @endforeach
                           </select>
                         </div>
@@ -158,6 +147,7 @@
                   </div>
                   <div class="table-responsive">
                     <table class="table table-hover align-middle mb-0">
+                      <caption class="caption-top">Rentang tanggal: {{ $start_date }} sampai {{ $end_date }}</caption>
                       <thead>
                         <tr>
                           <th scope="col" style="width: 60px">No</th>
@@ -167,21 +157,22 @@
                         </tr>
                       </thead>
                       <tbody>
+                        @forelse ($this->unpaidStudents as $student)
                         <tr>
-                          <td class="fw-medium">1</td>
-                          <td>1234567</td>
+                          <td class="fw-medium">{{ $this->unpaidStudents->firstItem() + $loop->index }}</td>
+                          <td>{{ $student->identification_number }}</td>
                           <td>
                             <div class="d-flex align-items-center">
                               <div class="me-3">
-                                <div class="fw-medium mb-1">Budi</div>
+                                <div class="fw-medium mb-1">{{ $student->name }}</div>
                                 <div class="d-flex flex-wrap align-items-center gap-2 small">
                                   <span class="text-muted">
-                                    <i class="bi bi-bookmark me-1"></i>
-                                    Kelas
+                                    <i class="bi bi-briefcase me-1"></i>
+                                    {{ $student->schoolMajor->name }}
                                   </span>
                                   <span class="text-muted">
-                                    <i class="bi bi-briefcase me-1"></i>
-                                    Jurusan
+                                    <i class="bi bi-bookmark me-1"></i>
+                                    {{ $student->schoolClass->name }}
                                   </span>
                                 </div>
                               </div>
@@ -189,8 +180,18 @@
                           </td>
                           <td>0821-2345-6789</td>
                         </tr>
+                        @empty
+                        <tr>
+                          <td colspan="4" class="text-center py-4">
+                            <div class="text-muted">
+                              <p class="mb-0">Tidak ada data yang ditemukan</p>
+                            </div>
+                          </td>
+                        </tr>
+                        @endforelse
                       </tbody>
                     </table>
+                    <div class="pt-3">{{ $this->unpaidStudents->links(data: ['scrollTo' => false]) }}</div>
                   </div>
                 </div>
               </div>
