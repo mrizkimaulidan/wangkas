@@ -45,34 +45,91 @@
     <div class="col-12">
       <div class="card border-0 shadow-sm">
         <div class="card-body p-4">
-          <div
-            class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
-            <div>
-              <h5 class="fw-semibold">Daftar Kas Minggu Ini</h5>
-              <div class="d-flex flex-wrap align-items-center gap-2">
-                <span class="badge text-bg-light border">
-                  <i class="bi bi-grid-3x3-gap me-1"></i>0 Kelas
-                </span>
-                <span class="badge text-bg-light border">
-                  <i class="bi bi-people me-1"></i>30 Pelajar
-                </span>
+          <div class="mb-4">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+              <div>
+                <h5 class="fw-semibold">Daftar Kas Minggu Ini</h5>
+              </div>
+              <div class="d-flex flex-wrap gap-2 mt-2 mt-md-0">
+                <button wire:click="resetFilters" type="button" class="btn btn-outline-warning btn-sm"
+                  title="Reset semua filter">
+                  <i class="bi bi-funnel me-1"></i>
+                  <span class="d-none d-sm-inline">Reset Filter</span>
+                </button>
+                <a wire:navigate href="{{ route('kas.create') }}" class="btn btn-primary btn-sm"
+                  title="Tambah kas baru">
+                  <i class="bi bi-plus-circle me-1"></i>
+                  <span>Tambah Data</span>
+                </a>
+                <button wire:click="$refresh" type="button" class="btn btn-outline-secondary btn-sm"
+                  title="Refresh data">
+                  <i class="bi bi-arrow-clockwise me-1"></i>
+                  <span class="d-none d-sm-inline">Refresh</span>
+                </button>
               </div>
             </div>
 
-            <div class="d-flex flex-wrap gap-2">
-              <button wire:click="resetFilters" type="button" class="btn btn-outline-warning btn-sm"
-                title="Reset semua filter">
-                <i class="bi bi-funnel me-1"></i>
-                <span class="d-none d-sm-inline">Reset Filter</span>
-              </button>
-              <a wire:navigate href="{{ route('kas.create') }}" class="btn btn-primary btn-sm" title="Tambah kas baru">
-                <i class="bi bi-plus-circle me-1"></i>
-                <span>Tambah Data</span>
-              </a>
-              <button wire:click="$refresh" type="button" class="btn btn-outline-secondary btn-sm" title="Refresh data">
-                <i class="bi bi-arrow-clockwise me-1"></i>
-                <span class="d-none d-sm-inline">Refresh</span>
-              </button>
+            <div class="card border-start border-end border-primary border-4 mt-3">
+              <div class="card-body p-3">
+                <div class="row align-items-center">
+                  <div class="col-md-7">
+                    <div class="d-flex align-items-center">
+                      <div class="flex-grow-1">
+                        <div class="d-flex align-items-center mb-2">
+                          <div class="text-center me-3">
+                            <div class="fw-bold text-primary fs-5">{{ now()->parse($startOfWeek)->format('d') }}</div>
+                            <div class="small text-muted">{{ now()->parse($startOfWeek)->translatedFormat('M') }}</div>
+                            <div class="small text-muted">{{ now()->parse($startOfWeek)->format('Y') }}</div>
+                          </div>
+
+                          <div class="position-relative flex-grow-1 mx-3">
+                            <div class="progress">
+                              <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                                style="width: {{ $this->paidPercentageThisWeek }}%;">
+                              </div>
+                            </div>
+                            <div class="position-absolute top-50 start-50 translate-middle">
+                              <span class="badge bg-primary text-white px-4 py-2 shadow-sm">
+                                <i class="bi bi-calendar-week me-1"></i>
+                                Minggu {{ ceil(now()->day / 7) }}
+                              </span>
+                            </div>
+                          </div>
+
+                          <div class="text-center me-3">
+                            <div class="fw-bold text-primary fs-5">{{ now()->parse($endOfWeek)->format('d') }}</div>
+                            <div class="small text-muted">{{ now()->parse($endOfWeek)->translatedFormat('M') }}</div>
+                            <div class="small text-muted">{{ now()->parse($endOfWeek)->format('Y') }}</div>
+                          </div>
+                        </div>
+
+                        <div class="d-flex align-items-center text-muted">
+                          <span class="fw-medium">{{ now()->translatedFormat('F Y') }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-5 mt-3 mt-md-0">
+                    <div class="d-flex justify-content-around">
+                      <div class="text-center">
+                        <div class="fw-bold text-info fs-5">
+                          {{ $this->studentCount }}
+                        </div>
+                        <div class="small text-muted">Total Pelajar</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="fw-bold text-success fs-5">{{ $this->studentPaidThisWeekCount }}</div>
+                        <div class="small text-muted">Sudah Bayar</div>
+                      </div>
+                      <div class="text-center">
+                        <div class="fw-bold text-warning fs-5">{{ $this->studentNotPaidThisWeekCount }}</div>
+                        <div class="small text-muted">Belum Bayar</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -193,7 +250,7 @@
                 </tr>
                 @empty
                 <tr>
-                  <td colspan="4" class="text-center py-4">
+                  <td colspan="7" class="text-center py-4">
                     <div class="text-muted">
                       <p class="mb-0">Tidak ada data yang ditemukan</p>
                     </div>
