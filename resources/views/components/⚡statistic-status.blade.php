@@ -1,23 +1,35 @@
 <?php
 
 use Livewire\Component;
+use Livewire\Attributes\Reactive;
 
 new class extends Component
 {
     // Main display properties
     public string $label;        // Title/heading of the stat card
+
+    #[Reactive]
     public $value;               // Main value (can be string or numeric)
+
     public string $icon;         // Bootstrap icon class (e.g., 'bi-people')
+
     public string $color = 'primary'; // Color theme for the card
 
     // Option 1: For trend indicators (increase/decrease)
     public bool $showTrend = false;         // Whether to show trend badge
-    public string $trendDirection = 'up';   // 'up' for increase, 'down' for decrease
-    public string $trendPercentage = '';    // Percentage value (e.g., '+10%')
+
+    #[Reactive]
+    public $trendDirection = null;   // 'up' for increase, 'down' for decrease
+
+    #[Reactive]
+    public $trendPercentage = null;    // Percentage value (e.g., '+10%')
+
     public string $comparisonText;
 
     // Option 2: For additional info (without trend)
+    #[Reactive]
     public $subValue = null;     // Secondary value (e.g., percentage, count)
+
     public string $subLabel = ''; // Secondary description text
 };
 ?>
