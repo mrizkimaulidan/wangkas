@@ -18,6 +18,7 @@ Route::livewire('/jurusan/{schoolMajor}/edit', 'pages::school_majors.edit')->nam
 
 Route::livewire('/kas', 'pages::cash_transactions.index')->name('kas.index');
 Route::livewire('/kas/tambah', 'pages::cash_transactions.create')->name('kas.create');
+Route::livewire('/kas/{cashTransaction}/edit', 'pages::cash_transactions.edit')->name('kas.edit');
 
 Route::livewire('/kelas', 'pages::school_classes.index')->name('kelas.index');
 Route::livewire('/kelas/tambah', 'pages::school_classes.create')->name('kelas.create');

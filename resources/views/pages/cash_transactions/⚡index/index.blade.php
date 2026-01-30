@@ -181,12 +181,11 @@
                   <td>{{ $cashTransaction->createdBy->name }}</td>
                   <td>
                     <div class="d-flex justify-content-center gap-1">
-                      {{-- <a wire:navigate href="{{ route('kelas.edit', $cashTransaction) }}"
-                        class="btn btn-sm btn-outline-success" title="Edit kelas">
+                      <a wire:navigate href="{{ route('kas.edit', $cashTransaction) }}"
+                        class="btn btn-sm btn-outline-success" title="Edit kas">
                         <i class="bi bi-pencil"></i>
                         <span class="visually-hidden">Edit</span>
                       </a>
-                      --}}
 
                       <livewire:pages::cash_transactions.delete :cashTransaction="$cashTransaction" />
                     </div>
