@@ -63,68 +63,7 @@
             </div>
           </div>
         </div>
-        <div class="sidebar-menu">
-          <ul class="menu">
-            <li class="sidebar-title">Menu</li>
-            <li class="sidebar-item">
-              <a href="{{ route('dashboard.index') }}" class='sidebar-link' wire:navigate>
-                <i class="bi bi-grid-fill"></i>
-                <span>Beranda</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a href="{{ route('pelajar.index') }}" class='sidebar-link' wire:navigate>
-                <i class="bi bi-backpack-fill"></i>
-                <span>Pelajar</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a href="{{ route('kelas.index') }}" class='sidebar-link' wire:navigate>
-                <i class="bi bi-bookmarks-fill"></i>
-                <span>Kelas</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a href="{{ route('jurusan.index') }}" class='sidebar-link' wire:navigate>
-                <i class="bi bi-briefcase-fill"></i>
-                <span>Jurusan</span>
-              </a>
-            </li>
-
-            <li class="sidebar-item  has-sub">
-              <a href="#" class='sidebar-link'>
-                <i class="bi bi-cash-stack"></i>
-                <span>Kas</span>
-              </a>
-              <ul class="submenu ">
-                <li class="submenu-item">
-                  <a href="{{ route('kas.index') }}" class="submenu-link" wire:navigate>Kas Minggu Ini</a>
-                </li>
-                <li class="submenu-item">
-                  <a href="component-alert.html" class="submenu-link">Alert</a>
-                </li>
-              </ul>
-            </li>
-            <li class="sidebar-item">
-              <a href="{{ route('pengguna.index') }}" class='sidebar-link' wire:navigate>
-                <i class="bi bi-person-badge-fill"></i>
-                <span>Pengguna</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a href="{{ route('profil.edit') }}" class='sidebar-link' wire:navigate>
-                <i class="bi bi-person-fill-gear"></i>
-                <span>Pengaturan Profil</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a href="index.html" class='sidebar-link'>
-                <i class="bi bi-box-arrow-left"></i>
-                <span>Logout</span>
-              </a>
-            </li>
-          </ul>
-        </div>
+        @livewire('sidebar.sidebar-menu')
       </div>
     </div>
     <div id="main">
