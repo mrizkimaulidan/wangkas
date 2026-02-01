@@ -1,5 +1,19 @@
 <div>
   <div class="row">
+    <div class="col-md-4">
+      <livewire:statistic-status label="Total Pelajar" value="{{ $this->studentCount }}" icon="bi-people"
+        color="primary" lazy />
+    </div>
+    <div class="col-md-4">
+      <livewire:statistic-status label="Laki-laki" value="{{ $this->countMaleStudent }}" icon="bi-gender-male"
+        color="info" lazy />
+    </div>
+    <div class="col-md-4">
+      <livewire:statistic-status label="Perempuan" value="{{ $this->countFemaleStudent }}" icon="bi-gender-female"
+        color="danger" lazy />
+    </div>
+  </div>
+  <div class="row">
     <div class="col-12">
       <div class="card border-0 shadow-sm">
         <div class="card-body p-4">
@@ -7,17 +21,6 @@
             class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center mb-4 gap-3">
             <div>
               <h5 class="fw-semibold">Daftar Pelajar</h5>
-              <div class="d-flex flex-wrap align-items-center gap-2">
-                <span class="badge text-bg-light border">
-                  <i class="bi bi-grid-3x3-gap me-1"></i>{{ $this->studentCount }} Pelajar
-                </span>
-                <span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle">
-                  <i class="bi bi-gender-male me-1"></i>{{ $this->countMaleStudent }} Laki-laki
-                </span>
-                <span class="badge bg-danger-subtle text-danger-emphasis border border-danger-subtle">
-                  <i class="bi bi-gender-female me-1"></i>{{ $this->countFemaleStudent }} Perempuan
-                </span>
-              </div>
             </div>
 
             <div class="d-flex flex-wrap gap-2">
