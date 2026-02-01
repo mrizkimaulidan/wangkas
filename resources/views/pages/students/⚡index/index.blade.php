@@ -129,11 +129,11 @@
                         <div class="fw-medium mb-1">{{ $student->name }}</div>
                         <div class="d-flex flex-wrap align-items-center gap-2 small">
                           <span class="text-muted">
-                            <i class="bi bi-bookmark me-1"></i>
+                            <i class="bi bi-briefcase me-1"></i>
                             {{ $student->schoolMajor->name }}
                           </span>
                           <span class="text-muted">
-                            <i class="bi bi-briefcase me-1"></i>
+                            <i class="bi bi-bookmark me-1"></i>
                             {{ $student->schoolClass->name }}
                           </span>
                         </div>
