@@ -41,35 +41,36 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-12">
-      <div class="card border-0 shadow-sm">
-        <div class="card-body p-4">
-          <div class="mb-4">
-            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
+  <main>
+    <div class="row">
+      <div class="col-12">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <header class="d-flex justify-content-between align-items-center mb-3">
               <div>
-                <h5 class="fw-semibold">Daftar Kas Minggu Ini</h5>
+                <h1 class="h5 fw-semibold mb-0">Daftar Kas Minggu Ini</h1>
               </div>
-              <div class="d-flex flex-wrap gap-2 mt-2 mt-md-0">
+
+              <nav class="d-flex gap-2" aria-label="Aksi tabel">
                 <button wire:click="resetFilters" type="button" class="btn btn-outline-warning btn-sm"
-                  title="Reset semua filter">
+                  title="Reset semua filter" aria-label="Reset filter">
                   <i class="bi bi-funnel me-1"></i>
                   <span class="d-none d-sm-inline">Reset Filter</span>
                 </button>
-                <a wire:navigate href="{{ route('kas.create') }}" class="btn btn-primary btn-sm"
-                  title="Tambah kas baru">
+                <a wire:navigate href="{{ route('kas.create') }}" class="btn btn-primary btn-sm" title="Tambah kas baru"
+                  aria-label="Tambah data kas">
                   <i class="bi bi-plus-circle me-1"></i>
                   <span>Tambah Data</span>
                 </a>
                 <button wire:click="$refresh" type="button" class="btn btn-outline-secondary btn-sm"
-                  title="Refresh data">
+                  title="Refresh data" aria-label="Refresh data">
                   <i class="bi bi-arrow-clockwise me-1"></i>
                   <span class="d-none d-sm-inline">Refresh</span>
                 </button>
-              </div>
-            </div>
+              </nav>
+            </header>
 
-            <div class="card border-start border-end border-primary border-4 mt-3">
+            <div class="card border-start border-end border-primary border-4 mb-4">
               <div class="card-body p-3">
                 <div class="row align-items-center">
                   <div class="col-md-7">
@@ -131,138 +132,120 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <div class="row mb-4 g-3">
-            <div class="col-md-6 col-lg-4">
-              <div class="form-group position-relative has-icon-left">
-                <input wire:model.live.debounce.300ms="search" type="search" class="form-control"
-                  placeholder="Masukan kata kunci pencarian..." aria-label="Pencarian">
-                <div class="form-control-icon">
-                  <i class="bi bi-search"></i>
-                </div>
+            <div class="row align-items-center mb-3 g-2">
+              <div class="col-12 col-md-6">
+                <label for="searchInput" class="visually-hidden">Pencarian kas</label>
+                <input wire:model.live.debounce.300ms="search" type="search" class="form-control" id="searchInput"
+                  placeholder="Masukan kata kunci pencarian..." aria-label="Pencarian kas" autofocus>
               </div>
-            </div>
 
-            <div class="col-md-6 col-lg-8">
-              <div class="d-flex flex-wrap gap-2 justify-content-md-end align-items-center">
-                <div class="flex-shrink-0">
-                  <div class="input-group input-group-sm">
-                    <span class="input-group-text d-flex align-items-center">
-                      <i class="bi bi-list-ol"></i>
-                    </span>
-                    <select wire:model.live="perPage" class="form-select form-select-sm"
-                      aria-label="Jumlah data per halaman">
+              <div class="col-12 col-md-6">
+                <div class="row g-2">
+                  <div class="col-6">
+                    <label for="perPageSelect" class="visually-hidden">Jumlah data per halaman</label>
+                    <select wire:model.live="perPage" class="form-select" id="perPageSelect">
                       <option value="">Tampilkan</option>
-                      @foreach (range(5, 25, 5) as $range)
-                      <option value="{{ $range }}">{{ $range }} data</option>
-                      @endforeach
+                      <option value="5">5 data</option>
+                      <option value="10">10 data</option>
+                      <option value="25">25 data</option>
+                      <option value="50">50 data</option>
                     </select>
                   </div>
-                </div>
 
-                <div class="flex-shrink-0">
-                  <div class="input-group input-group-sm">
-                    <span class="input-group-text d-flex align-items-center">
-                      <i class="bi bi-sort-down"></i>
-                    </span>
-                    <select wire:model.live="sortBy" class="form-select form-select-sm" aria-label="Urutkan data">
+                  <div class="col-6">
+                    <label for="sortBySelect" class="visually-hidden">Urutkan data</label>
+                    <select wire:model.live="sortBy" class="form-select" id="sortBySelect">
                       <option value="">Urutkan</option>
                       <option value="student_name_asc">Nama Pelajar (A-Z)</option>
                       <option value="student_name_desc">Nama Pelajar (Z-A)</option>
-                      <option disabled>──────────</option>
                       <option value="amount_asc">Total Bayar Terkecil</option>
                       <option value="amount_desc">Total Bayar Terbesar</option>
-                      <option disabled>──────────</option>
                       <option value="newest">Ditambahkan Terbaru</option>
                       <option value="oldest">Ditambahkan Terlama</option>
                     </select>
                   </div>
                 </div>
-
-                <button type="button" class="btn btn-outline-success btn-sm" title="Ekspor data">
-                  <i class="bi bi-download me-1"></i>
-                  <span class="d-none d-sm-inline">Export</span>
-                </button>
               </div>
             </div>
-          </div>
 
-          @livewire('alert')
+            @livewire('alert')
 
-          <div class="table-responsive">
-            <table class="table table-hover align-middle mb-0">
-              <thead>
-                <tr>
-                  <th scope="col" style="width: 40px">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="selectAll" title="Pilih semua">
-                    </div>
-                  </th>
-                  <th scope="col" style="width: 60px">No</th>
-                  <th scope="col">Nama Pelajar</th>
-                  <th scope="col">Total Bayar</th>
-                  <th scope="col">Tanggal</th>
-                  <th scope="col">Dicatat Oleh</th>
-                  <th scope="col" class="text-center" style="width: 180px">Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                @forelse ($this->cashTransactions as $cashTransaction)
-                <tr wire:key="{{ $cashTransaction->id }}">
-                  <td>
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox">
-                    </div>
-                  </td>
-                  <td class="fw-medium">{{ $this->cashTransactions->firstItem() + $loop->index }}</td>
-                  <td>
-                    <div class="d-flex align-items-center">
-                      <div class="me-3">
-                        <div class="fw-medium mb-1">{{ $cashTransaction->student->name }}</div>
-                        <div class="d-flex flex-wrap align-items-center gap-2 small">
-                          <span class="text-muted">
-                            <i class="bi bi-briefcase me-1"></i>
-                            {{ $cashTransaction->student->schoolMajor->name }}
-                          </span>
-                          <span class="text-muted">
-                            <i class="bi bi-bookmark me-1"></i>
-                            {{ $cashTransaction->student->schoolClass->name }}
-                          </span>
+            <div class="table-responsive">
+              <table class="table table-hover align-middle mb-0">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: 40px">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="selectAll" title="Pilih semua">
+                      </div>
+                    </th>
+                    <th scope="col" style="width: 60px">No</th>
+                    <th scope="col">Nama Pelajar</th>
+                    <th scope="col">Total Bayar</th>
+                    <th scope="col">Tanggal</th>
+                    <th scope="col">Dicatat Oleh</th>
+                    <th scope="col" class="text-center" style="width: 180px">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @forelse ($this->cashTransactions as $cashTransaction)
+                  <tr wire:key="{{ $cashTransaction->id }}">
+                    <td>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox">
+                      </div>
+                    </td>
+                    <td class="fw-medium">{{ $this->cashTransactions->firstItem() + $loop->index }}</td>
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div class="me-3">
+                          <div class="fw-medium mb-1">{{ $cashTransaction->student->name }}</div>
+                          <div class="d-flex flex-wrap align-items-center gap-2 small">
+                            <span class="text-muted">
+                              <i class="bi bi-briefcase me-1"></i>
+                              {{ $cashTransaction->student->schoolMajor->name }}
+                            </span>
+                            <span class="text-muted">
+                              <i class="bi bi-bookmark me-1"></i>
+                              {{ $cashTransaction->student->schoolClass->name }}
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </td>
-                  <td>{{ Number::currency($cashTransaction->amount, in: 'IDR', locale: 'id') }}</td>
-                  <td>{{ $cashTransaction->date_paid }}</td>
-                  <td>{{ $cashTransaction->createdBy->name }}</td>
-                  <td>
-                    <div class="d-flex justify-content-center gap-1">
-                      <a wire:navigate href="{{ route('kas.edit', $cashTransaction) }}"
-                        class="btn btn-sm btn-outline-success" title="Edit kas">
-                        <i class="bi bi-pencil"></i>
-                        <span class="visually-hidden">Edit</span>
-                      </a>
+                    </td>
+                    <td>{{ Number::currency($cashTransaction->amount, in: 'IDR', locale: 'id') }}</td>
+                    <td>{{ $cashTransaction->date_paid }}</td>
+                    <td>{{ $cashTransaction->createdBy->name }}</td>
+                    <td>
+                      <div class="d-flex justify-content-center gap-1">
+                        <a wire:navigate href="{{ route('kas.edit', $cashTransaction) }}"
+                          class="btn btn-sm btn-outline-success" title="Edit kas"
+                          aria-label="Edit {{ $cashTransaction->student->name }}">
+                          <i class="bi bi-pencil"></i>
+                          <span class="visually-hidden">Edit</span>
+                        </a>
 
-                      <livewire:pages::cash_transactions.delete :cashTransaction="$cashTransaction" />
-                    </div>
-                  </td>
-                </tr>
-                @empty
-                <tr>
-                  <td colspan="7" class="text-center py-4">
-                    <div class="text-muted">
-                      <p class="mb-0">Tidak ada data yang ditemukan</p>
-                    </div>
-                  </td>
-                </tr>
-                @endforelse
-              </tbody>
-            </table>
-            <div class="pt-3">{{ $this->cashTransactions->links(data: ['scrollTo' => false]) }}</div>
+                        <livewire:pages::cash_transactions.delete :cashTransaction="$cashTransaction" />
+                      </div>
+                    </td>
+                  </tr>
+                  @empty
+                  <tr>
+                    <td colspan="7" class="text-center py-4">
+                      <div class="text-muted">
+                        <p class="mb-0">Tidak ada data yang ditemukan</p>
+                      </div>
+                    </td>
+                  </tr>
+                  @endforelse
+                </tbody>
+              </table>
+              <div class="pt-3">{{ $this->cashTransactions->links(data: ['scrollTo' => false]) }}</div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </main>
 </div>

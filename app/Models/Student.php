@@ -47,6 +47,24 @@ class Student extends Model
         };
     }
 
+    #[Scope]
+    protected function filterBySchoolMajor(Builder $query, string $value): void
+    {
+        $query->where('school_major_id', $value);
+    }
+
+    #[Scope]
+    protected function filterBySchoolClass(Builder $query, string $value): void
+    {
+        $query->where('school_class_id', $value);
+    }
+
+    #[Scope]
+    protected function filterByGender(Builder $query, string $value): void
+    {
+        $query->where('gender', $value);
+    }
+
     /**
      * Get school major relationship
      */
