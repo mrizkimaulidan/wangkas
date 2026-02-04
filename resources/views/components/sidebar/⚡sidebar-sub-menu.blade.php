@@ -13,54 +13,13 @@ new class extends Component
     // Menu title text
     public string $title;
 
-    // Routes that belong to this submenu
-    public array $subMenuRoutes = [];
-
-    // Is the submenu currently active?
-    public bool $isActive = false;
-
-    /**
-     * Initialize component with data
-     */
-    public function mount(array $subMenuRoutes = []): void
-    {
-        $this->subMenuRoutes = $subMenuRoutes;
-        $this->checkActiveState();
-    }
-
-    /**
-     * Determine if current page is in this submenu
-     */
-    public function checkActiveState(): void
-    {
-        $currentUrl = url()->current();
-
-        // Loop through all routes in this submenu
-        foreach ($this->subMenuRoutes as $routeName) {
-            try {
-                // Convert route name to full URL
-                $routeUrl = route($routeName);
-
-                // Check if current page matches
-                if ($currentUrl === $routeUrl) {
-                    $this->isActive = true;
-
-                    return; // Stop checking once active is found
-                }
-            } catch (\Exception $e) {
-                // Skip routes that don't exist
-                continue;
-            }
-        }
-
-        // No matching routes found
-        $this->isActive = false;
-    }
+    // Active state of the menu
+    public bool $active;
 };
 ?>
 
 <div>
-  <li class="sidebar-item has-sub {{ $isActive ? 'active' : '' }}">
+  <li class="sidebar-item has-sub {{ $active ? 'active' : '' }}">
     <a href="#" class='sidebar-link'>
       <i class="{{ $icon }}"></i>
       <span>{{ $title }}</span>

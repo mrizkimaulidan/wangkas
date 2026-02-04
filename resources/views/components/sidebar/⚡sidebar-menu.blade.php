@@ -13,17 +13,22 @@ new class extends Component
     <ul class="menu">
       <li class="sidebar-title">Menu</li>
 
-      <livewire:sidebar.sidebar-item url="{{ route('dashboard.index') }}" icon="bi bi-grid-fill" title="Beranda" />
+      <livewire:sidebar.sidebar-item url="{{ route('dashboard.index') }}" :active="request()->routeIs('dashboard.*')"
+        icon="bi bi-grid-fill" title="Beranda" />
 
-      <livewire:sidebar.sidebar-item url="{{ route('pelajar.index') }}" icon="bi bi-backpack-fill" title="Pelajar" />
+      <livewire:sidebar.sidebar-item url="{{ route('pelajar.index') }}" :active="request()->routeIs('pelajar.*')"
+        icon="bi bi-backpack-fill" title="Pelajar" />
 
-      <livewire:sidebar.sidebar-item url="{{ route('kelas.index') }}" icon="bi bi-bookmarks-fill" title="Kelas" />
+      <livewire:sidebar.sidebar-item url="{{ route('kelas.index') }}" :active="request()->routeIs('kelas.*')"
+        icon="bi bi-bookmarks-fill" title="Kelas" />
 
-      <livewire:sidebar.sidebar-item url="{{ route('jurusan.index') }}" icon="bi bi-briefcase-fill" title="Jurusan" />
+      <livewire:sidebar.sidebar-item url="{{ route('jurusan.index') }}" :active="request()->routeIs('jurusan.*')"
+        icon="bi bi-briefcase-fill" title="Jurusan" />
 
-      <livewire:sidebar.sidebar-sub-menu icon="bi bi-cash-stack" title="Kas" :subMenuRoutes="['kas.index']">
+      <livewire:sidebar.sidebar-sub-menu icon="bi bi-cash-stack" title="Kas" :active="request()->routeIs('kas.*')">
 
-        <livewire:sidebar.sidebar-sub-menu-item url="{{ route('kas.index') }}" title="Kas Minggu Ini" />
+        <livewire:sidebar.sidebar-sub-menu-item url="{{ route('kas.index') }}" :active="request()->routeIs('kas.index')"
+          title="Kas Minggu Ini" />
 
         {{--
         <livewire:sidebar.sidebar-sub-menu-item url="{{ route('kas.riwayat') }}" title="Riwayat Kas" /> --}}
