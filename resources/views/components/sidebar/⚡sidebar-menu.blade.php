@@ -40,13 +40,7 @@ new class extends Component
           title="Pengaturan Profil" />
 
         <li class="sidebar-item">
-          <form method="POST" action="#">
-            @csrf
-            <a href="{#" class='sidebar-link' onclick="event.preventDefault(); this.closest('form').submit();">
-              <i class="bi bi-box-arrow-left"></i>
-              <span>Logout</span>
-            </a>
-          </form>
+          @livewire('pages::auth.logout')
         </li>
     </ul>
   </div>
