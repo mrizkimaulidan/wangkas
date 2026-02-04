@@ -17,7 +17,7 @@ class UpdateCashTransactionForm extends Form
 
     public string $date_paid = '';
 
-    public string $transaction_note = '';
+    public ?string $transaction_note = '';
 
     public int $created_by = 0;
 
