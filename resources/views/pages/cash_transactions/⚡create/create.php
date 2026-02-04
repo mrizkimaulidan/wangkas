@@ -4,7 +4,6 @@ use App\Livewire\Forms\StoreCashTransactionForm;
 use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -55,8 +54,7 @@ new #[Title('Tambah Data Kas')] class extends Component
     {
         $this->form->date_paid = now()->toDateString();
 
-        // TODO: should be dynamic from logged in user ID
-        $this->form->created_by = User::inRandomOrder()->first()->id;
+        $this->form->created_by = auth()->user()->id;
 
         $this->start_date = now()->startOfWeek()->format('Y-m-d');
         $this->end_date = now()->endOfWeek()->format('Y-m-d');

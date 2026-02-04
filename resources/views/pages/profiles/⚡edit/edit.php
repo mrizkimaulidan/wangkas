@@ -16,8 +16,7 @@ new #[Title('Ubah Profil')] class extends Component
      */
     public function mount()
     {
-        // TODO: Change this into logged in user credentials
-        $user = User::inRandomOrder()->first();
+        $user = auth()->user();
 
         $this->form->user = $user;
         $this->form->fill($user);
