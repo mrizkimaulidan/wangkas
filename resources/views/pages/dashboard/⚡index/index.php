@@ -5,18 +5,14 @@ use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Models\User;
-use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Component;
 
 new #[Title('Beranda')] class extends Component
 {
-    private $months = ['jan', 'feb', 'mar', 'apr', 'mei', 'jun', 'jul', 'agu', 'sep', 'okt', 'nov', 'des'];
-
     public string $year;
-
-    public array $monthlyTransactionSummary;
 
     /**
      * Initialize component with data
@@ -24,14 +20,6 @@ new #[Title('Beranda')] class extends Component
     public function mount(): void
     {
         $this->year = now()->year;
-
-        $monthlyAmounts = $this->getMonthlyAmounts($this->year)->pluck('amount', 'month');
-        $monthlyCounts = $this->getMonthlyCounts($this->year)->pluck('count', 'month');
-
-        $this->monthlyTransactionSummary = [
-            'amount' => $this->fillMissingMonthsCounts($monthlyAmounts),
-            'count' => $this->fillMissingMonthsCounts($monthlyCounts),
-        ];
     }
 
     /**
@@ -71,48 +59,52 @@ new #[Title('Beranda')] class extends Component
     }
 
     /**
-     * Get total monthly transaction amounts for a given year.
+     * Aggregates monthly transaction statistics.
      *
-     * @param  int  $year  The year to retrieve data for.
-     * @return Collection Collection with 'month' and 'amount' fields.
+     * Processes cash transactions for a specific year, grouping by month
+     * to calculate total amounts and transaction counts. Returns structured
+     * data organized chronologically for reporting and analysis purposes.
      */
-    public function getMonthlyAmounts(int $year): Collection
+    #[Computed]
+    public function monthlyTransactionSummary(): array
     {
-        return CashTransaction::selectRaw('EXTRACT(MONTH FROM date_paid) AS month, SUM(amount) AS amount')
-            ->whereYear('date_paid', $year)
-            ->groupBy('month')
-            ->get();
-    }
+        // Get all transactions for the current year
+        $yearlyTransactions = CashTransaction::whereYear('date_paid', $this->year)->get();
 
-    /**
-     * Get monthly transaction counts for a given year.
-     *
-     * @param  int  $year  The year to retrieve data for.
-     * @return Collection Collection with 'month' and 'count' fields.
-     */
-    public function getMonthlyCounts(int $year): Collection
-    {
-        return CashTransaction::selectRaw('EXTRACT(MONTH FROM date_paid) AS month, COUNT(*) AS count')
-            ->whereYear('date_paid', $year)
-            ->groupBy('month')
-            ->get();
-    }
+        // Aggregate data by month
+        $monthlyAggregates = $yearlyTransactions
+            ->groupBy(
+                function ($transaction) {
+                    // format the month into number from 0 to 12
+                    return now()->createFromDate($transaction->date_paid)->format('n');
+                }
+            )
+            ->map(function ($transactionsInMonth, $monthNumber) {
+                // format the month into string from January to December
+                $monthName = now()->createFromDate($transactionsInMonth->first()->date_paid)->format('M');
 
-    /**
-     * Fill in missing counts for each month in the provided collection.
-     */
-    private function fillMissingMonthsCounts(Collection $collection): array
-    {
-        $statistics = [];
+                return [
+                    'month_number' => (int) $monthNumber,
+                    'month_name' => Str::lower($monthName),
+                    'amount_sum' => $transactionsInMonth->sum('amount'),
+                    'transaction_count' => $transactionsInMonth->count(),
+                ];
+            })
+            ->sortBy('month_number')
+            ->values();
 
-        for ($i = 1; $i <= 12; $i++) {
-            // if key exists so there is a borrowing count on that month
-            // if key does not exists there is no borrowing on that month so the count
-            // should be 0
-            $statistics[$this->months[$i - 1]] = isset($collection[$i]) ? $collection[$i] : 0;
-        }
-
-        return $statistics;
+        return [
+            'monthly_amounts' => $monthlyAggregates->map(fn ($aggregate) => [
+                'month' => $aggregate['month_name'],
+                'month_number' => $aggregate['month_number'],
+                'total' => $aggregate['amount_sum'],
+            ]),
+            'monthly_counts' => $monthlyAggregates->map(fn ($aggregate) => [
+                'month' => $aggregate['month_name'],
+                'month_number' => $aggregate['month_number'],
+                'count' => $aggregate['transaction_count'],
+            ]),
+        ];
     }
 
     /**
@@ -122,8 +114,8 @@ new #[Title('Beranda')] class extends Component
     public function updateChart(): void
     {
         $this->dispatch('chart-updated',
-            amount: $this->fillMissingMonthsCounts($this->getMonthlyAmounts($this->year)->pluck('amount', 'month')),
-            count: $this->fillMissingMonthsCounts($this->getMonthlyCounts($this->year)->pluck('count', 'month'))
+            monthly_amounts: $this->monthlyTransactionSummary['monthly_amounts'],
+            monthly_counts: $this->monthlyTransactionSummary['monthly_counts']
         );
     }
 };

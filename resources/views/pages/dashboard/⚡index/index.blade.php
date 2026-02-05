@@ -61,32 +61,18 @@
       "Nov",
       "Des",
     ];
-    const barChartSeries = @json($monthlyTransactionSummary['count']);
+
+    const monthlyStatistics = @json($this->monthlyTransactionSummary);
 
     const barChartOptions = {
       chart: {
         type: "bar",
         height: 250,
       },
-      series: [
-        {
-          name: "Total Transaksi",
-          data: [
-            barChartSeries["jan"],
-            barChartSeries["feb"],
-            barChartSeries["mar"],
-            barChartSeries["apr"],
-            barChartSeries["mei"],
-            barChartSeries["jun"],
-            barChartSeries["jul"],
-            barChartSeries["agu"],
-            barChartSeries["sep"],
-            barChartSeries["okt"],
-            barChartSeries["nov"],
-            barChartSeries["des"],
-          ],
-        },
-      ],
+      series: [{
+        name: "Total Transaksi",
+        data: monthlyStatistics.monthly_counts.map((data) => data.count),
+      }, ],
       colors: ["#435ebe"],
       xaxis: {
         categories: categories,
@@ -100,32 +86,15 @@
 
     barChart.render();
 
-    const lineChartSeries = @json($this->monthlyTransactionSummary['amount']);
-
     const lineChartOptions = {
       chart: {
         type: "line",
         height: 250,
       },
-      series: [
-        {
-          name: "Total Transaksi",
-          data: [
-            lineChartSeries["jan"],
-            lineChartSeries["feb"],
-            lineChartSeries["mar"],
-            lineChartSeries["apr"],
-            lineChartSeries["mei"],
-            lineChartSeries["jun"],
-            lineChartSeries["jul"],
-            lineChartSeries["agu"],
-            lineChartSeries["sep"],
-            lineChartSeries["okt"],
-            lineChartSeries["nov"],
-            lineChartSeries["des"],
-          ],
-        },
-      ],
+      series: [{
+        name: "Total Transaksi",
+        data: monthlyStatistics.monthly_amounts.map((data) => data.total),
+      }, ],
       colors: ["#435ebe"],
       xaxis: {
         categories: categories,
@@ -139,47 +108,16 @@
 
     lineChart.render();
 
-    Livewire.on("chart-updated", function (e) {
-      barChart.updateSeries([
-        {
-          data: [
-            e.count.jan,
-            e.count.feb,
-            e.count.mar,
-            e.count.apr,
-            e.count.mei,
-            e.count.jun,
-            e.count.jul,
-            e.count.agu,
-            e.count.sep,
-            e.count.okt,
-            e.count.nov,
-            e.count.des,
-          ],
-        },
-      ]);
+    Livewire.on("chart-updated", function (res) {
+      barChart.updateSeries([{
+        data: res.monthly_counts.map((data) => data.count),
+      }, ]);
 
-      lineChart.updateSeries([
-        {
-          data: [
-            e.amount.jan,
-            e.amount.feb,
-            e.amount.mar,
-            e.amount.apr,
-            e.amount.mei,
-            e.amount.jun,
-            e.amount.jul,
-            e.amount.agu,
-            e.amount.sep,
-            e.amount.okt,
-            e.amount.nov,
-            e.amount.des,
-          ],
-        },
-      ]);
+      lineChart.updateSeries([{
+        data: res.monthly_amounts.map((data) => data.total),
+      }, ]);
     });
-  },
-  {
+  }, {
     once: true,
   },
 );
