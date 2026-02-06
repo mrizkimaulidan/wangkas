@@ -59,6 +59,50 @@ new #[Title('Beranda')] class extends Component
     }
 
     /**
+     * Calculate total students by gender
+     */
+    #[Computed]
+    public function studentCountByGender(): array
+    {
+        return [
+            'Laki-laki' => Student::whereGender(1)->count(),
+            'Perempuan' => Student::whereGender(2)->count(),
+        ];
+    }
+
+    /**
+     * Calculate student distribution by school major
+     */
+    #[Computed]
+    public function studentDistributionByMajor(): array
+    {
+        $schoolMajors = SchoolMajor::select(['id', 'name'])
+            ->withCount('students')
+            ->orderBy('name')
+            ->get()
+            ->mapWithKeys(fn ($schoolMajor) => [$schoolMajor->name => $schoolMajor->students_count])
+            ->toArray();
+
+        return $schoolMajors;
+    }
+
+    /**
+     * Calculate total transaction count grouped by student gender
+     */
+    #[Computed]
+    public function transactionCountByGender(): array
+    {
+        $students = Student::whereIn('gender', [1, 2])
+            ->withCount('cashTransactions')
+            ->get();
+
+        return [
+            'Laki-laki' => (int) $students->where('gender', 1)->sum('cash_transactions_count'),
+            'Perempuan' => (int) $students->where('gender', 2)->sum('cash_transactions_count'),
+        ];
+    }
+
+    /**
      * Aggregates monthly transaction statistics.
      *
      * Processes cash transactions for a specific year, grouping by month

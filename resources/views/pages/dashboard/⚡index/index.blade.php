@@ -31,9 +31,29 @@
               <small class="text-muted">Tekan tombol 'Enter' untuk menampilkan grafik berdasarkan tahun yang
                 diinginkan.</small>
             </div>
+
             <div id="currentYearBarChart"></div>
+
+            <div id="currentYearLineChart"></div>
           </div>
-          <div id="currentYearLineChart"></div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <livewire:apexcharts.pie title="Pelajar Berdasarkan Jenis Kelamin" chartID="studentGenderChart"
+            :series="$this->studentCountByGender" :colors="['#01A6EA', '#FFA9D0']" />
+        </div>
+
+        <div class="card">
+          <livewire:apexcharts.pie title="Pelajar Berdasarkan Jurusan" chartID="studentByMajorChart"
+            :series="$this->studentDistributionByMajor" />
+        </div>
+
+        <div class="card">
+          <livewire:apexcharts.pie title="Total Transaksi Berdasarkan Jenis Kelamin"
+            chartID="transactionCountByGenderChart" :series="$this->transactionCountByGender"
+            :colors="['#01A6EA', '#FFA9D0']" />
         </div>
       </div>
     </div>
