@@ -25,8 +25,8 @@ class StudentFactory extends Factory
         $identificationNumber = substr($currentYear, -2).mt_rand(100, 200).mt_rand(100, 200);
 
         return [
-            'school_major_id' => $schoolClass->id,
-            'school_class_id' => $schoolMajor->id,
+            'school_major_id' => $schoolMajor->id,
+            'school_class_id' => $schoolClass->id,
             'identification_number' => $identificationNumber,
             'name' => fake()->name,
             'phone_number' => fake()->phoneNumber(),
