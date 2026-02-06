@@ -169,6 +169,50 @@
               </div>
             </div>
 
+            <div class="row mb-3">
+              <div class="col-md-4 mb-2">
+                <label for="schoolMajorSelect" class="form-label small text-muted mb-1 d-block">Jurusan</label>
+                <select wire:model.live="school_major_id" class="form-select form-select-sm" id="schoolMajorSelect">
+                  <option value="">Semua Jurusan</option>
+                  @foreach ($this->schoolMajors as $schoolMajor)
+                  <option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+
+              <div class="col-md-4 mb-2">
+                <label for="schoolClassSelect" class="form-label small text-muted mb-1 d-block">Kelas</label>
+                <select wire:model.live="school_class_id" class="form-select form-select-sm" id="schoolClassSelect">
+                  <option value="">Semua Kelas</option>
+                  @foreach ($this->schoolClasses as $schoolClass)
+                  <option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
+                  @endforeach
+                </select>
+              </div>
+
+              <div class="col-md-4 mb-2">
+                <label for="genderSelect" class="form-label small text-muted mb-1 d-block">Jenis Kelamin</label>
+                <select wire:model.live="gender" class="form-select form-select-sm" id="genderSelect">
+                  <option value="">Semua Jenis Kelamin</option>
+                  <option value="1">Laki-laki</option>
+                  <option value="2">Perempuan</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-2 mb-3">
+              @if($this->hasActiveFilters())
+              <span class="badge bg-info text-white">
+                <i class="bi bi-funnel me-1"></i>
+                Filter Aktif
+              </span>
+              <button wire:click="resetFilters" type="button" class="btn btn-outline-warning btn-sm"
+                aria-label="Reset semua filter">
+                <i class="bi bi-x-lg me-1"></i> Reset Filter
+              </button>
+              @endif
+            </div>
+
             @livewire('alert')
 
             <div class="table-responsive">

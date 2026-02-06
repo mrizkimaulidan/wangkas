@@ -1,8 +1,11 @@
 <?php
 
 use App\Models\CashTransaction;
+use App\Models\SchoolClass;
+use App\Models\SchoolMajor;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Number;
 use Livewire\Attributes\Computed;
@@ -48,6 +51,30 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
      */
     #[Url]
     public string $sortBy = 'newest';
+
+    #[Url]
+    public string $school_class_id = '';
+
+    #[Url]
+    public string $school_major_id = '';
+
+    /**
+     * Retrieve all school majors
+     */
+    #[Computed]
+    public function schoolMajors(): Collection
+    {
+        return SchoolMajor::withCount('students')->orderBy('name')->get();
+    }
+
+    /**
+     * Retrieve all school classes
+     */
+    #[Computed]
+    public function schoolClasses(): Collection
+    {
+        return SchoolClass::withCount('students')->orderBy('name')->get();
+    }
 
     // ==============================================
     // STUDENT STATISTICS
@@ -301,6 +328,12 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
             ->when($this->sortBy, function (Builder $query) {
                 $query->sort((string) $this->sortBy);
             })
+            ->when($this->school_major_id, function (Builder $query) {
+                $query->filterBySchoolMajor($this->school_major_id);
+            })
+            ->when($this->school_class_id, function (Builder $query) {
+                $query->filterBySchoolClass($this->school_class_id);
+            })
             ->whereBetween('date_paid', [$this->startOfWeek, $this->endOfWeek])
             ->paginate((int) $this->perPage);
     }
@@ -310,7 +343,7 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
      */
     public function resetFilters(): void
     {
-        $this->reset(['perPage', 'search', 'sortBy']);
+        $this->reset(['perPage', 'search', 'sortBy', 'school_class_id', 'school_major_id']);
         $this->resetPage();
     }
 
@@ -322,5 +355,13 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
         if ($property === 'search') {
             $this->resetPage();
         }
+    }
+
+    /**
+     * Determine whether any filters are currently applied
+     */
+    public function hasActiveFilters(): bool
+    {
+        return $this->search || $this->school_major_id || $this->school_class_id;
     }
 };
