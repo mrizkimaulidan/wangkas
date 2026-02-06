@@ -20,7 +20,7 @@ new #[Layout('layouts::auth')] class extends Component
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password], $this->remember)) {
             session()->regenerate();
 
-            $this->redirectRoute('dashboard.index', navigate: true);
+            $this->redirectRoute('dashboard.index');
         }
 
         $this->addError('email', 'Alamat email atau kata sandi salah!');
