@@ -110,38 +110,27 @@
                   </div>
                   <div class="row mb-4 g-2">
                     <div class="col-12 col-md-6">
-                      <div class="form-group position-relative has-icon-left">
-                        <input wire:model.live.debounce.300ms="search" type="search"
-                          class="form-control form-control-sm" placeholder="Cari pelajar..." aria-label="Pencarian">
-                        <div class="form-control-icon">
-                          <i class="bi bi-search"></i>
-                        </div>
-                      </div>
+                      <label for="searchInput" class="visually-hidden">Pencarian pelajar</label>
+                      <input wire:model.live.debounce.300ms="search" type="search" class="form-control" id="searchInput"
+                        placeholder="Masukan kata kunci pencarian..." aria-label="Pencarian pelajar">
                     </div>
                     <div class="col-12 col-md-6">
                       <div class="d-flex flex-wrap gap-2 justify-content-md-end">
-                        <div class="input-group input-group-sm" style="min-width: 140px;">
-                          <span class="input-group-text">
-                            <i class="bi bi-briefcase"></i>
-                          </span>
-                          <select wire:model.live="school_major_id" class="form-select">
-                            <option value="">Semua Jurusan</option>
-                            @foreach ($schoolMajors as $schoolMajor)
-                            <option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
-                        <div class="input-group input-group-sm" style="min-width: 140px;">
-                          <span class="input-group-text">
-                            <i class="bi bi-bookmark"></i>
-                          </span>
-                          <select wire:model.live="school_class_id" class="form-select">
-                            <option value="">Semua Kelas</option>
-                            @foreach ($schoolClasses as $schoolClass)
-                            <option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
-                            @endforeach
-                          </select>
-                        </div>
+                        <select wire:model.live="school_major_id" class="form-select form-select-sm"
+                          id="schoolMajorSelect">
+                          <option value="">Semua Jurusan</option>
+                          @foreach ($this->schoolMajors as $schoolMajor)
+                          <option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
+                          @endforeach
+                        </select>
+
+                        <select wire:model.live="school_class_id" class="form-select form-select-sm"
+                          id="schoolClassSelect">
+                          <option value="">Semua Kelas</option>
+                          @foreach ($this->schoolClasses as $schoolClass)
+                          <option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
+                          @endforeach
+                        </select>
                       </div>
                     </div>
                   </div>
