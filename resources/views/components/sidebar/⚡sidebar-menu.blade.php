@@ -39,10 +39,10 @@ new class extends Component
         </livewire:sidebar.sidebar-submenu>
 
         <livewire:sidebar.sidebar-item url="{{ route('pengguna.index') }}" icon="bi bi-person-badge-fill"
-          title="Pengguna" />
+          :active="request()->routeIs('pengguna.*')" title="Pengguna" />
 
         <livewire:sidebar.sidebar-item url="{{ route('profil.edit') }}" icon="bi bi-person-fill-gear"
-          title="Pengaturan Profil" />
+          :active="request()->routeIs('profil.*')" title="Pengaturan Profil" />
 
         <li class="sidebar-item">
           @livewire('pages::auth.logout')
