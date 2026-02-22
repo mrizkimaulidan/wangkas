@@ -167,7 +167,7 @@
                               </div>
                             </div>
                           </td>
-                          <td>0821-2345-6789</td>
+                          <td>{{ $student->phone_number }}</td>
                         </tr>
                         @empty
                         <tr>
