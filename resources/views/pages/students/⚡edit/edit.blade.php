@@ -137,13 +137,7 @@
                   </div>
                 </div>
 
-                <div class="border rounded p-3 mb-4">
-                  <div class="small">
-                    <i class="bi bi-clock-history text-primary me-1"></i>
-                    <strong>Terakhir diperbarui:</strong>
-                    <span>{{ $student->updated_at?->translatedFormat('d F Y H:i') ?? '-' }}</span>
-                  </div>
-                </div>
+                <livewire:last-updated :timestamp="$student->updated_at" />
 
                 <div class="d-flex gap-2 pt-2">
                   <button type="submit" class="btn btn-primary">

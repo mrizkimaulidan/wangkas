@@ -59,6 +59,9 @@
                   <textarea wire:model="form.transaction_note" class="form-control" name="transaction_note"
                     id="transaction_note" cols="30" rows="3" placeholder="Catatan (opsional)"></textarea>
                 </div>
+
+                <livewire:last-updated :timestamp="$cashTransaction->updated_at" />
+
                 <div class="d-flex gap-2 pt-2">
                   <button type="submit" class="btn btn-primary">
                     <i class="bi bi-save me-1"></i>Perbarui Data
