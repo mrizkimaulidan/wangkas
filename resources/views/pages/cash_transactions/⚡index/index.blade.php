@@ -259,6 +259,11 @@
                             <i class="bi bi-bookmark me-1"></i>
                             {{ $cashTransaction->student->schoolClass->name }}
                           </span>
+                          <span class="text-muted">
+                            <i
+                              class="bi bi-gender-{{ $cashTransaction->student->gender === 1 ? 'male' : 'female' }} me-1"></i>
+                            {{ $cashTransaction->student->gender === 1 ? 'Laki-laki' : 'Perempuan' }}
+                          </span>
                         </div>
                       </div>
                     </td>
