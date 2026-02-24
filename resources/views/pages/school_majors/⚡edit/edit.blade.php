@@ -70,6 +70,82 @@
                 </div>
               </div>
 
+              <div class="card border">
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-semibold mb-0">
+                      Daftar Pelajar Terkait
+                    </h6>
+                    <span class="badge text-bg-primary">{{ $relatedStudentsCount }} Orang</span>
+                  </div>
+                  <div class="row mb-4 g-2">
+                    <div class="col-12 col-md-6">
+                      <label for="searchInput" class="visually-hidden">Pencarian pelajar</label>
+                      <input wire:model.live.debounce.300ms="search" type="search" class="form-control" id="searchInput"
+                        placeholder="Masukan kata kunci pencarian..." aria-label="Pencarian pelajar">
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="d-flex flex-wrap gap-2 justify-content-md-end">
+                        <select wire:model.live="perPage" class="form-select" id="perPageSelect">
+                          <option value="">Tampilkan</option>
+                          <option value="5">5 data</option>
+                          <option value="10">10 data</option>
+                          <option value="25">25 data</option>
+                          <option value="50">50 data</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                      <thead>
+                        <tr>
+                          <th scope="col" style="width: 60px">No</th>
+                          <th scope="col">Nomor Identitas</th>
+                          <th scope="col">Nama Pelajar</th>
+                          <th scope="col">Nomor Telepon</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @forelse ($this->students as $student)
+                        <tr>
+                          <td class="fw-medium">{{ $this->students->firstItem() + $loop->index }}</td>
+                          <td>{{ $student->identification_number }}</td>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="me-3">
+                                <div class="fw-medium mb-1">{{ $student->name }}</div>
+                                <div class="d-flex flex-wrap align-items-center gap-2 small">
+                                  <span class="text-muted">
+                                    <i class="bi bi-briefcase me-1"></i>
+                                    {{ $student->schoolMajor->name }}
+                                  </span>
+                                  <span class="text-muted">
+                                    <i class="bi bi-bookmark me-1"></i>
+                                    {{ $student->schoolClass->name }}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>{{ $student->phone_number }}</td>
+                        </tr>
+                        @empty
+                        <tr>
+                          <td colspan="4" class="text-center py-4">
+                            <div class="text-muted">
+                              <p class="mb-0">Tidak ada data yang ditemukan</p>
+                            </div>
+                          </td>
+                        </tr>
+                        @endforelse
+                      </tbody>
+                    </table>
+                    <div class="pt-3">{{ $this->students->links(data: ['scrollTo' => false]) }}</div>
+                  </div>
+                </div>
+              </div>
+
               <div class="border rounded p-4">
                 <h6 class="fw-semibold mb-3">
                   <i class="bi bi-info-circle text-primary me-2"></i>Informasi Penting
