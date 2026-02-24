@@ -1,27 +1,27 @@
 <div>
   <div class="row">
     <div class="col-12">
-      <div class="card border-0 shadow-sm">
-        <div class="card-body p-4">
-          <div class="d-flex align-items-center justify-content-between mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
             <div>
-              <h5 class="mb-1 fw-semibold">Tambah Pelajar Baru</h5>
-              <p class="text-muted small mb-0">Isi formulir untuk menambahkan pelajar baru ke sistem</p>
+              <h5 class="fw-semibold">Tambah Pelajar Baru</h5>
+              <p class="text-muted small">Isi formulir untuk menambahkan pelajar baru ke sistem</p>
             </div>
             <button type="button" onclick="history.back()" class="btn btn-outline-secondary btn-sm">
               <i class="bi bi-arrow-left me-1"></i>Kembali
             </button>
           </div>
 
-          <div class="row">
+          <div class="row g-3">
             <div class="col-lg-6">
               <form wire:submit="save">
-                <div class="row">
+                <div class="row g-2">
                   <div class="col-lg-6">
                     <div class="mb-3">
                       <label for="name" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
                       <input type="text" class="form-control @error('form.name') is-invalid @enderror" id="name"
-                        wire:model="form.name" placeholder="Masukkan nama lengkap..." autofocus>
+                        wire:model="form.name" placeholder="Contoh: Ahmad Budiman">
                       @error('form.name')
                       <div class="invalid-feedback">{{ $message }}</div>
                       @enderror
@@ -34,7 +34,7 @@
                       <input type="number"
                         class="form-control @error('form.identification_number') is-invalid @enderror"
                         id="identification_number" wire:model="form.identification_number"
-                        placeholder="Masukkan nomor identitas...">
+                        placeholder="Contoh: 20230001">
                       @error('form.identification_number')
                       <div class="invalid-feedback">{{ $message }}</div>
                       @enderror
@@ -42,7 +42,7 @@
                   </div>
                 </div>
 
-                <div class="row">
+                <div class="row g-2">
                   <div class="col-lg-6">
                     <div class="mb-3">
                       <label for="school_major_select" class="form-label">Pilih Jurusan <span
@@ -79,13 +79,13 @@
                   </div>
                 </div>
 
-                <div class="row">
+                <div class="row g-2">
                   <div class="col-lg-6">
                     <div class="mb-3">
                       <label for="phone_number" class="form-label">Nomor Telepon <span
                           class="text-danger">*</span></label>
                       <input type="number" class="form-control @error('form.phone_number') is-invalid @enderror"
-                        id="phone_number" wire:model="form.phone_number" placeholder="Masukkan nomor telepon...">
+                        id="phone_number" wire:model="form.phone_number" placeholder="Contoh: 081234567890">
                       @error('form.phone_number')
                       <div class="invalid-feedback">{{ $message }}</div>
                       @enderror
@@ -108,14 +108,13 @@
                   </div>
                 </div>
 
-                <div class="row">
+                <div class="row g-2">
                   <div class="col-lg-6">
                     <div class="mb-3">
                       <label for="school_year_start" class="form-label">Tahun Ajaran Masuk <span
                           class="text-danger">*</span></label>
                       <input type="number" class="form-control @error('form.school_year_start') is-invalid @enderror"
-                        id="school_year_start" wire:model="form.school_year_start"
-                        placeholder="Masukkan tahun awal masuk...">
+                        id="school_year_start" wire:model="form.school_year_start" placeholder="Contoh: 2023">
                       @error('form.school_year_start')
                       <div class="invalid-feedback">{{ $message }}</div>
                       @enderror
@@ -126,8 +125,7 @@
                       <label for="school_year_end" class="form-label">Tahun Ajaran Keluar <span
                           class="text-danger">*</span></label>
                       <input type="number" class="form-control @error('form.school_year_end') is-invalid @enderror"
-                        id="school_year_end" wire:model="form.school_year_end"
-                        placeholder="Masukkan tahun akhir keluar...">
+                        id="school_year_end" wire:model="form.school_year_end" placeholder="Contoh: 2024">
                       @error('form.school_year_end')
                       <div class="invalid-feedback">{{ $message }}</div>
                       @enderror
@@ -135,10 +133,14 @@
                   </div>
                 </div>
 
-                <div class="d-flex gap-2 pt-2">
+                <div class="d-flex gap-2">
                   <button type="submit" class="btn btn-primary">
-                    <span wire:target="save">
+                    <span wire:loading.remove wire:target="save">
                       <i class="bi bi-plus-circle me-1"></i>Simpan Data
+                    </span>
+                    <span wire:loading wire:target="save">
+                      <span class="spinner-border spinner-border-sm me-1"></span>
+                      Menyimpan...
                     </span>
                   </button>
                   <button type="button" onclick="history.back()" class="btn btn-outline-secondary">
@@ -149,8 +151,8 @@
             </div>
 
             <div class="col-lg-6">
-              <div class="border rounded p-4">
-                <h6 class="fw-semibold mb-3">
+              <div class="border rounded p-3">
+                <h6 class="fw-semibold mb-2">
                   <i class="bi bi-info-circle text-primary me-2"></i>Panduan Pengisian Data Pelajar
                 </h6>
                 <ul class="list-unstyled small mb-0">

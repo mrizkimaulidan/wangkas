@@ -1,33 +1,32 @@
 <div>
   <div class="row">
     <div class="col-12">
-      <div class="card border-0 shadow-sm">
-        <div class="card-body p-4">
-          <div class="d-flex align-items-center justify-content-between mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
             <div>
-              <h5 class="mb-1 fw-semibold">Tambah Kelas Baru</h5>
-              <p class="text-muted small mb-0">Isi formulir untuk menambahkan kelas baru ke sistem</p>
+              <h5 class="fw-semibold">Tambah Kelas Baru</h5>
+              <p class="text-muted small">Isi formulir untuk menambahkan kelas baru ke sistem</p>
             </div>
             <button type="button" onclick="history.back()" class="btn btn-outline-secondary btn-sm">
               <i class="bi bi-arrow-left me-1"></i>Kembali
             </button>
           </div>
 
-          <div class="row">
-            <div class="col-lg-6">
+          <div class="row g-3">
+            <div class="col-12 col-md-7">
               <form wire:submit="save">
                 <div class="mb-3">
                   <label for="name" class="form-label">Nama Kelas <span class="text-danger">*</span></label>
                   <input type="text" class="form-control @error('form.name') is-invalid @enderror" id="name"
-                    wire:model="form.name" placeholder="Contoh: 10 IPA 1, 11 IPS 2, 12 Bahasa 1" autofocus
-                    wire:loading.attr="disabled">
+                    wire:model="form.name" placeholder="Contoh: 10 IPA 1, 11 IPS 2, 12 Bahasa 1">
                   @error('form.name')
                   <div class="invalid-feedback">{{ $message }}</div>
                   @enderror
                 </div>
 
-                <div class="d-flex gap-2 pt-2">
-                  <button type="submit" class="btn btn-primary" wire:loading.attr="disabled">
+                <div class="d-flex gap-2">
+                  <button type="submit" class="btn btn-primary">
                     <span wire:loading.remove wire:target="save">
                       <i class="bi bi-plus-circle me-1"></i>Simpan Data
                     </span>
@@ -36,17 +35,16 @@
                       Menyimpan...
                     </span>
                   </button>
-                  <button type="button" onclick="history.back()" class="btn btn-outline-secondary"
-                    wire:loading.attr="disabled">
+                  <button type="button" onclick="history.back()" class="btn btn-outline-secondary">
                     <i class="bi bi-x-circle me-1"></i>Batal
                   </button>
                 </div>
               </form>
             </div>
 
-            <div class="col-lg-6">
-              <div class="border rounded p-4">
-                <h6 class="fw-semibold mb-3">
+            <div class="col-12 col-md-5">
+              <div class="border rounded p-3">
+                <h6 class="fw-semibold mb-2">
                   <i class="bi bi-info-circle text-primary me-2"></i>Panduan Pengisian
                 </h6>
                 <ul class="list-unstyled small mb-0">

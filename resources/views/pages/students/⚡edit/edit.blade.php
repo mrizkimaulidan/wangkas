@@ -1,12 +1,12 @@
 <div>
   <div class="row">
     <div class="col-12">
-      <div class="card border-0 shadow-sm">
-        <div class="card-body p-4">
-          <div class="d-flex align-items-center justify-content-between mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between mb-3">
             <div>
-              <h5 class="mb-1 fw-semibold">Ubah Data Pelajar</h5>
-              <p class="text-muted small mb-0">
+              <h5 class="fw-semibold">Ubah Data Pelajar</h5>
+              <p class="text-muted small">
                 Mengubah data pelajar: <span class="fw-medium">{{ $student->name }}</span>
               </p>
             </div>
@@ -15,15 +15,15 @@
             </button>
           </div>
 
-          <div class="row">
+          <div class="row g-3">
             <div class="col-lg-6">
               <form wire:submit="update">
-                <div class="row">
+                <div class="row g-2">
                   <div class="col-lg-6">
                     <div class="mb-3">
                       <label for="name" class="form-label">Nama Lengkap <span class="text-danger">*</span></label>
                       <input type="text" class="form-control @error('form.name') is-invalid @enderror" id="name"
-                        wire:model="form.name" placeholder="Masukkan nama lengkap..." autofocus>
+                        wire:model="form.name" placeholder="Contoh: Ahmad Budiman">
                       @error('form.name')
                       <div class="invalid-feedback">{{ $message }}</div>
                       @enderror
@@ -36,7 +36,7 @@
                       <input type="number"
                         class="form-control @error('form.identification_number') is-invalid @enderror"
                         id="identification_number" wire:model="form.identification_number"
-                        placeholder="Masukkan nomor identitas...">
+                        placeholder="Contoh: 20230001">
                       @error('form.identification_number')
                       <div class="invalid-feedback">{{ $message }}</div>
                       @enderror
@@ -44,7 +44,7 @@
                   </div>
                 </div>
 
-                <div class="row">
+                <div class="row g-2">
                   <div class="col-lg-6">
                     <div class="mb-3">
                       <label for="school_major_select" class="form-label">Pilih Jurusan <span
@@ -81,7 +81,7 @@
                   </div>
                 </div>
 
-                <div class="row">
+                <div class="row g-2">
                   <div class="col-lg-6">
                     <div class="mb-3">
                       <label for="phone_number" class="form-label">Nomor Telepon <span
@@ -110,7 +110,7 @@
                   </div>
                 </div>
 
-                <div class="row">
+                <div class="row g-2">
                   <div class="col-lg-6">
                     <div class="mb-3">
                       <label for="school_year_start" class="form-label">Tahun Ajaran Masuk <span
@@ -139,9 +139,15 @@
 
                 <livewire:last-updated :timestamp="$student->updated_at" />
 
-                <div class="d-flex gap-2 pt-2">
+                <div class="d-flex gap-2">
                   <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-save me-1"></i>Perbarui Data
+                    <span wire:loading.remove wire:target="update">
+                      <i class="bi bi-save me-1"></i>Perbarui Data
+                    </span>
+                    <span wire:loading wire:target="update">
+                      <span class="spinner-border spinner-border-sm me-1"></span>
+                      Memperbarui...
+                    </span>
                   </button>
                   <button type="button" onclick="history.back()" class="btn btn-outline-secondary">
                     <i class="bi bi-x-circle me-1"></i>Batal
@@ -151,28 +157,24 @@
             </div>
 
             <div class="col-lg-6">
+              <div class="border rounded p-3 mb-3">
+                <h6 class="fw-semibold mb-2">
+                  <i class="bi bi-card-checklist text-primary me-2"></i>Detail Pelajar
+                </h6>
+                <dl class="row small mb-0">
+                  <dt class="col-5">Dibuat pada:</dt>
+                  <dd class="col-7">{{ $student->created_at?->translatedFormat('d F Y') ?? '-' }}</dd>
 
+                  <dt class="col-5">Jurusan Saat Ini:</dt>
+                  <dd class="col-7">{{ $student->schoolMajor->name ?? '-' }}</dd>
 
-              <div class="card border">
-                <div class="card-body">
-                  <h6 class="fw-semibold mb-3">
-                    <i class="bi bi-card-checklist text-primary me-2"></i></i>Detail Pelajar
-                  </h6>
-                  <dl class="row small mb-0">
-                    <dt class="col-5">Dibuat pada:</dt>
-                    <dd class="col-7">{{ $student->created_at?->translatedFormat('d F Y') ?? '-' }}</dd>
-
-                    <dt class="col-5">Jurusan Saat Ini:</dt>
-                    <dd class="col-7">{{ $student->schoolMajor->name ?? '-' }}</dd>
-
-                    <dt class="col-5">Kelas Saat Ini:</dt>
-                    <dd class="col-7">{{ $student->schoolClass->name ?? '-' }}</dd>
-                  </dl>
-                </div>
+                  <dt class="col-5">Kelas Saat Ini:</dt>
+                  <dd class="col-7">{{ $student->schoolClass->name ?? '-' }}</dd>
+                </dl>
               </div>
 
-              <div class="border rounded p-4 mb-4">
-                <h6 class="fw-semibold mb-3">
+              <div class="border rounded p-3">
+                <h6 class="fw-semibold mb-2">
                   <i class="bi bi-info-circle text-primary me-2"></i>Panduan Pengisian Data Pelajar
                 </h6>
                 <ul class="list-unstyled small mb-0">
