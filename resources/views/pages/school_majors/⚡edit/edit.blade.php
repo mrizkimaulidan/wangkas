@@ -16,7 +16,7 @@
           </div>
 
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-5">
               <form wire:submit="update">
                 <div class="mb-3">
                   <label for="name" class="form-label">Nama Jurusan <span class="text-danger">*</span></label>
@@ -50,7 +50,7 @@
               </form>
             </div>
 
-            <div class="col-lg-6">
+            <div class="col-lg-7">
               <div class="card border mb-4">
                 <div class="card-body">
                   <h6 class="fw-semibold mb-3">
