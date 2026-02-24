@@ -1,5 +1,5 @@
 <div>
-  <div class="row">
+  <div class="row g-3 mb-3">
     <div class="col-md-4">
       <livewire:statistic-status label="Total Minggu Ini"
         value="{{ Number::currency($this->totalThisWeek, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line"
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row g-3 mb-3">
     <div class="col-md-4">
       <livewire:statistic-status label="Total Pelajar" value="{{ $this->studentCount }}" icon="bi-people" color="info"
         subLabel="pelajar terdaftar" lazy />
@@ -44,16 +44,14 @@
   <main>
     <div class="row">
       <div class="col-12">
-        <div class="card border-0 shadow-sm">
-          <div class="card-body p-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
             <header class="d-flex justify-content-between align-items-center mb-3">
-              <div>
-                <h1 class="h5 fw-semibold mb-0">Daftar Kas Minggu Ini</h1>
-              </div>
+              <h1 class="h5 fw-semibold mb-0">Daftar Kas Minggu Ini</h1>
 
               <nav class="d-flex gap-2" aria-label="Aksi tabel">
                 <button wire:click="resetFilters" type="button" class="btn btn-outline-warning btn-sm"
-                  title="Reset semua filter" aria-label="Reset filter">
+                  title="Reset semua filter" aria-label="Reset filter" @if(!$this->hasActiveFilters()) disabled @endif>
                   <i class="bi bi-funnel me-1"></i>
                   <span class="d-none d-sm-inline">Reset Filter</span>
                 </button>
@@ -63,8 +61,13 @@
                   <span>Tambah Data</span>
                 </a>
                 <button wire:click="$refresh" type="button" class="btn btn-outline-secondary btn-sm"
-                  title="Refresh data" aria-label="Refresh data">
-                  <i class="bi bi-arrow-clockwise me-1"></i>
+                  title="Refresh data" aria-label="Refresh data" wire:loading.attr="disabled">
+                  <span wire:loading.remove wire:target="$refresh">
+                    <i class="bi bi-arrow-clockwise me-1"></i>
+                  </span>
+                  <span wire:loading wire:target="$refresh">
+                    <span class="spinner-border spinner-border-sm me-1"></span>
+                  </span>
                   <span class="d-none d-sm-inline">Refresh</span>
                 </button>
               </nav>
@@ -72,7 +75,7 @@
 
             <div class="card border-start border-end border-primary border-4 mb-4">
               <div class="card-body p-3">
-                <div class="row align-items-center">
+                <div class="row align-items-center g-3">
                   <div class="col-md-7">
                     <div class="d-flex align-items-center">
                       <div class="flex-grow-1">
@@ -97,7 +100,7 @@
                             </div>
                           </div>
 
-                          <div class="text-center me-3">
+                          <div class="text-center ms-3">
                             <div class="fw-bold text-primary fs-5">{{ now()->parse($endOfWeek)->format('d') }}</div>
                             <div class="small text-muted">{{ now()->parse($endOfWeek)->translatedFormat('M') }}</div>
                             <div class="small text-muted">{{ now()->parse($endOfWeek)->format('Y') }}</div>
@@ -111,12 +114,10 @@
                     </div>
                   </div>
 
-                  <div class="col-md-5 mt-3 mt-md-0">
+                  <div class="col-md-5">
                     <div class="d-flex justify-content-around">
                       <div class="text-center">
-                        <div class="fw-bold text-info fs-5">
-                          {{ $this->studentCount }}
-                        </div>
+                        <div class="fw-bold text-info fs-5">{{ $this->studentCount }}</div>
                         <div class="small text-muted">Total Pelajar</div>
                       </div>
                       <div class="text-center">
@@ -133,7 +134,7 @@
               </div>
             </div>
 
-            <div class="row align-items-center mb-3 g-2">
+            <div class="row g-2 mb-3">
               <div class="col-12 col-md-6">
                 <label for="searchInput" class="visually-hidden">Pencarian kas</label>
                 <input wire:model.live.debounce.300ms="search" type="search" class="form-control" id="searchInput"
@@ -169,9 +170,9 @@
               </div>
             </div>
 
-            <div class="row mb-3">
-              <div class="col-md-4 mb-2">
-                <label for="schoolMajorSelect" class="form-label small text-muted mb-1 d-block">Jurusan</label>
+            <div class="row g-2 mb-3">
+              <div class="col-md-4">
+                <label for="schoolMajorSelect" class="form-label small text-muted mb-1">Jurusan</label>
                 <select wire:model.live="school_major_id" class="form-select form-select-sm" id="schoolMajorSelect">
                   <option value="">Semua Jurusan</option>
                   @foreach ($this->schoolMajors as $schoolMajor)
@@ -180,8 +181,8 @@
                 </select>
               </div>
 
-              <div class="col-md-4 mb-2">
-                <label for="schoolClassSelect" class="form-label small text-muted mb-1 d-block">Kelas</label>
+              <div class="col-md-4">
+                <label for="schoolClassSelect" class="form-label small text-muted mb-1">Kelas</label>
                 <select wire:model.live="school_class_id" class="form-select form-select-sm" id="schoolClassSelect">
                   <option value="">Semua Kelas</option>
                   @foreach ($this->schoolClasses as $schoolClass)
@@ -190,8 +191,8 @@
                 </select>
               </div>
 
-              <div class="col-md-4 mb-2">
-                <label for="genderSelect" class="form-label small text-muted mb-1 d-block">Jenis Kelamin</label>
+              <div class="col-md-4">
+                <label for="genderSelect" class="form-label small text-muted mb-1">Jenis Kelamin</label>
                 <select wire:model.live="gender" class="form-select form-select-sm" id="genderSelect">
                   <option value="">Semua Jenis Kelamin</option>
                   <option value="1">Laki-laki</option>
@@ -200,8 +201,8 @@
               </div>
             </div>
 
+            @if($this->hasActiveFilters())
             <div class="d-flex align-items-center gap-2 mb-3">
-              @if($this->hasActiveFilters())
               <span class="badge bg-info text-white">
                 <i class="bi bi-funnel me-1"></i>
                 Filter Aktif
@@ -210,18 +211,22 @@
                 aria-label="Reset semua filter">
                 <i class="bi bi-x-lg me-1"></i> Reset Filter
               </button>
-              @endif
+              <small class="text-muted">
+                <span class="fw-medium">Tersaring: {{ $this->cashTransactions->total() }}</span>
+              </small>
             </div>
+            @endif
 
             @livewire('alert')
 
             <div class="table-responsive">
-              <table class="table table-hover align-middle mb-0">
+              <table class="table table-hover align-middle mb-0" aria-label="Daftar kas">
                 <thead>
                   <tr>
                     <th scope="col" style="width: 40px">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="selectAll" title="Pilih semua">
+                        <input class="form-check-input" type="checkbox" id="selectAll" title="Pilih semua"
+                          aria-label="Pilih semua data">
                       </div>
                     </th>
                     <th scope="col" style="width: 60px">No</th>
@@ -237,28 +242,28 @@
                   <tr wire:key="{{ $cashTransaction->id }}">
                     <td>
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox">
+                        <input class="form-check-input" type="checkbox"
+                          aria-label="Pilih data {{ $cashTransaction->student->name }}">
                       </div>
                     </td>
                     <td class="fw-medium">{{ $this->cashTransactions->firstItem() + $loop->index }}</td>
                     <td>
-                      <div class="d-flex align-items-center">
-                        <div class="me-3">
-                          <div class="fw-medium mb-1">{{ $cashTransaction->student->name }}</div>
-                          <div class="d-flex flex-wrap align-items-center gap-2 small">
-                            <span class="text-muted">
-                              <i class="bi bi-briefcase me-1"></i>
-                              {{ $cashTransaction->student->schoolMajor->name }}
-                            </span>
-                            <span class="text-muted">
-                              <i class="bi bi-bookmark me-1"></i>
-                              {{ $cashTransaction->student->schoolClass->name }}
-                            </span>
-                          </div>
+                      <div>
+                        <div class="fw-medium mb-1">{{ $cashTransaction->student->name }}</div>
+                        <div class="d-flex flex-wrap gap-2 small">
+                          <span class="text-muted">
+                            <i class="bi bi-briefcase me-1"></i>
+                            {{ $cashTransaction->student->schoolMajor->name }}
+                          </span>
+                          <span class="text-muted">
+                            <i class="bi bi-bookmark me-1"></i>
+                            {{ $cashTransaction->student->schoolClass->name }}
+                          </span>
                         </div>
                       </div>
                     </td>
-                    <td>{{ Number::currency($cashTransaction->amount, in: 'IDR', locale: 'id') }}</td>
+                    <td class="fw-medium text-success">{{ Number::currency($cashTransaction->amount, in: 'IDR', locale:
+                      'id') }}</td>
                     <td>{{ $cashTransaction->date_paid }}</td>
                     <td>{{ $cashTransaction->createdBy->name }}</td>
                     <td>
@@ -267,10 +272,10 @@
                           class="btn btn-sm btn-outline-success" title="Edit kas"
                           aria-label="Edit {{ $cashTransaction->student->name }}">
                           <i class="bi bi-pencil"></i>
-                          <span class="visually-hidden">Edit</span>
                         </a>
 
-                        <livewire:pages::cash_transactions.delete :cashTransaction="$cashTransaction" />
+                        <livewire:pages::cash_transactions.delete :cashTransaction="$cashTransaction"
+                          :wire:key="'delete-'.$cashTransaction->id" />
                       </div>
                     </td>
                   </tr>
@@ -285,7 +290,10 @@
                   @endforelse
                 </tbody>
               </table>
-              <div class="pt-3">{{ $this->cashTransactions->links(data: ['scrollTo' => false]) }}</div>
+
+              <div class="pt-3">
+                {{ $this->cashTransactions->links(data: ['scrollTo' => false]) }}
+              </div>
             </div>
           </div>
         </div>

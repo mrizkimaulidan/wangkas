@@ -78,4 +78,12 @@ new #[Title('Halaman Daftar Jurusan')] class extends Component
             $this->resetPage();
         }
     }
+
+    /**
+     * Determine whether any filters are currently applied
+     */
+    public function hasActiveFilters(): bool
+    {
+        return $this->search;
+    }
 };

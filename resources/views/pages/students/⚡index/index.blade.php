@@ -18,16 +18,14 @@
   <main>
     <div class="row">
       <div class="col-12">
-        <div class="card border-0 shadow-sm">
-          <div class="card-body p-4">
+        <div class="card shadow-sm">
+          <div class="card-body">
             <header class="d-flex justify-content-between align-items-center mb-3">
-              <div>
-                <h1 class="h5 fw-semibold mb-0">Daftar Pelajar</h1>
-              </div>
+              <h1 class="h5 fw-semibold mb-0">Daftar Pelajar</h1>
 
               <nav class="d-flex gap-2" aria-label="Aksi tabel">
                 <button wire:click="resetFilters" type="button" class="btn btn-outline-warning btn-sm"
-                  title="Reset semua filter" aria-label="Reset filter">
+                  title="Reset semua filter" aria-label="Reset filter" @if(!$this->hasActiveFilters()) disabled @endif>
                   <i class="bi bi-funnel me-1"></i>
                   <span class="d-none d-sm-inline">Reset Filter</span>
                 </button>
@@ -37,14 +35,19 @@
                   <span>Tambah Data</span>
                 </a>
                 <button wire:click="$refresh" type="button" class="btn btn-outline-secondary btn-sm"
-                  title="Refresh data" aria-label="Refresh data">
-                  <i class="bi bi-arrow-clockwise me-1"></i>
+                  title="Refresh data" aria-label="Refresh data" wire:loading.attr="disabled">
+                  <span wire:loading.remove wire:target="$refresh">
+                    <i class="bi bi-arrow-clockwise me-1"></i>
+                  </span>
+                  <span wire:loading wire:target="$refresh">
+                    <span class="spinner-border spinner-border-sm me-1"></span>
+                  </span>
                   <span class="d-none d-sm-inline">Refresh</span>
                 </button>
               </nav>
             </header>
 
-            <div class="row align-items-center mb-3 g-2">
+            <div class="row g-2 mb-3">
               <div class="col-12 col-md-6">
                 <label for="searchInput" class="visually-hidden">Pencarian pelajar</label>
                 <input wire:model.live.debounce.300ms="search" type="search" class="form-control" id="searchInput"
@@ -80,9 +83,9 @@
               </div>
             </div>
 
-            <div class="row mb-3">
-              <div class="col-md-4 mb-2">
-                <label for="schoolMajorSelect" class="form-label small text-muted mb-1 d-block">Jurusan</label>
+            <div class="row g-2 mb-3">
+              <div class="col-md-4">
+                <label for="schoolMajorSelect" class="form-label small text-muted mb-1">Jurusan</label>
                 <select wire:model.live="school_major_id" class="form-select form-select-sm" id="schoolMajorSelect">
                   <option value="">Semua Jurusan</option>
                   @foreach ($this->schoolMajors as $schoolMajor)
@@ -91,8 +94,8 @@
                 </select>
               </div>
 
-              <div class="col-md-4 mb-2">
-                <label for="schoolClassSelect" class="form-label small text-muted mb-1 d-block">Kelas</label>
+              <div class="col-md-4">
+                <label for="schoolClassSelect" class="form-label small text-muted mb-1">Kelas</label>
                 <select wire:model.live="school_class_id" class="form-select form-select-sm" id="schoolClassSelect">
                   <option value="">Semua Kelas</option>
                   @foreach ($this->schoolClasses as $schoolClass)
@@ -101,8 +104,8 @@
                 </select>
               </div>
 
-              <div class="col-md-4 mb-2">
-                <label for="genderSelect" class="form-label small text-muted mb-1 d-block">Jenis Kelamin</label>
+              <div class="col-md-4">
+                <label for="genderSelect" class="form-label small text-muted mb-1">Jenis Kelamin</label>
                 <select wire:model.live="gender" class="form-select form-select-sm" id="genderSelect">
                   <option value="">Semua Jenis Kelamin</option>
                   <option value="1">Laki-laki</option>
@@ -111,8 +114,8 @@
               </div>
             </div>
 
+            @if($this->hasActiveFilters())
             <div class="d-flex align-items-center gap-2 mb-3">
-              @if($this->hasActiveFilters())
               <span class="badge bg-info text-white">
                 <i class="bi bi-funnel me-1"></i>
                 Filter Aktif
@@ -125,14 +128,13 @@
                 <span class="fw-medium">Tersaring: {{ $this->students->total() }}</span> dari
                 <span class="fw-medium">{{ $this->studentCount }}</span> data
               </small>
-              @endif
             </div>
+            @endif
 
             @livewire('alert')
 
             <div class="table-responsive">
-              <table class="table table-hover align-middle mb-0" aria-labelledby="tabel-title">
-                <caption id="tabel-title" class="visually-hidden">Daftar pelajar dengan informasi lengkap</caption>
+              <table class="table table-hover align-middle mb-0" aria-label="Daftar pelajar">
                 <thead>
                   <tr>
                     <th scope="col" style="width: 40px">
@@ -146,7 +148,7 @@
                     <th scope="col">Nama Pelajar</th>
                     <th scope="col">Jenis Kelamin</th>
                     <th scope="col">Nomor Telepon</th>
-                    <th scope="col">Tahun Ajaran (TA)</th>
+                    <th scope="col">Tahun Ajaran</th>
                     <th scope="col" class="text-center" style="width: 180px">Aksi</th>
                   </tr>
                 </thead>
@@ -161,46 +163,37 @@
                     <td class="fw-medium">{{ $this->students->firstItem() + $loop->index }}</td>
                     <td>{{ $student->identification_number }}</td>
                     <td>
-                      <div class="d-flex align-items-center">
-                        <div class="me-3">
-                          <div class="fw-medium mb-1">{{ $student->name }}</div>
-                          <div class="d-flex flex-wrap align-items-center gap-2 small">
-                            <span class="text-muted">
-                              <i class="bi bi-briefcase me-1"></i>
-                              {{ $student->schoolMajor->name }}
-                            </span>
-                            <span class="text-muted">
-                              <i class="bi bi-bookmark me-1"></i>
-                              {{ $student->schoolClass->name }}
-                            </span>
-                          </div>
+                      <div>
+                        <div class="fw-medium mb-1">{{ $student->name }}</div>
+                        <div class="d-flex flex-wrap gap-2 small">
+                          <span class="text-muted">
+                            <i class="bi bi-briefcase me-1"></i>
+                            {{ $student->schoolMajor->name }}
+                          </span>
+                          <span class="text-muted">
+                            <i class="bi bi-bookmark me-1"></i>
+                            {{ $student->schoolClass->name }}
+                          </span>
                         </div>
                       </div>
                     </td>
                     <td>
-                      <div class="d-flex align-items-center">
-                        <div class="me-3">
-                          <div class="d-flex flex-wrap align-items-center gap-2 small">
-                            <span class="text-muted">
-                              <i class="bi bi-gender-{{ $student->gender === 1 ? 'male' : 'female' }} me-1"></i>
-                              {{ $student->gender === 1 ? 'Laki-laki' : 'Perempuan' }}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
+                      <span class="text-muted small">
+                        <i class="bi bi-gender-{{ $student->gender === 1 ? 'male' : 'female' }} me-1"></i>
+                        {{ $student->gender === 1 ? 'Laki-laki' : 'Perempuan' }}
+                      </span>
                     </td>
                     <td>{{ $student->phone_number }}</td>
-                    <td>{{ $student->school_year_start }} - {{ $student->school_year_end }}</td>
+                    <td>{{ $student->school_year_start }}/{{ $student->school_year_end }}</td>
                     <td>
                       <div class="d-flex justify-content-center gap-1">
                         <a wire:navigate href="{{ route('pelajar.edit', $student) }}"
                           class="btn btn-sm btn-outline-success" title="Edit pelajar"
                           aria-label="Edit {{ $student->name }}">
                           <i class="bi bi-pencil"></i>
-                          <span class="visually-hidden">Edit</span>
                         </a>
 
-                        <livewire:pages::students.delete :student="$student" />
+                        <livewire:pages::students.delete :student="$student" :wire:key="'delete-'.$student->id" />
                       </div>
                     </td>
                   </tr>
@@ -215,7 +208,10 @@
                   @endforelse
                 </tbody>
               </table>
-              <div class="pt-3">{{ $this->students->links(data: ['scrollTo' => false]) }}</div>
+
+              <div class="pt-3">
+                {{ $this->students->links(data: ['scrollTo' => false]) }}
+              </div>
             </div>
           </div>
         </div>

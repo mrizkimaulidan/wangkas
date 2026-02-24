@@ -77,4 +77,12 @@ new #[Title('Halaman Daftar Pengguna')] class extends Component
             $this->resetPage();
         }
     }
+
+    /**
+     * Determine whether any filters are currently applied
+     */
+    public function hasActiveFilters(): bool
+    {
+        return $this->search;
+    }
 };
