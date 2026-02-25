@@ -4,6 +4,7 @@ use App\Models\CashTransaction;
 use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -82,6 +83,9 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
     #[Url]
     public string $gender = '';
 
+    #[Url]
+    public string $created_by = '';
+
     /**
      * Calculate all dashboard statistics for the current view
      *
@@ -141,6 +145,15 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
     public function schoolClasses(): Collection
     {
         return SchoolClass::withCount('students')->orderBy('name')->get();
+    }
+
+    /**
+     * Retrieve all users
+     */
+    #[Computed]
+    public function users(): Collection
+    {
+        return User::orderBy('name')->get();
     }
 
     /**
@@ -281,11 +294,12 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
                 'student.schoolClass',
                 'createdBy',
             ])
-            ->when($this->search, fn ($q) => $q->search((string) $this->search))
-            ->when($this->sortBy, fn ($q) => $q->sort((string) $this->sortBy))
-            ->when($this->school_major_id, fn ($q) => $q->whereHas('student', fn (Builder $studentQuery) => $studentQuery->filterBySchoolMajor($this->school_major_id)))
-            ->when($this->school_class_id, fn ($q) => $q->whereHas('student', fn (Builder $studentQuery) => $studentQuery->filterBySchoolClass($this->school_class_id)))
-            ->when($this->gender, fn ($q) => $q->whereHas('student', fn (Builder $studentQuery) => $studentQuery->filterByGender($this->gender)))
+            ->when($this->search, fn (Builder $q) => $q->search((string) $this->search))
+            ->when($this->sortBy, fn (Builder $q) => $q->sort((string) $this->sortBy))
+            ->when($this->school_major_id, fn (Builder $q) => $q->whereHas('student', fn (Builder $studentQuery) => $studentQuery->filterBySchoolMajor($this->school_major_id)))
+            ->when($this->school_class_id, fn (Builder $q) => $q->whereHas('student', fn (Builder $studentQuery) => $studentQuery->filterBySchoolClass($this->school_class_id)))
+            ->when($this->gender, fn (Builder $q) => $q->whereHas('student', fn (Builder $studentQuery) => $studentQuery->filterByGender($this->gender)))
+            ->when($this->created_by, fn (Builder $q) => $q->where('created_by', $this->created_by))
             ->whereBetween('date_paid', [$this->startOfWeek, $this->endOfWeek])
             ->paginate((int) $this->perPage);
     }

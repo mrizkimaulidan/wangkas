@@ -201,6 +201,18 @@
                   </select>
                 </div>
               </div>
+
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="createdBySelect" class="form-label small text-muted">Dicatat Oleh</label>
+                  <select wire:model.live="created_by" class="form-select form-select-sm" id="createdBySelect">
+                    <option value="">Semua Pencatat</option>
+                    @foreach ($this->users as $user)
+                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
             </div>
 
             @if($this->hasActiveFilters())
