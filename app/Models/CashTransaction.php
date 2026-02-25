@@ -53,24 +53,6 @@ class CashTransaction extends Model
     }
 
     /**
-     * Filter by student school_major_id column
-     */
-    #[Scope]
-    protected function filterBySchoolMajor(Builder $query, string $value): void
-    {
-        $query->whereRelation('student', 'school_major_id', $value);
-    }
-
-    /**
-     * Filter by student school_class_id column
-     */
-    #[Scope]
-    protected function filterBySchoolClass(Builder $query, string $value): void
-    {
-        $query->whereRelation('student', 'school_major_id', $value);
-    }
-
-    /**
      * Get student relationship
      */
     public function student(): BelongsTo

@@ -58,6 +58,9 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
     #[Url]
     public string $school_major_id = '';
 
+    #[Url]
+    public string $gender = '';
+
     /**
      * Retrieve all school majors
      */
@@ -322,18 +325,11 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
                 'student.schoolClass',
                 'createdBy',
             ])
-            ->when($this->search, function (Builder $query) {
-                $query->search((string) $this->search);
-            })
-            ->when($this->sortBy, function (Builder $query) {
-                $query->sort((string) $this->sortBy);
-            })
-            ->when($this->school_major_id, function (Builder $query) {
-                $query->filterBySchoolMajor($this->school_major_id);
-            })
-            ->when($this->school_class_id, function (Builder $query) {
-                $query->filterBySchoolClass($this->school_class_id);
-            })
+            ->when($this->search, fn ($q) => $q->search((string) $this->search))
+            ->when($this->sortBy, fn ($q) => $q->sort((string) $this->sortBy))
+            ->when($this->school_major_id, fn ($q) => $q->whereHas('student', fn (Builder $studentQuery) => $studentQuery->filterBySchoolMajor($this->school_major_id)))
+            ->when($this->school_class_id, fn ($q) => $q->whereHas('student', fn (Builder $studentQuery) => $studentQuery->filterBySchoolClass($this->school_class_id)))
+            ->when($this->gender, fn ($q) => $q->whereHas('student', fn (Builder $studentQuery) => $studentQuery->filterByGender($this->gender)))
             ->whereBetween('date_paid', [$this->startOfWeek, $this->endOfWeek])
             ->paginate((int) $this->perPage);
     }
