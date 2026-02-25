@@ -22,6 +22,24 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
 
     public string $endOfWeek;
 
+    public int $studentCount;
+
+    public int $studentPaidThisWeekCount;
+
+    public int $studentNotPaidThisWeekCount;
+
+    public float $totalThisWeek;
+
+    public float $totalThisMonth;
+
+    public float $totalThisYear;
+
+    public float $totalPreviousWeek;
+
+    public float $totalPreviousMonth;
+
+    public float $totalPreviousYear;
+
     /**
      * Initialize component with data
      */
@@ -29,6 +47,9 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
     {
         $this->startOfWeek = now()->startOfWeek()->format('Y-m-d');
         $this->endOfWeek = now()->endOfWeek()->format('Y-m-d');
+
+        // calculate statistics
+        $this->calculateStatistics();
     }
 
     /**
@@ -62,6 +83,49 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
     public string $gender = '';
 
     /**
+     * Calculate all dashboard statistics for the current view
+     *
+     * This method aggregates and calculates various statistics including:
+     * - Student counts and payment status for the current week
+     * - Total cash collected for current and previous periods (week, month, year)
+     */
+    public function calculateStatistics(): void
+    {
+        $this->studentCount = Student::count();
+
+        $this->studentPaidThisWeekCount = Student::whereHas('cashTransactions', function (Builder $q) {
+            $q->whereBetween('date_paid', [$this->startOfWeek, $this->endOfWeek]);
+        })->count();
+
+        $this->studentNotPaidThisWeekCount = Student::whereDoesntHave('cashTransactions', function (Builder $q) {
+            $q->whereBetween('date_paid', [$this->startOfWeek, $this->endOfWeek]);
+        })->count();
+
+        $this->totalThisWeek = CashTransaction::whereBetween('date_paid', [$this->startOfWeek, $this->endOfWeek])->sum('amount') ?? 0;
+
+        $this->totalThisMonth = CashTransaction::whereYear('date_paid', now()->year)
+            ->whereMonth('date_paid', now()->month)
+            ->sum('amount') ?? 0;
+
+        $this->totalThisYear = CashTransaction::whereYear('date_paid', now()->year)
+            ->sum('amount') ?? 0;
+
+        $previousWeekStart = now()->subWeek()->startOfWeek()->format('Y-m-d');
+        $previousWeekEnd = now()->subWeek()->endOfWeek()->format('Y-m-d');
+
+        $this->totalPreviousWeek = CashTransaction::whereBetween('date_paid', [$previousWeekStart, $previousWeekEnd])->sum('amount') ?? 0;
+
+        $previousMonth = now()->subMonth();
+
+        $this->totalPreviousMonth = CashTransaction::whereYear('date_paid', $previousMonth->year)
+            ->whereMonth('date_paid', $previousMonth->month)
+            ->sum('amount') ?? 0;
+
+        $this->totalPreviousYear = CashTransaction::whereYear('date_paid', now()->subYear()->year)
+            ->sum('amount') ?? 0;
+    }
+
+    /**
      * Retrieve all school majors
      */
     #[Computed]
@@ -77,41 +141,6 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
     public function schoolClasses(): Collection
     {
         return SchoolClass::withCount('students')->orderBy('name')->get();
-    }
-
-    // ==============================================
-    // STUDENT STATISTICS
-    // ==============================================
-
-    /**
-     * Get the total count of students
-     */
-    #[Computed]
-    public function studentCount(): int
-    {
-        return Student::count();
-    }
-
-    /**
-     * Count students who have made at least one payment during the current week
-     */
-    #[Computed]
-    public function studentPaidThisWeekCount(): int
-    {
-        return Student::whereHas('cashTransactions', function (Builder $q) {
-            $q->whereBetween('date_paid', [$this->startOfWeek, $this->endOfWeek]);
-        })->count();
-    }
-
-    /**
-     * Count students who have NOT made any payments during the current week
-     */
-    #[Computed]
-    public function studentNotPaidThisWeekCount(): int
-    {
-        return Student::whereDoesntHave('cashTransactions', function (Builder $q) {
-            $q->whereBetween('date_paid', [$this->startOfWeek, $this->endOfWeek]);
-        })->count();
     }
 
     /**
@@ -146,79 +175,6 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
         }
 
         return round(($unpaid / $total) * 100, 1);
-    }
-
-    // ==============================================
-    // CURRENT PERIOD TOTALS
-    // ==============================================
-
-    /**
-     * Calculate total cash amount collected during the current week
-     */
-    #[Computed]
-    public function totalThisWeek(): float
-    {
-        return CashTransaction::whereBetween('date_paid', [$this->startOfWeek, $this->endOfWeek])->sum('amount') ?? 0;
-    }
-
-    /**
-     * Calculate total cash amount collected during the current month
-     */
-    #[Computed]
-    public function totalThisMonth(): float
-    {
-        return CashTransaction::whereYear('date_paid', now()->year)
-            ->whereMonth('date_paid', now()->month)
-            ->sum('amount') ?? 0;
-    }
-
-    /**
-     * Calculate total cash amount collected during the current year
-     */
-    #[Computed]
-    public function totalThisYear(): float
-    {
-        return CashTransaction::whereYear('date_paid', now()->year)
-            ->sum('amount') ?? 0;
-    }
-
-    // ==============================================
-    // PREVIOUS PERIOD TOTALS
-    // ==============================================
-
-    /**
-     * Calculate total cash amount collected during the previous week
-     */
-    #[Computed]
-    public function totalPreviousWeek(): float
-    {
-        $previousWeekStart = now()->subWeek()->startOfWeek()->format('Y-m-d');
-        $previousWeekEnd = now()->subWeek()->endOfWeek()->format('Y-m-d');
-
-        return CashTransaction::whereBetween('date_paid', [$previousWeekStart, $previousWeekEnd])->sum('amount') ?? 0;
-    }
-
-    /**
-     * Calculate total cash amount collected during the previous month
-     */
-    #[Computed]
-    public function totalPreviousMonth(): float
-    {
-        $previousMonth = now()->subMonth();
-
-        return CashTransaction::whereYear('date_paid', $previousMonth->year)
-            ->whereMonth('date_paid', $previousMonth->month)
-            ->sum('amount') ?? 0;
-    }
-
-    /**
-     * Calculate total cash collected during the previous calendar year
-     */
-    #[Computed]
-    public function totalPreviousYear(): float
-    {
-        return CashTransaction::whereYear('date_paid', now()->subYear()->year)
-            ->sum('amount') ?? 0;
     }
 
     // ==============================================
@@ -359,5 +315,14 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
     public function hasActiveFilters(): bool
     {
         return $this->search || $this->school_major_id || $this->school_class_id;
+    }
+
+    /**
+     * Custom refresh method to recalculate statistics
+     */
+    public function refresh()
+    {
+        // recalculate statistics
+        $this->calculateStatistics();
     }
 };

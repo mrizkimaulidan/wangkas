@@ -2,40 +2,40 @@
   <div class="row g-3 mb-3">
     <div class="col-md-4">
       <livewire:statistic-status label="Total Minggu Ini"
-        value="{{ Number::currency($this->totalThisWeek, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line"
-        color="primary" showTrend="true" trendDirection="{{ $this->weeklyGrowthTrendDirection }}"
+        value="{{ Number::currency($totalThisWeek, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line" color="primary"
+        showTrend="true" trendDirection="{{ $this->weeklyGrowthTrendDirection }}"
         trendPercentage="{{ $this->weekOverWeekGrowthRate }}%" comparisonText="dari minggu lalu" lazy />
     </div>
 
     <div class="col-md-4">
       <livewire:statistic-status label="Total Bulan Ini"
-        value="{{ Number::currency($this->totalThisMonth, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line"
+        value="{{ Number::currency($totalThisMonth, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line"
         color="success" showTrend="true" trendDirection="{{ $this->monthlyGrowthTrendDirection }}"
         trendPercentage="{{ $this->monthOverMonthGrowthRate }}" comparisonText="dari bulan lalu" lazy />
     </div>
 
     <div class="col-md-4">
       <livewire:statistic-status label="Total Tahun Ini"
-        value="{{ Number::currency($this->totalThisYear, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line"
-        color="primary" showTrend="true" trendDirection="{{ $this->yearlyGrowthTrendDirection }}"
+        value="{{ Number::currency($totalThisYear, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line" color="primary"
+        showTrend="true" trendDirection="{{ $this->yearlyGrowthTrendDirection }}"
         trendPercentage="{{ $this->yearOverYearGrowthRate }}%" comparisonText="dari tahun lalu" lazy />
     </div>
   </div>
 
   <div class="row g-3 mb-3">
     <div class="col-md-4">
-      <livewire:statistic-status label="Total Pelajar" value="{{ $this->studentCount }}" icon="bi-people" color="info"
+      <livewire:statistic-status label="Total Pelajar" value="{{ $studentCount }}" icon="bi-people" color="info"
         subLabel="pelajar terdaftar" lazy />
     </div>
 
     <div class="col-md-4">
-      <livewire:statistic-status label="Sudah Bayar Minggu Ini" value="{{ $this->studentPaidThisWeekCount }}"
+      <livewire:statistic-status label="Sudah Bayar Minggu Ini" value="{{ $studentPaidThisWeekCount }}"
         icon="bi-check-circle" color="success" subValue="{{ $this->paidPercentageThisWeek }}%"
         subLabel="dari total pelajar" lazy />
     </div>
 
     <div class="col-md-4">
-      <livewire:statistic-status label="Belum Bayar Minggu Ini" value="{{ $this->studentNotPaidThisWeekCount }}"
+      <livewire:statistic-status label="Belum Bayar Minggu Ini" value="{{ $studentNotPaidThisWeekCount }}"
         icon="bi-clock" color="warning" subValue="{{ $this->unpaidPercentageThisWeek }}%" subLabel="perlu penagihan"
         lazy />
     </div>
@@ -60,12 +60,12 @@
                   <i class="bi bi-plus-circle me-1"></i>
                   <span>Tambah Data</span>
                 </a>
-                <button wire:click="$refresh" type="button" class="btn btn-outline-secondary btn-sm"
-                  title="Refresh data" aria-label="Refresh data" wire:loading.attr="disabled">
-                  <span wire:loading.remove wire:target="$refresh">
+                <button wire:click="refresh" type="button" class="btn btn-outline-secondary btn-sm" title="Refresh data"
+                  aria-label="Refresh data" wire:loading.attr="disabled">
+                  <span wire:loading.remove wire:target="refresh">
                     <i class="bi bi-arrow-clockwise me-1"></i>
                   </span>
-                  <span wire:loading wire:target="$refresh">
+                  <span wire:loading wire:target="refresh">
                     <span class="spinner-border spinner-border-sm me-1"></span>
                   </span>
                   <span class="d-none d-sm-inline">Refresh</span>
@@ -117,15 +117,15 @@
                   <div class="col-md-5">
                     <div class="d-flex justify-content-around">
                       <div class="text-center">
-                        <div class="fw-bold text-info fs-5">{{ $this->studentCount }}</div>
+                        <div class="fw-bold text-info fs-5">{{ $studentCount }}</div>
                         <div class="small text-muted">Total Pelajar</div>
                       </div>
                       <div class="text-center">
-                        <div class="fw-bold text-success fs-5">{{ $this->studentPaidThisWeekCount }}</div>
+                        <div class="fw-bold text-success fs-5">{{ $studentPaidThisWeekCount }}</div>
                         <div class="small text-muted">Sudah Bayar</div>
                       </div>
                       <div class="text-center">
-                        <div class="fw-bold text-warning fs-5">{{ $this->studentNotPaidThisWeekCount }}</div>
+                        <div class="fw-bold text-warning fs-5">{{ $studentNotPaidThisWeekCount }}</div>
                         <div class="small text-muted">Belum Bayar</div>
                       </div>
                     </div>
