@@ -170,34 +170,36 @@
               </div>
             </div>
 
-            <div class="row g-2 mb-3">
-              <div class="col-md-4">
-                <label for="schoolMajorSelect" class="form-label small text-muted mb-1">Jurusan</label>
-                <select wire:model.live="school_major_id" class="form-select form-select-sm" id="schoolMajorSelect">
-                  <option value="">Semua Jurusan</option>
-                  @foreach ($this->schoolMajors as $schoolMajor)
-                  <option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
-                  @endforeach
-                </select>
-              </div>
+            <div class="d-flex flex-column gap-3 mb-3">
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <label for="schoolMajorSelect" class="form-label small text-muted">Jurusan</label>
+                  <select wire:model.live="school_major_id" class="form-select form-select-sm" id="schoolMajorSelect">
+                    <option value="">Semua Jurusan</option>
+                    @foreach ($this->schoolMajors as $schoolMajor)
+                    <option value="{{ $schoolMajor->id }}">{{ $schoolMajor->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
 
-              <div class="col-md-4">
-                <label for="schoolClassSelect" class="form-label small text-muted mb-1">Kelas</label>
-                <select wire:model.live="school_class_id" class="form-select form-select-sm" id="schoolClassSelect">
-                  <option value="">Semua Kelas</option>
-                  @foreach ($this->schoolClasses as $schoolClass)
-                  <option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
-                  @endforeach
-                </select>
-              </div>
+                <div class="col-md-4">
+                  <label for="schoolClassSelect" class="form-label small text-muted">Kelas</label>
+                  <select wire:model.live="school_class_id" class="form-select form-select-sm" id="schoolClassSelect">
+                    <option value="">Semua Kelas</option>
+                    @foreach ($this->schoolClasses as $schoolClass)
+                    <option value="{{ $schoolClass->id }}">{{ $schoolClass->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
 
-              <div class="col-md-4">
-                <label for="genderSelect" class="form-label small text-muted mb-1">Jenis Kelamin</label>
-                <select wire:model.live="gender" class="form-select form-select-sm" id="genderSelect">
-                  <option value="">Semua Jenis Kelamin</option>
-                  <option value="1">Laki-laki</option>
-                  <option value="2">Perempuan</option>
-                </select>
+                <div class="col-md-4">
+                  <label for="genderSelect" class="form-label small text-muted">Jenis Kelamin</label>
+                  <select wire:model.live="gender" class="form-select form-select-sm" id="genderSelect">
+                    <option value="">Semua Jenis Kelamin</option>
+                    <option value="1">Laki-laki</option>
+                    <option value="2">Perempuan</option>
+                  </select>
+                </div>
               </div>
             </div>
 
