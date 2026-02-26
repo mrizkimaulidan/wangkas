@@ -5,10 +5,10 @@ use App\Models\SchoolClass;
 use App\Models\SchoolMajor;
 use App\Models\Student;
 use App\Models\User;
+use App\Services\CashTransactionStatisticService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Number;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Title;
 use Livewire\Attributes\Url;
@@ -18,6 +18,8 @@ use Livewire\WithPagination;
 new #[Title('Halaman Kas Minggu Ini')] class extends Component
 {
     use WithPagination;
+
+    protected CashTransactionStatisticService $cashTransactionStatisticService;
 
     public string $startOfWeek;
 
@@ -40,6 +42,26 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
     public float $totalPreviousMonth;
 
     public float $totalPreviousYear;
+
+    public float $weekOverWeekGrowthRate;
+
+    public float $monthOverMonthGrowthRate;
+
+    public float $yearOverYearGrowthRate;
+
+    public string $weeklyTrend;
+
+    public string $monthlyTrend;
+
+    public string $yearlyTrend;
+
+    /**
+     * Boot method runs on every request.
+     */
+    public function boot(CashTransactionStatisticService $cashTransactionStatisticService): void
+    {
+        $this->cashTransactionStatisticService = $cashTransactionStatisticService;
+    }
 
     /**
      * Initialize component with data
@@ -105,28 +127,25 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
             $q->whereBetween('date_paid', [$this->startOfWeek, $this->endOfWeek]);
         })->count();
 
-        $this->totalThisWeek = CashTransaction::whereBetween('date_paid', [$this->startOfWeek, $this->endOfWeek])->sum('amount') ?? 0;
+        $cashTransactionStatisticsSummary = $this->cashTransactionStatisticService->summary();
 
-        $this->totalThisMonth = CashTransaction::whereYear('date_paid', now()->year)
-            ->whereMonth('date_paid', now()->month)
-            ->sum('amount') ?? 0;
+        // Assign totals
+        $this->totalThisWeek = $cashTransactionStatisticsSummary['totals']['current_week'];
+        $this->totalThisMonth = $cashTransactionStatisticsSummary['totals']['current_month'];
+        $this->totalThisYear = $cashTransactionStatisticsSummary['totals']['current_year'];
+        $this->totalPreviousWeek = $cashTransactionStatisticsSummary['totals']['previous_week'];
+        $this->totalPreviousMonth = $cashTransactionStatisticsSummary['totals']['previous_month'];
+        $this->totalPreviousYear = $cashTransactionStatisticsSummary['totals']['previous_year'];
 
-        $this->totalThisYear = CashTransaction::whereYear('date_paid', now()->year)
-            ->sum('amount') ?? 0;
+        // Growth rates
+        $this->weekOverWeekGrowthRate = $cashTransactionStatisticsSummary['growth_rates']['week_over_week'];
+        $this->monthOverMonthGrowthRate = $cashTransactionStatisticsSummary['growth_rates']['month_over_month'];
+        $this->yearOverYearGrowthRate = $cashTransactionStatisticsSummary['growth_rates']['year_over_year'];
 
-        $previousWeekStart = now()->subWeek()->startOfWeek()->format('Y-m-d');
-        $previousWeekEnd = now()->subWeek()->endOfWeek()->format('Y-m-d');
-
-        $this->totalPreviousWeek = CashTransaction::whereBetween('date_paid', [$previousWeekStart, $previousWeekEnd])->sum('amount') ?? 0;
-
-        $previousMonth = now()->subMonth();
-
-        $this->totalPreviousMonth = CashTransaction::whereYear('date_paid', $previousMonth->year)
-            ->whereMonth('date_paid', $previousMonth->month)
-            ->sum('amount') ?? 0;
-
-        $this->totalPreviousYear = CashTransaction::whereYear('date_paid', now()->subYear()->year)
-            ->sum('amount') ?? 0;
+        // Determine trends
+        $this->weeklyTrend = $cashTransactionStatisticsSummary['trends']['weekly'];
+        $this->monthlyTrend = $cashTransactionStatisticsSummary['trends']['monthly'];
+        $this->yearlyTrend = $cashTransactionStatisticsSummary['trends']['yearly'];
     }
 
     /**
@@ -188,98 +207,6 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
         }
 
         return round(($unpaid / $total) * 100, 1);
-    }
-
-    // ==============================================
-    // GROWTH RATE CALCULATIONS
-    // ==============================================
-
-    /**
-     * Calculate week-over-week percentage change in cash collection
-     */
-    #[Computed]
-    public function weekOverWeekGrowthRate(): float
-    {
-        $currentWeek = $this->totalThisWeek;
-        $previousWeek = $this->totalPreviousWeek;
-
-        // Handle division by zero
-        if ($previousWeek == 0) {
-            return $currentWeek > 0 ? 100.0 : 0.0;
-        }
-
-        $percentage = (($currentWeek - $previousWeek) / $previousWeek) * 100;
-
-        return round($percentage, 1);
-    }
-
-    /**
-     * Calculate month-over-month percentage change in cash collection
-     */
-    #[Computed]
-    public function monthOverMonthGrowthRate(): float
-    {
-        $current = $this->totalThisMonth;
-        $previous = $this->totalPreviousMonth;
-
-        // Handle division by zero
-        if ($previous == 0) {
-            return $current > 0 ? 100.0 : 0.0;
-        }
-
-        $percentage = (($current - $previous) / $previous) * 100;
-
-        return round($percentage, 1);
-    }
-
-    /**
-     * Calculate year-over-year percentage change in cash collection
-     */
-    #[Computed]
-    public function yearOverYearGrowthRate(): float
-    {
-        $current = $this->totalThisYear;
-        $previous = $this->totalPreviousYear;
-
-        // Handle division by zero
-        if ($previous == 0) {
-            return $current > 0 ? 100.0 : 0.0;
-        }
-
-        $percentage = (($current - $previous) / $previous) * 100;
-
-        return round($percentage, 1);
-    }
-
-    // ==============================================
-    // TREND DIRECTION DETERMINATIONS
-    // ==============================================
-
-    /**
-     * Determine trend direction based on week-over-week growth
-     */
-    #[Computed]
-    public function weeklyGrowthTrendDirection(): string
-    {
-        return $this->weekOverWeekGrowthRate >= 0 ? 'up' : 'down';
-    }
-
-    /**
-     * Determine trend direction based on month-over-month growth
-     */
-    #[Computed]
-    public function monthlyGrowthTrendDirection(): string
-    {
-        return $this->monthOverMonthGrowthRate >= 0 ? 'up' : 'down';
-    }
-
-    /**
-     * Determine trend direction based on year-over-year growth
-     */
-    #[Computed]
-    public function yearlyGrowthTrendDirection(): string
-    {
-        return $this->yearOverYearGrowthRate >= 0 ? 'up' : 'down';
     }
 
     /**

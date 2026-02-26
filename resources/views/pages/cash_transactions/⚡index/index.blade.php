@@ -3,22 +3,22 @@
     <div class="col-md-4">
       <livewire:statistic-status label="Total Minggu Ini"
         value="{{ Number::currency($totalThisWeek, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line" color="primary"
-        showTrend="true" trendDirection="{{ $this->weeklyGrowthTrendDirection }}"
-        trendPercentage="{{ $this->weekOverWeekGrowthRate }}%" comparisonText="dari minggu lalu" lazy />
+        showTrend="true" trendDirection="{{ $weeklyTrend }}" trendPercentage="{{ $weekOverWeekGrowthRate }}%"
+        comparisonText="dari minggu lalu" lazy />
     </div>
 
     <div class="col-md-4">
       <livewire:statistic-status label="Total Bulan Ini"
         value="{{ Number::currency($totalThisMonth, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line"
-        color="success" showTrend="true" trendDirection="{{ $this->monthlyGrowthTrendDirection }}"
-        trendPercentage="{{ $this->monthOverMonthGrowthRate }}" comparisonText="dari bulan lalu" lazy />
+        color="success" showTrend="true" trendDirection="{{ $monthlyTrend }}"
+        trendPercentage="{{ $monthOverMonthGrowthRate }}%" comparisonText="dari bulan lalu" lazy />
     </div>
 
     <div class="col-md-4">
       <livewire:statistic-status label="Total Tahun Ini"
         value="{{ Number::currency($totalThisYear, in: 'IDR', locale: 'id') }}" icon="bi-bar-chart-line" color="primary"
-        showTrend="true" trendDirection="{{ $this->yearlyGrowthTrendDirection }}"
-        trendPercentage="{{ $this->yearOverYearGrowthRate }}%" comparisonText="dari tahun lalu" lazy />
+        showTrend="true" trendDirection="{{ $yearlyTrend }}" trendPercentage="{{ $yearOverYearGrowthRate }}%"
+        comparisonText="dari tahun lalu" lazy />
     </div>
   </div>
 
