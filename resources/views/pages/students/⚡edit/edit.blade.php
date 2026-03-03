@@ -166,10 +166,18 @@
                   <dd class="col-7">{{ $student->created_at?->translatedFormat('d F Y') ?? '-' }}</dd>
 
                   <dt class="col-5">Jurusan Saat Ini:</dt>
-                  <dd class="col-7">{{ $student->schoolMajor->name ?? '-' }}</dd>
+                  <dd class="col-7">
+                    <a href="{{ route('jurusan.edit', $student->schoolMajor) }}" class="text-decoration-underline">
+                      {{ $student->schoolMajor->name ?? '-' }}
+                    </a>
+                  </dd>
 
                   <dt class="col-5">Kelas Saat Ini:</dt>
-                  <dd class="col-7">{{ $student->schoolClass->name ?? '-' }}</dd>
+                  <dd class="col-7">
+                    <a href="{{ route('kelas.edit', $student->schoolClass) }}" class="text-decoration-underline">
+                      {{ $student->schoolClass->name ?? '-' }}
+                    </a>
+                  </dd>
                 </dl>
               </div>
 
