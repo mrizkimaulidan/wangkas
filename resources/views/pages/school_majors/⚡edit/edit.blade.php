@@ -69,7 +69,7 @@
                   <dt class="col-5">Jumlah Pelajar:</dt>
                   <dd class="col-7">
                     <span class="badge bg-primary">
-                      {{ $schoolMajor->students_count ?? 0 }} Pelajar
+                      {{ $this->relatedStudentsCount ?? 0 }} Pelajar
                     </span>
                   </dd>
                 </dl>
