@@ -149,6 +149,15 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
     }
 
     /**
+     * Get total count of records between date paid
+     */
+    #[Computed]
+    public function cashTransactionCount(): int
+    {
+        return CashTransaction::whereBetween('date_paid', [$this->startOfWeek, $this->endOfWeek])->count();
+    }
+
+    /**
      * Retrieve all school majors
      */
     #[Computed]

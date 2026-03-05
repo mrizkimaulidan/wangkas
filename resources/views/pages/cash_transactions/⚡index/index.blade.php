@@ -226,7 +226,8 @@
                 <i class="bi bi-x-lg me-1"></i> Reset Filter
               </button>
               <small class="text-muted">
-                <span class="fw-medium">Tersaring: {{ $this->cashTransactions->total() }}</span>
+                <span class="fw-medium">Tersaring: {{ $this->cashTransactions->total() }}</span> dari
+                <span class="fw-medium">{{ $this->cashTransactionCount }}</span> data
               </small>
             </div>
             @endif
