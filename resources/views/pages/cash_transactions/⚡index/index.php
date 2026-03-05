@@ -264,7 +264,7 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
      */
     public function hasActiveFilters(): bool
     {
-        return $this->search || $this->school_major_id || $this->school_class_id;
+        return $this->search || $this->school_major_id || $this->school_class_id || $this->gender || $this->created_by;
     }
 
     /**
