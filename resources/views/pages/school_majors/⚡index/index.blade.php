@@ -81,7 +81,7 @@
               </button>
               <small class="text-muted">
                 <span class="fw-medium">Tersaring: {{ $this->schoolMajors->total() }}</span> dari
-                <span class="fw-medium">{{ $this->totalSchoolMajors }}</span> data
+                <span class="fw-medium">{{ $this->schoolMajorCount }}</span> data
               </small>
             </div>
             @endif
