@@ -72,11 +72,9 @@ new #[Title('Halaman Daftar Jurusan')] class extends Component
     /**
      * Handle property updates
      */
-    public function updated(string $property): void
+    public function updated(): void
     {
-        if ($property === 'search') {
-            $this->resetPage();
-        }
+        $this->resetPage();
     }
 
     /**

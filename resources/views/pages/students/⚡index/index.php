@@ -100,9 +100,7 @@ new #[Title('Halaman Daftar Pelajar')] class extends Component
      */
     public function updated(string $property): void
     {
-        if ($property === 'search') {
-            $this->resetPage();
-        }
+        $this->resetPage();
     }
 
     /**

@@ -81,6 +81,14 @@ new #[Title('Tambah Data Kas')] class extends Component
     }
 
     /**
+     * Handle property updates
+     */
+    public function updated(): void
+    {
+        $this->resetPage();
+    }
+
+    /**
      * Get paginated list of unpaid students
      */
     #[Computed]
