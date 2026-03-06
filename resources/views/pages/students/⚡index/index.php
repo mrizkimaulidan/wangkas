@@ -12,7 +12,7 @@ use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-new #[Title('Halaman Pelajar')] class extends Component
+new #[Title('Halaman Daftar Pelajar')] class extends Component
 {
     use WithPagination;
 
