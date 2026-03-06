@@ -245,7 +245,7 @@ new #[Title('Halaman Kas Minggu Ini')] class extends Component
      */
     public function resetFilters(): void
     {
-        $this->reset(['perPage', 'search', 'sortBy', 'school_class_id', 'school_major_id']);
+        $this->reset(['perPage', 'search', 'sortBy', 'school_class_id', 'school_major_id', 'gender', 'created_by']);
         $this->resetPage();
     }
 
