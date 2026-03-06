@@ -33,12 +33,16 @@ new #[Title('Tambah Data Kas')] class extends Component
     #[Url]
     public string $search = '';
 
+    #[Url]
     public string $start_date;
 
+    #[Url]
     public string $end_date;
 
+    #[Url]
     public ?string $school_major_id = '';
 
+    #[Url]
     public ?string $school_class_id = '';
 
     public Collection $students;
